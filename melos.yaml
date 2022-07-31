@@ -1,0 +1,16 @@
+name: jolt
+repository: https://github.com/asteroid-studios/jolt
+
+packages:
+  - packages/**
+
+ide:
+  intellij: false
+
+command:
+  bootstrap:
+    usePubspecOverrides: true
+
+scripts:
+  analyze:
+    exec: dart analyze .
