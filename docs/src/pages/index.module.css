@@ -3,8 +3,23 @@
  * and scoped locally.
  */
 
+ .heroTitle {
+  font-family: 'Rubik', sans-serif;
+  color: rgba(255,255,255,0.8);
+  font-size: 2rem;
+ }
+
+ .heroSubtitle {
+  font-family: 'Rubik', sans-serif;
+  font-weight: 600;
+  line-height: 1;
+  color: white;
+  font-size: 2.5rem;
+  margin-bottom: 40px;
+ }
+
 .heroBanner {
-  padding: 4rem 0;
+  padding: 8rem 0;
   text-align: center;
   position: relative;
   overflow: hidden;
