@@ -76,12 +76,17 @@ class LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
+    print(context.mediaQuery.textScaleFactor);
+
     return Scaffold(
       appBar: AppBar(title: const Text('Sign In')),
       body: ListView(
         padding: const EdgeInsets.symmetric(vertical: 18, horizontal: 12),
         children: [
-          const Text('Sign in via the magic link with your email below'),
+          JoltText(
+            'Sign in via the magic link with your email below',
+            // scaleText: false,
+          ),
           const SizedBox(height: 18),
           TextFormField(
             controller: _emailController,

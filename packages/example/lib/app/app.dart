@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_jolt/flutter_jolt.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'router/router.dart';
-import 'theme/themes.dart';
+import 'theme/theme.dart';
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:universal_platform/universal_platform.dart';
 
@@ -14,11 +14,12 @@ class Example extends StatelessWidget {
   Widget build(BuildContext context) {
     return Jolt(
       themes: themes,
+      textScale: TextScale.medium,
       builder: (context) {
         return ProviderScope(
           child: MaterialApp.router(
             title: 'Flutter Demo',
-            scaffoldMessengerKey: scaffoldMessengerKey,
+            scaffoldMessengerKey: joltScaffoldMessengerKey,
             theme: context.jolt.themeData,
             builder: (context, widget) {
               return Column(

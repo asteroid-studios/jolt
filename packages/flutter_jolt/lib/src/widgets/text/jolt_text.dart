@@ -43,7 +43,13 @@ class JoltText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final textStyle = (style ?? context.textStyle.body)?.copyWith(color: color);
-    final textScaleFactor = scaleText ? context.textScale.value : null;
+
+    final double textScaleFactor = scaleText
+        // Combine the users text scaling from their device with
+        // the text scaling from the Flutter app if different
+        ? (context.mediaQuery.textScaleFactor * context.textScale.value)
+        : 1;
+
     if (autoSize != null) {
       return AutoSizeText(
         text,
