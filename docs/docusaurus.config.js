@@ -13,11 +13,6 @@ const config = {
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
 
-  // GitHub pages deployment config.
-  // If you aren't using GitHub pages, you don't need these.
-  organizationName: 'asteroid-studios', // Usually your GitHub org/user name.
-  projectName: 'jolt', // Usually your repo name.
-
   // Even if you don't use internalization, you can use this field to set useful
   // metadata like html lang. For example, if your site is Chinese, you may want
   // to replace "en" with "zh-Hans".
@@ -25,6 +20,8 @@ const config = {
     defaultLocale: 'en',
     locales: ['en'],
   },
+
+  plugins: ['docusaurus-plugin-sass'],
 
   presets: [
     [
@@ -38,7 +35,7 @@ const config = {
           //   'https://github.com/asteroid-studios/jolt/tree/master/docs',
         },
         theme: {
-          customCss: require.resolve('./src/css/custom.css'),
+          customCss: require.resolve('./src/css/custom.scss'),
         },
       }),
     ],
@@ -47,11 +44,14 @@ const config = {
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
+      forceDarkMode: true,
       navbar: {
         title: '',
         logo: {
           alt: 'My Site Logo',
-          src: 'img/logo.svg',
+          // src: 'img/logo.svg',
+          src: 'img/logo_full_light.png',
+          srcDark: 'img/logo_full_dark.png'
         },
         items: [
           {
@@ -100,7 +100,6 @@ const config = {
 };
 
 async function createConfig() {
-
   const lightTheme = (await import('./src/themes/lightTheme.mjs')).default;
   const darkTheme = (await import('./src/themes/darkTheme.mjs')).default;
   // @ts-expect-error: we know it exists, right
