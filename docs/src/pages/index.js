@@ -30,8 +30,8 @@ export default function Home() {
   const {siteConfig} = useDocusaurusContext();
   return (
     <Layout
-      title={`Hello from ${siteConfig.title}`}
-      description="Description will go into a meta tag in <head />">
+      title={`${siteConfig.title} Docs`}
+      description="Jolt is a collection of packages and examples, intended to make building with Flutter quicker and cleaner">
       <HomepageHeader />
       <main>
         <HomepageFeatures />
