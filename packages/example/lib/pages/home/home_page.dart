@@ -1,3 +1,5 @@
+// ignore_for_file: unused_local_variable
+
 import 'package:adaptive_components/adaptive_components.dart';
 import 'package:example/app/router/routes.dart';
 import 'package:example/app/util/config.dart';
@@ -191,8 +193,10 @@ class HomePageState extends State<HomePage> {
                 ),
                 AdaptiveContainer(
                   columnSpan: 4,
-                  child: SelectableText("Headline Medium",
-                      style: context.textStyle.headline),
+                  child: SelectableText(
+                    "Headline Medium",
+                    style: context.textStyle.headline,
+                  ),
                 ),
                 AdaptiveContainer(
                   columnSpan: 4,

@@ -4,44 +4,80 @@ sidebar_position: 1
 
 # Getting Started
 
-Let's discover **Docusaurus in less than 5 minutes**.
+## Why Jolt?
 
-## Getting Started
+### Doesn't reinvent the wheel
 
-Get started by **creating a new site**.
+Many packages that allow managing themes, typography and other styling, insist that you use their custom made classes and patterns.
 
-Or **try Docusaurus immediately** with **[docusaurus.new](https://docusaurus.new)**.
+Jolt utilizes MaterialApp/CupertinoApp and all the built in functionality that goes with it. The base Jolt widget is just an inherited widget that goes around your app, providing extra functionality.
 
-### What you'll need
-
-- [Node.js](https://nodejs.org/en/download/) version 16.14 or above:
-  - When installing Node.js, you are recommended to check all checkboxes related to dependencies.
-
-## Generate a new site
-
-Generate a new Docusaurus site using the **classic template**.
-
-The classic template will automatically be added to your project after you run the command:
-
-```bash
-npm init docusaurus@latest my-website classic
+```dart 
+Jolt(
+  builder: (context) {
+    return MaterialApp( 
+      theme: context.jolt.themeData,
+    );
+  }
+),
 ```
 
-You can type this command into Command Prompt, Powershell, Terminal, or any other integrated terminal of your code editor.
+### Easy to understand extensions
 
-The command also installs all necessary dependencies you need to run Docusaurus.
+Jolt includes many extensions, most available straight from the BuildContext. They are structured in a way that is easy to use and read.
 
-## Start your site
+- All colors from the default Flutter ColorScheme are available via context.color, as well as Jolt's extended semantic colors.
+- All text styles from the default Flutter TextTheme are available via context.textStyle.
+- There are many more extensions available, find out more in the Flutter Jolt section of the docs.
 
-Run the development server:
 
-```bash
-cd my-website
-npm run start
+```dart 
+Text(
+  'Lorem Ipsum',
+  style: context.textStyle.displayLarge.copyWith(
+    color: context.color.primary,
+  ),
+),
 ```
 
-The `cd` command changes the directory you're working with. In order to work with your newly created Docusaurus site, you'll need to navigate the terminal there.
+### Theme management
 
-The `npm run start` command builds your website locally and serves it through a development server, ready for you to view at http://localhost:3000/.
+Use Jolt to manage the active theme for the user. Setting the theme with Jolt with save the selected value to the device using Hive.
 
-Open `docs/intro.md` (this page) and edit some lines: the site **reloads automatically** and displays your changes.
+If you have multiple light and dark themes, Jolt is smart enough to know that a light theme with primary color x, should be swapped for a dark theme with primary color x, and visa versa.
+
+<!-- TODO talk about snackbars -->
+
+
+### Extended Semantic Colors
+
+Flutter's semantic colors only include a color for **'error'** by default. Jolt adds colors for **'success'**, **'warning'** and **'info'**.
+
+### Text Scaling
+
+By default Flutter will read a device's text size settings and adjust text widgets accordingly.
+Jolt adds an optional layer on top of this, allowing the text scale to be adjusted inside the app as well.
+
+The calculation for font size then looks like:
+
+`MediaQuery.of(context).textScaleFactor * context.jolt.textScale.value * text font size (eg: 20)`
+
+To use the combined textScale, use the JoltText widget (which has a bunch of extra functionality as well).
+
+There are also rare cases where you don't want text widgets to scale their text, JoltText allows turning off scaling all together.
+
+### Widgets
+
+Aside from the functionality listed above, Jolt also provides some useful widgets:
+- JoltText
+- JoltGrid
+
+
+
+
+
+
+
+
+
+

@@ -1,8 +1,7 @@
 // @ts-check
 // Note: type annotations allow type checking and IDEs autocompletion
 
-const lightCodeTheme = require('prism-react-renderer/themes/github');
-const darkCodeTheme = require('prism-react-renderer/themes/dracula');
+
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
@@ -93,10 +92,23 @@ const config = {
         copyright: `Copyright © ${new Date().getFullYear()} Asteroid Studios. Built with Docusaurus.`,
       },
       prism: {
-        theme: lightCodeTheme,
-        darkTheme: darkCodeTheme,
+        // theme: require('prism-react-renderer/themes/nightOwl'),
+        // darkTheme: require('prism-react-renderer/themes/oceanicNext'),
+        additionalLanguages: ["dart"],
       },
     }),
 };
 
-module.exports = config;
+async function createConfig() {
+
+  const lightTheme = (await import('./src/themes/lightTheme.mjs')).default;
+  const darkTheme = (await import('./src/themes/darkTheme.mjs')).default;
+  // @ts-expect-error: we know it exists, right
+  config.themeConfig.prism.theme = lightTheme;
+  // @ts-expect-error: we know it exists, right
+  config.themeConfig.prism.darkTheme = darkTheme;
+  return config;
+}
+
+
+module.exports = createConfig;

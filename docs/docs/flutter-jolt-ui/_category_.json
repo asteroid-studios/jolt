@@ -1,6 +1,6 @@
 {
   "label": "Flutter Jolt UI",
-  "position": 3,
+  "position": 4,
   "link": {
     "type": "generated-index",
     "description": "A collection of styled widgets, using Jolt theming"

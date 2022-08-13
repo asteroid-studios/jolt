@@ -16,6 +16,9 @@ late Environment _environment;
 Environment get environment => _environment;
 
 Future<void> initialiseEnvironment(Environment env) async {
+  // Initialise Jolt Defaults
+  await initialiseJolt();
+
   _environment = env;
 
   // Init uni links Desktop
@@ -38,16 +41,13 @@ Future<void> initialiseEnvironment(Environment env) async {
     anonKey: AppSecrets.supabaseAnonKey,
   );
 
-  // Initialise Jolt Defaults
-  await initialiseJolt();
-
   // Run the app
   const app = Example();
   if (AppSecrets.sentryDsn.isNotEmpty) {
     await SentryFlutter.init((options) {
       options.dsn = AppSecrets.sentryDsn;
       options.environment = env.name;
-      options.debug = true;
+      options.debug = false;
     }, appRunner: () => runApp(app));
   } else {
     runApp(app);
