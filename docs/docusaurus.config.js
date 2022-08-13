@@ -7,7 +7,7 @@
 const config = {
   title: 'Jolt',
   tagline: 'A collection of packages and examples, intended to make building with Flutter quicker and cleaner',
-  url: 'https://your-docusaurus-test-site.com',
+  url: 'https://flutterjolt.dev',
   baseUrl: '/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
