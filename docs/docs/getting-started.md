@@ -16,6 +16,7 @@ Jolt utilizes MaterialApp/CupertinoApp and all the built in functionality that g
 Jolt(
   builder: (context) {
     return MaterialApp( 
+      scaffoldMessengerKey: joltScaffoldMessengerKey,
       theme: context.jolt.themeData,
     );
   }
@@ -46,12 +47,17 @@ Use Jolt to manage the active theme for the user. Setting the theme with Jolt wi
 
 If you have multiple light and dark themes, Jolt is smart enough to know that a light theme with primary color x, should be swapped for a dark theme with primary color x, and visa versa.
 
-<!-- TODO talk about snackbars -->
-
-
 ### Extended Semantic Colors
 
 Flutter's semantic colors only include a color for **'error'** by default. Jolt adds colors for **'success'**, **'warning'** and **'info'**.
+
+<!-- TODO talk about snackbars -->
+### Extended Snackbar
+- semantic snackbars
+- snackbars with icons
+- convenient extensions
+
+
 
 ### Text Scaling
 

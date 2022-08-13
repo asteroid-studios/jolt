@@ -19,7 +19,7 @@ class Example extends StatelessWidget {
         return ProviderScope(
           child: MaterialApp.router(
             title: 'Flutter Demo',
-            scaffoldMessengerKey: scaffoldMessengerKey,
+            scaffoldMessengerKey: joltScaffoldMessengerKey,
             theme: context.jolt.themeData,
             builder: (context, widget) {
               return Column(
