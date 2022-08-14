@@ -25,7 +25,7 @@ final themes = [
       seedColor: _seedColor,
       brightness: Brightness.light,
     ),
-    elevatedButtonTheme: buttonTheme(),
+    outlinedButtonTheme: buttonTheme(),
   ),
   // ThemeData(
   //   useMaterial3: true,

@@ -22,13 +22,14 @@ class JoltButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ButtonStyle? modifiedButtonStyle;
+    final background = backgroundColor ?? context.color.background;
+    ButtonStyle? modifiedButtonStyle = context.theme.outlinedButtonTheme.style;
 
     if (backgroundColor != null) {
       Color? foregroundColor =
           color ?? context.color.foreground(backgroundColor!);
 
-      modifiedButtonStyle = context.theme.elevatedButtonTheme.style?.copyWith(
+      modifiedButtonStyle = modifiedButtonStyle?.copyWith(
         backgroundColor: MaterialStateColor.resolveWith(
           (states) => backgroundColor!,
         ),
@@ -40,7 +41,18 @@ class JoltButton extends StatelessWidget {
       );
     }
 
-    return ElevatedButton(
+    modifiedButtonStyle = modifiedButtonStyle?.copyWith(
+      side: MaterialStateProperty.all(BorderSide(
+        // TODO Make sure the width from the theme comes through to here.
+        // TODO Handle if background is dark or light.
+        // TODO make the splash color match the background color
+        // width: modifiedButtonStyle.side,
+        width: 1,
+        color: background.isDark ? background.lighten() : background.darken(),
+      )),
+    );
+
+    return OutlinedButton(
       style: modifiedButtonStyle,
       onPressed: () {},
       child: Row(
