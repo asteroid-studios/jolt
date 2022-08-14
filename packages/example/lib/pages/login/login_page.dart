@@ -76,34 +76,51 @@ class LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    print(context.mediaQuery.textScaleFactor);
+    // TODO investigate icon sizing standards
+    print(context.theme.iconTheme.size);
 
     return Scaffold(
       appBar: AppBar(title: const Text('Sign In')),
-      body: ListView(
-        padding: const EdgeInsets.symmetric(vertical: 18, horizontal: 12),
+      body: Column(
         children: [
           JoltText(
-            'Sign in via the magic link with your email below',
-            // scaleText: false,
+            'Test',
+            style: context.textStyle.displayLarge,
           ),
-          const SizedBox(height: 18),
-          TextFormField(
-            controller: _emailController,
-            decoration: const InputDecoration(labelText: 'Email'),
-          ),
-          const SizedBox(height: 18),
-          ElevatedButton(
-            onPressed: _isLoading ? null : _signIn,
-            child: Text(_isLoading ? 'Loading' : 'Send Magic Link'),
-          ),
-          const SizedBox(height: 18),
-          ElevatedButton(
-            onPressed: _isLoading ? null : _signInWithGoogle,
-            child: Text(_isLoading ? 'Loading' : 'Login With Google'),
+          Center(
+            child: JoltButton(
+              label: 'Test',
+              backgroundColor: context.color.warning,
+              icon: Icons.soap,
+              // textDirection: TextDirection.rtl,
+            ),
           ),
         ],
       ),
+      // body: ListView(
+      //   padding: const EdgeInsets.symmetric(vertical: 18, horizontal: 12),
+      //   children: [
+      //     JoltText(
+      //       'Sign in via the magic link with your email below',
+      //       // scaleText: false,
+      //     ),
+      //     const SizedBox(height: 18),
+      //     TextFormField(
+      //       controller: _emailController,
+      //       decoration: const InputDecoration(labelText: 'Email'),
+      //     ),
+      //     const SizedBox(height: 18),
+      //     ElevatedButton(
+      //       onPressed: _isLoading ? null : _signIn,
+      //       child: Text(_isLoading ? 'Loading' : 'Send Magic Link'),
+      //     ),
+      //     const SizedBox(height: 18),
+      //     ElevatedButton(
+      //       onPressed: _isLoading ? null : _signInWithGoogle,
+      //       child: Text(_isLoading ? 'Loading' : 'Login With Google'),
+      //     ),
+      //   ],
+      // ),
     );
   }
 }

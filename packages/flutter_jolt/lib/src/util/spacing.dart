@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
 extension SpacingExtension on BuildContext {
-  SpacingMapping get spacing => SpacingMapping(this);
+  SpacingMapping get spacing => SpacingMapping();
 }
 
 class SpacingMapping {
-  final BuildContext context;
+  // final BuildContext context;
 
-  SpacingMapping(this.context);
+  // SpacingMapping(this.context);
 
   double get xs => 4;
   double get sm => 8;

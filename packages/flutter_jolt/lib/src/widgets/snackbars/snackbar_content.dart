@@ -99,7 +99,8 @@ class SnackBarContent extends StatelessWidget {
                           child: Icon(
                             icon,
                             color: color,
-                            size: 18.0 * context.textScale.value,
+                            // TODO why is this "18.0"?
+                            size: 18.0 * context.effectiveTextScale,
                           ),
                         ),
                       message != null

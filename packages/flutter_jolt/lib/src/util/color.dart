@@ -20,66 +20,92 @@ extension SemanticColorExtension on ThemeData {
 }
 
 class ColorMapping {
-  final ThemeData themeData;
+  final ThemeData _themeData;
 
-  ColorMapping(this.themeData);
+  late Map<Color, Color> _colorMap;
 
-  ColorScheme get colorScheme => themeData.colorScheme;
+  ColorMapping(this._themeData) {
+    _colorMap = {
+      primary: onPrimary,
+      primaryContainer: onPrimaryContainer,
+      secondary: onSecondary,
+      secondaryContainer: onSecondaryContainer,
+      tertiary: onTertiary,
+      tertiaryContainer: onTertiaryContainer,
+      error: onError,
+      errorContainer: onErrorContainer,
+      success: onSuccess,
+      successContainer: onSuccessContainer,
+      warning: onWarning,
+      warningContainer: onWarningContainer,
+      info: onInfo,
+      infoContainer: onInfoContainer,
+      background: onBackground,
+      surface: onSurface,
+      surfaceVariant: onSurfaceVariant,
+    };
+  }
+
+  ColorScheme get _colorScheme => _themeData.colorScheme;
+
+  Color? foreground(Color background) {
+    return _colorMap[background];
+  }
 
   // Primary Colors
-  Color get primary => colorScheme.primary;
-  Color get onPrimary => colorScheme.onPrimary;
-  Color get primaryContainer => colorScheme.primaryContainer;
-  Color get onPrimaryContainer => colorScheme.onPrimaryContainer;
+  Color get primary => _colorScheme.primary;
+  Color get onPrimary => _colorScheme.onPrimary;
+  Color get primaryContainer => _colorScheme.primaryContainer;
+  Color get onPrimaryContainer => _colorScheme.onPrimaryContainer;
 
   // Secondary Colors
-  Color get secondary => colorScheme.secondary;
-  Color get onSecondary => colorScheme.onSecondary;
-  Color get secondaryContainer => colorScheme.secondaryContainer;
-  Color get onSecondaryContainer => colorScheme.onSecondaryContainer;
+  Color get secondary => _colorScheme.secondary;
+  Color get onSecondary => _colorScheme.onSecondary;
+  Color get secondaryContainer => _colorScheme.secondaryContainer;
+  Color get onSecondaryContainer => _colorScheme.onSecondaryContainer;
 
   // Tertiary Colors
-  Color get tertiary => colorScheme.tertiary;
-  Color get onTertiary => colorScheme.onTertiary;
-  Color get tertiaryContainer => colorScheme.tertiaryContainer;
-  Color get onTertiaryContainer => colorScheme.onTertiaryContainer;
+  Color get tertiary => _colorScheme.tertiary;
+  Color get onTertiary => _colorScheme.onTertiary;
+  Color get tertiaryContainer => _colorScheme.tertiaryContainer;
+  Color get onTertiaryContainer => _colorScheme.onTertiaryContainer;
 
   // Error Colors
-  Color get error => colorScheme.error;
-  Color get onError => colorScheme.onError;
-  Color get errorContainer => colorScheme.errorContainer;
-  Color get onErrorContainer => colorScheme.onErrorContainer;
+  Color get error => _colorScheme.error;
+  Color get onError => _colorScheme.onError;
+  Color get errorContainer => _colorScheme.errorContainer;
+  Color get onErrorContainer => _colorScheme.onErrorContainer;
 
   // Background Colors
-  Color get background => colorScheme.background;
-  Color get onBackground => colorScheme.onBackground;
+  Color get background => _colorScheme.background;
+  Color get onBackground => _colorScheme.onBackground;
 
   // Surface Colors
-  Color get surface => colorScheme.surface;
-  Color get onSurface => colorScheme.onSurface;
-  Color get surfaceVariant => colorScheme.surfaceVariant;
-  Color get onSurfaceVariant => colorScheme.onSurfaceVariant;
+  Color get surface => _colorScheme.surface;
+  Color get onSurface => _colorScheme.onSurface;
+  Color get surfaceVariant => _colorScheme.surfaceVariant;
+  Color get onSurfaceVariant => _colorScheme.onSurfaceVariant;
 
   // Border
-  Color get outline => colorScheme.outline;
-  Color get shadow => colorScheme.shadow;
+  Color get outline => _colorScheme.outline;
+  Color get shadow => _colorScheme.shadow;
 
   // Inverse
-  Color get inverseSurface => colorScheme.inverseSurface;
-  Color get onInverseSurface => colorScheme.onInverseSurface;
-  Color get inversePrimary => colorScheme.inversePrimary;
+  Color get inverseSurface => _colorScheme.inverseSurface;
+  Color get onInverseSurface => _colorScheme.onInverseSurface;
+  Color get inversePrimary => _colorScheme.inversePrimary;
 
   // Semantic Colors
-  Color get success => themeData.success;
-  Color get onSuccess => themeData.onSuccess;
-  Color get successContainer => themeData.successContainer;
-  Color get onSuccessContainer => themeData.onSuccessContainer;
-  Color get info => themeData.info;
-  Color get onInfo => themeData.onInfo;
-  Color get infoContainer => themeData.infoContainer;
-  Color get onInfoContainer => themeData.onInfoContainer;
-  Color get warning => themeData.warning;
-  Color get onWarning => themeData.onWarning;
-  Color get warningContainer => themeData.warningContainer;
-  Color get onWarningContainer => themeData.onWarningContainer;
+  Color get success => _themeData.success;
+  Color get onSuccess => _themeData.onSuccess;
+  Color get successContainer => _themeData.successContainer;
+  Color get onSuccessContainer => _themeData.onSuccessContainer;
+  Color get info => _themeData.info;
+  Color get onInfo => _themeData.onInfo;
+  Color get infoContainer => _themeData.infoContainer;
+  Color get onInfoContainer => _themeData.onInfoContainer;
+  Color get warning => _themeData.warning;
+  Color get onWarning => _themeData.onWarning;
+  Color get warningContainer => _themeData.warningContainer;
+  Color get onWarningContainer => _themeData.onWarningContainer;
 }
