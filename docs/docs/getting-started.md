@@ -9,7 +9,7 @@ sidebar_position: 1
 | pub.dev | description | 
 | ------- | ----------- | 
 | [**flutter_jolt**](/docs/category/flutter-jolt/) | Wraps MaterialApp/CupertinoApp, for theming, utilities and more. | 
-| [**flutter_jolt_ui**](/docs/flutter_jolt_ui) | Provides additional widgets using Jolt styling | 
+| [**flutter_jolt_ui**](/docs/category/flutter_jolt_ui) | Provides additional widgets using Jolt styling | 
 
 
 ## Installation
