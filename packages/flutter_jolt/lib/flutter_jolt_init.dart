@@ -10,7 +10,7 @@ import 'package:url_strategy/url_strategy.dart';
 /// to allow for nicer gradients
 ///
 /// setUrlPathStrategy is used to remove the '#' from the url on Web
-Future<void> initialiseJolt({
+Future<void> initializeJolt({
   /// Enable paint dithering, which is useful for smoother gradients
   bool enablePaintDithering = true,
 
