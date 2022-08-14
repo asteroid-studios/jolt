@@ -17,7 +17,7 @@ Environment get environment => _environment;
 
 Future<void> initialiseEnvironment(Environment env) async {
   // Initialise Jolt Defaults
-  await initialiseJolt();
+  await initializeJolt();
 
   _environment = env;
 

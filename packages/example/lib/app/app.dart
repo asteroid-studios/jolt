@@ -14,7 +14,6 @@ class Example extends StatelessWidget {
   Widget build(BuildContext context) {
     return Jolt(
       themes: themes,
-      textScale: TextScale.medium,
       builder: (context) {
         return ProviderScope(
           child: MaterialApp.router(

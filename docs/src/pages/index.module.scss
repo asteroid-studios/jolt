@@ -16,7 +16,7 @@
   border-radius: 20px;
  }
 
- .heroSubtitle {
+ .heroTitle {
   font-family: 'Rubik', sans-serif;
   font-weight: 600;
   line-height: 1.2;
@@ -31,6 +31,9 @@
   text-align: center;
   position: relative;
   overflow: hidden;
+  a {
+    color: white !important;
+  }
 }
 
 .feature {
@@ -45,22 +48,24 @@
     padding: 4rem;
     .content {
       display: flex;
-      flex-wrap: wrap;
+      flex-flow: row wrap;
       .contentBody {
-        max-width: 800px;
+
+        flex: 1;
         padding: 0 5rem 0 0;
         h3 {
           font-family: 'Rubik', sans-serif;
           font-weight: 600;
-          font-size: 2rem;
+          font-size: 1.8rem;
         }
-        p {
+        p,li {
           font-family: 'Rubik', sans-serif;
           font-weight: 400;
-          font-size: 1.2rem;
+          font-size: 1.1rem;
         }
       }
       .code {
+        flex: 1;
         text-align: left;
       }
     }
@@ -86,7 +91,7 @@
           padding: 0;
           h3 {
           }
-          p {
+          p,li {
           }
         }
         .code {

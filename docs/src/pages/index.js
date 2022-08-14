@@ -5,19 +5,23 @@ import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Layout from '@theme/Layout';
 import styles from './index.module.scss';
 
-import JoltWidgetSource from "!!raw-loader!/static/snippets/jolt_widget.dart";
+import JoltWidget from "!!raw-loader!/static/snippets/jolt_widget.dart";
+import JoltExtensions from "!!raw-loader!/static/snippets/jolt_extensions.dart";
+import JoltSnackBars from "!!raw-loader!/static/snippets/jolt_snackbars.dart";
+import JoltTheming from "!!raw-loader!/static/snippets/jolt_themes.dart";
+import JoltSemanticColors from "!!raw-loader!/static/snippets/jolt_semantic_colors.dart";
+import JoltTextScaling from "!!raw-loader!/static/snippets/jolt_text_scaling.dart";
+import JoltWidgets from "!!raw-loader!/static/snippets/jolt_widgets.dart";
 
 function HomepageHeader() {
   const {siteConfig} = useDocusaurusContext();
   return (
     <header className={styles.heroBanner}>
-      {/* <img class={styles.heroImage} src='/img/icon.png'></img> */}
       <div className="container">
-        {/* <h1 className={styles.heroTitle}>{siteConfig.title}</h1> */}
-        <p className={styles.heroSubtitle}>{siteConfig.tagline}</p>
+        <h1 className={styles.heroTitle}>{siteConfig.tagline}</h1>
         <div className={styles.buttons}>
           <Link
-            className="button button--secondary button--lg"
+            className="button button--primary button--lg"
             to="/docs/getting-started">
             Get Started
           </Link>
@@ -29,31 +33,89 @@ function HomepageHeader() {
 
 const FeatureList = [
   {
-    snippetSource: JoltWidgetSource,
+    snippetSource: JoltWidget,
     title: "Built using standard Flutter patterns",
     description: (
       <>
-        Jolt can manage your theming, typography and much more. Many other packages that offer these features, insist that you use their custom made classes and patterns.
-        <p></p>Jolt keeps the standard MaterialApp/CupertinoApp and all the great functionality that comes with it.
-        <p></p>Simply wrap your app with a 'Jolt' InheritedWidget. After that you can start using all the extensions and widgets that build on top of Jolt.
+        <p>Jolt can manage your theming, typography and much more. Many other packages that offer these features, insist that you use their custom made classes and patterns.</p>
+        <p>Jolt keeps the standard MaterialApp/CupertinoApp and all the great functionality that comes with it.</p>
+        <p>Simply wrap your app with a 'Jolt' InheritedWidget. After that you can start using all the extensions and widgets that build on top of Jolt.</p>
       </>
     ),
   },
   {
+    snippetSource: JoltExtensions,
     title: 'Easy to understand extensions',
     description: (
       <>
-        Docusaurus lets you focus on your docs, and we&apos;ll do the chores. Go
-        ahead and move your docs into the <code>docs</code> directory.
+        <p>Jolt includes many extensions, most available straight from the BuildContext. They are structured in a way that is easy to use and read.</p>
+        <ul>
+          <li>All colors from the default Flutter ColorScheme are available via context.color, as well as Jolt's extended semantic colors.</li>
+          <li>All text styles from the default Flutter TextTheme are available via context.textStyle.</li>
+          <li>There are many more extensions available, find out more in the Flutter Jolt section of the docs.</li>
+        </ul>
       </>
     ),
   },
   {
+    snippetSource: JoltTheming,
     title: 'Theme management',
     description: (
       <>
-        Extend or customize your website layout by reusing React. Docusaurus can
-        be extended while reusing the same header and footer.
+        <p>Use Jolt to manage the active theme for the user. Setting the theme with Jolt with save the selected value to the device using Hive.</p>
+        <p>If you have multiple light and dark themes, Jolt is smart enough to know that a light theme with primary color x, should be swapped for a dark theme with primary color x, and visa versa.</p>
+      </>
+    ),
+  },
+  {
+    snippetSource: JoltSemanticColors,
+    title: 'Semantic Colors',
+    description: (
+      <>
+        <p>Flutter's semantic colors only include a color for 'error' by default.</p>
+        <p>Jolt adds colors for:</p>
+        <ul>
+          <li>Success</li>
+          <li>Warning</li>
+          <li>Info</li>
+        </ul>
+      </>
+    ),
+  },
+  {
+    snippetSource: JoltSnackBars,
+    title: 'Extended Snackbars',
+    description: (
+      <>
+        <p>Jolt utilises ScaffoldMessenger in the standard Flutter way, but adds support for icons and semantic snackbars.</p>
+        <p>It also makes it easier to show a snackbar, with useful extensions.</p>
+        <p>In cases where the context is not available, use the: <code>joltScaffoldMessengerKey</code></p>
+        <p>Extensions are added directly to the key, so you can use: <code>joltScaffoldMessengerKey.showSnackBar()</code></p>
+      </>
+    ),
+  },
+  {
+    snippetSource: JoltTextScaling,
+    title: 'App Specific Text Scaling',
+    description: (
+      <>
+        <p>By default Flutter will read a device's text size settings and adjust text widgets accordingly. Jolt adds an optional layer on top of this, allowing the text scale to be adjusted inside the app as well.</p>
+        <p>To use the combined textScale, use the JoltText widget (which has a bunch of extra functionality as well).</p>
+        <p>There are also rare cases where you don't want text widgets to scale their text, JoltText allows turning off scaling all together.</p>
+      </>
+    ),
+  },
+  {
+    snippetSource: JoltWidgets,
+    title: 'Widgets',
+    description: (
+      <>
+        <p>Aside from the functionality listed above, Jolt also provides some useful widgets:</p>
+        <ul>
+          <li>JoltText</li>
+          <li>JoltButton</li>
+          <li>JoltGrid</li>
+        </ul>
       </>
     ),
   },
@@ -66,7 +128,7 @@ function Feature({ title, description,snippetSource}) {
         <div className={styles.content}>
           <div className={styles.contentBody}>
             <h3>{title}</h3>
-            <p>{description}</p>
+            {description}
           </div>
           <CodeBlock language="dart" className={styles.code}>
             {snippetSource}
