@@ -25,19 +25,19 @@ final themes = [
       seedColor: _seedColor,
       brightness: Brightness.light,
     ),
-    outlinedButtonTheme: buttonTheme(),
+    textButtonTheme: buttonTheme(),
   ),
-  // ThemeData(
-  //   useMaterial3: true,
-  //   // TODO: make sure that when you have settled on a font, to include the font assets in the assets folder
-  //   textTheme: GoogleFonts.rubikTextTheme(_baseDarkTheme.textTheme),
-  //   scaffoldBackgroundColor: _scaffoldColorDark,
-  //   colorScheme: ColorScheme.fromSeed(
-  //     seedColor: _seedColor,
-  //     brightness: Brightness.dark,
-  //     background: _scaffoldColorDark,
-  //     surface: _surfaceColorDark,
-  //   ),
-  //   elevatedButtonTheme: buttonTheme(),
-  // ),
+  ThemeData(
+    useMaterial3: true,
+    // TODO: make sure that when you have settled on a font, to include the font assets in the assets folder
+    textTheme: GoogleFonts.rubikTextTheme(_baseDarkTheme.textTheme),
+    scaffoldBackgroundColor: _scaffoldColorDark,
+    colorScheme: ColorScheme.fromSeed(
+      seedColor: _seedColor,
+      brightness: Brightness.dark,
+      background: _scaffoldColorDark,
+      surface: _surfaceColorDark,
+    ),
+    textButtonTheme: buttonTheme(),
+  ),
 ];

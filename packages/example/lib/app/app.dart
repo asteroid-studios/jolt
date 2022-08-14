@@ -30,7 +30,15 @@ class Example extends StatelessWidget {
                       width: double.infinity,
                       child: MoveWindow(
                         child: Container(
-                          color: context.color.onPrimaryContainer,
+                          decoration: BoxDecoration(
+                            color: context.color.surface,
+                            border: Border(
+                              bottom: BorderSide(
+                                width: 2,
+                                color: context.color.background,
+                              ),
+                            ),
+                          ),
                         ),
                       ),
                     ),

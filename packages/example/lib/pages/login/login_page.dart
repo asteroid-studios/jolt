@@ -89,9 +89,13 @@ class LoginPageState extends State<LoginPage> {
           ),
           Center(
             child: JoltButton(
-              label: 'Test',
-              backgroundColor: context.color.surface,
-              icon: Icons.soap,
+              onPressed: () async {
+                context.showSnackBarSuccess(message: 'Great Work!');
+                await Future.delayed(const Duration(seconds: 1));
+              },
+              backgroundColor: context.color.success,
+              label: 'Documentation Complete',
+              icon: Icons.menu_book_rounded,
               // textDirection: TextDirection.rtl,
             ),
           ),
