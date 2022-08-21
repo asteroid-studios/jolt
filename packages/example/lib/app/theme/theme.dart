@@ -21,6 +21,7 @@ final themes = [
     colorScheme: ColorScheme.fromSeed(
       surface: _surfaceColorLight,
       seedColor: _seedColor,
+      background: _scaffoldColorLight,
       brightness: Brightness.light,
     ),
   ),

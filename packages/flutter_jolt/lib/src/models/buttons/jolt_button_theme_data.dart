@@ -19,5 +19,6 @@ extension JoltButtonThemeExtension on ThemeData {
 class _$JoltButtonThemeData {
   static List<Color?>? backgroundColor;
   static List<Color?>? foregroundColor;
+  static List<TextStyle?>? textStyle;
   static List<double?>? borderRadius;
 }

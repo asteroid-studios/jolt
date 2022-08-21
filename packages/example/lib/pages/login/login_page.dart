@@ -127,13 +127,16 @@ class LoginPageState extends State<LoginPage> {
             child: JoltButton(
               onPressed: () async {
                 context.showSnackBarSuccess(message: 'Great Work!');
-                await Future.delayed(const Duration(seconds: 1));
+                await Future.delayed(const Duration(seconds: 2));
                 context.showSnackBar(message: 'Second message');
               },
-              textStyle: context.textStyle.headline,
-              // backgroundColor: context.color.success,
-              label: 'Documentation Complete',
-              icon: Icons.menu_book_rounded,
+              icon: Icons.check_circle_outline_outlined,
+              // textStyle: context.textStyle.headline,
+              // backgroundColor: context.color.primary,
+              label: 'Complete Documentation',
+              labelProcessing: 'Submitting',
+              // outlined: true,
+              // borderColor: context.color.surfaceVariant,
               // textDirection: TextDirection.rtl,
             ),
           ),
@@ -142,13 +145,13 @@ class LoginPageState extends State<LoginPage> {
             child: JoltButton(
               onPressed: () async {
                 context.showSnackBarSuccess(message: 'Great Work!');
-                await Future.delayed(const Duration(seconds: 1));
+                await Future.delayed(const Duration(seconds: 2));
                 context.showSnackBar(message: 'Second message');
               },
-              textStyle: context.textStyle.displayLarge,
-              // backgroundColor: context.color.success,
+              // textStyle: context.textStyle.headline,
+              backgroundColor: context.color.primary,
+              // circular: true,
               icon: Icons.menu_book_rounded,
-              // textDirection: TextDirection.rtl,
             ),
           ),
         ],

@@ -5,8 +5,7 @@ List<ThemeExtension<dynamic>> themeExtensions(themeData) {
   final color = themeData.colorScheme;
   return [
     JoltButtonThemeData(
-        // backgroundColor: color.primary,
-        // borderRadius: 30,
+        // borderRadius: 5,
         ),
   ];
 }

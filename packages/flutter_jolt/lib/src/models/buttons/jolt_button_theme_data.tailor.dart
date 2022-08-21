@@ -12,22 +12,26 @@ class JoltButtonThemeData extends ThemeExtension<JoltButtonThemeData> {
   const JoltButtonThemeData({
     this.backgroundColor,
     this.foregroundColor,
+    this.textStyle,
     this.borderRadius,
   });
 
   final Color? backgroundColor;
   final Color? foregroundColor;
+  final TextStyle? textStyle;
   final double? borderRadius;
 
   @override
   JoltButtonThemeData copyWith({
     Color? backgroundColor,
     Color? foregroundColor,
+    TextStyle? textStyle,
     double? borderRadius,
   }) {
     return JoltButtonThemeData(
       backgroundColor: backgroundColor ?? this.backgroundColor,
       foregroundColor: foregroundColor ?? this.foregroundColor,
+      textStyle: textStyle ?? this.textStyle,
       borderRadius: borderRadius ?? this.borderRadius,
     );
   }
@@ -39,6 +43,7 @@ class JoltButtonThemeData extends ThemeExtension<JoltButtonThemeData> {
     return JoltButtonThemeData(
       backgroundColor: Color.lerp(backgroundColor, other.backgroundColor, t),
       foregroundColor: Color.lerp(foregroundColor, other.foregroundColor, t),
+      textStyle: TextStyle.lerp(textStyle, other.textStyle, t),
       borderRadius: t < 0.5 ? borderRadius : other.borderRadius,
     );
   }
@@ -52,6 +57,7 @@ class JoltButtonThemeData extends ThemeExtension<JoltButtonThemeData> {
                 .equals(backgroundColor, other.backgroundColor) &&
             const DeepCollectionEquality()
                 .equals(foregroundColor, other.foregroundColor) &&
+            const DeepCollectionEquality().equals(textStyle, other.textStyle) &&
             const DeepCollectionEquality()
                 .equals(borderRadius, other.borderRadius));
   }
@@ -62,6 +68,7 @@ class JoltButtonThemeData extends ThemeExtension<JoltButtonThemeData> {
         runtimeType,
         const DeepCollectionEquality().hash(backgroundColor),
         const DeepCollectionEquality().hash(foregroundColor),
+        const DeepCollectionEquality().hash(textStyle),
         const DeepCollectionEquality().hash(borderRadius));
   }
 }
