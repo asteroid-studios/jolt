@@ -14,7 +14,7 @@ The standard buttons available through Flutter are:
 
 Each of these buttons have different parameters available and each one must be styled separately in the **ThemeData** for your app. They are extremely customisable, but make you do a lot of work yourself.
 
-For example, if you just want a standard looking button with a label and an icon, you need all this code:
+As an example, if you wanted to create a basic button with an icon and label, you would need to define your own Row for those items and them style them yourself as needed.
 
 ``` dart
 ElevatedButton(
@@ -34,7 +34,13 @@ ElevatedButton(
 
 JoltButton goes for a **one-size-fits-all** approach. It makes assumptions about common button practices then lets you add customisation as needed.
 
-Here are a few examples of JoltButton configurations:
+### Extras
+- If you onPressed is a Future, the button will automatically show a loading state.
+- The button prevents repressing while processing Futures by default.
+- Easy styling including changing the size of the button.
+- ThemeExtension called **JoltButtonThemeData**, to enable Theme wide configuration just like the standard Flutter buttons.
+
+### Basic usage
 
 ``` dart
 // highlight-next-line
@@ -58,10 +64,31 @@ JoltButton(
 ),
 ```
 
-## Styling individual buttons
+## Theme wide styling
+
+To setup default styling across your app for JoltButton, add JoltButtonThemeData to your Jolt themeExtensions.
+
+``` dart
+Jolt(
+      themes: themes,
+      themeExtensions: (themeData) {
+        final color = themeData.colorScheme;
+        return [
+            JoltButtonThemeData(
+                borderRadius: 5,
+                circularIconButtons: true,
+                backgroundColor: context.color.primary,
+            ),
+        ];
+      },
+      builder: (context) {
+        ...
+```
+
+## Individual button styling
 
 
-### How it is normally
+### How it normally goes
 When using the standard Flutter buttons, you need to use a **MaterialStateProperty** for things like **backgroundColor** and **textStyle**. Once again, great for ultimate customisation but impractical for most use cases. Most times the easy option is to just use the `MaterialStateProperty.all()` to quickly force a color or style, or using something like `ElevatedButton.styleFrom`.
 
 ``` dart
@@ -90,28 +117,49 @@ ElevatedButton(
 ```
 
 ### Using JoltButton
+Styling a JoltButton is easy, you have access to all these properties and more:
+- backgroundColor
+- foregroundColor
+- borderColor
+- outline
+- textStyle
+- iconSize
 
-
+In fact, if you use a color from the ColorScheme for backgroundColor, you don't even need to set the foreground as the button will find the matching color. For Example:
 
 ``` dart
 JoltButton(
     onPressed: () {},
     label: 'Styled button',
-    textStyle
     backgroundColor: context.color.primary,
-    // highlight-start
-    // Foreground color is assumed when using a color
-    // from ColorScheme, so the line below isn't needed:
-    // highlight-end
-    // color: context.color.onPrimary
+    // will automatically set foreground to onPrimary
 ),
 ```
 
+The other cool feature, is that you can change the size of the whole button (including the icon) by changing the textStyle property. For example:
 
+``` dart
+JoltButton(
+    onPressed: () {},
+    label: 'Small button',
+    icon: Icons.check_circle,
+    textStyle: context.textStyle.labelSmall,
+),
+JoltButton(
+    onPressed: () {},
+    label: 'Regular button',
+    icon: Icons.check_circle,
+),
+JoltButton(
+    onPressed: () {},
+    label: 'Large button',
+    icon: Icons.check_circle,
+    textStyle: context.textStyle.headlineSmall,
+),
+```
 
-## Doc Outline:
-1. Talk through current options with Pictures?
-1. Explain why they are a bit of a pain
-1. Show off JoltButton, show how it satisfies each of the options above
-1. Show how to theme the JoltButton using theme extensions
-1. Talk about how to do different size buttons
+:::tip Syntax for colors and text styles
+
+If you are looking at the syntax of context.color and context.textStyle and you are not familiar, they are extensions setup by Jolt to easily access properties from the default ColorScheme and TextTheme respectively. [Read More](../theming.md)
+
+:::

@@ -164,6 +164,7 @@ class JoltButton extends HookWidget {
       onHover: onHover,
       onFocusChange: onFocusChange,
       focusNode: focusNode,
+      // TODO work out why no icon or label doesn't create a basic square
       child: Row(
         textDirection: textDirection ?? TextDirection.ltr,
         mainAxisSize: MainAxisSize.min,

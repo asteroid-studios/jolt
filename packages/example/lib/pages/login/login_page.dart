@@ -99,7 +99,9 @@ class LoginPageState extends State<LoginPage> {
           SizedBox(height: 20),
           Center(
             child: ElevatedButton(
-              onPressed: () {},
+              onPressed: () async {
+                await Future.delayed(const Duration(seconds: 2));
+              },
               style: ElevatedButton.styleFrom(
                 primary: context.color.primary,
                 onPrimary: context.color.onPrimary,
@@ -129,11 +131,11 @@ class LoginPageState extends State<LoginPage> {
                     await Future.delayed(const Duration(seconds: 2));
                   },
                   icon: Icons.check_circle_outline_outlined,
-                  // backgroundColor: context.color.surface,
+                  // backgroundColor: context.color.secondary,
                   label: 'Complete Documentation',
                   labelProcessing: 'Submitting',
                   // outlined: true,
-                  // borderColor: context.color.surfaceVariant,
+                  // borderColor: context.color.primary,
                   // textDirection: TextDirection.rtl,
                 ),
                 SizedBox(width: 10),
