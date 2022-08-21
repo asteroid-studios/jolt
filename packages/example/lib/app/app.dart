@@ -1,4 +1,5 @@
 import 'dart:math' as math;
+import 'package:example/app/theme/theme_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_jolt/flutter_jolt.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -14,6 +15,7 @@ class Example extends StatelessWidget {
   Widget build(BuildContext context) {
     return Jolt(
       themes: themes,
+      themeExtensions: (_) => themeExtensions(_),
       builder: (context) {
         return ProviderScope(
           child: MaterialApp.router(

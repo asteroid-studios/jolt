@@ -48,7 +48,8 @@ class ColorMapping {
 
   ColorScheme get _colorScheme => _themeData.colorScheme;
 
-  Color? foreground(Color background) {
+  Color? foreground(Color? background) {
+    if (background == null) return null;
     return _colorMap[background];
   }
 

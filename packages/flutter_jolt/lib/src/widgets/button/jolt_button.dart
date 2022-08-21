@@ -14,7 +14,8 @@ class JoltButton extends StatelessWidget {
   final TextDirection? textDirection;
   final double? elevation;
   final Color? backgroundColor;
-  final Color? color;
+  final Color? foregroundColor;
+  final TextStyle? textStyle;
 
   const JoltButton({
     required this.onPressed,
@@ -27,36 +28,71 @@ class JoltButton extends StatelessWidget {
     this.textDirection,
     this.elevation,
     this.backgroundColor,
-    this.color,
+    this.foregroundColor,
+    this.textStyle,
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final background = backgroundColor ?? context.color.background;
-    ButtonStyle? modifiedButtonStyle = context.theme.textButtonTheme.style;
+    // Get the overridden button theme if it exists
+    final joltButtonTheme = context.theme.joltButtonTheme;
+    // Get the effective background color
+    final effectiveBackgroundColor = backgroundColor ??
+        joltButtonTheme?.backgroundColor ??
+        context.color.background;
+    // Get the effective foreground color
+    final effectiveForegroundColor = foregroundColor ??
+        context.color.foreground(backgroundColor) ??
+        joltButtonTheme?.foregroundColor ??
+        context.color.foreground(joltButtonTheme?.backgroundColor) ??
+        context.color.primary;
+    // Get the effective text style
+    final effectiveTextStyle = textStyle ?? context.textStyle.body;
+    // Get the scaled iconSize, which is based on the text size
+    final iconSize =
+        effectiveTextStyle?.fontSize ?? context.theme.iconTheme.size ?? 18;
+    final scaledIconSize = iconSize * context.effectiveTextScale;
 
-    if (backgroundColor != null) {
-      Color? foregroundColor = color ?? context.color.foreground(background);
-
-      modifiedButtonStyle = modifiedButtonStyle?.copyWith(
-        overlayColor: MaterialStateColor.resolveWith(
-          (states) => (background.isDark ? Colors.white : Colors.black)
-              .withOpacity(0.1),
-        ),
-        // surfaceTintColor: MaterialStateColor.resolveWith(
-        //   (states) => Colors.blue.withOpacity(0.2),
-        // ),
-        backgroundColor: MaterialStateColor.resolveWith(
-          (states) => background,
-        ),
-        foregroundColor: foregroundColor != null
-            ? MaterialStateColor.resolveWith(
-                (states) => foregroundColor,
-              )
-            : null,
-      );
-    }
+    final modifiedButtonStyle = ButtonStyle(
+      backgroundColor: MaterialStateColor.resolveWith((states) {
+        if (states.isNotEmpty) {
+          print(states);
+          switch (states.first) {
+            case MaterialState.hovered:
+              return effectiveBackgroundColor.darken(0);
+            case MaterialState.focused:
+              // TODO: Handle this case.
+              break;
+            case MaterialState.pressed:
+              // TODO: Handle this case.
+              break;
+            case MaterialState.dragged:
+              // TODO: Handle this case.
+              break;
+            case MaterialState.selected:
+              // TODO: Handle this case.
+              break;
+            case MaterialState.scrolledUnder:
+              // TODO: Handle this case.
+              break;
+            case MaterialState.disabled:
+              // TODO: Handle this case.
+              break;
+            case MaterialState.error:
+              // TODO: Handle this case.
+              break;
+          }
+        }
+        return effectiveBackgroundColor;
+      }),
+      foregroundColor: MaterialStateProperty.all(effectiveForegroundColor),
+      // primary: _foregroundColor,
+      // shape: RoundedRectangleBorder(
+      //     borderRadius: BorderRadius.circular(
+      //   joltButtonTheme?.borderRadius ?? 5,
+      // )),
+    );
 
     // TODO allow multiple sizes? maybe an optional button small and large?
 
@@ -72,7 +108,7 @@ class JoltButton extends StatelessWidget {
     //   )),
     // );
 
-    return TextButton(
+    return OutlinedButton(
       style: modifiedButtonStyle,
       onPressed: onPressed,
       onLongPress: onLongPress,
@@ -84,12 +120,8 @@ class JoltButton extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           // TODO show a spinner when loading
-          if (icon != null)
-            Icon(
-              icon!,
-              size: (context.textStyle.body?.fontSize ?? 18) *
-                  context.effectiveTextScale,
-            ),
+          if (icon != null) Icon(icon!, size: scaledIconSize),
+          // TODO replace with actual spacer
           if (icon != null && label != null)
             SizedBox(
               width: context.spacing.sm,
@@ -99,6 +131,8 @@ class JoltButton extends StatelessWidget {
               child: JoltText(
                 label!,
                 selectable: false,
+                style: effectiveTextStyle,
+                color: effectiveForegroundColor,
               ),
             ),
         ],

@@ -777,6 +777,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.4.9"
+  theme_tailor_annotation:
+    dependency: transitive
+    description:
+      name: theme_tailor_annotation
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.3"
   timeago:
     dependency: transitive
     description:

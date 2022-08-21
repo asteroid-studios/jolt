@@ -1,6 +1,4 @@
-import 'package:example/app/theme/button_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_jolt/flutter_jolt_utilities.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 const _seedColor = Color(0xFF24b47f);
@@ -25,7 +23,6 @@ final themes = [
       seedColor: _seedColor,
       brightness: Brightness.light,
     ),
-    textButtonTheme: buttonTheme(),
   ),
   ThemeData(
     useMaterial3: true,
@@ -38,6 +35,9 @@ final themes = [
       background: _scaffoldColorDark,
       surface: _surfaceColorDark,
     ),
-    textButtonTheme: buttonTheme(),
+    // TODO come up with something better than iconTheme
+    // iconTheme: IconThemeData(
+    //   size: 20,
+    // ),
   ),
 ];

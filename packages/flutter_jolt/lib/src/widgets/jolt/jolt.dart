@@ -79,12 +79,13 @@ class JoltState extends State<Jolt> with WidgetsBindingObserver {
     themes = widget.themes ?? defaultThemes;
     // Copy all the extra info needed to each theme
     for (int i = 0; i < themes.length; i++) {
+      final darkTheme = themes[i].brightness == Brightness.dark;
       themes[i] = themes[i].copyWith(
         // TODO work out how im going to get light and dark into google text themes
         // textTheme: TextTheme(
         // ),
         extensions: [
-          themes[i].brightness == Brightness.dark
+          darkTheme
               ? SemanticColors.darkDefaults
               : SemanticColors.lightDefaults,
           if (widget.themeExtensions != null)
@@ -92,7 +93,7 @@ class JoltState extends State<Jolt> with WidgetsBindingObserver {
         ],
       );
     }
-    themeData = themes.last; //TODO get theme from local storage
+    themeData = themes.first; //TODO get theme from local storage
   }
 
   void _initialiseTextScale() {

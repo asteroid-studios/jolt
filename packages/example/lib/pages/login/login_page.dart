@@ -77,7 +77,7 @@ class LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     // TODO investigate icon sizing standards
-    print(context.theme.iconTheme.size);
+    print(context.theme.elevatedButtonTheme);
 
     return Scaffold(
       appBar: AppBar(title: const Text('Sign In')),
@@ -87,14 +87,66 @@ class LoginPageState extends State<LoginPage> {
             'Test',
             style: context.textStyle.displayLarge,
           ),
+          SizedBox(height: 20),
+          Center(
+            child: ElevatedButton(
+              onPressed: () {},
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(Icons.check_circle_outline_outlined),
+                  SizedBox(width: 8),
+                  Text('Mark as complete'),
+                ],
+              ),
+            ),
+          ),
+          SizedBox(height: 20),
+          Center(
+            child: IconButton(
+              onPressed: () {},
+              icon: Icon(
+                Icons.menu,
+              ),
+              // child: Text('Outlined Button'),
+            ),
+          ),
+          SizedBox(height: 20),
+          Center(
+            child: ElevatedButton(
+              onPressed: () {},
+              style: ElevatedButton.styleFrom(
+                primary: context.color.primary,
+                onPrimary: context.color.onPrimary,
+              ),
+              child: Text('Styled button'),
+            ),
+          ),
+          SizedBox(height: 20),
           Center(
             child: JoltButton(
               onPressed: () async {
                 context.showSnackBarSuccess(message: 'Great Work!');
                 await Future.delayed(const Duration(seconds: 1));
+                context.showSnackBar(message: 'Second message');
               },
-              backgroundColor: context.color.success,
+              textStyle: context.textStyle.headline,
+              // backgroundColor: context.color.success,
               label: 'Documentation Complete',
+              icon: Icons.menu_book_rounded,
+              // textDirection: TextDirection.rtl,
+            ),
+          ),
+          SizedBox(height: 20),
+          Center(
+            child: JoltButton(
+              onPressed: () async {
+                context.showSnackBarSuccess(message: 'Great Work!');
+                await Future.delayed(const Duration(seconds: 1));
+                context.showSnackBar(message: 'Second message');
+              },
+              textStyle: context.textStyle.displayLarge,
+              // backgroundColor: context.color.success,
               icon: Icons.menu_book_rounded,
               // textDirection: TextDirection.rtl,
             ),
