@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 const _seedColor = Color(0xFF24b47f);
+
+const _scaffoldColorLight = Color(0xFFFFFFFF);
+const _surfaceColorLight = Color(0xFFEEEEEE);
 const _scaffoldColorDark = Color(0xFF111111);
 const _surfaceColorDark = Color(0xFF000000);
 
@@ -14,8 +17,11 @@ final themes = [
     useMaterial3: true,
     // TODO: make sure that when you have settled on a font, to include the font assets in the assets folder
     textTheme: GoogleFonts.rubikTextTheme(_baseLightTheme.textTheme),
+    scaffoldBackgroundColor: _scaffoldColorLight,
     colorScheme: ColorScheme.fromSeed(
+      surface: _surfaceColorLight,
       seedColor: _seedColor,
+      background: _scaffoldColorLight,
       brightness: Brightness.light,
     ),
   ),
@@ -27,7 +33,12 @@ final themes = [
     colorScheme: ColorScheme.fromSeed(
       seedColor: _seedColor,
       brightness: Brightness.dark,
+      background: _scaffoldColorDark,
       surface: _surfaceColorDark,
     ),
+    // TODO come up with something better than iconTheme
+    // iconTheme: IconThemeData(
+    //   size: 20,
+    // ),
   ),
 ];

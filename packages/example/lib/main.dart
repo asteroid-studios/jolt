@@ -57,10 +57,7 @@ Future<void> initialiseEnvironment(Environment env) async {
   // for desktop Flutter apps
   if (UniversalPlatform.isDesktop) {
     doWhenWindowReady(() {
-      // const initialSize = Size(600, 450);
-      // appWindow.minSize = initialSize;
-      // appWindow.size = initialSize;
-      appWindow.alignment = Alignment.center;
+      appWindow.minSize = const Size(300, 450);
       appWindow.show();
     });
   }
