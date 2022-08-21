@@ -12,6 +12,7 @@ class JoltButtonThemeData extends ThemeExtension<JoltButtonThemeData> {
     this.textStyle,
     this.borderRadius,
     this.circularIconButtons = false,
+    this.enableFeedback = true,
   });
 
   final Color? backgroundColor;
@@ -19,6 +20,7 @@ class JoltButtonThemeData extends ThemeExtension<JoltButtonThemeData> {
   final TextStyle? textStyle;
   final double? borderRadius;
   final bool circularIconButtons;
+  final bool enableFeedback;
 
   @override
   JoltButtonThemeData copyWith({
@@ -27,6 +29,7 @@ class JoltButtonThemeData extends ThemeExtension<JoltButtonThemeData> {
     TextStyle? textStyle,
     double? borderRadius,
     bool? circularIconButtons,
+    bool? enableFeedback,
   }) {
     return JoltButtonThemeData(
       backgroundColor: backgroundColor ?? this.backgroundColor,
@@ -34,6 +37,7 @@ class JoltButtonThemeData extends ThemeExtension<JoltButtonThemeData> {
       textStyle: textStyle ?? this.textStyle,
       borderRadius: borderRadius ?? this.borderRadius,
       circularIconButtons: circularIconButtons ?? this.circularIconButtons,
+      enableFeedback: enableFeedback ?? this.enableFeedback,
     );
   }
 
@@ -48,6 +52,7 @@ class JoltButtonThemeData extends ThemeExtension<JoltButtonThemeData> {
       borderRadius: t < 0.5 ? borderRadius : other.borderRadius,
       circularIconButtons:
           t < 0.5 ? circularIconButtons : other.circularIconButtons,
+      enableFeedback: t < 0.5 ? enableFeedback : other.enableFeedback,
     );
   }
 
@@ -64,7 +69,9 @@ class JoltButtonThemeData extends ThemeExtension<JoltButtonThemeData> {
             const DeepCollectionEquality()
                 .equals(borderRadius, other.borderRadius) &&
             const DeepCollectionEquality()
-                .equals(circularIconButtons, other.circularIconButtons));
+                .equals(circularIconButtons, other.circularIconButtons) &&
+            const DeepCollectionEquality()
+                .equals(enableFeedback, other.enableFeedback));
   }
 
   @override
@@ -75,7 +82,8 @@ class JoltButtonThemeData extends ThemeExtension<JoltButtonThemeData> {
         const DeepCollectionEquality().hash(foregroundColor),
         const DeepCollectionEquality().hash(textStyle),
         const DeepCollectionEquality().hash(borderRadius),
-        const DeepCollectionEquality().hash(circularIconButtons));
+        const DeepCollectionEquality().hash(circularIconButtons),
+        const DeepCollectionEquality().hash(enableFeedback));
   }
 }
 
@@ -94,4 +102,5 @@ class JoltButtonThemeData extends ThemeExtension<JoltButtonThemeData> {
 //   static List<TextStyle?>? textStyle;
 //   static List<double?>? borderRadius;
 //   static List<bool?>? circularIconButtons;
+//   static List<bool?>? enableFeedback;
 // }

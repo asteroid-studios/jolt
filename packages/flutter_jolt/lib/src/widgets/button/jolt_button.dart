@@ -62,9 +62,15 @@ class JoltButton extends HookWidget {
             ? context.color.background
             : context.color.surface);
     // Get the overlayColor
+    final backgroundBrightness = effectiveBackgroundColor.brightness;
+    final overlayOpacity = backgroundBrightness < 10
+        ? 0.05
+        : backgroundBrightness > 200
+            ? 0.1
+            : 0.2;
     final overlayColor =
         (effectiveBackgroundColor.isDark ? Colors.white : Colors.black)
-            .withOpacity(0.1);
+            .withOpacity(overlayOpacity);
     // Get the effective foreground color
     final effectiveForegroundColor = foregroundColor ??
         context.color.foreground(backgroundColor) ??
@@ -93,6 +99,8 @@ class JoltButton extends HookWidget {
             ? effectiveTextStyle!.fontSize! / 2
             : null) ??
         context.spacing.sm;
+    // Get the effective button size
+    final effectiveButtonSize = (scaledIconSize * 2) + (effectiveSpacing * 2);
 
     // Prepare the button style
     final modifiedButtonStyle = ButtonStyle(
@@ -102,6 +110,10 @@ class JoltButton extends HookWidget {
         }
         return effectiveBackgroundColor;
       }),
+      minimumSize: MaterialStateProperty.all(
+        Size(effectiveButtonSize, effectiveButtonSize),
+      ),
+      enableFeedback: joltButtonTheme.enableFeedback,
       foregroundColor: MaterialStateColor.resolveWith((states) {
         if (states.isNotEmpty && states.first == MaterialState.disabled) {
           return effectiveForegroundColor.withOpacity(0.7);
@@ -113,10 +125,13 @@ class JoltButton extends HookWidget {
         width: 1.5,
         color: effectiveBorderColor,
       )),
-      padding: MaterialStateProperty.all(EdgeInsets.symmetric(
-        vertical: effectiveSpacing * (effectiveCircularIconButton ? 3 : 1),
-        horizontal: effectiveSpacing * (effectiveCircularIconButton ? 3 : 2),
-      )),
+      tapTargetSize:
+          effectiveButtonSize < 50 ? MaterialTapTargetSize.shrinkWrap : null,
+      padding: MaterialStateProperty.all(
+        EdgeInsets.symmetric(
+          horizontal: effectiveCircularIconButton ? 0 : effectiveSpacing * 2,
+        ),
+      ),
       shape: effectiveCircularIconButton
           ? MaterialStateProperty.all(const CircleBorder())
           : effectiveBorderRadius != null
