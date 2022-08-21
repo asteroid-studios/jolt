@@ -19,6 +19,7 @@ class JoltButton extends HookWidget {
   final TextStyle? textStyle;
   final double? iconSize;
   final double? borderRadius;
+  final bool? circularIconButton;
   final bool outlined;
 
   const JoltButton({
@@ -38,6 +39,7 @@ class JoltButton extends HookWidget {
     this.iconSize,
     this.borderRadius,
     this.outlined = false,
+    this.circularIconButton,
     Key? key,
   }) : super(key: key);
 
@@ -47,11 +49,18 @@ class JoltButton extends HookWidget {
     final effectiveFunction = onPressed ?? onLongPress;
     final isDisabled = isProcessing.value || effectiveFunction == null;
     // Get the overridden button theme if it exists
-    final joltButtonTheme = context.theme.joltButtonTheme;
+    final joltButtonTheme =
+        context.theme.joltButtonTheme ?? const JoltButtonThemeData();
+    // Check if circularIconButton
+    final effectiveCircularIconButton =
+        (circularIconButton ?? joltButtonTheme.circularIconButtons) &&
+            label == null;
     // Get the effective background color
     final effectiveBackgroundColor = backgroundColor ??
-        joltButtonTheme?.backgroundColor ??
-        (outlined ? context.color.background : context.color.surface);
+        joltButtonTheme.backgroundColor ??
+        ((outlined || effectiveCircularIconButton)
+            ? context.color.background
+            : context.color.surface);
     // Get the overlayColor
     final overlayColor =
         (effectiveBackgroundColor.isDark ? Colors.white : Colors.black)
@@ -59,12 +68,12 @@ class JoltButton extends HookWidget {
     // Get the effective foreground color
     final effectiveForegroundColor = foregroundColor ??
         context.color.foreground(backgroundColor) ??
-        joltButtonTheme?.foregroundColor ??
-        context.color.foreground(joltButtonTheme?.backgroundColor) ??
+        joltButtonTheme.foregroundColor ??
+        context.color.foreground(joltButtonTheme.backgroundColor) ??
         context.color.primary;
     // Get the effective text style
     final effectiveTextStyle =
-        textStyle ?? joltButtonTheme?.textStyle ?? context.textStyle.body;
+        textStyle ?? joltButtonTheme.textStyle ?? context.textStyle.body;
     // Get the scaled iconSize, which is based on the text size
     // A small modifier of context.spacing.xs is added to make the icon
     // slightly bigger than the font.
@@ -75,7 +84,7 @@ class JoltButton extends HookWidget {
     final scaledIconSize =
         (effectiveIconSize * context.effectiveTextScale) + context.spacing.xs;
     // Get the effective border radius
-    final effectiveBorderRadius = borderRadius ?? joltButtonTheme?.borderRadius;
+    final effectiveBorderRadius = borderRadius ?? joltButtonTheme.borderRadius;
     // Get the effective border color
     final effectiveBorderColor =
         borderColor ?? (outlined ? overlayColor : effectiveBackgroundColor);
@@ -84,6 +93,7 @@ class JoltButton extends HookWidget {
             ? effectiveTextStyle!.fontSize! / 2
             : null) ??
         context.spacing.sm;
+
     // Prepare the button style
     final modifiedButtonStyle = ButtonStyle(
       backgroundColor: MaterialStateColor.resolveWith((states) {
@@ -104,18 +114,20 @@ class JoltButton extends HookWidget {
         color: effectiveBorderColor,
       )),
       padding: MaterialStateProperty.all(EdgeInsets.symmetric(
-        vertical: effectiveSpacing,
-        horizontal: effectiveSpacing * 2,
+        vertical: effectiveSpacing * (effectiveCircularIconButton ? 3 : 1),
+        horizontal: effectiveSpacing * (effectiveCircularIconButton ? 3 : 2),
       )),
-      shape: effectiveBorderRadius != null
-          ? MaterialStateProperty.all(
-              RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(
-                  effectiveBorderRadius,
-                ),
-              ),
-            )
-          : null,
+      shape: effectiveCircularIconButton
+          ? MaterialStateProperty.all(const CircleBorder())
+          : effectiveBorderRadius != null
+              ? MaterialStateProperty.all(
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(
+                      effectiveBorderRadius,
+                    ),
+                  ),
+                )
+              : null,
     );
 
     return OutlinedButton(
@@ -143,11 +155,17 @@ class JoltButton extends HookWidget {
         children: [
           if (isProcessing.value)
             SizedBox(
-              width: scaledIconSize / 2,
-              height: scaledIconSize / 2,
-              child: CircularProgressIndicator(
-                strokeWidth: 2,
-                color: effectiveForegroundColor,
+              width: scaledIconSize,
+              height: scaledIconSize,
+              child: Center(
+                child: SizedBox(
+                  width: scaledIconSize / 2,
+                  height: scaledIconSize / 2,
+                  child: CircularProgressIndicator(
+                    strokeWidth: scaledIconSize / 12,
+                    color: effectiveForegroundColor,
+                  ),
+                ),
               ),
             )
           else if (icon != null)
