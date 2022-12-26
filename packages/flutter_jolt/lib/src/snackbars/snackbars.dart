@@ -44,6 +44,8 @@ class JoltSnackbar extends HookWidget {
     final isMobile = context.screen.type.isMobile;
     final isHovered = useState(false);
 
+    // TODO get icon from theme data
+
     // TODO clean up this code!
 
     return InkWell(
@@ -102,7 +104,7 @@ class JoltSnackbar extends HookWidget {
                           icon,
                           color: color,
                           // TODO why is this "18.0"?
-                          size: 18.0 * context.effectiveTextScale,
+                          size: 18.0 * context.effectiveUIScale,
                         ),
                       ),
                     message != null

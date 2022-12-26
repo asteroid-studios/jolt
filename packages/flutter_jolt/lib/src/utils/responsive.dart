@@ -1,9 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_jolt/flutter_jolt_utilities.dart';
 
 extension ResponsivenessExtension on BuildContext {
   MediaQueryData get mediaQuery => MediaQuery.of(this);
 
   ScreenMapping get screen => ScreenMapping(this);
+
+  double get effectiveUIScale =>
+      mediaQuery.textScaleFactor * jolt.uiScale.value;
+}
+
+enum UIScale {
+  tiny(0.8, 'tiny'),
+  small(0.9, 'small'),
+  medium(1.0, 'medium'),
+  large(1.1, 'large'),
+  huge(1.2, 'huge');
+
+  final double value;
+  final String label;
+
+  const UIScale(this.value, this.label);
 }
 
 class ScreenMapping {

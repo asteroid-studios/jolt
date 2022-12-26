@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_jolt/src/semantic_colors/theme.dart';
+export 'package:tinycolor2/tinycolor2.dart';
 
 extension SemanticColorExtension on ThemeData {
   SemanticColorThemeData get semanticColors =>

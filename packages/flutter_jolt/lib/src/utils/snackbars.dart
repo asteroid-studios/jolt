@@ -283,22 +283,18 @@ extension ScaffoldMessengerStateExtension on ScaffoldMessengerState {
       case SnackBarType.success:
         snackBarBackgroundColor = context.color.success;
         snackBarColor = context.color.onSuccess;
-        snackBarIcon = context.jolt.iconOverrides.success;
         break;
       case SnackBarType.info:
         snackBarBackgroundColor = context.color.info;
         snackBarColor = context.color.onInfo;
-        snackBarIcon = context.jolt.iconOverrides.info;
         break;
       case SnackBarType.warning:
         snackBarBackgroundColor = context.color.warning;
         snackBarColor = context.color.onWarning;
-        snackBarIcon = context.jolt.iconOverrides.warning;
         break;
       case SnackBarType.error:
         snackBarBackgroundColor = context.color.error;
         snackBarColor = context.color.onError;
-        snackBarIcon = context.jolt.iconOverrides.error;
         break;
     }
     snackBarBackgroundColor = backgroundColor ?? snackBarBackgroundColor;
@@ -316,7 +312,7 @@ extension ScaffoldMessengerStateExtension on ScaffoldMessengerState {
           duration: snackBarDuration,
           backgroundColor: snackBarBackgroundColor,
           color: snackBarColor,
-          icon: snackBarIcon,
+          icon: icon,
           message: message,
           heading: heading,
           maxLines: maxLines,

@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_jolt/flutter_jolt_theme_extensions.dart';
 import 'package:flutter_jolt/flutter_jolt_widget.dart';
-import 'package:flutter_jolt/src/models/icons/icons.dart';
-import 'package:flutter_jolt/src/models/theme/text_scale.dart';
 import 'package:flutter_jolt/src/utils/local_storage.dart';
-import 'package:flutter_jolt/src/widgets/jolt/device_info.dart';
-import 'package:flutter_jolt/src/models/theme/themes.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
@@ -19,19 +15,14 @@ class Jolt extends StatefulWidget {
   /// Pass all the available themes for your app.
   final List<ThemeData>? themes;
 
-  // TODO maybe these should just be part of the theme extensions for each one
-  /// Pass overrides for the icons used by Jolt Widgets
-  final IconOverrides? iconOverrides;
-
   /// Override the default TextScale for your app
-  final TextScale textScale;
+  final UIScale defaultUIScale;
 
   const Jolt({
     required this.builder,
-    this.textScale = TextScale.medium,
+    this.defaultUIScale = UIScale.medium,
     this.themes,
     this.themeExtensions,
-    this.iconOverrides,
     Key? key,
   })  :
         // Make sure themes is not an empty array
@@ -45,7 +36,6 @@ class Jolt extends StatefulWidget {
 class JoltState extends State<Jolt> with WidgetsBindingObserver {
   @override
   void initState() {
-    iconOverrides = widget.iconOverrides ?? IconOverrides();
     _initialisePlatformBrightness();
     _initialiseThemes();
     _initialiseTextScale();
@@ -74,7 +64,7 @@ class JoltState extends State<Jolt> with WidgetsBindingObserver {
 
   void _initialiseThemes() {
     // Assign the available themes
-    themeMode = ThemeMode.values.maybeByName(_joltPrefs.get('themeMode')) ??
+    themeMode = ThemeMode.values.maybeByName(_joltPrefs.get(themeModeKey)) ??
         ThemeMode.system;
     themes = widget.themes ?? defaultThemes;
     // Copy all the extra info needed to each theme
@@ -88,23 +78,23 @@ class JoltState extends State<Jolt> with WidgetsBindingObserver {
   }
 
   void _initialiseTextScale() {
-    final storedValue = _joltPrefs.get('textScale').toString();
-    textScale = TextScale.values.maybeByName(storedValue) ?? widget.textScale;
+    final storedValue = _joltPrefs.get(uiScaleKey).toString();
+    uiScale = UIScale.values.maybeByName(storedValue) ?? widget.defaultUIScale;
   }
 
   /// Set the current textScale
-  void setTextScale(TextScale newTextScale) {
+  void setTextScale(UIScale newTextScale) {
     setState(() {
-      textScale = newTextScale;
+      uiScale = newTextScale;
     });
-    _joltPrefs.put('textScale', newTextScale.name);
+    _joltPrefs.put(uiScaleKey, newTextScale.name);
   }
 
   void setTheme(ThemeMode mode) {
     setState(() {
       themeMode = mode;
     });
-    _joltPrefs.put('themeMode', mode.name);
+    _joltPrefs.put(themeModeKey, mode.name);
     _refreshTheme();
   }
 
@@ -145,8 +135,7 @@ class JoltState extends State<Jolt> with WidgetsBindingObserver {
   late List<ThemeData> themes;
   late ThemeData themeData;
   late ThemeMode themeMode;
-  late TextScale textScale;
-  late IconOverrides iconOverrides;
+  late UIScale uiScale;
   late Brightness platformBrightness;
 
   final _joltPrefs = Hive.box(joltStorageKey);
