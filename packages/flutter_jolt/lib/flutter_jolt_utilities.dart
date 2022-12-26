@@ -1,8 +1,11 @@
-export 'package:flutter_jolt/src/util/color.dart';
-export 'package:flutter_jolt/src/util/enums.dart';
-export 'package:flutter_jolt/src/util/extensions.dart';
-export 'package:flutter_jolt/src/util/responsive.dart';
-export 'package:flutter_jolt/src/util/snackbars.dart';
-export 'package:flutter_jolt/src/util/spacing.dart';
-export 'package:flutter_jolt/src/util/typography.dart';
+export 'src/utils/color.dart';
+export 'src/utils/enums.dart';
+export 'src/utils/device_info.dart';
+export 'src/utils/jolt.dart';
+// export 'package:flutter_jolt/src/util/snackbars.dart';
+export 'src/utils/responsive.dart';
+export 'src/utils/platform.dart';
+export 'src/utils/spacing.dart';
+export 'src/utils/typography.dart';
 export 'package:tinycolor2/tinycolor2.dart';
+export 'package:collection/collection.dart';

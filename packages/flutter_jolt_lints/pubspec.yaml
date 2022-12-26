@@ -1,0 +1,17 @@
+name: flutter_jolt_lints
+description: A new Flutter package project.
+version: 0.0.1
+
+environment:
+  sdk: '>=2.18.6 <3.0.0'
+  flutter: ">=1.17.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  analyzer:
+  custom_lint_builder: ^0.0.16
+
+dev_dependencies:
+  custom_lint: ^0.0.16
+

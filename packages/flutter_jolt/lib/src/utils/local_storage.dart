@@ -1,0 +1,1 @@
+const joltStorageKey = 'joltDevicePreferences';
