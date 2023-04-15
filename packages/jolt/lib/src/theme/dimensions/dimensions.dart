@@ -20,6 +20,7 @@ class Dimensions {
 }
 
 // TODO how can a change spacing or allow switching between different spacing values?
+// TODO I would prefer it to be like textScaleFactor, rather than having to remake different dimensions
 ///
 class Spacing {
   ///
@@ -60,6 +61,19 @@ class Spacing {
 
   ///
   final double xxxl;
+
+  Spacing scaled(double scaleFactor) {
+    return Spacing(
+      xxs: xxs * scaleFactor,
+      xs: xs * scaleFactor,
+      s: s * scaleFactor,
+      m: m * scaleFactor,
+      l: l * scaleFactor,
+      xl: xl * scaleFactor,
+      xxl: xxl * scaleFactor,
+      xxxl: xxxl * scaleFactor,
+    );
+  }
 }
 
 ///

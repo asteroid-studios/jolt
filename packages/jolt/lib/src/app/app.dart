@@ -40,7 +40,7 @@ class JoltApp extends StatefulWidget {
   final String? title;
 
   /// Styling for all Jolt widgets.
-  final WidgetTheme Function(ThemeData)? widgetTheme;
+  final WidgetThemeData Function(ThemeData)? widgetTheme;
 
   /// {@macro flutter.widgets.widgetsApp.debugShowCheckedModeBanner}
   final bool debugShowCheckedModeBanner;
@@ -145,12 +145,13 @@ class _JoltAppState extends State<JoltApp> with WidgetsBindingObserver {
                 );
           return _JoltInherited(
             controller: controller,
-            widgetTheme: widget.widgetTheme != null
-                ? widget.widgetTheme!(theme)
-                : const WidgetTheme(),
-            child: Theme(
-              data: theme,
-              textScaleFactorMultiplier: controller.textScaleFactorMultiplier,
+            child: Themes(
+              theme: theme,
+              scaling: ScalingData(
+                spacingScale: controller.spacingScaleFactorMultiplier,
+                textScale: controller.textScaleFactorMultiplier,
+              ),
+              widgetTheme: widget.widgetTheme,
               child: app,
             ),
           );
@@ -165,13 +166,10 @@ class _JoltAppState extends State<JoltApp> with WidgetsBindingObserver {
 class _JoltInherited extends InheritedWidget {
   const _JoltInherited({
     required this.controller,
-    required this.widgetTheme,
     required super.child,
   });
 
   final JoltAppController controller;
-
-  final WidgetTheme widgetTheme;
 
   static _JoltInherited of(BuildContext context) {
     final inherited =
@@ -188,7 +186,4 @@ class _JoltInherited extends InheritedWidget {
 extension JoltControllerExtension on BuildContext {
   /// The JoltAppController.
   JoltAppController get jolt => _JoltInherited.of(this).controller;
-
-  /// The widget theme for the app
-  WidgetTheme get widgetTheme => _JoltInherited.of(this).widgetTheme;
 }

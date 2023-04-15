@@ -89,6 +89,7 @@ class App extends StatelessWidget {
                   onPressed: () {
                     // dismiss focus
                     // FocusManager.instance.primaryFocus?.unfocus();
+                    context.jolt.setSpacingScaleFactorMultiplier(1);
                     context.jolt.setTextScaleFactorMultiplier(1);
                   },
                   builder: (_, __) => Padding(

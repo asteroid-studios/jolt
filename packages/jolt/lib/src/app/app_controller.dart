@@ -41,6 +41,11 @@ class JoltAppController extends ValueNotifier<ThemeData> {
       _JoltPreferences.textScale.name,
       defaultValue: 1.0,
     ) as double;
+    // Initialise spacing scale factor
+    spacingScaleFactorMultiplier = _joltPrefs.get(
+      _JoltPreferences.spacingScale.name,
+      defaultValue: 1.0,
+    ) as double;
     // Init platform brightness
     _platformBrightness = window.platformBrightness;
     window.onPlatformBrightnessChanged = () {
@@ -111,6 +116,13 @@ class JoltAppController extends ValueNotifier<ThemeData> {
     notifyListeners();
   }
 
+  /// Change the text scale factor multiplier.
+  void setSpacingScaleFactorMultiplier(double value) {
+    spacingScaleFactorMultiplier = value;
+    _save(_JoltPreferences.spacingScale, spacingScaleFactorMultiplier);
+    notifyListeners();
+  }
+
   /// The list of themes.
   final List<ThemeData> themes;
 
@@ -131,6 +143,9 @@ class JoltAppController extends ValueNotifier<ThemeData> {
   /// The text scale factor multiplier.
   late double textScaleFactorMultiplier;
 
+  /// The spacing scale factor multiplier.
+  late double spacingScaleFactorMultiplier;
+
   // Save preferences to Hive.
   Future<void> _save(_JoltPreferences option, dynamic value) async {
     await _joltPrefs.put(option.name, value);
@@ -142,4 +157,5 @@ enum _JoltPreferences {
   highContrast,
   primaryColor,
   textScale,
+  spacingScale,
 }

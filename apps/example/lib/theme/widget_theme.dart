@@ -1,12 +1,10 @@
 import 'package:jolt/jolt.dart';
 
 /// Return my widget theme
-WidgetTheme widgetTheme(
+WidgetThemeData widgetTheme(
   ThemeData theme,
-  // TODO maybe should pass separate dimensions
-  // Dimensions dimensions,
 ) {
-  return WidgetTheme(
+  return WidgetThemeData(
     surface: SurfaceTheme(
       borderRadius: theme.dimensions.borderRadius.l,
     ),

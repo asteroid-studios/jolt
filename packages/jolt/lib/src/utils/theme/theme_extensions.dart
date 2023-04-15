@@ -2,6 +2,9 @@ import 'package:jolt/jolt.dart';
 
 /// Some theming utility methods on BuildContext
 extension JoltThemeExtension on BuildContext {
+  /// Returns the current scaling data.
+  ScalingData get _scaling => Scaling.of(this);
+
   /// Returns the current theme data.
   ThemeData get theme => Theme.of(this);
 
@@ -15,7 +18,7 @@ extension JoltThemeExtension on BuildContext {
   Dimensions get dimensions => theme.dimensions;
 
   /// Returns the current spacing.
-  Spacing get spacing => dimensions.spacing;
+  Spacing get spacing => dimensions.spacing.scaled(_scaling.spacingScale);
 
   /// Returns the current border radius values.
   BorderRadiusData get borderRadius => dimensions.borderRadius;
@@ -25,6 +28,9 @@ extension JoltThemeExtension on BuildContext {
 
   /// Returns the current media query data.
   MediaQueryData get mediaQuery => MediaQuery.of(this);
+
+  /// Returns the current widget theme data.
+  WidgetThemeData get widgetTheme => WidgetTheme.of(this);
 }
 
 /// Some utility methods on ColorScheme
