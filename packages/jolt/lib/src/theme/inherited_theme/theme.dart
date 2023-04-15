@@ -14,8 +14,13 @@ class Theme extends StatelessWidget {
   const Theme({
     required this.data,
     required this.child,
+    this.textScaleFactorMultiplier = 1,
     super.key,
   });
+
+  /// The text scale factor multiplier to use
+  /// for this section of the widget tree.
+  final double textScaleFactorMultiplier;
 
   /// The theme data to use for this section of the widget tree.
   final ThemeData data;
@@ -38,29 +43,35 @@ class Theme extends StatelessWidget {
     // - The darkest neutral color from the color scheme
     final defaultColor = data.typography.defaultColor ??
         data.colorScheme.reversible.neutral.s900;
+
     return _InheritedTheme(
       theme: this,
       // Set the background color based on the theme
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 300),
         color: data.colorScheme.background,
-        // Set the default text style based on the theme
         child: DefaultTextStyle(
           style: TextStyle(
             color: defaultColor,
             fontSize: data.typography.body.fontSize,
           ),
           // Set the default icons based on the theme
-          child: IconTheme(
-            data: IconThemeData(
-              color: defaultColor,
-              size: data.typography.body.fontSize,
+          child: MediaQuery(
+            data: context.mediaQuery.copyWith(
+              textScaleFactor: context.mediaQuery.textScaleFactor *
+                  textScaleFactorMultiplier,
             ),
-            // Set the default text selection style based on the theme
-            child: DefaultSelectionStyle(
-              cursorColor: data.colorScheme.primary,
-              selectionColor: data.colorScheme.primary.withOpacity(0.3),
-              child: child,
+            child: IconTheme(
+              data: IconThemeData(
+                color: defaultColor,
+                size: data.typography.body.fontSize,
+              ),
+              // Set the default text selection style based on the theme
+              child: DefaultSelectionStyle(
+                cursorColor: data.colorScheme.primary,
+                selectionColor: data.colorScheme.primary.withOpacity(0.3),
+                child: child,
+              ),
             ),
           ),
         ),

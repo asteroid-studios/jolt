@@ -22,6 +22,9 @@ extension JoltThemeExtension on BuildContext {
 
   /// Returns the current border width.
   double get borderWidth => dimensions.borderWidth;
+
+  /// Returns the current media query data.
+  MediaQueryData get mediaQuery => MediaQuery.of(this);
 }
 
 /// Some utility methods on ColorScheme

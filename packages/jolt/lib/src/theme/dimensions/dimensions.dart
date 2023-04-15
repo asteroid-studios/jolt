@@ -19,6 +19,7 @@ class Dimensions {
   final double borderWidth;
 }
 
+// TODO how can a change spacing or allow switching between different spacing values?
 ///
 class Spacing {
   ///

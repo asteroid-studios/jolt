@@ -36,6 +36,11 @@ class JoltAppController extends ValueNotifier<ThemeData> {
       _JoltPreferences.primaryColor.name,
     ) as int?;
     primaryColor = primaryColorValue != null ? Color(primaryColorValue) : null;
+    // Initialise text scale factor
+    textScaleFactorMultiplier = _joltPrefs.get(
+      _JoltPreferences.textScale.name,
+      defaultValue: 1.0,
+    ) as double;
     // Init platform brightness
     _platformBrightness = window.platformBrightness;
     window.onPlatformBrightnessChanged = () {
@@ -99,9 +104,17 @@ class JoltAppController extends ValueNotifier<ThemeData> {
     _refreshTheme();
   }
 
+  /// Change the text scale factor multiplier.
+  void setTextScaleFactorMultiplier(double value) {
+    textScaleFactorMultiplier = value;
+    _save(_JoltPreferences.textScale, textScaleFactorMultiplier);
+    notifyListeners();
+  }
+
   /// The list of themes.
   final List<ThemeData> themes;
 
+  /// The current primary color.
   Color? primaryColor;
 
   /// The current theme mode.
@@ -115,6 +128,9 @@ class JoltAppController extends ValueNotifier<ThemeData> {
 
   final _joltPrefs = Hive.box(joltStorageKey);
 
+  /// The text scale factor multiplier.
+  late double textScaleFactorMultiplier;
+
   // Save preferences to Hive.
   Future<void> _save(_JoltPreferences option, dynamic value) async {
     await _joltPrefs.put(option.name, value);
@@ -125,4 +141,5 @@ enum _JoltPreferences {
   themeMode,
   highContrast,
   primaryColor,
+  textScale,
 }

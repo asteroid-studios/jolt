@@ -109,45 +109,53 @@ class _JoltAppState extends State<JoltApp> with WidgetsBindingObserver {
       DefaultWidgetsLocalizations.delegate,
     ];
 
-    return ValueListenableBuilder<ThemeData>(
-      valueListenable: controller,
-      child: widget.child,
-      builder: (BuildContext context, ThemeData theme, Widget? child) {
-        final usesRouter =
-            widget.routerDelegate != null || widget.routerConfig != null;
-        final app = usesRouter
-            ? WidgetsApp.router(
-                color: theme.colorScheme.primary,
-                title: widget.title ?? '',
-                debugShowCheckedModeBanner: widget.debugShowCheckedModeBanner,
-                localizationsDelegates: localizationsDelegates,
-                routerConfig: widget.routerConfig,
-                routeInformationProvider: widget.routeInformationProvider,
-                routeInformationParser: widget.routeInformationParser,
-                routerDelegate: widget.routerDelegate,
-                backButtonDispatcher: widget.backButtonDispatcher,
-              )
-            : WidgetsApp(
-                color: theme.colorScheme.primary,
-                home: child,
-                title: widget.title ?? '',
-                localizationsDelegates: localizationsDelegates,
-                debugShowCheckedModeBanner: widget.debugShowCheckedModeBanner,
-                navigatorObservers: widget.navigatorObservers ?? [],
-                pageRouteBuilder:
-                    <T>(RouteSettings settings, WidgetBuilder builder) {
-                  return MaterialPageRoute<T>(
-                      settings: settings, builder: builder);
-                },
-              );
-        return _JoltInherited(
-          controller: controller,
-          widgetTheme: widget.widgetTheme != null
-              ? widget.widgetTheme!(theme)
-              : const WidgetTheme(),
-          child: Theme(data: theme, child: app),
-        );
-      },
+    return MediaQuery.fromWindow(
+      child: ValueListenableBuilder<ThemeData>(
+        valueListenable: controller,
+        child: widget.child,
+        builder: (BuildContext context, ThemeData theme, Widget? child) {
+          final usesRouter =
+              widget.routerDelegate != null || widget.routerConfig != null;
+          final app = usesRouter
+              ? WidgetsApp.router(
+                  color: theme.colorScheme.primary,
+                  title: widget.title ?? '',
+                  debugShowCheckedModeBanner: widget.debugShowCheckedModeBanner,
+                  localizationsDelegates: localizationsDelegates,
+                  routerConfig: widget.routerConfig,
+                  useInheritedMediaQuery: true,
+                  routeInformationProvider: widget.routeInformationProvider,
+                  routeInformationParser: widget.routeInformationParser,
+                  routerDelegate: widget.routerDelegate,
+                  backButtonDispatcher: widget.backButtonDispatcher,
+                )
+              : WidgetsApp(
+                  color: theme.colorScheme.primary,
+                  home: child,
+                  title: widget.title ?? '',
+                  useInheritedMediaQuery: true,
+                  localizationsDelegates: localizationsDelegates,
+                  debugShowCheckedModeBanner: widget.debugShowCheckedModeBanner,
+                  navigatorObservers: widget.navigatorObservers ?? [],
+                  pageRouteBuilder:
+                      <T>(RouteSettings settings, WidgetBuilder builder) {
+                    return MaterialPageRoute<T>(
+                        settings: settings, builder: builder);
+                  },
+                );
+          return _JoltInherited(
+            controller: controller,
+            widgetTheme: widget.widgetTheme != null
+                ? widget.widgetTheme!(theme)
+                : const WidgetTheme(),
+            child: Theme(
+              data: theme,
+              textScaleFactorMultiplier: controller.textScaleFactorMultiplier,
+              child: app,
+            ),
+          );
+        },
+      ),
     );
   }
 }
