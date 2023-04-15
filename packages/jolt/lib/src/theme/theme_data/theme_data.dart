@@ -1,5 +1,3 @@
-import 'package:flutter/foundation.dart';
-
 import 'package:jolt/jolt.dart';
 
 /// Describes which color scheme will be used by **JoltApp**.

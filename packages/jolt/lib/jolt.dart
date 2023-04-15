@@ -1,5 +1,9 @@
+// Flutter exports
+export 'package:flutter/widgets.dart';
+
 // Export the JoltApp widget
 export 'src/app/app.dart';
+export 'src/app/app_controller.dart';
 
 // Theming exports
 export 'src/theme/color/jolt_color.dart';

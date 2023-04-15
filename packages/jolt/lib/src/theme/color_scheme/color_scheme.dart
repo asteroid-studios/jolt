@@ -1,5 +1,3 @@
-import 'package:flutter/widgets.dart';
-
 import 'package:jolt/jolt.dart';
 
 export 'dart:ui' show Brightness;

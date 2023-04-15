@@ -1,5 +1,17 @@
 import 'package:jolt/jolt.dart';
 
+/// Some theming utility methods on BuildContext
+extension JoltThemeExtension on BuildContext {
+  /// Returns the current theme data.
+  ThemeData get theme => Theme.of(this);
+
+  /// Returns the current color scheme.
+  ColorScheme get color => theme.colorScheme;
+
+  /// Returns the current typography.
+  Typography get textStyle => theme.typography;
+}
+
 /// Some utility methods on ColorScheme
 extension JoltColorSchemeExtension on ColorScheme {
   /// Returns a copy of the color scheme

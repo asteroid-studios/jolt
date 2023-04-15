@@ -1,5 +1,3 @@
-import 'package:flutter/widgets.dart';
-
 import 'package:jolt/jolt.dart';
 
 // Define a default backup theme

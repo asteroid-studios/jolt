@@ -1,19 +1,8 @@
 import 'package:flutter/cupertino.dart' show DefaultCupertinoLocalizations;
-import 'package:flutter/material.dart' show DefaultMaterialLocalizations;
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart'
+    show DefaultMaterialLocalizations, MaterialPageRoute;
 
 import 'package:jolt/jolt.dart';
-
-final _defaultThemes = [
-  ThemeData(
-    id: 'default_light',
-    colorScheme: ColorScheme.light(),
-  ),
-  ThemeData(
-    id: 'default_dark',
-    colorScheme: ColorScheme.dark(),
-  ),
-];
 
 /// The Jolt app.
 class JoltApp extends StatefulWidget {
@@ -76,18 +65,35 @@ class JoltApp extends StatefulWidget {
   final List<ThemeData>? themes;
 
   @override
-  State<JoltApp> createState() => JoltAppState();
+  State<JoltApp> createState() => _JoltAppState();
 }
 
-class JoltAppState extends State<JoltApp> with WidgetsBindingObserver {
-  bool get _usesRouter =>
-      widget.routerDelegate != null || widget.routerConfig != null;
+class _JoltAppState extends State<JoltApp> with WidgetsBindingObserver {
+  late JoltAppController controller;
 
   @override
   void initState() {
-    _initialisePlatformBrightness();
-    _initialiseThemes();
+    controller = JoltAppController(
+      window: WidgetsBinding.instance.window,
+      themes: widget.themes ??
+          [
+            ThemeData(
+              id: 'default_light',
+              colorScheme: ColorScheme.light(),
+            ),
+            ThemeData(
+              id: 'default_dark',
+              colorScheme: ColorScheme.dark(),
+            ),
+          ],
+    );
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
   }
 
   @override
@@ -98,116 +104,69 @@ class JoltAppState extends State<JoltApp> with WidgetsBindingObserver {
       DefaultWidgetsLocalizations.delegate,
     ];
 
-    final app = _usesRouter
-        ? WidgetsApp.router(
-            color: theme.colorScheme.primary,
-            title: widget.title ?? '',
-            debugShowCheckedModeBanner: widget.debugShowCheckedModeBanner,
-            localizationsDelegates: localizationsDelegates,
-            routerConfig: widget.routerConfig,
-            routeInformationProvider: widget.routeInformationProvider,
-            routeInformationParser: widget.routeInformationParser,
-            routerDelegate: widget.routerDelegate,
-            backButtonDispatcher: widget.backButtonDispatcher,
-          )
-        : WidgetsApp(
-            color: theme.colorScheme.primary,
-            home: widget.child,
-            title: widget.title ?? '',
-            localizationsDelegates: localizationsDelegates,
-            debugShowCheckedModeBanner: widget.debugShowCheckedModeBanner,
-            navigatorObservers: widget.navigatorObservers ?? [],
-          );
-
-    return _JoltInherited(
-      state: this,
-      child: Theme(
-        data: theme,
-        child: app,
-      ),
+    return ValueListenableBuilder<ThemeData>(
+      valueListenable: controller,
+      child: widget.child,
+      builder: (BuildContext context, ThemeData theme, Widget? child) {
+        final usesRouter =
+            widget.routerDelegate != null || widget.routerConfig != null;
+        final app = usesRouter
+            ? WidgetsApp.router(
+                color: theme.colorScheme.primary,
+                title: widget.title ?? '',
+                debugShowCheckedModeBanner: widget.debugShowCheckedModeBanner,
+                localizationsDelegates: localizationsDelegates,
+                routerConfig: widget.routerConfig,
+                routeInformationProvider: widget.routeInformationProvider,
+                routeInformationParser: widget.routeInformationParser,
+                routerDelegate: widget.routerDelegate,
+                backButtonDispatcher: widget.backButtonDispatcher,
+              )
+            : WidgetsApp(
+                color: theme.colorScheme.primary,
+                home: child,
+                title: widget.title ?? '',
+                localizationsDelegates: localizationsDelegates,
+                debugShowCheckedModeBanner: widget.debugShowCheckedModeBanner,
+                navigatorObservers: widget.navigatorObservers ?? [],
+                pageRouteBuilder:
+                    <T>(RouteSettings settings, WidgetBuilder builder) {
+                  return MaterialPageRoute<T>(
+                      settings: settings, builder: builder);
+                },
+              );
+        return _JoltInherited(
+          controller: controller,
+          child: Theme(data: theme, child: app),
+        );
+      },
     );
-  }
-
-  void _initialisePlatformBrightness() {
-    final window = WidgetsBinding.instance.window;
-    platformBrightness = window.platformBrightness;
-    window.onPlatformBrightnessChanged = () {
-      WidgetsBinding.instance.handlePlatformBrightnessChanged();
-      platformBrightness = window.platformBrightness;
-      _refreshTheme();
-    };
-  }
-
-  void _initialiseThemes() {
-    // Assign the available themes
-    themeMode =
-        // ThemeMode.values.maybeByName(_joltPrefs.get(themeModeKey)) ??
-        ThemeMode.system;
-    themes = widget.themes ?? _defaultThemes;
-    // // Copy all the extra info needed to each theme
-    // for (int i = 0; i < themes.length; i++) {
-    //   if (widget.themeExtensions != null) {
-    //     themes[i] = (widget.themeExtensions ?? const JoltThemeExtensions())
-    //         .themeFromExtensions(themes[i]);
-    //   }
-    // }
-    _refreshTheme();
-  }
-
-  void setTheme(ThemeMode mode) {
-    setState(() {
-      themeMode = mode;
-    });
-    // _joltPrefs.put(themeModeKey, mode.name);
-    _refreshTheme();
-  }
-
-  void _refreshTheme() {
-    setState(() {
-      theme = themes.firstWhere(
-        (theme) => theme.colorScheme.brightness == _brightnessFromThemeMode(),
-      );
-    });
-  }
-
-  late List<ThemeData> themes;
-  late ThemeData theme;
-  late ThemeMode themeMode;
-  // late UIScale uiScale;
-  late Brightness platformBrightness;
-
-  // final _joltPrefs = Hive.box(joltStorageKey);
-
-  Brightness _brightnessFromThemeMode() {
-    switch (themeMode) {
-      case ThemeMode.system:
-        return platformBrightness;
-      case ThemeMode.light:
-        return Brightness.light;
-      case ThemeMode.dark:
-        return Brightness.dark;
-    }
-  }
-
-  /// A static method to make the jolt app state accessible
-  static JoltAppState of(BuildContext context) {
-    final joltInherited =
-        context.dependOnInheritedWidgetOfExactType<_JoltInherited>();
-    if (joltInherited == null) throw Exception('JoltApp not found');
-    return joltInherited.state;
   }
 }
 
-// The inherited widget for JoltApp to make it's data available to all children below
+// The inherited widget for JoltApp to make it's methods available
+// to all children below
 class _JoltInherited extends InheritedWidget {
   const _JoltInherited({
-    required this.state,
+    required this.controller,
     required super.child,
   });
 
-  final JoltAppState state;
+  final JoltAppController controller;
+
+  static _JoltInherited of(BuildContext context) {
+    final inherited =
+        context.dependOnInheritedWidgetOfExactType<_JoltInherited>();
+    if (inherited == null) throw Exception('JoltApp not found');
+    return inherited;
+  }
 
   @override
-  bool updateShouldNotify(covariant InheritedWidget oldWidget) =>
-      false; // TODO check
+  bool updateShouldNotify(covariant InheritedWidget oldWidget) => false;
+}
+
+///
+extension JoltControllerExtension on BuildContext {
+  /// The JoltAppController.
+  JoltAppController get jolt => _JoltInherited.of(this).controller;
 }

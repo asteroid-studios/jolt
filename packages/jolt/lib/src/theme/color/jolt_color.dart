@@ -6,7 +6,8 @@ class JoltColor extends Color {
   ///
   /// - The **primary** color is the default color for the swatch.
   ///
-  /// - The **highlight** color is the color which has the highest contrast with the default color.
+  /// - The **highlight** color is the color which has the
+  /// highest contrast with the default color.
   ///
   /// - **shade50** should be the lightest shade.
   ///
