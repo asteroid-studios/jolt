@@ -20,10 +20,14 @@ class ThemeData {
     required this.id,
     required this.colorScheme,
     this.typography = const Typography(),
+    this.dimensions = const Dimensions(),
   });
 
   /// The id of the theme.
   final String id;
+
+  /// The dimensions of the theme.
+  final Dimensions dimensions;
 
   /// The color scheme.
   final ColorScheme colorScheme;
@@ -36,11 +40,13 @@ class ThemeData {
     ColorScheme? colorScheme,
     String? id,
     Typography? typography,
+    Dimensions? dimensions,
   }) {
     return ThemeData(
       colorScheme: colorScheme ?? this.colorScheme,
       id: id ?? this.id,
       typography: typography ?? this.typography,
+      dimensions: dimensions ?? this.dimensions,
     );
   }
 
@@ -52,7 +58,8 @@ class ThemeData {
     return other is ThemeData &&
         other.colorScheme == colorScheme &&
         other.id == id &&
-        other.typography == typography;
+        other.typography == typography &&
+        other.dimensions == dimensions;
   }
 
   @override
@@ -61,6 +68,7 @@ class ThemeData {
       colorScheme,
       id,
       typography,
+      dimensions,
     ];
     return Object.hashAll(values);
   }

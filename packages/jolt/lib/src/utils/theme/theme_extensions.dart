@@ -10,6 +10,18 @@ extension JoltThemeExtension on BuildContext {
 
   /// Returns the current typography.
   Typography get textStyle => theme.typography;
+
+  /// Returns the current dimensions.
+  Dimensions get dimensions => theme.dimensions;
+
+  /// Returns the current spacing.
+  Spacing get spacing => dimensions.spacing;
+
+  /// Returns the current border radius values.
+  BorderRadiusData get borderRadius => dimensions.borderRadius;
+
+  /// Returns the current border width.
+  double get borderWidth => dimensions.borderWidth;
 }
 
 /// Some utility methods on ColorScheme

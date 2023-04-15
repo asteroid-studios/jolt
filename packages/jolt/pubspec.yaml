@@ -9,9 +9,11 @@ environment:
 
 dependencies:
   collection: ^1.17.0
+  flutter_animate: ^4.1.1+1
   flutter:
     sdk: flutter
   hive_flutter: ^2.0.0-dev
+  tinycolor2: ^3.0.1
 
 dev_dependencies:
   flutter_test:

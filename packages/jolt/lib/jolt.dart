@@ -9,9 +9,16 @@ export 'src/app/app_controller.dart';
 export 'src/theme/color/jolt_color.dart';
 export 'src/theme/color_scheme/color_scheme.dart';
 export 'src/theme/colors/colors.dart';
+export 'src/theme/dimensions/dimensions.dart';
 export 'src/theme/inherited_theme/theme.dart';
 export 'src/theme/theme_data/theme_data.dart';
 export 'src/theme/typography/typography.dart';
 
+// Widget export
+export 'src/widgets/control_builder/control_builder.dart';
+export 'src/widgets/surface/surface.dart';
+
 // Utils exports
 export 'src/utils/theme/theme_extensions.dart';
+export 'src/utils/theme/widget_theme.dart';
+export 'src/utils/platform/platform.dart';
