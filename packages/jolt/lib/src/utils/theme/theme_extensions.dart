@@ -25,6 +25,15 @@ extension JoltColorSchemeExtension on ColorScheme {
       );
     }
   }
+
+  /// Returns a copy of the color scheme with high contrast.
+  ColorScheme get withHighContrast {
+    return copyWith(
+      highContrast: true,
+      background: background.asBackground(highContrast: true),
+      surface: surface.asSurface(highContrast: true),
+    );
+  }
 }
 
 /// Some utility methods on JoltColor
@@ -72,7 +81,7 @@ extension JoltColorExtension on JoltColor {
   /// - Reassigns the primary color to be the value from **shade200**
   /// - Reassigns the highlight color to be the value from **shade950**
   JoltColor asSurface({bool highContrast = true}) => JoltColor(
-        highContrast ? s200.value : s300.value,
+        highContrast ? s300.value : s200.value,
         highlight: s950.value,
         shade50: s50.value,
         shade100: s100.value,

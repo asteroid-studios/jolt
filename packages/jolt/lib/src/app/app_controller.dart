@@ -17,7 +17,26 @@ class JoltAppController extends ValueNotifier<ThemeData> {
     required this.themes,
     required SingletonFlutterWindow window,
   }) : super(themes.first) {
-    themeMode = ThemeMode.system;
+    // Initialise theme mode
+    themeMode = ThemeMode.values.byName(
+      _joltPrefs
+          .get(
+            _JoltPreferences.themeMode.name,
+            defaultValue: ThemeMode.system.name,
+          )
+          .toString(),
+    );
+    // Initialise high contrast
+    highContrast = _joltPrefs.get(
+      _JoltPreferences.highContrast.name,
+      defaultValue: false,
+    ) as bool;
+    // Initialise primary color
+    final primaryColorValue = _joltPrefs.get(
+      _JoltPreferences.primaryColor.name,
+    ) as int?;
+    primaryColor = primaryColorValue != null ? Color(primaryColorValue) : null;
+    // Init platform brightness
     _platformBrightness = window.platformBrightness;
     window.onPlatformBrightnessChanged = () {
       WidgetsBinding.instance.handlePlatformBrightnessChanged();
@@ -28,11 +47,26 @@ class JoltAppController extends ValueNotifier<ThemeData> {
   }
 
   void _refreshTheme() {
-    final theme = themes.firstWhereOrNull(
+    // Get the new theme
+    value = themes.firstWhereOrNull(
+          (theme) {
+            final colorScheme = theme.colorScheme;
+            return colorScheme.brightness == _brightnessFromThemeMode() &&
+                colorScheme.highContrast == highContrast &&
+                colorScheme.primary.value == primaryColor?.value;
+          },
+        ) ??
+        themes.firstWhereOrNull(
+          (theme) {
+            final colorScheme = theme.colorScheme;
+            return colorScheme.brightness == _brightnessFromThemeMode() &&
+                colorScheme.highContrast == highContrast;
+          },
+        ) ??
+        themes.firstWhereOrNull(
           (theme) => theme.colorScheme.brightness == _brightnessFromThemeMode(),
         ) ??
         themes.first;
-    value = theme;
     notifyListeners();
   }
 
@@ -48,16 +82,47 @@ class JoltAppController extends ValueNotifier<ThemeData> {
   }
 
   /// Change the theme.
-  void setTheme(ThemeMode mode) {
+  void setTheme(ThemeMode mode, {bool? withHighContrast}) {
     themeMode = mode;
+    _save(_JoltPreferences.themeMode, themeMode.name);
+    if (withHighContrast != null) {
+      highContrast = withHighContrast;
+      _save(_JoltPreferences.highContrast, highContrast);
+    }
+    _refreshTheme();
+  }
+
+  /// Change the primary color.
+  void setPrimaryColor(Color color) {
+    primaryColor = color;
+    _save(_JoltPreferences.primaryColor, primaryColor?.value);
     _refreshTheme();
   }
 
   /// The list of themes.
   final List<ThemeData> themes;
 
+  Color? primaryColor;
+
   /// The current theme mode.
   late ThemeMode themeMode;
+
+  /// If the user has selected the high contrast theme option
+  late bool highContrast;
+
+  // The current platform brightness.
   late Brightness _platformBrightness;
+
   final _joltPrefs = Hive.box(joltStorageKey);
+
+  // Save preferences to Hive.
+  Future<void> _save(_JoltPreferences option, dynamic value) async {
+    await _joltPrefs.put(option.name, value);
+  }
+}
+
+enum _JoltPreferences {
+  themeMode,
+  highContrast,
+  primaryColor,
 }

@@ -3,10 +3,10 @@ import 'package:flutter/widgets.dart';
 import 'package:jolt/src/theme/color/jolt_color.dart';
 
 /// Some pre-made colors for Jolt.
-class JoltColors {
+class Colors {
   // This class is not meant to be instantiated or extended; this constructor
   // prevents instantiation and extension.
-  JoltColors._();
+  Colors._();
 
   /// Completely invisible.
   static const Color transparent = Color(0x00000000);

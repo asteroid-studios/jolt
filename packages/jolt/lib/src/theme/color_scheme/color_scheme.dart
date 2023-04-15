@@ -34,22 +34,21 @@ class ColorScheme {
     JoltColor? warning,
     JoltColor? info,
     JoltColor? success,
-    this.highContrast = true,
+    this.highContrast = false,
     // ignore: avoid_field_initializers_in_const_classes
   })  : brightness = Brightness.light,
-        primary = primary ?? JoltColors.emerald,
-        secondary = secondary ?? JoltColors.violet,
-        tertiary = tertiary ?? JoltColors.violet,
-        neutral = neutral ?? JoltColors.slate,
+        primary = primary ?? Colors.emerald,
+        secondary = secondary ?? Colors.violet,
+        tertiary = tertiary ?? Colors.violet,
+        neutral = neutral ?? Colors.slate,
         background = background ??
-            (neutral ?? JoltColors.slate)
-                .asBackground(highContrast: highContrast),
+            (neutral ?? Colors.slate).asBackground(highContrast: highContrast),
         surface = surface ??
-            (neutral ?? JoltColors.slate).asSurface(highContrast: highContrast),
-        error = error ?? JoltColors.red,
-        warning = warning ?? JoltColors.amber,
-        info = info ?? JoltColors.sky,
-        success = success ?? JoltColors.emerald;
+            (neutral ?? Colors.slate).asSurface(highContrast: highContrast),
+        error = error ?? Colors.red,
+        warning = warning ?? Colors.amber,
+        info = info ?? Colors.sky,
+        success = success ?? Colors.emerald;
 
   ///
   ColorScheme.dark({
@@ -63,25 +62,25 @@ class ColorScheme {
     JoltColor? warning,
     JoltColor? info,
     JoltColor? success,
-    this.highContrast = true,
+    this.highContrast = false,
     // ignore: avoid_field_initializers_in_const_classes
   })  : brightness = Brightness.dark,
-        primary = primary ?? JoltColors.emerald,
-        secondary = secondary ?? JoltColors.violet,
-        tertiary = tertiary ?? JoltColors.violet,
-        neutral = neutral ?? JoltColors.slate,
+        primary = primary ?? Colors.emerald,
+        secondary = secondary ?? Colors.violet,
+        tertiary = tertiary ?? Colors.violet,
+        neutral = neutral ?? Colors.slate,
         background = background ??
-            (neutral ?? JoltColors.slate)
+            (neutral ?? Colors.slate)
                 .reversed
                 .asBackground(highContrast: highContrast),
         surface = surface ??
-            (neutral ?? JoltColors.slate)
+            (neutral ?? Colors.slate)
                 .reversed
                 .asSurface(highContrast: highContrast),
-        error = error ?? JoltColors.red,
-        warning = warning ?? JoltColors.amber,
-        info = info ?? JoltColors.sky,
-        success = success ?? JoltColors.emerald;
+        error = error ?? Colors.red,
+        warning = warning ?? Colors.amber,
+        info = info ?? Colors.sky,
+        success = success ?? Colors.emerald;
 
   /// Whether to use high contrast colors for background and surface.
   final bool highContrast;
@@ -131,6 +130,7 @@ class ColorScheme {
     JoltColor? warning,
     JoltColor? info,
     JoltColor? success,
+    bool? highContrast,
   }) {
     return ColorScheme._(
       brightness: brightness,
@@ -144,7 +144,7 @@ class ColorScheme {
       warning: warning ?? this.warning,
       info: info ?? this.info,
       success: success ?? this.success,
-      highContrast: highContrast,
+      highContrast: highContrast ?? this.highContrast,
     );
   }
 
