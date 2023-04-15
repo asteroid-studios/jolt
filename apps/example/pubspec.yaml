@@ -1,0 +1,23 @@
+name: example
+description: An example app utilizing the jolt package
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+version: 1.0.0+1
+
+environment:
+  sdk: '>=2.19.6 <3.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  jolt: 
+    path: ../../packages/jolt
+
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  very_good_analysis: ^4.0.0+1
+
+flutter:
+  uses-material-design: false
+

@@ -1,0 +1,191 @@
+import 'package:flutter/widgets.dart';
+
+import 'package:jolt/jolt.dart';
+
+export 'dart:ui' show Brightness;
+
+// TODO handle shadow color as well, unless it's just part of SurfaceData
+
+/// The color scheme for the app.
+@immutable
+class ColorScheme {
+  const ColorScheme._({
+    required this.brightness,
+    required this.primary,
+    required this.secondary,
+    required this.tertiary,
+    required this.surface,
+    required this.background,
+    required this.neutral,
+    required this.info,
+    required this.warning,
+    required this.error,
+    required this.success,
+    required this.highContrast,
+  });
+
+  ///
+  ColorScheme.light({
+    JoltColor? primary,
+    JoltColor? secondary,
+    JoltColor? tertiary,
+    JoltColor? background,
+    JoltColor? surface,
+    JoltColor? neutral,
+    JoltColor? error,
+    JoltColor? warning,
+    JoltColor? info,
+    JoltColor? success,
+    this.highContrast = true,
+    // ignore: avoid_field_initializers_in_const_classes
+  })  : brightness = Brightness.light,
+        primary = primary ?? JoltColors.emerald,
+        secondary = secondary ?? JoltColors.violet,
+        tertiary = tertiary ?? JoltColors.violet,
+        neutral = neutral ?? JoltColors.slate,
+        background = background ??
+            (neutral ?? JoltColors.slate)
+                .asBackground(highContrast: highContrast),
+        surface = surface ??
+            (neutral ?? JoltColors.slate).asSurface(highContrast: highContrast),
+        error = error ?? JoltColors.red,
+        warning = warning ?? JoltColors.amber,
+        info = info ?? JoltColors.sky,
+        success = success ?? JoltColors.emerald;
+
+  ///
+  ColorScheme.dark({
+    JoltColor? primary,
+    JoltColor? secondary,
+    JoltColor? tertiary,
+    JoltColor? background,
+    JoltColor? surface,
+    JoltColor? neutral,
+    JoltColor? error,
+    JoltColor? warning,
+    JoltColor? info,
+    JoltColor? success,
+    this.highContrast = true,
+    // ignore: avoid_field_initializers_in_const_classes
+  })  : brightness = Brightness.dark,
+        primary = primary ?? JoltColors.emerald,
+        secondary = secondary ?? JoltColors.violet,
+        tertiary = tertiary ?? JoltColors.violet,
+        neutral = neutral ?? JoltColors.slate,
+        background = background ??
+            (neutral ?? JoltColors.slate)
+                .reversed
+                .asBackground(highContrast: highContrast),
+        surface = surface ??
+            (neutral ?? JoltColors.slate)
+                .reversed
+                .asSurface(highContrast: highContrast),
+        error = error ?? JoltColors.red,
+        warning = warning ?? JoltColors.amber,
+        info = info ?? JoltColors.sky,
+        success = success ?? JoltColors.emerald;
+
+  /// Whether to use high contrast colors for background and surface.
+  final bool highContrast;
+
+  ///
+  final Brightness brightness;
+
+  ///
+  final JoltColor primary;
+
+  ///
+  final JoltColor secondary;
+
+  ///
+  final JoltColor tertiary;
+
+  ///
+  final JoltColor surface;
+
+  ///
+  final JoltColor background;
+
+  ///
+  final JoltColor neutral;
+
+  ///
+  final JoltColor info;
+
+  ///
+  final JoltColor warning;
+
+  ///
+  final JoltColor error;
+
+  ///
+  final JoltColor success;
+
+  ///
+  ColorScheme copyWith({
+    JoltColor? primary,
+    JoltColor? secondary,
+    JoltColor? tertiary,
+    JoltColor? background,
+    JoltColor? surface,
+    JoltColor? neutral,
+    JoltColor? error,
+    JoltColor? warning,
+    JoltColor? info,
+    JoltColor? success,
+  }) {
+    return ColorScheme._(
+      brightness: brightness,
+      primary: primary ?? this.primary,
+      secondary: secondary ?? this.secondary,
+      tertiary: tertiary ?? this.tertiary,
+      background: background ?? this.background,
+      surface: surface ?? this.surface,
+      neutral: neutral ?? this.neutral,
+      error: error ?? this.error,
+      warning: warning ?? this.warning,
+      info: info ?? this.info,
+      success: success ?? this.success,
+      highContrast: highContrast,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (other.runtimeType != runtimeType) {
+      return false;
+    }
+    return other is ColorScheme &&
+        other.highContrast == highContrast &&
+        other.brightness == brightness &&
+        other.primary == primary &&
+        other.secondary == secondary &&
+        other.tertiary == tertiary &&
+        other.surface == surface &&
+        other.background == background &&
+        other.neutral == neutral &&
+        other.info == info &&
+        other.warning == warning &&
+        other.error == error &&
+        other.success == success;
+  }
+
+  @override
+  int get hashCode {
+    final values = <Object?>[
+      highContrast,
+      brightness,
+      primary,
+      secondary,
+      tertiary,
+      surface,
+      background,
+      neutral,
+      info,
+      warning,
+      error,
+      success,
+    ];
+    return Object.hashAll(values);
+  }
+}
