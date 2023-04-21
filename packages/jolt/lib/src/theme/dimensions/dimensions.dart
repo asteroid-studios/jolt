@@ -5,7 +5,7 @@ class Dimensions {
   ///
   const Dimensions({
     this.borderRadius = const BorderRadiusData(),
-    this.spacing = const Spacing(),
+    this.sizing = const Sizing(),
     this.borderWidth = 2,
   });
 
@@ -13,23 +13,21 @@ class Dimensions {
   final BorderRadiusData borderRadius;
 
   ///
-  final Spacing spacing;
+  final Sizing sizing;
 
   ///
   final double borderWidth;
 }
 
-// TODO how can a change spacing or allow switching between different spacing values?
-// TODO I would prefer it to be like textScaleFactor, rather than having to remake different dimensions
 ///
-class Spacing {
+class Sizing {
   ///
-  const Spacing({
+  const Sizing({
     this.xxs = 4,
     this.xs = 8,
-    this.s = 12,
-    this.m = 16,
-    this.l = 24,
+    this.sm = 12,
+    this.md = 16,
+    this.lg = 24,
     this.xl = 32,
     this.xxl = 40,
     this.xxxl = 48,
@@ -45,13 +43,13 @@ class Spacing {
   final double xs;
 
   ///
-  final double s;
+  final double sm;
 
   ///
-  final double m;
+  final double md;
 
   ///
-  final double l;
+  final double lg;
 
   ///
   final double xl;
@@ -62,13 +60,13 @@ class Spacing {
   ///
   final double xxxl;
 
-  Spacing scaled(double scaleFactor) {
-    return Spacing(
+  Sizing scaled(double scaleFactor) {
+    return Sizing(
       xxs: xxs * scaleFactor,
       xs: xs * scaleFactor,
-      s: s * scaleFactor,
-      m: m * scaleFactor,
-      l: l * scaleFactor,
+      sm: sm * scaleFactor,
+      md: md * scaleFactor,
+      lg: lg * scaleFactor,
       xl: xl * scaleFactor,
       xxl: xxl * scaleFactor,
       xxxl: xxxl * scaleFactor,

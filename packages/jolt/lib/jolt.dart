@@ -17,6 +17,7 @@ export 'src/theme/typography/typography.dart';
 
 // Widget export
 export 'src/widgets/control_builder/control_builder.dart';
+export 'src/widgets/spacing/spacing.dart';
 export 'src/widgets/surface/surface.dart';
 export 'src/widgets/text/text.dart';
 

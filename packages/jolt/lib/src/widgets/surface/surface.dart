@@ -102,8 +102,8 @@ class _SurfaceState extends State<Surface> with SingleTickerProviderStateMixin {
       return _buildSurface(
         Padding(
           padding: EdgeInsets.symmetric(
-            horizontal: theme.horizontalPadding ?? context.spacing.s,
-            vertical: theme.verticalPadding ?? context.spacing.xs,
+            horizontal: theme.horizontalPadding ?? context.sizing.sm,
+            vertical: theme.verticalPadding ?? context.sizing.xs,
           ),
           child: widget.child,
         ),

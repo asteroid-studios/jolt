@@ -25,7 +25,7 @@ class App extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Padding(
-                  padding: EdgeInsets.all(context.spacing.xxxl),
+                  padding: EdgeInsets.all(context.sizing.xxxl),
                   child: Stack(
                     children: [
                       Positioned.fill(
@@ -62,23 +62,24 @@ class App extends StatelessWidget {
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsets.all(context.spacing.xxxl),
+                        padding: EdgeInsets.all(context.sizing.xxxl),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            JoltText(
-                              "Jolt",
-                              style: context.textStyle.displayLarge,
-                            ),
                             JoltText(
                               "Build your next idea\neven faster.",
                               style: context.textStyle.displayLarge
                                   .size(75)
                                   .copyWith(
                                     fontWeight: FontWeight.w800,
-                                    letterSpacing: -1,
+                                    letterSpacing: -2,
                                   ),
                             ),
+                            JoltText(
+                              "Display large",
+                              style: context.textStyle.displayLarge,
+                            ),
+                            const Spacing.sm(),
                             JoltText(
                               "Display",
                               style: context.textStyle.display,
@@ -184,7 +185,7 @@ class App extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(height: context.spacing.s),
+                SizedBox(height: context.sizing.sm),
                 Surface.focusable(
                   onPressed: () {
                     // dismiss focus
@@ -194,8 +195,8 @@ class App extends StatelessWidget {
                   },
                   builder: (_, __) => Padding(
                     padding: EdgeInsets.symmetric(
-                      horizontal: context.spacing.s,
-                      vertical: context.spacing.xs,
+                      horizontal: context.sizing.sm,
+                      vertical: context.sizing.xs,
                     ),
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
@@ -203,7 +204,7 @@ class App extends StatelessWidget {
                         JoltText(
                           'align',
                         ),
-                        SizedBox(width: context.spacing.s),
+                        SizedBox(width: context.sizing.sm),
                         Text(
                           'align',
                         ),
