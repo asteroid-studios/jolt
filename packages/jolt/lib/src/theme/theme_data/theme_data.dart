@@ -51,12 +51,12 @@ class Theme extends InheritedTheme {
 @immutable
 class ThemeData {
   /// Jolt Theme Data
-  const ThemeData({
+  ThemeData({
     required this.id,
     required this.colorScheme,
-    this.typography = const Typography(),
+    Typography? typography,
     this.dimensions = const Dimensions(),
-  });
+  }) : typography = typography ?? Typography();
 
   /// The id of the theme.
   final String id;

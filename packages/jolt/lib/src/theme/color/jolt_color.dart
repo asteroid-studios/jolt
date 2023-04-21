@@ -90,4 +90,19 @@ class JoltColor extends Color {
   /// The darkest shade.
   Color get s950 => Color(_shade950);
   final int _shade950;
+
+  /// Get a list of all the shades in the swatch.
+  List<Color> get shades => [
+        s50,
+        s100,
+        s200,
+        s300,
+        s400,
+        s500,
+        s600,
+        s700,
+        s800,
+        s900,
+        s950,
+      ];
 }

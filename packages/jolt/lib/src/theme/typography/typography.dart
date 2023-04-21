@@ -1,23 +1,50 @@
 import 'package:flutter/widgets.dart';
 
+const _defaultDisplayLarge = TextStyle(fontSize: 60);
+const _defaultDisplay = TextStyle(fontSize: 48);
+const _defaultDisplaySmall = TextStyle(fontSize: 36);
+const _defaultHeadingLarge = TextStyle(fontSize: 28);
+const _defaultHeading = TextStyle(fontSize: 24);
+const _defaultHeadingSmall = TextStyle(fontSize: 20);
+const _defaultBodyLarge = TextStyle(fontSize: 18);
+const _defaultBody = TextStyle(fontSize: 16);
+const _defaultBodySmall = TextStyle(fontSize: 14);
+const _defaultLabel = TextStyle(fontSize: 12);
+const _defaultLabelSmall = TextStyle(fontSize: 10);
+
 /// The typography for the theme.
 @immutable
 class Typography {
   /// Initialise the typography for the theme.
-  const Typography({
+  Typography({
     this.defaultColor,
-    this.displayLarge = const TextStyle(fontSize: 60),
-    this.display = const TextStyle(fontSize: 48),
-    this.displaySmall = const TextStyle(fontSize: 36),
-    this.headingLarge = const TextStyle(fontSize: 28),
-    this.heading = const TextStyle(fontSize: 24),
-    this.headingSmall = const TextStyle(fontSize: 20),
-    this.bodyLarge = const TextStyle(fontSize: 18),
-    this.body = const TextStyle(fontSize: 16),
-    this.bodySmall = const TextStyle(fontSize: 14),
-    this.label = const TextStyle(fontSize: 12),
-    this.labelSmall = const TextStyle(fontSize: 10),
-  });
+    TextStyle? displayLarge,
+    TextStyle? display,
+    TextStyle? displaySmall,
+    TextStyle? headingLarge,
+    TextStyle? heading,
+    TextStyle? headingSmall,
+    TextStyle? bodyLarge,
+    TextStyle? body,
+    TextStyle? bodySmall,
+    TextStyle? label,
+    TextStyle? labelSmall,
+  })  : displayLarge =
+            displayLarge?.merge(_defaultDisplayLarge) ?? _defaultDisplayLarge,
+        display = display?.merge(_defaultDisplay) ?? _defaultDisplay,
+        displaySmall =
+            displaySmall?.merge(_defaultDisplaySmall) ?? _defaultDisplaySmall,
+        headingLarge =
+            headingLarge?.merge(_defaultHeadingLarge) ?? _defaultHeadingLarge,
+        heading = heading?.merge(_defaultHeading) ?? _defaultHeading,
+        headingSmall =
+            headingSmall?.merge(_defaultHeadingSmall) ?? _defaultHeadingSmall,
+        bodyLarge = bodyLarge?.merge(_defaultBodyLarge) ?? _defaultBodyLarge,
+        body = body?.merge(_defaultBody) ?? _defaultBody,
+        bodySmall = bodySmall?.merge(_defaultBodySmall) ?? _defaultBodySmall,
+        label = label?.merge(_defaultLabel) ?? _defaultLabel,
+        labelSmall =
+            labelSmall?.merge(_defaultLabelSmall) ?? _defaultLabelSmall;
 
   /// The default color for text.
   final Color? defaultColor;

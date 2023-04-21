@@ -117,3 +117,12 @@ extension JoltColorExtension on JoltColor {
         shade950: s950.value,
       );
 }
+
+///
+extension TextStyleExtensions on TextStyle {
+  ///
+  TextStyle color(Color color) => copyWith(color: color);
+
+  ///
+  TextStyle size(double size) => copyWith(fontSize: size);
+}

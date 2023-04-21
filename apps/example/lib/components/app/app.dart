@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:jolt/jolt.dart';
 
 import 'package:example/theme/themes.dart';
@@ -10,6 +12,9 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    const blur = 100.0;
+    const begin = 3;
+    const end = 8;
     return JoltApp(
       themes: themes,
       widgetTheme: widgetTheme,
@@ -21,8 +26,103 @@ class App extends StatelessWidget {
               children: [
                 Padding(
                   padding: EdgeInsets.all(context.spacing.xxxl),
-                  child: JoltText(
-                    "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+                  child: Stack(
+                    children: [
+                      Positioned.fill(
+                        child: Container(
+                          decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                              begin: Alignment.bottomLeft,
+                              end: Alignment.topRight,
+                              colors: [
+                                ...Colors.violet.shades.getRange(begin, end),
+                                ...Colors.red.shades.getRange(begin, end),
+                                ...Colors.violet.shades.getRange(begin, end),
+                                ...Colors.sky.shades.getRange(begin, end),
+                                ...Colors.violet.shades.getRange(begin, end),
+                                ...Colors.red.shades.getRange(begin, end),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                      Positioned.fill(
+                        child: BackdropFilter(
+                          filter: ImageFilter.blur(sigmaX: blur, sigmaY: blur),
+                          child: Container(
+                            decoration: BoxDecoration(
+                              borderRadius: context.borderRadius.l,
+                              color: context.color.background.withOpacity(
+                                context.color.brightness == Brightness.dark
+                                    ? 0.8
+                                    : 0.6,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.all(context.spacing.xxxl),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            JoltText(
+                              "Jolt",
+                              style: context.textStyle.displayLarge,
+                            ),
+                            JoltText(
+                              "Build your next idea\neven faster.",
+                              style: context.textStyle.displayLarge
+                                  .size(75)
+                                  .copyWith(
+                                    fontWeight: FontWeight.w800,
+                                    letterSpacing: -1,
+                                  ),
+                            ),
+                            JoltText(
+                              "Display",
+                              style: context.textStyle.display,
+                            ),
+                            JoltText(
+                              "Display small",
+                              style: context.textStyle.displaySmall,
+                            ),
+                            JoltText(
+                              "Heading large",
+                              style: context.textStyle.headingLarge,
+                            ),
+                            JoltText(
+                              "Heading",
+                              style: context.textStyle.heading,
+                            ),
+                            JoltText(
+                              "Heading small",
+                              style: context.textStyle.headingSmall,
+                            ),
+                            JoltText(
+                              "Body large",
+                              style: context.textStyle.bodyLarge,
+                            ),
+                            JoltText(
+                              "Body",
+                              style: context.textStyle.body,
+                            ),
+                            JoltText(
+                              "Body small",
+                              style: context.textStyle.bodySmall,
+                            ),
+                            JoltText(
+                              "Label",
+                              style: context.textStyle.label,
+                            ),
+                            JoltText(
+                              "Label small",
+                              style: context.textStyle.labelSmall,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
                   ),
                 ),
                 GestureDetector(
@@ -101,11 +201,11 @@ class App extends StatelessWidget {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         JoltText(
-                          'Align',
+                          'align',
                         ),
                         SizedBox(width: context.spacing.s),
                         Text(
-                          'Align',
+                          'align',
                         ),
                       ],
                     ),

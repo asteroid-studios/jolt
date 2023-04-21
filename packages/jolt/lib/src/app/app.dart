@@ -140,7 +140,9 @@ class _JoltAppState extends State<JoltApp> with WidgetsBindingObserver {
                   pageRouteBuilder:
                       <T>(RouteSettings settings, WidgetBuilder builder) {
                     return MaterialPageRoute<T>(
-                        settings: settings, builder: builder);
+                      settings: settings,
+                      builder: builder,
+                    );
                   },
                 );
           return _JoltInherited(

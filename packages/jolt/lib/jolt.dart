@@ -10,7 +10,7 @@ export 'src/theme/color/jolt_color.dart';
 export 'src/theme/color_scheme/color_scheme.dart';
 export 'src/theme/colors/colors.dart';
 export 'src/theme/dimensions/dimensions.dart';
-export 'src/theme/theming_wrapper/theme.dart';
+export 'src/theme/themes/themes.dart';
 export 'src/theme/scaling/scaling.dart';
 export 'src/theme/theme_data/theme_data.dart';
 export 'src/theme/typography/typography.dart';
