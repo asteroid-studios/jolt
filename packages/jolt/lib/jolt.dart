@@ -23,6 +23,7 @@ export 'src/widgets/surface/surface.dart';
 export 'src/widgets/text/text.dart';
 
 // Utils exports
+export 'src/utils/responsive/edge_insets.dart';
 export 'src/utils/theme/theme_extensions.dart';
 export 'src/utils/theme/widget_theme.dart';
 export 'src/utils/platform/platform.dart';

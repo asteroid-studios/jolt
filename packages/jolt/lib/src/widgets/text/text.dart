@@ -25,7 +25,7 @@ class JoltText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final defaultTextStyle = style ?? context.textStyle.body;
+    final defaultTextStyle = style ?? context.style.body;
     return Text(
       data ?? '',
       style: defaultTextStyle.copyWith(

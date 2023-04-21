@@ -39,8 +39,8 @@ class Themes extends StatelessWidget {
               // Set the default color for text and icons to be either:
               // - The default color from the typography class
               // - The darkest neutral color from the color scheme
-              final defaultColor = context.textStyle.body.color ??
-                  context.color.surface.highlight;
+              final defaultColor =
+                  context.style.body.color ?? context.color.surface.highlight;
               return AnimatedContainer(
                 duration: const Duration(milliseconds: 300),
                 // TODO move this into my scaffold thing I end up making
@@ -50,11 +50,11 @@ class Themes extends StatelessWidget {
                       ? widgetTheme!(context.theme)
                       : const WidgetThemeData(),
                   child: DefaultTextStyle(
-                    style: context.textStyle.body.copyWith(color: defaultColor),
+                    style: context.style.body.copyWith(color: defaultColor),
                     child: IconTheme(
                       data: IconThemeData(
                         color: defaultColor,
-                        size: context.textStyle.body.fontSize,
+                        size: context.style.body.fontSize,
                       ),
                       child: DefaultSelectionStyle(
                         cursorColor: context.color.primary,

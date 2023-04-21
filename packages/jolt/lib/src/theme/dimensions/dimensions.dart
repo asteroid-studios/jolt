@@ -31,7 +31,7 @@ class Sizing {
     this.xl = 32,
     this.xxl = 40,
     this.xxxl = 48,
-    this.section = 96,
+    this.section = 128,
   });
 
   ///
@@ -64,6 +64,7 @@ class Sizing {
   ///
   final double section;
 
+  ///
   Sizing scaled(double scaleFactor) {
     return Sizing(
       xxs: xxs * scaleFactor,

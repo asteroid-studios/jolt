@@ -47,7 +47,7 @@ final typographyDark = typographyLight.copyWith(
   labelSmall: _inter300Dark,
 );
 
-/// My custom textstyles.
+/// My custom text styles.
 extension CustomTypography on Typography {
   /// Text style for button
   TextStyle get button => GoogleFonts.inter(

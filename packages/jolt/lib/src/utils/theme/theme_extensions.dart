@@ -1,5 +1,6 @@
-import 'package:jolt/jolt.dart';
 import 'package:tinycolor2/tinycolor2.dart';
+
+import 'package:jolt/jolt.dart';
 
 /// Some theming utility methods on BuildContext
 extension JoltThemeExtensions on BuildContext {
@@ -13,7 +14,7 @@ extension JoltThemeExtensions on BuildContext {
   ColorScheme get color => theme.colorScheme;
 
   /// Returns the current typography.
-  Typography get textStyle => theme.typography;
+  Typography get style => theme.typography;
 
   /// Returns the current dimensions.
   Dimensions get dimensions => theme.dimensions;
@@ -40,7 +41,7 @@ extension ThemeDataExtensions on ThemeData {
   ColorScheme get color => colorScheme;
 
   /// Returns the current typography.
-  Typography get textStyle => typography;
+  Typography get style => typography;
 
   /// Returns the current border radius values.
   BorderRadiusData get borderRadius => dimensions.borderRadius;
@@ -147,8 +148,8 @@ extension JoltColorExtension on JoltColor {
 ///
 extension TextStyleExtensions on TextStyle {
   ///
-  TextStyle color(Color? color) => copyWith(color: color);
+  TextStyle withColor([Color? color]) => copyWith(color: color);
 
   ///
-  TextStyle size(double? size) => copyWith(fontSize: size);
+  TextStyle withSize([double? size]) => copyWith(fontSize: size);
 }

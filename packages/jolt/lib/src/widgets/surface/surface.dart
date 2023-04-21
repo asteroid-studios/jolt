@@ -2,9 +2,8 @@ import 'dart:async';
 
 import 'package:flutter/services.dart';
 
-import 'package:tinycolor2/tinycolor2.dart';
-
 import 'package:jolt/jolt.dart';
+import 'package:tinycolor2/tinycolor2.dart';
 
 ///
 class Surface extends StatefulWidget {
@@ -87,6 +86,13 @@ class _SurfaceState extends State<Surface> with SingleTickerProviderStateMixin {
       return ClipRRect(
         borderRadius: defaultBorderRadius,
         child: AnimatedContainer(
+          padding: widget.padding ??
+              (widget.child == null
+                  ? null
+                  : EdgeInsets.symmetric(
+                      horizontal: theme.horizontalPadding ?? context.sizing.sm,
+                      vertical: theme.verticalPadding ?? context.sizing.xs,
+                    )),
           duration: const Duration(milliseconds: 300),
           decoration: BoxDecoration(
             borderRadius: defaultBorderRadius,
@@ -105,18 +111,7 @@ class _SurfaceState extends State<Surface> with SingleTickerProviderStateMixin {
       );
     }
 
-    if (widget.child != null) {
-      return _buildSurface(
-        Padding(
-          padding: widget.padding ??
-              EdgeInsets.symmetric(
-                horizontal: theme.horizontalPadding ?? context.sizing.sm,
-                vertical: theme.verticalPadding ?? context.sizing.xs,
-              ),
-          child: widget.child,
-        ),
-      );
-    }
+    if (widget.child != null) return _buildSurface(widget.child!);
     if (widget.builder == null) return const SizedBox.shrink();
 
     return FocusableControlBuilder(
