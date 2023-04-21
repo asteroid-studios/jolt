@@ -6,7 +6,9 @@ WidgetThemeData widgetTheme(
 ) {
   return WidgetThemeData(
     surface: SurfaceTheme(
-      borderRadius: theme.dimensions.borderRadius.l,
+      horizontalPadding: theme.dimensions.sizing.md,
+      verticalPadding: theme.dimensions.sizing.xs,
+      borderRadius: theme.borderRadius.md,
     ),
   );
 }

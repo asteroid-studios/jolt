@@ -4,9 +4,16 @@ import 'package:example/theme/typography.dart';
 
 const _neutralColor = Colors.slate;
 
-final _colorSchemeLight = ColorScheme.light(neutral: _neutralColor);
+final _colorSchemeLight = ColorScheme.light(
+  neutral: _neutralColor,
+).swapSurfaceWithBackground;
 
-final _colorSchemeDark = ColorScheme.dark(neutral: _neutralColor);
+final _colorSchemeLightHighContrast =
+    _colorSchemeLight.withHighContrast.swapSurfaceWithBackground;
+
+final _colorSchemeDark = ColorScheme.dark(
+  neutral: _neutralColor,
+);
 
 // final _buttonData = ButtonData(
 //   defaultStyle = _typography.body,
@@ -22,8 +29,18 @@ final themes = [
     typography: typographyLight,
   ),
   ThemeData(
+    colorScheme: _colorSchemeLightHighContrast,
+    id: 'default_light_high_contrast',
+    typography: typographyLight,
+  ),
+  ThemeData(
     colorScheme: _colorSchemeLight.copyWith(primary: Colors.violet),
     id: 'default_light_violet',
+    typography: typographyLight,
+  ),
+  ThemeData(
+    colorScheme: _colorSchemeLightHighContrast.copyWith(primary: Colors.violet),
+    id: 'default_light_violet_high_contrast',
     typography: typographyLight,
   ),
   ThemeData(

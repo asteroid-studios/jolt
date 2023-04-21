@@ -8,6 +8,12 @@ class Colors {
   // prevents instantiation and extension.
   Colors._();
 
+  ///
+  static const Color white = Color(0xffffffff);
+
+  ///
+  static const Color black = Color(0xff000000);
+
   /// Completely invisible.
   static const Color transparent = Color(0x00000000);
 

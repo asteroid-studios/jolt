@@ -1,5 +1,6 @@
 // Flutter exports
 export 'package:flutter/widgets.dart';
+export 'package:flutter/material.dart' show SelectionArea;
 
 // Export the JoltApp widget
 export 'src/app/app.dart';

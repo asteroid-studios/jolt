@@ -31,6 +31,7 @@ class Sizing {
     this.xl = 32,
     this.xxl = 40,
     this.xxxl = 48,
+    this.section = 96,
   });
 
   ///
@@ -60,6 +61,9 @@ class Sizing {
   ///
   final double xxxl;
 
+  ///
+  final double section;
+
   Sizing scaled(double scaleFactor) {
     return Sizing(
       xxs: xxs * scaleFactor,
@@ -70,6 +74,7 @@ class Sizing {
       xl: xl * scaleFactor,
       xxl: xxl * scaleFactor,
       xxxl: xxxl * scaleFactor,
+      section: section * scaleFactor,
     );
   }
 }
@@ -78,17 +83,20 @@ class Sizing {
 class BorderRadiusData {
   ///
   const BorderRadiusData({
-    this.s = const BorderRadius.all(Radius.circular(4)),
-    this.m = const BorderRadius.all(Radius.circular(8)),
-    this.l = const BorderRadius.all(Radius.circular(16)),
+    this.sm = const BorderRadius.all(Radius.circular(4)),
+    this.md = const BorderRadius.all(Radius.circular(8)),
+    this.lg = const BorderRadius.all(Radius.circular(32)),
   });
 
   ///
-  final BorderRadius s;
+  final BorderRadius sm;
 
   ///
-  final BorderRadius m;
+  final BorderRadius md;
 
   ///
-  final BorderRadius l;
+  final BorderRadius lg;
+
+  ///
+  BorderRadius get zero => BorderRadius.zero;
 }

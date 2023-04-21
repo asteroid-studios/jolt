@@ -13,6 +13,8 @@ class Surface extends StatefulWidget {
     required Widget this.child,
     this.background,
     this.borderColor,
+    this.borderRadius,
+    this.padding,
     super.key,
   })  : onPressed = null,
         onLongPressed = null,
@@ -27,6 +29,8 @@ class Surface extends StatefulWidget {
     required Widget Function(BuildContext, FocusableControlState) this.builder,
     this.background,
     this.borderColor,
+    this.borderRadius,
+    this.padding,
     this.onPressed,
     this.onLongPressed,
     this.cursor,
@@ -48,6 +52,8 @@ class Surface extends StatefulWidget {
 
   final Color? background;
   final Color? borderColor;
+  final BorderRadius? borderRadius;
+  final EdgeInsets? padding;
 
   @override
   State<Surface> createState() => _SurfaceState();
@@ -61,7 +67,8 @@ class _SurfaceState extends State<Surface> with SingleTickerProviderStateMixin {
     final theme = context.widgetTheme.surface;
     final defaultBackground =
         widget.background ?? theme.background ?? context.color.surface;
-    final defaultBorderRadius = theme.borderRadius ?? context.borderRadius.m;
+    final defaultBorderRadius =
+        widget.borderRadius ?? theme.borderRadius ?? context.borderRadius.md;
     final defaultHoverColor =
         theme.backgroundOnHover ?? defaultBackground.darken(5);
     final defaultFocusColor =
@@ -101,10 +108,11 @@ class _SurfaceState extends State<Surface> with SingleTickerProviderStateMixin {
     if (widget.child != null) {
       return _buildSurface(
         Padding(
-          padding: EdgeInsets.symmetric(
-            horizontal: theme.horizontalPadding ?? context.sizing.sm,
-            vertical: theme.verticalPadding ?? context.sizing.xs,
-          ),
+          padding: widget.padding ??
+              EdgeInsets.symmetric(
+                horizontal: theme.horizontalPadding ?? context.sizing.sm,
+                vertical: theme.verticalPadding ?? context.sizing.xs,
+              ),
           child: widget.child,
         ),
       );

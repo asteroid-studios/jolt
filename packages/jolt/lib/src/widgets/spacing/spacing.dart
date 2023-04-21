@@ -48,6 +48,9 @@ class Spacing extends _Spacing {
 
   ///
   const Spacing.xxxl({super.key}) : super(size: _SpacingSize.xxxl);
+
+  ///
+  const Spacing.section({super.key}) : super(size: _SpacingSize.section);
 }
 
 class _Spacing extends StatelessWidget {
@@ -83,6 +86,8 @@ class _Spacing extends StatelessWidget {
             return context.sizing.xxl;
           case _SpacingSize.xxxl:
             return context.sizing.xxxl;
+          case _SpacingSize.section:
+            return context.sizing.section;
         }
       }
       return context.sizing.md;
@@ -104,6 +109,7 @@ enum _SpacingSize {
   xl,
   xxl,
   xxxl,
+  section,
 }
 
 ///

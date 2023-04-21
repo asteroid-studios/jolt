@@ -1,7 +1,9 @@
+import 'package:tinycolor2/tinycolor2.dart';
+
 import 'package:jolt/jolt.dart';
 
 /// Some theming utility methods on BuildContext
-extension JoltThemeExtension on BuildContext {
+extension JoltThemeExtensions on BuildContext {
   /// Returns the current scaling data.
   ScalingData get _scaling => Scaling.of(this);
 
@@ -33,6 +35,21 @@ extension JoltThemeExtension on BuildContext {
   WidgetThemeData get widgetTheme => WidgetTheme.of(this);
 }
 
+/// Some theming utility methods on BuildContext
+extension ThemeDataExtensions on ThemeData {
+  /// Returns the current color scheme.
+  ColorScheme get color => colorScheme;
+
+  /// Returns the current typography.
+  Typography get textStyle => typography;
+
+  /// Returns the current border radius values.
+  BorderRadiusData get borderRadius => dimensions.borderRadius;
+
+  /// Returns the current border width.
+  double get borderWidth => dimensions.borderWidth;
+}
+
 /// Some utility methods on ColorScheme
 extension JoltColorSchemeExtension on ColorScheme {
   /// Returns a copy of the color scheme
@@ -51,8 +68,16 @@ extension JoltColorSchemeExtension on ColorScheme {
   ColorScheme get withHighContrast {
     return copyWith(
       highContrast: true,
-      background: background.asBackground(highContrast: true),
-      surface: surface.asSurface(highContrast: true),
+      background: background.asBackground(),
+      surface: surface.asSurface(),
+    );
+  }
+
+  /// Returns a copy of the color scheme with low contrast.
+  ColorScheme get swapSurfaceWithBackground {
+    return copyWith(
+      background: surface,
+      surface: background,
     );
   }
 }
@@ -83,7 +108,9 @@ extension JoltColorExtension on JoltColor {
   /// - Reassigns the primary color to be the value from **shade50**
   /// - Reassigns the highlight color to be the value from **shade900**
   JoltColor asBackground({bool highContrast = true}) => JoltColor(
-        highContrast ? s50.value : s100.value,
+        highContrast
+            ? (s50.isLight ? Colors.white : Colors.black).value
+            : s50.value,
         highlight: s900.value,
         shade50: s50.value,
         shade100: s100.value,
