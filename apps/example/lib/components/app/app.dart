@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:jolt/jolt.dart';
 
 import 'package:example/theme/themes.dart';
+import 'package:example/theme/typography.dart';
 import 'package:example/theme/widget_theme.dart';
 
 /// The main app widget.
@@ -151,10 +152,20 @@ class App extends StatelessWidget {
                           );
                         },
                         child: Surface(
+                          background:
+                              context.color.brightness == Brightness.light &&
+                                      !context.color.highContrast
+                                  ? context.color.primary
+                                  : null,
                           borderRadius: context.borderRadius.sm,
                           child: JoltText(
                             'Light',
-                            color: context.color.surface.highlight,
+                            style: context.textStyle.button,
+                            color:
+                                context.color.brightness == Brightness.light &&
+                                        !context.color.highContrast
+                                    ? context.color.primary.highlight
+                                    : null,
                           ),
                         ),
                       ),
@@ -167,10 +178,20 @@ class App extends StatelessWidget {
                           );
                         },
                         child: Surface(
+                          background:
+                              context.color.brightness == Brightness.light &&
+                                      context.color.highContrast
+                                  ? context.color.primary
+                                  : null,
                           borderRadius: context.borderRadius.sm,
                           child: JoltText(
                             'Light high contrast',
-                            color: context.color.surface.highlight,
+                            color:
+                                context.color.brightness == Brightness.light &&
+                                        context.color.highContrast
+                                    ? context.color.primary.highlight
+                                    : null,
+                            style: context.textStyle.button,
                           ),
                         ),
                       ),
@@ -186,7 +207,7 @@ class App extends StatelessWidget {
                           borderRadius: context.borderRadius.md,
                           child: JoltText(
                             'Dark',
-                            color: context.color.surface.highlight,
+                            style: context.textStyle.button,
                           ),
                         ),
                       ),
@@ -202,7 +223,7 @@ class App extends StatelessWidget {
                           borderRadius: context.borderRadius.lg,
                           child: JoltText(
                             'Dark high contrast',
-                            color: context.color.surface.highlight,
+                            style: context.textStyle.button,
                           ),
                         ),
                       ),
@@ -247,8 +268,9 @@ class App extends StatelessWidget {
                             children: [
                               JoltText(
                                 'align',
+                                style: context.textStyle.button,
                               ),
-                              SizedBox(width: context.sizing.sm),
+                              Spacing.sm(),
                               Text(
                                 'align',
                               ),

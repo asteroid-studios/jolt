@@ -17,7 +17,6 @@ const _defaultLabelSmall = TextStyle(fontSize: 10);
 class Typography {
   /// Initialise the typography for the theme.
   Typography({
-    this.defaultColor,
     TextStyle? displayLarge,
     TextStyle? display,
     TextStyle? displaySmall,
@@ -45,9 +44,6 @@ class Typography {
         label = label?.merge(_defaultLabel) ?? _defaultLabel,
         labelSmall =
             labelSmall?.merge(_defaultLabelSmall) ?? _defaultLabelSmall;
-
-  /// The default color for text.
-  final Color? defaultColor;
 
   /// Used for large display text. (Eg: hero section)
   final TextStyle displayLarge;
@@ -98,7 +94,6 @@ class Typography {
     TextStyle? labelSmall,
   }) {
     return Typography(
-      defaultColor: defaultColor ?? this.defaultColor,
       displayLarge: displayLarge ?? this.displayLarge,
       display: display ?? this.display,
       displaySmall: displaySmall ?? this.displaySmall,
@@ -119,7 +114,6 @@ class Typography {
       return false;
     }
     return other is Typography &&
-        other.defaultColor == defaultColor &&
         other.displayLarge == displayLarge &&
         other.display == display &&
         other.displaySmall == displaySmall &&
@@ -136,7 +130,6 @@ class Typography {
   @override
   int get hashCode {
     final values = <Object?>[
-      defaultColor,
       displayLarge,
       display,
       displaySmall,

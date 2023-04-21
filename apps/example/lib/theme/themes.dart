@@ -8,8 +8,7 @@ final _colorSchemeLight = ColorScheme.light(
   neutral: _neutralColor,
 ).swapSurfaceWithBackground;
 
-final _colorSchemeLightHighContrast =
-    _colorSchemeLight.withHighContrast.swapSurfaceWithBackground;
+final _colorSchemeLightHighContrast = _colorSchemeLight.withHighContrast;
 
 final _colorSchemeDark = ColorScheme.dark(
   neutral: _neutralColor,

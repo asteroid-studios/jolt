@@ -26,15 +26,11 @@ class JoltText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final defaultTextStyle = style ?? context.textStyle.body;
-    return Baseline(
-      baseline: (defaultTextStyle.fontSize ?? 16),
-      baselineType: TextBaseline.alphabetic,
-      child: Text(
-        data ?? '',
-        style: defaultTextStyle.copyWith(
-          color: color,
-          fontWeight: weight,
-        ),
+    return Text(
+      data ?? '',
+      style: defaultTextStyle.copyWith(
+        color: color,
+        fontWeight: weight,
       ),
     );
   }

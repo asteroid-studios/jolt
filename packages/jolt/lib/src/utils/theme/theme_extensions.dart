@@ -1,6 +1,5 @@
-import 'package:tinycolor2/tinycolor2.dart';
-
 import 'package:jolt/jolt.dart';
+import 'package:tinycolor2/tinycolor2.dart';
 
 /// Some theming utility methods on BuildContext
 extension JoltThemeExtensions on BuildContext {
@@ -148,8 +147,8 @@ extension JoltColorExtension on JoltColor {
 ///
 extension TextStyleExtensions on TextStyle {
   ///
-  TextStyle color(Color color) => copyWith(color: color);
+  TextStyle color(Color? color) => copyWith(color: color);
 
   ///
-  TextStyle size(double size) => copyWith(fontSize: size);
+  TextStyle size(double? size) => copyWith(fontSize: size);
 }
