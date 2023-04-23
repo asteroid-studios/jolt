@@ -52,7 +52,7 @@ class Colors {
   /// A light green color.
   static const JoltColor emerald = JoltColor(
     0xFF10b981,
-    highlight: 0xffd1fae5,
+    highlight: 0xffecfdf5,
     shade50: 0xffecfdf5,
     shade100: 0xffd1fae5,
     shade200: 0xffa7f3d0,

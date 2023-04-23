@@ -1,6 +1,6 @@
 import 'package:jolt/jolt.dart';
 
-import 'package:example/theme/typography.dart';
+import 'package:example/theming/typography.dart';
 
 const _neutralColor = Colors.slate;
 

@@ -129,7 +129,7 @@ extension JoltColorExtension on JoltColor {
   /// - Reassigns the primary color to be the value from **shade200**
   /// - Reassigns the highlight color to be the value from **shade950**
   JoltColor asSurface({bool highContrast = true}) => JoltColor(
-        highContrast ? s300.value : s200.value,
+        highContrast || s50.isLight ? s200.value : s100.value,
         highlight: s950.value,
         shade50: s50.value,
         shade100: s100.value,

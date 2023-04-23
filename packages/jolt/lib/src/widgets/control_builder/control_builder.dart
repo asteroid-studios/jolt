@@ -209,10 +209,4 @@ class FocusableControlState extends State<FocusableControlBuilder> {
       ),
     );
   }
-
-  @override
-  void dispose() {
-    _controller?.dispose();
-    super.dispose();
-  }
 }

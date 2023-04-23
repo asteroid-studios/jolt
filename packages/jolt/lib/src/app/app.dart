@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart' show DefaultCupertinoLocalizations;
 import 'package:flutter/material.dart'
     show DefaultMaterialLocalizations, MaterialPageRoute;
+import 'package:flutter_portal/flutter_portal.dart';
 
 import 'package:jolt/jolt.dart';
 
@@ -154,7 +155,9 @@ class _JoltAppState extends State<JoltApp> with WidgetsBindingObserver {
                 textScale: controller.textScaleFactorMultiplier,
               ),
               widgetTheme: widget.widgetTheme,
-              child: app,
+              child: Portal(
+                child: app,
+              ),
             ),
           );
         },
