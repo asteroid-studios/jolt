@@ -4,7 +4,7 @@ import 'package:jolt/jolt.dart';
 class TouchRippleEffect extends StatefulWidget {
   ///
   const TouchRippleEffect({
-    required this.rippleColor,
+    required this.backgroundColor,
     required this.borderRadius,
     this.child,
     this.width,
@@ -17,7 +17,7 @@ class TouchRippleEffect extends StatefulWidget {
   final Widget? child;
 
   /// touch effect color of widget [rippleColor]
-  final Color rippleColor;
+  final Color backgroundColor;
 
   /// if you have border of child widget then you should apply [borderRadius]
   final BorderRadius borderRadius;
@@ -130,6 +130,23 @@ class _TouchRippleEffectState extends State<TouchRippleEffect>
 
   @override
   Widget build(BuildContext context) {
+    late Color rippleColor;
+    var rippleOpacity = 0.07;
+
+    if (widget.backgroundColor is JoltColor) {
+      final background = widget.backgroundColor as JoltColor;
+      if (background == context.color.background ||
+          background == context.color.surface ||
+          background == context.color.neutral) {
+        rippleColor = context.color.primary;
+      } else {
+        rippleOpacity = 0.1;
+        rippleColor = background.highlight;
+      }
+    } else {
+      rippleColor = context.color.primary;
+    }
+
     return Listener(
       onPointerUp: (event) {
         setState(() => animating = false);
@@ -184,35 +201,35 @@ class _TouchRippleEffectState extends State<TouchRippleEffect>
             // added child widget of user
             widget.child!,
             Opacity(
-              opacity: 0.1,
+              opacity: rippleOpacity,
               child: CustomPaint(
                 // ripplePainter is CustomPainter for circular ripple draw
                 painter: RipplePainter(
                   offset: _tapOffset,
                   circleRadius: _animRadiusValue,
-                  fillColor: widget.rippleColor,
+                  fillColor: rippleColor,
                 ),
               ),
             ),
             Opacity(
-              opacity: 0.1,
+              opacity: rippleOpacity,
               child: CustomPaint(
                 // ripplePainter is CustomPainter for circular ripple draw
                 painter: RipplePainter(
                   offset: _tapOffset,
                   circleRadius: _animRadiusValue / 1.5,
-                  fillColor: widget.rippleColor,
+                  fillColor: rippleColor,
                 ),
               ),
             ),
             Opacity(
-              opacity: 0.1,
+              opacity: rippleOpacity,
               child: CustomPaint(
                 // ripplePainter is CustomPainter for circular ripple draw
                 painter: RipplePainter(
                   offset: _tapOffset,
                   circleRadius: _animRadiusValue / 2,
-                  fillColor: widget.rippleColor,
+                  fillColor: rippleColor,
                 ),
               ),
             ),

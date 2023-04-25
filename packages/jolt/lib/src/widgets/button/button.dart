@@ -13,6 +13,7 @@ class Button extends StatefulWidget {
     this.label,
     this.toolTip,
     this.icon,
+    this.iconSize,
     this.phosphorIcon,
     this.iconWidget,
     this.onTap,
@@ -44,6 +45,9 @@ class Button extends StatefulWidget {
 
   ///
   final ButtonSize size;
+
+  ///
+  final double? iconSize;
 
   ///
   final FutureOr<void> Function()? onTap;
@@ -102,6 +106,7 @@ class _ButtonState extends State<Button> {
 
     final labelStyle =
         widget.labelStyle ?? theme.labelStyle ?? context.style.body;
+    final iconSize = widget.iconSize ?? labelStyle.fontSize;
     final background = widget.background ?? theme.background;
     final baseColor = widget.color ??
         (background is JoltColor ? background.highlight : null) ??
@@ -114,6 +119,7 @@ class _ButtonState extends State<Button> {
         (widget.icon != null
             ? Icon(
                 widget.icon,
+                size: iconSize,
                 color: color,
               )
             : null) ??
@@ -121,6 +127,7 @@ class _ButtonState extends State<Button> {
             ? PhosphorIcon(
                 widget.phosphorIcon!,
                 color: color,
+                size: iconSize,
               )
             : null);
 
@@ -135,6 +142,7 @@ class _ButtonState extends State<Button> {
       onLongPressed: widget.onLongPressed != null
           ? () async => await handlePressed(widget.onLongPressed!)
           : null,
+      toolTip: widget.toolTip,
       background: widget.background ?? theme.background,
       borderColor: widget.borderColor ?? theme.borderColor,
       borderRadius: widget.borderRadius ?? theme.borderRadius,
@@ -164,6 +172,7 @@ class _ButtonState extends State<Button> {
               PhosphorIcon(
                 PhosphorIcons.duotone.circleNotch,
                 color: baseColor,
+                size: iconSize,
               )
                   .animate(onPlay: (controller) => controller.repeat())
                   .rotate(duration: processingDuration)

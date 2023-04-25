@@ -41,6 +41,39 @@ class SidebarRight extends StatelessWidget {
       );
     }
 
+    Button sizeButton(
+      double sizeMultiplier,
+      PhosphorIconData icon,
+    ) {
+      final selected = context.scaling.textScale == sizeMultiplier;
+      final defaultIconSize = context.widgetTheme.button.labelStyle?.fontSize ??
+          context.style.body.fontSize ??
+          16;
+      return Button(
+        phosphorIcon: icon,
+        borderColor: selected ? context.color.primary : null,
+        iconSize: defaultIconSize * sizeMultiplier,
+        onTap: () => context.jolt.setTextScaleFactorMultiplier(sizeMultiplier),
+      );
+    }
+
+    Button spacingButton(
+      double sizeMultiplier,
+      PhosphorIconData icon,
+    ) {
+      final selected = context.scaling.spacingScale == sizeMultiplier;
+      final defaultIconSize = context.widgetTheme.button.labelStyle?.fontSize ??
+          context.style.body.fontSize ??
+          16;
+      return Button(
+        phosphorIcon: icon,
+        borderColor: selected ? context.color.primary : null,
+        iconSize: defaultIconSize * sizeMultiplier,
+        onTap: () =>
+            context.jolt.setSpacingScaleFactorMultiplier(sizeMultiplier),
+      );
+    }
+
     return Surface(
       borderColor: Colors.transparent,
       borderRadius: BorderRadius.zero,
@@ -80,6 +113,18 @@ class SidebarRight extends StatelessWidget {
           colorButton(Colors.emerald),
           const Spacing.sm(),
           colorButton(Colors.violet),
+          const Spacing.xxl(),
+          sizeButton(0.8, PhosphorIcons.duotone.textT),
+          const Spacing.sm(),
+          sizeButton(1, PhosphorIcons.duotone.textT),
+          const Spacing.sm(),
+          sizeButton(1.2, PhosphorIcons.duotone.textT),
+          const Spacing.xxl(),
+          spacingButton(0.8, PhosphorIcons.duotone.alignCenterHorizontal),
+          const Spacing.sm(),
+          spacingButton(1, PhosphorIcons.duotone.alignCenterHorizontal),
+          const Spacing.sm(),
+          spacingButton(1.2, PhosphorIcons.duotone.alignCenterHorizontal),
         ],
       ),
     );

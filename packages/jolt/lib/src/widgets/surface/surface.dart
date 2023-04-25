@@ -21,6 +21,7 @@ class Surface extends StatefulWidget {
     super.key,
   })  : onTap = null,
         onLongPressed = null,
+        toolTip = null,
         builder = null,
         selectionEnabled = false,
         focusEnabled = false,
@@ -36,6 +37,7 @@ class Surface extends StatefulWidget {
     this.borderWidth,
     this.padding,
     this.onTap,
+    this.toolTip,
     this.onLongPressed,
     this.cursor,
     this.width,
@@ -92,6 +94,9 @@ class Surface extends StatefulWidget {
 
   ///
   final double? height;
+
+  ///
+  final String? toolTip;
 
   @override
   State<Surface> createState() => _SurfaceState();
@@ -157,7 +162,7 @@ class _SurfaceState extends State<Surface> with SingleTickerProviderStateMixin {
               ? child
               : TouchRippleEffect(
                   borderRadius: defaultBorderRadius,
-                  rippleColor: context.color.primary,
+                  backgroundColor: defaultBackground,
                   child: child,
                 ),
         ),

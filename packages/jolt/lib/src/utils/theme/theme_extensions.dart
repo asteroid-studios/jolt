@@ -1,11 +1,9 @@
-import 'package:tinycolor2/tinycolor2.dart';
-
 import 'package:jolt/jolt.dart';
 
 /// Some theming utility methods on BuildContext
 extension JoltThemeExtensions on BuildContext {
   /// Returns the current scaling data.
-  ScalingData get _scaling => Scaling.of(this);
+  ScalingData get scaling => Scaling.of(this);
 
   /// Returns the current theme data.
   ThemeData get theme => Theme.of(this);
@@ -20,7 +18,7 @@ extension JoltThemeExtensions on BuildContext {
   Dimensions get dimensions => theme.dimensions;
 
   /// Returns the current spacing.
-  Sizing get sizing => dimensions.sizing.scaled(_scaling.spacingScale);
+  Sizing get sizing => dimensions.sizing.scaled(scaling.spacingScale);
 
   /// Returns the current border radius values.
   BorderRadiusData get borderRadius => dimensions.borderRadius;

@@ -12,53 +12,54 @@ class TopBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Surface(
       borderRadius: BorderRadius.zero,
+      padding: EdgeInsets.symmetric(
+        horizontal: context.sizing.md,
+        vertical: context.sizing.md,
+      ),
       background: context.color.surface.withOpacity(0.2),
-      child: Padding(
-        padding: EdgeInsets.all(context.sizing.md),
-        child: Row(
-          children: [
-            Surface.focusable(
-              background: Colors.transparent,
-              onTap: () => DashboardRouteData().go(context),
-              builder: (context, state) {
-                return Text(
-                  'Jolt',
-                  style: context.style.heading,
-                );
-              },
+      child: Row(
+        children: [
+          Surface.focusable(
+            background: Colors.transparent,
+            onTap: () => DashboardRouteData().go(context),
+            builder: (context, state) {
+              return Text(
+                'Jolt',
+                style: context.style.heading,
+              );
+            },
+          ),
+          const Expanded(child: SizedBox()),
+          Surface.focusable(
+            onTap: () => DashboardRouteData().go(context),
+            background: context.color.surface,
+            padding: EdgeInsets.symmetric(
+              horizontal: context.sizing.sm,
+              vertical: context.sizing.xs,
             ),
-            const Expanded(child: SizedBox()),
-            Surface.focusable(
-              onTap: () => DashboardRouteData().go(context),
-              background: context.color.surface,
-              padding: EdgeInsets.symmetric(
-                horizontal: context.sizing.sm,
-                vertical: context.sizing.xs,
-              ),
-              builder: (context, state) {
-                return JoltText(
-                  'Dashboard',
-                  style: context.style.button,
-                );
-              },
+            builder: (context, state) {
+              return JoltText(
+                'Dashboard',
+                style: context.style.button,
+              );
+            },
+          ),
+          const Spacing.md(),
+          Surface.focusable(
+            onTap: () => UsersRouteData().go(context),
+            background: context.color.surface,
+            padding: EdgeInsets.symmetric(
+              horizontal: context.sizing.sm,
+              vertical: context.sizing.xs,
             ),
-            const Spacing.md(),
-            Surface.focusable(
-              onTap: () => UsersRouteData().go(context),
-              background: context.color.surface,
-              padding: EdgeInsets.symmetric(
-                horizontal: context.sizing.sm,
-                vertical: context.sizing.xs,
-              ),
-              builder: (context, state) {
-                return JoltText(
-                  'Users',
-                  style: context.style.button,
-                );
-              },
-            ),
-          ],
-        ),
+            builder: (context, state) {
+              return JoltText(
+                'Users',
+                style: context.style.button,
+              );
+            },
+          ),
+        ],
       ),
     );
   }

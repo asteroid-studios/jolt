@@ -660,14 +660,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.0.1"
-  touch_ripple_effect:
-    dependency: transitive
-    description:
-      name: touch_ripple_effect
-      sha256: fbf8bea1ffc75c5055bcca5313a236e8be3d694dba8dd79b971b67dd8523d339
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.2.4"
   typed_data:
     dependency: transitive
     description:
