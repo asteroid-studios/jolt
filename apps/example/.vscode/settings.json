@@ -1,3 +1,7 @@
 {
-    "dartimportsorter.sortOnSave": true
+    "dartimportsorter.sortOnSave": true,
+    "cSpell.words": [
+        "screencast",
+        "Topbar"
+    ]
 }

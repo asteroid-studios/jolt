@@ -1,5 +1,6 @@
 import 'package:jolt/jolt.dart';
 
+import 'package:example/components/shell/desktop_topbar/desktop_topbar.dart';
 import 'package:example/components/shell/footer/footer.dart';
 import 'package:example/components/shell/sidebar_left/sidebar_left.dart';
 import 'package:example/components/shell/sidebar_right/sidebar_right.dart';
@@ -16,6 +17,7 @@ class AppShell extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Shell(
+      desktopTopBar: const DesktopTopbar(),
       sidebarLeft: const SidebarLeft(),
       sidebarRight: const SidebarRight(),
       topBar: const TopBar(),

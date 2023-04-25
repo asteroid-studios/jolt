@@ -89,12 +89,11 @@ class Shell extends StatelessWidget {
     return Column(
       children: [
         if (Platform.isDesktop)
-          WindowTitleBarBox(
-            child: MoveWindow(
-              child: desktopTopBar ??
-                  Container(color: context.color.background, height: 30),
-            ),
-          ),
+          desktopTopBar ??
+              WindowTitleBarBox(
+                child: MoveWindow(
+                    child: Container(color: context.color.background)),
+              ),
         if (topBar != null && topBarOptions.topBarFullWidth && !mobile) topBar!,
         Expanded(child: inside),
       ],
