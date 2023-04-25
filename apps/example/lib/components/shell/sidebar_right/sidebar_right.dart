@@ -77,54 +77,87 @@ class SidebarRight extends StatelessWidget {
     return Surface(
       borderColor: Colors.transparent,
       borderRadius: BorderRadius.zero,
+      padding: EdgeInsets.zero,
       background: context.color.surface.withOpacity(0.2),
       child: Column(
         children: [
-          const Spacing.xl(),
-          themeButton(
-            PhosphorIcons.duotone.cloudSun,
-            ThemeMode.light,
-            withHighContrast: false,
+          Expanded(
+            child: Center(
+              child: SingleChildScrollView(
+                padding: EdgeInsets.all(context.sizing.md),
+                child: Column(
+                  children: [
+                    themeButton(
+                      PhosphorIcons.duotone.cloudSun,
+                      ThemeMode.light,
+                      withHighContrast: false,
+                    ),
+                    const Spacing.sm(),
+                    themeButton(
+                      PhosphorIcons.duotone.sun,
+                      ThemeMode.light,
+                      withHighContrast: true,
+                    ),
+                    const Spacing.sm(),
+                    themeButton(
+                      PhosphorIcons.duotone.cloudMoon,
+                      ThemeMode.dark,
+                      withHighContrast: false,
+                    ),
+                    const Spacing.sm(),
+                    themeButton(
+                      PhosphorIcons.duotone.moon,
+                      ThemeMode.dark,
+                      withHighContrast: true,
+                    ),
+                    const Spacing.sm(),
+                    themeButton(
+                      PhosphorIcons.duotone.gearSix,
+                      ThemeMode.system,
+                    ),
+                    const Spacing.xxl(),
+                    colorButton(
+                      Colors.emerald,
+                    ),
+                    const Spacing.sm(),
+                    colorButton(
+                      Colors.violet,
+                    ),
+                    const Spacing.xxl(),
+                    sizeButton(
+                      0.8,
+                      PhosphorIcons.duotone.textT,
+                    ),
+                    const Spacing.sm(),
+                    sizeButton(
+                      1,
+                      PhosphorIcons.duotone.textT,
+                    ),
+                    const Spacing.sm(),
+                    sizeButton(
+                      1.2,
+                      PhosphorIcons.duotone.textT,
+                    ),
+                    const Spacing.xxl(),
+                    spacingButton(
+                      0.8,
+                      PhosphorIcons.duotone.alignCenterHorizontal,
+                    ),
+                    const Spacing.sm(),
+                    spacingButton(
+                      1,
+                      PhosphorIcons.duotone.alignCenterHorizontal,
+                    ),
+                    const Spacing.sm(),
+                    spacingButton(
+                      1.2,
+                      PhosphorIcons.duotone.alignCenterHorizontal,
+                    ),
+                  ],
+                ),
+              ),
+            ),
           ),
-          const Spacing.sm(),
-          themeButton(
-            PhosphorIcons.duotone.sun,
-            ThemeMode.light,
-            withHighContrast: true,
-          ),
-          const Spacing.sm(),
-          themeButton(
-            PhosphorIcons.duotone.cloudMoon,
-            ThemeMode.dark,
-            withHighContrast: false,
-          ),
-          const Spacing.sm(),
-          themeButton(
-            PhosphorIcons.duotone.moon,
-            ThemeMode.dark,
-            withHighContrast: true,
-          ),
-          const Spacing.sm(),
-          themeButton(
-            PhosphorIcons.duotone.gearSix,
-            ThemeMode.system,
-          ),
-          const Spacing.xxl(),
-          colorButton(Colors.emerald),
-          const Spacing.sm(),
-          colorButton(Colors.violet),
-          const Spacing.xxl(),
-          sizeButton(0.8, PhosphorIcons.duotone.textT),
-          const Spacing.sm(),
-          sizeButton(1, PhosphorIcons.duotone.textT),
-          const Spacing.sm(),
-          sizeButton(1.2, PhosphorIcons.duotone.textT),
-          const Spacing.xxl(),
-          spacingButton(0.8, PhosphorIcons.duotone.alignCenterHorizontal),
-          const Spacing.sm(),
-          spacingButton(1, PhosphorIcons.duotone.alignCenterHorizontal),
-          const Spacing.sm(),
-          spacingButton(1.2, PhosphorIcons.duotone.alignCenterHorizontal),
         ],
       ),
     );

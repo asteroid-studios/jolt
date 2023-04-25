@@ -49,7 +49,7 @@ class Shell extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final mobile = context.mediaQuery.size.width < 600;
+    final mobile = context.mediaQuery.size.width < 900;
 
     // TODO proper breakpoints
     // TODO safe area

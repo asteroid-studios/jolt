@@ -1,6 +1,6 @@
 // Flutter exports
 export 'package:flutter/widgets.dart';
-export 'package:flutter/material.dart' show SelectionArea;
+export 'package:flutter/material.dart' show Scrollbar, SelectionArea;
 
 // Package exports
 export 'package:phosphor_flutter/phosphor_flutter.dart';
