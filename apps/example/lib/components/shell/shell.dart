@@ -1,6 +1,7 @@
 import 'package:jolt/jolt.dart';
 
 import 'package:example/components/shell/footer/footer.dart';
+import 'package:example/components/shell/sidebar_right/sidebar_right.dart';
 import 'package:example/components/shell/top_bar/top_bar.dart';
 
 ///
@@ -15,13 +16,10 @@ class AppShell extends StatelessWidget {
   Widget build(BuildContext context) {
     return Shell(
       sidebarLeft: Container(
-        color: context.color.surface,
+        color: context.color.surface.withOpacity(0.5),
         width: 280,
       ),
-      // sidebarRight: Container(
-      //   color: context.color.surface,
-      //   width: 120,
-      // ),
+      sidebarRight: const SidebarRight(),
       topBar: const TopBar(),
       footer: const Footer(),
       child: navigator,

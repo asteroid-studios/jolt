@@ -153,7 +153,7 @@ class DashboardPage extends StatelessWidget {
           Wrap(
             children: [
               Surface.focusable(
-                onPressed: () {
+                onTap: () {
                   context.jolt.setTheme(
                     ThemeMode.light,
                     withHighContrast: false,
@@ -181,7 +181,7 @@ class DashboardPage extends StatelessWidget {
               ),
               spacer,
               Surface.focusable(
-                onPressed: () {
+                onTap: () {
                   context.jolt.setTheme(
                     ThemeMode.light,
                     withHighContrast: true,
@@ -209,7 +209,7 @@ class DashboardPage extends StatelessWidget {
               ),
               spacer,
               Surface.focusable(
-                onPressed: () {
+                onTap: () {
                   context.jolt.setTheme(
                     ThemeMode.dark,
                     withHighContrast: false,
@@ -237,7 +237,7 @@ class DashboardPage extends StatelessWidget {
               ),
               spacer,
               Surface.focusable(
-                onPressed: () {
+                onTap: () {
                   context.jolt.setTheme(
                     ThemeMode.dark,
                     withHighContrast: true,
@@ -265,7 +265,7 @@ class DashboardPage extends StatelessWidget {
               ),
               spacer,
               Surface.focusable(
-                onPressed: () {
+                onTap: () {
                   context.jolt.setTheme(ThemeMode.system);
                 },
                 padding: EdgeInsets.symmetric(
@@ -332,7 +332,7 @@ class DashboardPage extends StatelessWidget {
           ),
           SizedBox(height: context.sizing.sm),
           Surface.focusable(
-            onPressed: () {
+            onTap: () {
               // dismiss focus
               // FocusManager.instance.primaryFocus?.unfocus();
               context.jolt.setSpacingScaleFactorMultiplier(1);

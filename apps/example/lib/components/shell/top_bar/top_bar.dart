@@ -11,13 +11,14 @@ class TopBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: context.color.surface,
+      color: context.color.surface.withOpacity(0.2),
       child: Padding(
         padding: EdgeInsets.all(context.sizing.md),
         child: Row(
           children: [
             Surface.focusable(
-              onPressed: () => DashboardRouteData().go(context),
+              background: Colors.transparent,
+              onTap: () => DashboardRouteData().go(context),
               builder: (context, state) {
                 return Text(
                   'Jolt',
@@ -27,8 +28,8 @@ class TopBar extends StatelessWidget {
             ),
             const Expanded(child: SizedBox()),
             Surface.focusable(
-              onPressed: () => DashboardRouteData().go(context),
-              background: context.color.background,
+              onTap: () => DashboardRouteData().go(context),
+              background: context.color.surface,
               padding: EdgeInsets.symmetric(
                 horizontal: context.sizing.sm,
                 vertical: context.sizing.xs,
@@ -42,8 +43,8 @@ class TopBar extends StatelessWidget {
             ),
             const Spacing.md(),
             Surface.focusable(
-              onPressed: () => UsersRouteData().go(context),
-              background: context.color.background,
+              onTap: () => UsersRouteData().go(context),
+              background: context.color.surface,
               padding: EdgeInsets.symmetric(
                 horizontal: context.sizing.sm,
                 vertical: context.sizing.xs,

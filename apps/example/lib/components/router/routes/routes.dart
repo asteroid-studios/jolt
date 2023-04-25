@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import 'package:go_router/go_router.dart';
-import 'package:jolt/jolt.dart';
 
 import 'package:example/components/router/router.dart';
 import 'package:example/components/shell/shell.dart';

@@ -10,7 +10,7 @@ class FocusableControlBuilder extends StatefulWidget {
   /// Used to build a control that can be focused, hovered, and pressed.
   const FocusableControlBuilder({
     required this.builder,
-    this.onPressed,
+    this.onTap,
     this.onLongPressed,
     this.onHoverChanged,
     this.onFocusChanged,
@@ -33,7 +33,7 @@ class FocusableControlBuilder extends StatefulWidget {
       builder;
 
   /// Called when the control is pressed.
-  final FutureOr<void> Function()? onPressed;
+  final FutureOr<void> Function()? onTap;
 
   /// Called when the control is long pressed.
   final FutureOr<void> Function()? onLongPressed;
@@ -96,7 +96,7 @@ class FocusableControlState extends State<FocusableControlBuilder> {
   bool _isFocused = false;
   bool get isFocused => _isFocused;
 
-  bool get hasPressHandler => widget.onPressed != null;
+  bool get hasPressHandler => widget.onTap != null;
 
   bool _wasHovered = false;
   bool get wasHovered => _wasHovered;
@@ -126,20 +126,20 @@ class FocusableControlState extends State<FocusableControlBuilder> {
   }
 
   Future<void> _handlePressed() async {
-    if (_isAwaiting || widget.onPressed == null) return;
+    if (_isAwaiting || widget.onTap == null) return;
     setState(() => _isAwaiting = true);
     if (widget.requestFocusOnPress) {
       _focusNode?.requestFocus();
     }
     try {
-      await widget.onPressed?.call();
+      await widget.onTap?.call();
     } catch (_) {
       await _controller?.forward(from: 0);
     }
     setState(() => _isAwaiting = false);
   }
 
-  /// By default, will bind the [ActivateIntent] from the flutter SDK to the onPressed callback.
+  /// By default, will bind the [ActivateIntent] from the flutter SDK to the onTap callback.
   /// This will enable SPACE and ENTER keys on most platforms.
   /// Also accepts additional actions provided externally.
   Map<Type, Action<Intent>> _getKeyboardActions() {

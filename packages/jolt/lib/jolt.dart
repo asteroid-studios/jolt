@@ -2,6 +2,10 @@
 export 'package:flutter/widgets.dart';
 export 'package:flutter/material.dart' show SelectionArea;
 
+// Package exports
+export 'package:phosphor_flutter/phosphor_flutter.dart';
+export 'package:tinycolor2/tinycolor2.dart';
+
 // Export the JoltApp widget
 export 'src/app/app.dart';
 export 'src/app/app_controller.dart';
@@ -17,6 +21,7 @@ export 'src/theme/theme_data/theme_data.dart';
 export 'src/theme/typography/typography.dart';
 
 // Widget export
+export 'src/widgets/button/button.dart';
 export 'src/widgets/control_builder/control_builder.dart';
 export 'src/widgets/spacing/spacing.dart';
 export 'src/widgets/surface/surface.dart';

@@ -1,6 +1,7 @@
 import 'package:jolt/jolt.dart';
 
 export 'package:jolt/src/widgets/surface/surface_theme.dart';
+export 'package:jolt/src/widgets/button/button_theme.dart';
 
 /// Wrap a section of the widget tree with a theme which will be inherited by
 /// all children.
@@ -36,8 +37,14 @@ class WidgetThemeData {
   /// Contains the default styling for all Jolt Widgets.
   const WidgetThemeData({
     this.surface = const SurfaceTheme(),
-  });
+    ButtonTheme? button,
+  }) : _button = button;
 
   /// The theme of a surface.
   final SurfaceTheme surface;
+
+  final ButtonTheme? _button;
+
+  /// The theme of a button
+  ButtonTheme get button => _button ?? ButtonTheme.from(surface);
 }

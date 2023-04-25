@@ -2,8 +2,10 @@ import 'dart:async';
 
 import 'package:flutter/services.dart';
 
-import 'package:jolt/jolt.dart';
 import 'package:tinycolor2/tinycolor2.dart';
+
+import 'package:jolt/jolt.dart';
+import 'package:jolt/src/utils/theme/defaults.dart';
 
 ///
 class Surface extends StatefulWidget {
@@ -13,9 +15,12 @@ class Surface extends StatefulWidget {
     this.background,
     this.borderColor,
     this.borderRadius,
+    this.borderWidth,
     this.padding,
+    this.width,
+    this.height,
     super.key,
-  })  : onPressed = null,
+  })  : onTap = null,
         onLongPressed = null,
         builder = null,
         selectionEnabled = false,
@@ -29,10 +34,13 @@ class Surface extends StatefulWidget {
     this.background,
     this.borderColor,
     this.borderRadius,
+    this.borderWidth,
     this.padding,
-    this.onPressed,
+    this.onTap,
     this.onLongPressed,
     this.cursor,
+    this.width,
+    this.height,
     this.selectionEnabled = false,
     this.focusEnabled = true,
     this.hasFocusOverride,
@@ -42,17 +50,46 @@ class Surface extends StatefulWidget {
   final Widget? child;
   final Widget Function(BuildContext, FocusableControlState)? builder;
 
-  final FutureOr<void> Function()? onPressed;
+  ///
+  final FutureOr<void> Function()? onTap;
+
+  ///
   final FutureOr<void> Function()? onLongPressed;
+
+  ///
   final SystemMouseCursor? cursor;
+
+  ///
   final bool selectionEnabled;
+
+  ///
   final bool focusEnabled;
+
+  ///
   final bool? hasFocusOverride;
 
+  ///
+
+  ///
   final Color? background;
+
+  ///
   final Color? borderColor;
+
+  ///
   final BorderRadius? borderRadius;
+
+  ///
+  final double? borderWidth;
+
+  ///
   final EdgeInsets? padding;
+
+  ///
+  final double? width;
+
+  ///
+  final double? height;
 
   @override
   State<Surface> createState() => _SurfaceState();
@@ -86,19 +123,23 @@ class _SurfaceState extends State<Surface> with SingleTickerProviderStateMixin {
       return ClipRRect(
         borderRadius: defaultBorderRadius,
         child: AnimatedContainer(
+          width: widget.width,
+          height: widget.height,
           padding: widget.padding ??
               (widget.child == null
                   ? null
                   : EdgeInsets.symmetric(
-                      horizontal: theme.horizontalPadding ?? context.sizing.sm,
-                      vertical: theme.verticalPadding ?? context.sizing.xs,
+                      horizontal: theme.horizontalPadding ??
+                          context.defaults.horizontalPadding,
+                      vertical: theme.verticalPadding ??
+                          context.defaults.verticalPadding,
                     )),
           duration: const Duration(milliseconds: 300),
           decoration: BoxDecoration(
             borderRadius: defaultBorderRadius,
             border: Border.all(
               color: _hasFocus ? defaultFocusBorderColor : defaultBorderColor,
-              width: context.borderWidth,
+              width: widget.borderWidth ?? context.borderWidth,
             ),
             color: isHovered
                 ? defaultHoverColor
@@ -116,7 +157,7 @@ class _SurfaceState extends State<Surface> with SingleTickerProviderStateMixin {
 
     return FocusableControlBuilder(
       cursor: widget.cursor ?? SystemMouseCursors.click,
-      onPressed: widget.onPressed,
+      onTap: widget.onTap,
       focusEnabled: widget.focusEnabled,
       builder: (context, state) {
         if (widget.selectionEnabled) {

@@ -63,12 +63,14 @@ class Shell extends StatelessWidget {
               if (topBar != null && !topBarOptions.topBarFullWidth && !mobile)
                 topBar!,
               Expanded(
-                child: InheritedShell._(
-                  topBar: mobile ? topBar : null,
-                  footer: !footerOptions.pinned ? footer : null,
-                  topBarOptions: topBarOptions,
-                  footerOptions: footerOptions,
-                  child: child,
+                child: ClipRect(
+                  child: InheritedShell._(
+                    topBar: mobile ? topBar : null,
+                    footer: !footerOptions.pinned ? footer : null,
+                    topBarOptions: topBarOptions,
+                    footerOptions: footerOptions,
+                    child: child,
+                  ),
                 ),
               ),
               if (footer != null && footerOptions.pinned) footer!,

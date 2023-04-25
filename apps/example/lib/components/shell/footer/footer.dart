@@ -20,7 +20,7 @@ class Footer extends StatelessWidget {
       ),
       child: Row(
         children: [
-          Text('© 2021 Jolt'),
+          const Text('© 2021 Jolt'),
         ],
       ),
     );
