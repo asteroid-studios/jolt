@@ -173,17 +173,26 @@ class _ButtonState extends State<Button> {
         }
 
         const processingDuration = Duration(milliseconds: 1500);
+        final processingIcon =
+            theme.processingIcon ?? PhosphorIcons.duotone.circleNotch;
+        final processingIconWidget = processingIcon is PhosphorIconData
+            ? PhosphorIcon(
+                processingIcon,
+                color: baseColor,
+                size: iconSize,
+              )
+            : Icon(
+                processingIcon,
+                color: baseColor,
+                size: iconSize,
+              );
 
         return Row(
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             if (isProcessing)
-              PhosphorIcon(
-                PhosphorIcons.duotone.circleNotch,
-                color: baseColor,
-                size: iconSize,
-              )
+              processingIconWidget
                   .animate(onPlay: (controller) => controller.repeat())
                   .rotate(duration: processingDuration)
             else if (icon != null)

@@ -16,6 +16,7 @@ class ButtonTheme extends SurfaceTheme {
     this.labelStyle,
     this.smallButtonTheme,
     this.largeButtonTheme,
+    this.processingIcon,
   });
 
   /// The spacing between a button icon and label
@@ -31,6 +32,9 @@ class ButtonTheme extends SurfaceTheme {
   final ButtonTheme? largeButtonTheme;
 
   ///
+  final IconData? processingIcon;
+
+  ///
   ButtonTheme copyWith({
     BorderRadius? borderRadius,
     double? horizontalPadding,
@@ -44,6 +48,7 @@ class ButtonTheme extends SurfaceTheme {
     TextStyle? labelStyle,
     ButtonTheme? smallButtonTheme,
     ButtonTheme? largeButtonTheme,
+    IconData? processingIcon,
   }) {
     return ButtonTheme(
       borderRadius: borderRadius ?? this.borderRadius,
@@ -58,6 +63,7 @@ class ButtonTheme extends SurfaceTheme {
       labelStyle: labelStyle ?? this.labelStyle,
       smallButtonTheme: smallButtonTheme ?? this.smallButtonTheme,
       largeButtonTheme: largeButtonTheme ?? this.largeButtonTheme,
+      processingIcon: processingIcon ?? this.processingIcon,
     );
   }
 }

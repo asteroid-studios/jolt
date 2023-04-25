@@ -57,7 +57,7 @@ class DashboardPage extends StatelessWidget {
                         ),
                         child: Container(
                           decoration: BoxDecoration(
-                            borderRadius: context.borderRadius.lg,
+                            borderRadius: context.borderRadius.xl,
                             color: context.color.background.withOpacity(
                               context.color.brightness == Brightness.dark
                                   ? 0.8
