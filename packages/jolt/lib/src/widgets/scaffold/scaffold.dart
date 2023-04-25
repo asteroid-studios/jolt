@@ -52,28 +52,36 @@ class Scaffold extends StatelessWidget {
             // If both app bars are floating, group them
             AdaptiveHeightSliverPersistentHeader(
               floating: true,
-              child: Column(
-                children: [
-                  if (shell.topBar != null)
-                    Hero(
-                      tag: 'shellTopBar',
-                      child: shell.topBar!,
-                    ),
-                  Container(
-                    padding: EdgeInsets.all(context.sizing.lg),
-                    color: context.color.surface.withOpacity(0.2),
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: Text(
-                            title,
-                            style: context.style.headingSmall,
-                          ),
+
+              /// Builder is important or theme changes don't get picked up
+              child: Builder(
+                builder: (context) {
+                  return Column(
+                    children: [
+                      if (shell.topBar != null)
+                        Hero(
+                          tag: 'shellTopBar',
+                          child: shell.topBar!,
                         ),
-                      ],
-                    ),
-                  ),
-                ],
+                      Surface(
+                        borderColor: Colors.transparent,
+                        borderRadius: BorderRadius.zero,
+                        padding: EdgeInsets.all(context.sizing.lg),
+                        background: context.color.surface.withOpacity(0.4),
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: Text(
+                                title,
+                                style: context.style.headingSmall,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  );
+                },
               ),
             ),
             SliverFillRemaining(

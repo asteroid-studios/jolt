@@ -10,8 +10,9 @@ class TopBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: context.color.surface.withOpacity(0.2),
+    return Surface(
+      borderRadius: BorderRadius.zero,
+      background: context.color.surface.withOpacity(0.2),
       child: Padding(
         padding: EdgeInsets.all(context.sizing.md),
         child: Row(

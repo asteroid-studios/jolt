@@ -15,9 +15,14 @@ class AppShell extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Shell(
-      sidebarLeft: Container(
-        color: context.color.surface.withOpacity(0.5),
+      sidebarLeft: Surface(
+        borderColor: Colors.transparent,
+        borderRadius: BorderRadius.zero,
+        background: context.color.surface.withOpacity(0.5),
         width: 280,
+        child: Column(
+          children: [],
+        ),
       ),
       sidebarRight: const SidebarRight(),
       topBar: const TopBar(),

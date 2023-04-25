@@ -12,6 +12,7 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return JoltApp.router(
+      debugShowCheckedModeBanner: false,
       themes: themes,
       widgetTheme: widgetTheme,
       routerConfig: router,

@@ -7,67 +7,74 @@ class SidebarRight extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Button themeButton(
+      PhosphorIconData icon,
+      ThemeMode mode, {
+      bool? withHighContrast,
+    }) {
+      final selected = context.jolt.themeMode == mode &&
+          (withHighContrast == null ||
+              context.jolt.highContrast == withHighContrast);
+      return Button(
+        phosphorIcon: icon,
+        borderColor: selected ? context.color.primary : null,
+        onTap: () => context.jolt.setTheme(
+          mode,
+          withHighContrast: withHighContrast,
+        ),
+      );
+    }
+
     ///
     Button colorButton(JoltColor color) {
       final selected = context.color.primary == color;
       final borderColor = selected
           ? context.color.background.isDark
-              ? color.lighten(20)
-              : color.darken(20)
+              ? color.lighten()
+              : color.darken()
           : null;
       return Button(
-        phosphorIcon: PhosphorIcons.regular.dot,
-        color: color,
         background: color,
-        borderWidth: 3,
         borderColor: borderColor,
+        borderRadius: context.borderRadius.lg,
         onTap: () => context.jolt.setPrimaryColor(color),
       );
     }
 
     return Surface(
+      borderColor: Colors.transparent,
+      borderRadius: BorderRadius.zero,
       background: context.color.surface.withOpacity(0.2),
-      // width: 80,
       child: Column(
         children: [
           const Spacing.xl(),
-          Button(
-            phosphorIcon: PhosphorIcons.duotone.cloudSun,
-            onTap: () => context.jolt.setTheme(
-              ThemeMode.light,
-              withHighContrast: false,
-            ),
+          themeButton(
+            PhosphorIcons.duotone.cloudSun,
+            ThemeMode.light,
+            withHighContrast: false,
           ),
           const Spacing.sm(),
-          Button(
-            phosphorIcon: PhosphorIcons.duotone.sun,
-            onTap: () => context.jolt.setTheme(
-              ThemeMode.light,
-              withHighContrast: true,
-            ),
+          themeButton(
+            PhosphorIcons.duotone.sun,
+            ThemeMode.light,
+            withHighContrast: true,
           ),
           const Spacing.sm(),
-          Button(
-            phosphorIcon: PhosphorIcons.duotone.cloudMoon,
-            onTap: () => context.jolt.setTheme(
-              ThemeMode.dark,
-              withHighContrast: false,
-            ),
+          themeButton(
+            PhosphorIcons.duotone.cloudMoon,
+            ThemeMode.dark,
+            withHighContrast: false,
           ),
           const Spacing.sm(),
-          Button(
-            phosphorIcon: PhosphorIcons.duotone.moon,
-            onTap: () => context.jolt.setTheme(
-              ThemeMode.dark,
-              withHighContrast: true,
-            ),
+          themeButton(
+            PhosphorIcons.duotone.moon,
+            ThemeMode.dark,
+            withHighContrast: true,
           ),
           const Spacing.sm(),
-          Button(
-            phosphorIcon: PhosphorIcons.duotone.gearSix,
-            onTap: () => context.jolt.setTheme(
-              ThemeMode.system,
-            ),
+          themeButton(
+            PhosphorIcons.duotone.gearSix,
+            ThemeMode.system,
           ),
           const Spacing.xxl(),
           colorButton(Colors.emerald),

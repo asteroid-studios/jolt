@@ -117,7 +117,13 @@ class _ButtonState extends State<Button> {
         vertical: verticalPadding,
       ),
       builder: (context, state) {
-        if (noLabel) return icon ?? const SizedBox();
+        if (noLabel) {
+          return icon ??
+              Icon(
+                PhosphorIcons.regular.dot,
+                color: Colors.transparent,
+              );
+        }
 
         return Row(
           mainAxisSize: MainAxisSize.min,

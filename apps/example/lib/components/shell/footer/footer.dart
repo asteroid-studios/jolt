@@ -19,8 +19,8 @@ class Footer extends StatelessWidget {
         color: context.color.background,
       ),
       child: Row(
-        children: [
-          const Text('© 2021 Jolt'),
+        children: const [
+          Text('© 2023 Jolt'),
         ],
       ),
     );

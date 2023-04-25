@@ -318,45 +318,6 @@ class DashboardPage extends StatelessWidget {
             ],
           ),
           const Spacing.section(),
-          Surface(
-            child: Surface(
-              borderColor: context.color.primary.s700,
-              background: context.color.primary,
-              child: JoltText(
-                'Surface',
-                style: context.style.body.copyWith(
-                  color: context.color.primary.highlight,
-                ),
-              ),
-            ),
-          ),
-          SizedBox(height: context.sizing.sm),
-          Surface.focusable(
-            onTap: () {
-              // dismiss focus
-              // FocusManager.instance.primaryFocus?.unfocus();
-              context.jolt.setSpacingScaleFactorMultiplier(1);
-              context.jolt.setTextScaleFactorMultiplier(1);
-            },
-            padding: EdgeInsets.symmetric(
-              horizontal: context.sizing.sm,
-              vertical: context.sizing.xs,
-            ),
-            builder: (_, __) => Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                JoltText(
-                  'align',
-                  style: context.style.button,
-                ),
-                const Spacing.sm(),
-                const Text(
-                  'align',
-                ),
-              ],
-            ),
-          ),
-          const Spacing.section(),
         ],
       ),
     );
