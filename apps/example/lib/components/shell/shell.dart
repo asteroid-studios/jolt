@@ -24,7 +24,6 @@ class AppShell extends StatelessWidget {
       // ),
       topBar: const TopBar(),
       footer: const Footer(),
-      footerOptions: const FooterOptions(pinned: false),
       child: navigator,
     );
   }

@@ -7,6 +7,11 @@ class UsersPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(child: Text('Users'));
+    return Scaffold(
+      title: 'Users',
+      content: const Center(
+        child: Text('Users'),
+      ),
+    );
   }
 }

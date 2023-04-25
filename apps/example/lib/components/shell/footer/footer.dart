@@ -8,7 +8,16 @@ class Footer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: context.color.surface,
+      padding: EdgeInsets.all(context.sizing.md),
+      decoration: BoxDecoration(
+        border: Border(
+          top: BorderSide(
+            color: context.color.surface.s100,
+            width: context.dimensions.borderWidth,
+          ),
+        ),
+        color: context.color.background,
+      ),
       child: Row(
         children: [
           Text('© 2021 Jolt'),

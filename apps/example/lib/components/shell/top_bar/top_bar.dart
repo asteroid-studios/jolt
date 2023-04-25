@@ -16,9 +16,14 @@ class TopBar extends StatelessWidget {
         padding: EdgeInsets.all(context.sizing.md),
         child: Row(
           children: [
-            Text(
-              'Jolt',
-              style: context.style.heading,
+            Surface.focusable(
+              onPressed: () => DashboardRouteData().go(context),
+              builder: (context, state) {
+                return Text(
+                  'Jolt',
+                  style: context.style.heading,
+                );
+              },
             ),
             const Expanded(child: SizedBox()),
             Surface.focusable(

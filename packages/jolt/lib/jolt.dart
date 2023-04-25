@@ -22,7 +22,7 @@ export 'src/widgets/spacing/spacing.dart';
 export 'src/widgets/surface/surface.dart';
 export 'src/widgets/text/text.dart';
 export 'src/widgets/scaffold/scaffold.dart';
-export 'src/widgets/shell/shell.dart';
+export 'src/widgets/shell/shell.dart' hide InheritedShell;
 
 // Utils exports
 export 'src/utils/responsive/edge_insets.dart';
