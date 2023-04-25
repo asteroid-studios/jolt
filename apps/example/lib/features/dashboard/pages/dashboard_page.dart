@@ -199,7 +199,24 @@ class _DashboardPageState extends State<DashboardPage> {
                       const Duration(seconds: 4),
                     );
                   },
+                  icon: PhosphorIcons.regular.gear,
                   label: 'Button',
+                ),
+                Button(
+                  onTap: () async {
+                    await Future.delayed(
+                      const Duration(seconds: 4),
+                    );
+                  },
+                  icon: PhosphorIcons.regular.gear,
+                ),
+                Button(
+                  onTap: () async {
+                    await Future.delayed(
+                      const Duration(seconds: 4),
+                    );
+                  },
+                  label: 'Align',
                 ),
                 Button(
                   icon: PhosphorIcons.regular.gear,

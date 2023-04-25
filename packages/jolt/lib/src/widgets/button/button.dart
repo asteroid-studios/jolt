@@ -114,7 +114,8 @@ class _ButtonState extends State<Button> {
 
     final labelStyle =
         widget.labelStyle ?? theme.labelStyle ?? context.style.body;
-    final iconSize = widget.iconSize ?? labelStyle.fontSize;
+    final iconSize = (widget.iconSize ?? labelStyle.fontSize ?? 16) *
+        context.scaling.textScale;
     final background = widget.background ?? theme.background;
     final baseColor = widget.color ??
         (background is JoltColor ? background.highlight : null) ??
@@ -164,39 +165,56 @@ class _ButtonState extends State<Button> {
         vertical: verticalPadding,
       ),
       builder: (context, state) {
-        if (noLabel) {
-          return icon ??
-              Icon(
-                PhosphorIcons.regular.dot,
-                color: Colors.transparent,
-              );
-        }
-
         const processingDuration = Duration(milliseconds: 1500);
         final processingIcon =
             theme.processingIcon ?? PhosphorIcons.duotone.circleNotch;
-        final processingIconWidget = processingIcon is PhosphorIconData
-            ? PhosphorIcon(
-                processingIcon,
-                color: baseColor,
-                size: iconSize,
-              )
-            : Icon(
-                processingIcon,
-                color: baseColor,
-                size: iconSize,
-              );
+        final processingIconWidget = (processingIcon is PhosphorIconData
+                ? PhosphorIcon(
+                    processingIcon,
+                    color: baseColor,
+                    size: iconSize,
+                  )
+                : Icon(
+                    processingIcon,
+                    color: baseColor,
+                    size: iconSize,
+                  ))
+            .animate(onPlay: (controller) => controller.repeat())
+            .rotate(duration: processingDuration);
+
+        if (noLabel) {
+          return Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              // Necessary for widths to line up without label
+              RotatedBox(
+                quarterTurns: 1,
+                child: Text('', style: labelStyle),
+              ),
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  if (isProcessing)
+                    processingIconWidget
+                  else
+                    icon ??
+                        Icon(
+                          PhosphorIcons.regular.dot,
+                          color: Colors.transparent,
+                        ),
+                  // Necessary for heights to line up without label
+                  Text('', style: labelStyle),
+                ],
+              ),
+            ],
+          );
+        }
 
         return Row(
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            if (isProcessing)
-              processingIconWidget
-                  .animate(onPlay: (controller) => controller.repeat())
-                  .rotate(duration: processingDuration)
-            else if (icon != null)
-              icon,
+            if (isProcessing) processingIconWidget else if (icon != null) icon,
             if (icon != null || isProcessing)
               SizedBox(
                 width: widget.horizontalSpacing ??

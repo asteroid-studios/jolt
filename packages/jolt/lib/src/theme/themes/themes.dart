@@ -54,7 +54,8 @@ class Themes extends StatelessWidget {
                     child: IconTheme(
                       data: IconThemeData(
                         color: defaultColor,
-                        size: context.style.body.fontSize,
+                        size: (context.style.body.fontSize ?? 16) *
+                            context.scaling.textScale,
                       ),
                       child: DefaultSelectionStyle(
                         cursorColor: context.color.primary,
