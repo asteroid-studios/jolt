@@ -5,9 +5,27 @@ import 'package:jolt/jolt.dart';
 import 'package:example/theming/typography.dart';
 
 ///
-class DashboardPage extends StatelessWidget {
+class DashboardPage extends StatefulWidget {
   ///
   const DashboardPage({super.key});
+
+  @override
+  State<DashboardPage> createState() => _DashboardPageState();
+}
+
+class _DashboardPageState extends State<DashboardPage> {
+  bool loaded = false;
+
+  @override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
+      await Future<void>.delayed(const Duration(milliseconds: 200));
+      setState(() {
+        loaded = true;
+      });
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,21 +50,29 @@ class DashboardPage extends StatelessWidget {
                 child: Stack(
                   children: [
                     Positioned.fill(
-                      child: Container(
-                        decoration: BoxDecoration(
-                          gradient: LinearGradient(
-                            begin: Alignment.bottomLeft,
-                            end: Alignment.topRight,
-                            colors: [
-                              ...Colors.violet.shades.getRange(begin, end),
-                              ...Colors.red.shades.getRange(begin, end),
-                              ...Colors.violet.shades.getRange(begin, end),
-                              ...Colors.sky.shades.getRange(begin, end),
-                              ...Colors.violet.shades.getRange(begin, end),
-                              ...Colors.red.shades.getRange(begin, end),
-                            ],
-                          ),
-                        ),
+                      child: AnimatedSwitcher(
+                        duration: const Duration(milliseconds: 500),
+                        child: loaded
+                            ? Container(
+                                decoration: BoxDecoration(
+                                  gradient: LinearGradient(
+                                    begin: Alignment.bottomLeft,
+                                    end: Alignment.topRight,
+                                    colors: [
+                                      ...Colors.violet.shades
+                                          .getRange(begin, end),
+                                      ...Colors.red.shades.getRange(begin, end),
+                                      ...Colors.violet.shades
+                                          .getRange(begin, end),
+                                      ...Colors.sky.shades.getRange(begin, end),
+                                      ...Colors.violet.shades
+                                          .getRange(begin, end),
+                                      ...Colors.red.shades.getRange(begin, end),
+                                    ],
+                                  ),
+                                ),
+                              )
+                            : const SizedBox.shrink(),
                       ),
                     ),
                     Positioned.fill(
