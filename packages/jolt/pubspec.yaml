@@ -8,6 +8,7 @@ environment:
   flutter: ">=1.17.0"
 
 dependencies:
+  bitsdojo_window: ^0.1.5
   collection: ^1.17.0
   flutter:
     sdk: flutter

@@ -1,3 +1,5 @@
+import 'package:bitsdojo_window/bitsdojo_window.dart';
+
 import 'package:jolt/jolt.dart';
 
 ///
@@ -9,6 +11,7 @@ class Shell extends StatelessWidget {
     this.sidebarLeft,
     this.sidebarRight,
     this.footer,
+    this.desktopTopBar,
     this.topBarOptions = const TopBarOptions(),
     this.footerOptions = const FooterOptions(),
     super.key,
@@ -34,6 +37,8 @@ class Shell extends StatelessWidget {
 
   ///
   final FooterOptions footerOptions;
+
+  final Widget? desktopTopBar;
 
   ///
   static InheritedShell of(BuildContext context) {
@@ -83,6 +88,13 @@ class Shell extends StatelessWidget {
 
     return Column(
       children: [
+        if (Platform.isDesktop)
+          WindowTitleBarBox(
+            child: MoveWindow(
+              child: desktopTopBar ??
+                  Container(color: context.color.background, height: 30),
+            ),
+          ),
         if (topBar != null && topBarOptions.topBarFullWidth && !mobile) topBar!,
         Expanded(child: inside),
       ],

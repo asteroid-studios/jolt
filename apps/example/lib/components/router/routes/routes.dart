@@ -30,19 +30,20 @@ class AppShellRouteData extends ShellRouteData {
 class DashboardRouteData extends GoRouteData {
   @override
   Page<void> buildPage(BuildContext context, GoRouterState state) =>
-      material(state, const DashboardPage());
+      slide(state, const DashboardPage());
 }
 
 ///
 class UsersRouteData extends GoRouteData {
   @override
   Page<void> buildPage(BuildContext context, GoRouterState state) =>
-      material(state, const UsersPage());
+      slide(state, const UsersPage());
 }
 
 ///
 Page<dynamic> fade(GoRouterState state, Widget screen) {
   return CustomTransitionPage(
+    transitionDuration: const Duration(milliseconds: 100),
     name: state.location,
     key: state.pageKey,
     child: screen,
@@ -52,6 +53,32 @@ Page<dynamic> fade(GoRouterState state, Widget screen) {
       return FadeTransition(
         opacity: CurveTween(curve: Curves.easeInOut).animate(animation),
         child: child,
+      );
+    },
+  );
+}
+
+///
+Page<dynamic> slide(GoRouterState state, Widget screen) {
+  return CustomTransitionPage(
+    // transitionDuration: const Duration(milliseconds: 200),
+    name: state.location,
+    key: state.pageKey,
+    child: screen,
+    transitionsBuilder: (context, animation, secondaryAnimation, child) {
+      return FadeTransition(
+        opacity: CurveTween(curve: Curves.easeInOut).animate(animation),
+        child: SlideTransition(
+          position: animation.drive(
+            Tween<Offset>(
+              begin: const Offset(0, 0.2),
+              end: Offset.zero,
+            ).chain(
+              CurveTween(curve: Curves.easeInExpo),
+            ),
+          ),
+          child: child,
+        ),
       );
     },
   );

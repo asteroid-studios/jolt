@@ -31,6 +31,12 @@ class Platform {
   /// Determine if the platform is Linux
   static bool get isLinux => platform == TargetPlatform.linux;
 
+  /// Determine if the platform is mobile
+  static bool get isMobile => isIOS || isAndroid || isFuchsia;
+
+  /// Determine if the platform is desktop
+  static bool get isDesktop => isMacOS || isWindows || isLinux;
+
   /// Override the default target platform for testing
   void setDebugTargetPlatformOverride(TargetPlatform? platform) {
     debugDefaultTargetPlatformOverride = platform;

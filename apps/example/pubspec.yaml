@@ -7,6 +7,7 @@ environment:
   sdk: '>=2.19.6 <3.0.0'
 
 dependencies:
+  bitsdojo_window: ^0.1.5
   flutter:
     sdk: flutter
   go_router: ^6.5.7

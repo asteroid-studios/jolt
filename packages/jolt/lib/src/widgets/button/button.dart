@@ -25,6 +25,8 @@ class Button extends StatefulWidget {
     this.borderRadius,
     this.labelStyle,
     this.horizontalSpacing,
+    this.width,
+    this.height,
     this.size = ButtonSize.md,
   });
 
@@ -75,6 +77,12 @@ class Button extends StatefulWidget {
 
   ///
   final TextStyle? labelStyle;
+
+  ///
+  final double? width;
+
+  ///
+  final double? height;
 
   @override
   State<Button> createState() => _ButtonState();
@@ -143,6 +151,8 @@ class _ButtonState extends State<Button> {
           ? () async => await handlePressed(widget.onLongPressed!)
           : null,
       toolTip: widget.toolTip,
+      width: widget.width,
+      height: widget.height,
       background: widget.background ?? theme.background,
       borderColor: widget.borderColor ?? theme.borderColor,
       borderRadius: widget.borderRadius ?? theme.borderRadius,
