@@ -19,6 +19,7 @@ final _inter300Dark = _inter300Light.copyWith(
 
 /// The typography for the app.
 final typographyLight = Typography(
+  hero: _inter700,
   displayLarge: _inter700,
   display: _inter700,
   displaySmall: _inter700,
@@ -34,6 +35,7 @@ final typographyLight = Typography(
 
 /// The typography for the app.
 final typographyDark = typographyLight.copyWith(
+  hero: _inter700Dark,
   displayLarge: _inter700Dark,
   display: _inter700Dark,
   displaySmall: _inter700Dark,

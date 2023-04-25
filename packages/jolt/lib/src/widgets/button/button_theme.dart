@@ -18,24 +18,6 @@ class ButtonTheme extends SurfaceTheme {
     this.largeButtonTheme,
   });
 
-  ///
-  ButtonTheme.from(
-    SurfaceTheme surface,
-  )   : horizontalSpacing = null,
-        labelStyle = null,
-        smallButtonTheme = null,
-        largeButtonTheme = null,
-        super(
-          borderRadius: surface.borderRadius,
-          horizontalPadding: surface.horizontalPadding,
-          verticalPadding: surface.verticalPadding,
-          background: surface.background,
-          backgroundOnFocus: surface.backgroundOnFocus,
-          backgroundOnHover: surface.backgroundOnHover,
-          borderColor: surface.borderColor,
-          borderColorOnFocus: surface.borderColorOnFocus,
-        );
-
   /// The spacing between a button icon and label
   final double? horizontalSpacing;
 

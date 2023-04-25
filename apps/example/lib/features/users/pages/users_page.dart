@@ -9,8 +9,11 @@ class UsersPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       title: 'Users',
-      content: const Center(
-        child: Text('Users'),
+      content: Center(
+        child: Text(
+          'Users',
+          style: context.style.display,
+        ),
       ),
     );
   }

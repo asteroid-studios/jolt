@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:flutter_animate/flutter_animate.dart';
+
 import 'package:jolt/jolt.dart';
 import 'package:jolt/src/utils/theme/defaults.dart';
 
@@ -20,6 +22,8 @@ class Button extends StatefulWidget {
     this.borderColor,
     this.borderWidth,
     this.borderRadius,
+    this.labelStyle,
+    this.horizontalSpacing,
     this.size = ButtonSize.md,
   });
 
@@ -60,15 +64,33 @@ class Button extends StatefulWidget {
   final double? borderWidth;
 
   ///
+  final double? horizontalSpacing;
+
+  ///
   final BorderRadius? borderRadius;
+
+  ///
+  final TextStyle? labelStyle;
 
   @override
   State<Button> createState() => _ButtonState();
 }
 
 class _ButtonState extends State<Button> {
+  bool isProcessing = false;
+
+  FutureOr<void> handlePressed(FutureOr<void> Function() function) async {
+    if (isProcessing) return;
+    setState(() => isProcessing = true);
+    await function();
+    setState(() => isProcessing = false);
+  }
+
   @override
   Widget build(BuildContext context) {
+    final disabled =
+        isProcessing || (widget.onTap == null && widget.onLongPressed == null);
+
     // Prepare the theme
     final buttonTheme = context.widgetTheme.button;
     final theme = widget.size == ButtonSize.md
@@ -78,24 +100,27 @@ class _ButtonState extends State<Button> {
             ? buttonTheme.smallButtonTheme ?? buttonTheme
             : buttonTheme.largeButtonTheme ?? buttonTheme;
 
-    final effectiveBackground = widget.background ?? theme.background;
-    final effectiveColor = widget.color ??
-        (effectiveBackground is JoltColor
-            ? effectiveBackground.highlight
-            : null);
+    final labelStyle =
+        widget.labelStyle ?? theme.labelStyle ?? context.style.body;
+    final background = widget.background ?? theme.background;
+    final baseColor = widget.color ??
+        (background is JoltColor ? background.highlight : null) ??
+        labelStyle.color;
+    final color =
+        disabled ? baseColor?.withOpacity(disabled ? 0.5 : 1) : baseColor;
 
     // Prepare the icon
     final icon = widget.iconWidget ??
         (widget.icon != null
             ? Icon(
                 widget.icon,
-                color: effectiveColor,
+                color: color,
               )
             : null) ??
         (widget.phosphorIcon != null
             ? PhosphorIcon(
                 widget.phosphorIcon!,
-                color: effectiveColor,
+                color: color,
               )
             : null);
 
@@ -104,8 +129,12 @@ class _ButtonState extends State<Button> {
         theme.verticalPadding ?? context.defaults.verticalPadding;
 
     return Surface.focusable(
-      onTap: widget.onTap,
-      onLongPressed: widget.onLongPressed,
+      onTap: widget.onTap != null
+          ? () async => await handlePressed(widget.onTap!)
+          : null,
+      onLongPressed: widget.onLongPressed != null
+          ? () async => await handlePressed(widget.onLongPressed!)
+          : null,
       background: widget.background ?? theme.background,
       borderColor: widget.borderColor ?? theme.borderColor,
       borderRadius: widget.borderRadius ?? theme.borderRadius,
@@ -125,14 +154,31 @@ class _ButtonState extends State<Button> {
               );
         }
 
+        const processingDuration = Duration(milliseconds: 1500);
+
         return Row(
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            if (icon != null) icon,
+            if (isProcessing)
+              PhosphorIcon(
+                PhosphorIcons.duotone.circleNotch,
+                color: baseColor,
+              )
+                  .animate(onPlay: (controller) => controller.repeat())
+                  .rotate(duration: processingDuration)
+            else if (icon != null)
+              icon,
+            if (icon != null || isProcessing)
+              SizedBox(
+                width: widget.horizontalSpacing ??
+                    theme.horizontalSpacing ??
+                    context.sizing.xs,
+              ),
             JoltText(
               widget.label!,
-              color: effectiveColor,
+              style: labelStyle,
+              color: color,
             ),
           ],
         );

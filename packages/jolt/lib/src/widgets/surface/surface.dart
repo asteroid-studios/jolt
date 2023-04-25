@@ -2,10 +2,9 @@ import 'dart:async';
 
 import 'package:flutter/services.dart';
 
-import 'package:tinycolor2/tinycolor2.dart';
-
 import 'package:jolt/jolt.dart';
 import 'package:jolt/src/utils/theme/defaults.dart';
+import 'package:jolt/src/widgets/ripple_effect/ripple_effect.dart';
 
 ///
 class Surface extends StatefulWidget {
@@ -47,7 +46,10 @@ class Surface extends StatefulWidget {
     super.key,
   }) : child = null;
 
+  ///
   final Widget? child;
+
+  ///
   final Widget Function(BuildContext, FocusableControlState)? builder;
 
   ///
@@ -114,61 +116,73 @@ class _SurfaceState extends State<Surface> with SingleTickerProviderStateMixin {
     final defaultFocusBorderColor =
         theme.borderColorOnFocus ?? context.color.primary;
 
-    Widget _buildSurface(
+    Widget buildSurface(
       Widget w, {
       bool isHovered = false,
       bool isFocused = false,
     }) {
-      final _hasFocus = widget.hasFocusOverride ?? isFocused;
+      final child = Padding(
+        padding: widget.padding ??
+            (widget.child == null
+                ? null
+                : EdgeInsets.symmetric(
+                    horizontal: theme.horizontalPadding ??
+                        context.defaults.horizontalPadding,
+                    vertical: theme.verticalPadding ??
+                        context.defaults.verticalPadding,
+                  )) ??
+            EdgeInsets.zero,
+        child: w,
+      );
+      final hasFocus = widget.hasFocusOverride ?? isFocused;
       return ClipRRect(
         borderRadius: defaultBorderRadius,
         child: AnimatedContainer(
           width: widget.width,
           height: widget.height,
-          padding: widget.padding ??
-              (widget.child == null
-                  ? null
-                  : EdgeInsets.symmetric(
-                      horizontal: theme.horizontalPadding ??
-                          context.defaults.horizontalPadding,
-                      vertical: theme.verticalPadding ??
-                          context.defaults.verticalPadding,
-                    )),
           duration: const Duration(milliseconds: 300),
           decoration: BoxDecoration(
             borderRadius: defaultBorderRadius,
             border: Border.all(
-              color: _hasFocus ? defaultFocusBorderColor : defaultBorderColor,
+              color: hasFocus ? defaultFocusBorderColor : defaultBorderColor,
               width: widget.borderWidth ?? context.borderWidth,
             ),
             color: isHovered
                 ? defaultHoverColor
-                : _hasFocus
+                : hasFocus
                     ? defaultFocusColor
                     : defaultBackground,
           ),
-          child: w,
+          child: widget.child != null
+              ? child
+              : TouchRippleEffect(
+                  borderRadius: defaultBorderRadius,
+                  rippleColor: context.color.primary,
+                  child: child,
+                ),
         ),
       );
     }
 
-    if (widget.child != null) return _buildSurface(widget.child!);
+    if (widget.child != null) return buildSurface(widget.child!);
     if (widget.builder == null) return const SizedBox.shrink();
 
+    final disabled = widget.onTap == null && widget.onLongPressed == null;
+
     return FocusableControlBuilder(
-      cursor: widget.cursor ?? SystemMouseCursors.click,
+      cursor: widget.cursor ?? (disabled ? null : SystemMouseCursors.click),
       onTap: widget.onTap,
       focusEnabled: widget.focusEnabled,
       builder: (context, state) {
         if (widget.selectionEnabled) {
-          return _buildSurface(
+          return buildSurface(
             widget.builder!(context, state),
             isHovered: state.isHovered,
             isFocused: state.isFocused,
           );
         }
         return SelectionContainer.disabled(
-          child: _buildSurface(
+          child: buildSurface(
             widget.builder!(context, state),
             isHovered: state.isHovered,
             isFocused: state.isFocused,

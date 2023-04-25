@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
 
+const _defaultHero = TextStyle(fontSize: 72);
 const _defaultDisplayLarge = TextStyle(fontSize: 60);
 const _defaultDisplay = TextStyle(fontSize: 48);
 const _defaultDisplaySmall = TextStyle(fontSize: 36);
@@ -17,6 +18,7 @@ const _defaultLabelSmall = TextStyle(fontSize: 10);
 class Typography {
   /// Initialise the typography for the theme.
   Typography({
+    TextStyle? hero,
     TextStyle? displayLarge,
     TextStyle? display,
     TextStyle? displaySmall,
@@ -28,7 +30,8 @@ class Typography {
     TextStyle? bodySmall,
     TextStyle? label,
     TextStyle? labelSmall,
-  })  : displayLarge =
+  })  : hero = hero?.merge(_defaultHero) ?? _defaultHero,
+        displayLarge =
             displayLarge?.merge(_defaultDisplayLarge) ?? _defaultDisplayLarge,
         display = display?.merge(_defaultDisplay) ?? _defaultDisplay,
         displaySmall =
@@ -45,13 +48,16 @@ class Typography {
         labelSmall =
             labelSmall?.merge(_defaultLabelSmall) ?? _defaultLabelSmall;
 
-  /// Used for large display text. (Eg: hero section)
+  /// Used for hero text.
+  final TextStyle hero;
+
+  /// Used for large display text.
   final TextStyle displayLarge;
 
-  /// Used for display text. (Eg: hero section)
+  /// Used for display text.
   final TextStyle display;
 
-  /// Used for small display text. (Eg: hero section)
+  /// Used for small display text.
   final TextStyle displaySmall;
 
   /// Used for large heading text.)
@@ -80,7 +86,7 @@ class Typography {
 
   /// Return a copy of Typography with the given parameters replaced
   Typography copyWith({
-    Color? defaultColor,
+    TextStyle? hero,
     TextStyle? displayLarge,
     TextStyle? display,
     TextStyle? displaySmall,
@@ -94,6 +100,7 @@ class Typography {
     TextStyle? labelSmall,
   }) {
     return Typography(
+      hero: hero ?? this.hero,
       displayLarge: displayLarge ?? this.displayLarge,
       display: display ?? this.display,
       displaySmall: displaySmall ?? this.displaySmall,
@@ -114,6 +121,7 @@ class Typography {
       return false;
     }
     return other is Typography &&
+        other.hero == hero &&
         other.displayLarge == displayLarge &&
         other.display == display &&
         other.displaySmall == displaySmall &&
@@ -130,6 +138,7 @@ class Typography {
   @override
   int get hashCode {
     final values = <Object?>[
+      hero,
       displayLarge,
       display,
       displaySmall,

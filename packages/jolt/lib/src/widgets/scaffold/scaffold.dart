@@ -56,30 +56,29 @@ class Scaffold extends StatelessWidget {
               /// Builder is important or theme changes don't get picked up
               child: Builder(
                 builder: (context) {
-                  return Column(
-                    children: [
-                      if (shell.topBar != null)
-                        Hero(
-                          tag: 'shellTopBar',
-                          child: shell.topBar!,
-                        ),
-                      Surface(
-                        borderColor: Colors.transparent,
-                        borderRadius: BorderRadius.zero,
-                        padding: EdgeInsets.all(context.sizing.lg),
-                        background: context.color.surface.withOpacity(0.4),
-                        child: Row(
-                          children: [
-                            Expanded(
-                              child: Text(
-                                title,
-                                style: context.style.headingSmall,
+                  return Hero(
+                    tag: 'shellTopBar',
+                    child: Column(
+                      children: [
+                        if (shell.topBar != null) shell.topBar!,
+                        Surface(
+                          borderColor: Colors.transparent,
+                          borderRadius: BorderRadius.zero,
+                          padding: EdgeInsets.all(context.sizing.lg),
+                          background: context.color.surface.withOpacity(0.4),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                child: Text(
+                                  title,
+                                  style: context.style.headingSmall,
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   );
                 },
               ),

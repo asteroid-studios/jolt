@@ -36,7 +36,7 @@ class SidebarRight extends StatelessWidget {
       return Button(
         background: color,
         borderColor: borderColor,
-        borderRadius: context.borderRadius.lg,
+        borderRadius: context.borderRadius.xl,
         onTap: () => context.jolt.setPrimaryColor(color),
       );
     }

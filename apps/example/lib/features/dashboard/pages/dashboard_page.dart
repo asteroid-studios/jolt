@@ -77,10 +77,9 @@ class DashboardPage extends StatelessWidget {
                       children: [
                         JoltText(
                           'Build your next idea\neven faster.',
-                          style:
-                              context.style.displayLarge.withSize(75).copyWith(
-                                    letterSpacing: -2,
-                                  ),
+                          style: context.style.hero.copyWith(
+                            letterSpacing: -2,
+                          ),
                         ),
                         spacer,
                         JoltText(
@@ -143,6 +142,56 @@ class DashboardPage extends StatelessWidget {
                 ],
               ),
             ),
+          ),
+          const Spacing.section(),
+          Text(
+            'Widgets',
+            style: context.style.heading,
+          ),
+          const Spacing.lg(),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Surface(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Card title',
+                      style: context.style.headingSmall,
+                    ),
+                    Text(
+                      'Card body',
+                    ),
+                  ],
+                ),
+              ),
+              const Spacing.md(),
+              Button(
+                onTap: () async {
+                  await Future.delayed(
+                    const Duration(seconds: 4),
+                  );
+                },
+                label: 'Button',
+              ),
+              const Spacing.md(),
+              Button(
+                icon: PhosphorIcons.regular.gear,
+                label: 'Button Disabled',
+              ),
+              const Spacing.md(),
+              Button(
+                onTap: () async {
+                  await Future.delayed(
+                    const Duration(seconds: 4),
+                  );
+                },
+                label: 'Button Primary',
+                icon: PhosphorIcons.regular.gear,
+                background: context.color.primary,
+              ),
+            ],
           ),
           const Spacing.section(),
           Text(

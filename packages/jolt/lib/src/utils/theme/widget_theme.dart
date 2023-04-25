@@ -37,14 +37,12 @@ class WidgetThemeData {
   /// Contains the default styling for all Jolt Widgets.
   const WidgetThemeData({
     this.surface = const SurfaceTheme(),
-    ButtonTheme? button,
-  }) : _button = button;
+    this.button = const ButtonTheme(),
+  });
 
   /// The theme of a surface.
   final SurfaceTheme surface;
 
-  final ButtonTheme? _button;
-
   /// The theme of a button
-  ButtonTheme get button => _button ?? ButtonTheme.from(surface);
+  final ButtonTheme button;
 }
