@@ -17,29 +17,34 @@ class TopBar extends StatelessWidget {
         vertical: context.sizing.md,
       ),
       background: context.color.surface.withOpacity(0.2),
-      child: Row(
-        children: [
-          Surface.focusable(
-            background: Colors.transparent,
-            onTap: () => DashboardRouteData().go(context),
-            builder: (context, state) {
-              return Text(
-                'Jolt',
-                style: context.style.heading,
-              );
-            },
-          ),
-          const Expanded(child: SizedBox()),
-          Button(
-            onTap: () => DashboardRouteData().go(context),
-            icon: Icons.duotone.squaresFour,
-          ),
-          const Spacing.md(),
-          Button(
-            onTap: () => UsersRouteData().go(context),
-            icon: Icons.duotone.users,
-          ),
-        ],
+      child: SafeArea(
+        bottom: false,
+        left: false,
+        right: false,
+        child: Row(
+          children: [
+            Surface.focusable(
+              background: Colors.transparent,
+              onTap: () => DashboardRouteData().go(context),
+              builder: (context, state) {
+                return Text(
+                  'Jolt',
+                  style: context.style.heading,
+                );
+              },
+            ),
+            const Expanded(child: SizedBox()),
+            Button(
+              onTap: () => DashboardRouteData().go(context),
+              icon: Icons.duotone.squaresFour,
+            ),
+            const Spacing.md(),
+            Button(
+              onTap: () => UsersRouteData().go(context),
+              icon: Icons.duotone.users,
+            ),
+          ],
+        ),
       ),
     );
   }

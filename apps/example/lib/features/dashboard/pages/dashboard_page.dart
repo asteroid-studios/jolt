@@ -199,7 +199,6 @@ class _DashboardPageState extends State<DashboardPage> {
                       const Duration(seconds: 4),
                     );
                   },
-                  tooltip: 'button',
                   icon: Icons.regular.gear,
                   label: 'Button',
                 ),
@@ -209,6 +208,7 @@ class _DashboardPageState extends State<DashboardPage> {
                       const Duration(seconds: 4),
                     );
                   },
+                  tooltip: 'Open Settings',
                   icon: Icons.regular.gear,
                 ),
                 Button(

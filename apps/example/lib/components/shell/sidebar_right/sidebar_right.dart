@@ -106,21 +106,21 @@ class SidebarRight extends StatelessWidget {
                     themeButton(
                       Icons.duotone.cloudMoon,
                       ThemeMode.dark,
-                      '',
+                      'Use dark theme',
                       withHighContrast: false,
                     ),
                     const Spacing.sm(),
                     themeButton(
                       Icons.duotone.moon,
                       ThemeMode.dark,
-                      '',
+                      'Use dark theme with high contrast',
                       withHighContrast: true,
                     ),
                     const Spacing.sm(),
                     themeButton(
                       Icons.duotone.gearSix,
                       ThemeMode.system,
-                      '',
+                      'Use system theme',
                     ),
                     const Spacing.xxl(),
                     colorButton(

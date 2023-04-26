@@ -1,3 +1,4 @@
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_portal/flutter_portal.dart';
 
 import 'package:jolt/jolt.dart';
@@ -27,23 +28,17 @@ class Tooltip extends StatefulWidget {
 
 class _TooltipState extends State<Tooltip> {
   bool isHovered = false;
+  bool isPressing = false;
+  Alignment followerAlignment = Alignment.center;
+  Alignment targetAlignment = Alignment.center;
+  Rect? position;
 
-  @override
-  Widget build(BuildContext context) {
-    if (widget.tooltip == null) {
-      return widget.child;
-    }
-
-    final visible = (widget.controlState?.isFocused ?? false) || isHovered;
-
-    var followerAlignment = Alignment.center;
-    var targetAlignment = Alignment.center;
-    Rect? position;
-    if (visible) {
+  void getPosition() {
+    setState(() {
       position = context.globalPaintBounds;
       if (position != null) {
         // Default to top center unless too close to bottom
-        if (position.top > 100) {
+        if (position!.top > 100) {
           followerAlignment = Alignment.bottomCenter;
           targetAlignment = Alignment.topCenter;
         } else {
@@ -51,11 +46,23 @@ class _TooltipState extends State<Tooltip> {
           targetAlignment = Alignment.bottomCenter;
         }
       }
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    if (widget.tooltip == null) {
+      return widget.child;
     }
+
+    final visible =
+        (widget.controlState?.isFocused ?? false) || isHovered || isPressing;
+    const halfaSecond = Duration(milliseconds: 500);
 
     return MouseRegion(
       onEnter: (_) {
         if (!isHovered) {
+          getPosition();
           setState(() => isHovered = true);
         }
       },
@@ -64,36 +71,60 @@ class _TooltipState extends State<Tooltip> {
           setState(() => isHovered = false);
         }
       },
-      child: PortalTarget(
-        visible: visible,
-        anchor: Aligned(
-          follower: followerAlignment,
-          target: targetAlignment,
-          shiftToWithinBound: const AxisFlag(x: true, y: true),
-        ),
-        portalFollower: Padding(
-          padding: EdgeInsets.all(context.sizing.sm),
-          child: Container(
-            decoration: BoxDecoration(
-              // TODO handle shadow
-              boxShadow: [
-                BoxShadow(
-                  // color: context.color.shadow,
-                  color: Colors.black.withOpacity(0.3),
-                  blurRadius: context.sizing.md,
+      child: GestureDetector(
+        onLongPress: () async {
+          getPosition();
+          setState(() => isPressing = true);
+        },
+        child: Listener(
+          onPointerDown: (event) async {
+            if (isHovered) {
+              setState(() => isHovered = false);
+            }
+          },
+          onPointerUp: (event) {
+            if (isPressing) {
+              setState(() => isPressing = false);
+            }
+          },
+          child: PortalTarget(
+            visible: visible,
+            anchor: Aligned(
+              follower: followerAlignment,
+              target: targetAlignment,
+              shiftToWithinBound: const AxisFlag(x: true, y: true),
+            ),
+            portalFollower: Padding(
+              padding: EdgeInsets.all(context.sizing.sm),
+              child: Container(
+                decoration: BoxDecoration(
+                  // TODO handle shadow dynamically. Add to surface theme
+                  boxShadow: [
+                    BoxShadow(
+                      spreadRadius: -12,
+                      color: Colors.black.withOpacity(0.6),
+                      blurRadius: 24,
+                      offset: const Offset(0, 8),
+                    ),
+                  ],
                 ),
-              ],
-            ),
-            child: Surface(
-              padding: EdgeInsets.all(context.sizing.xs),
-              child: Text(
-                widget.tooltip!,
-                style: context.style.bodySmall,
+                child: Surface(
+                  borderRadius: context.borderRadius.md,
+                  padding: EdgeInsets.all(context.sizing.xs),
+                  child: JoltText(
+                    widget.tooltip!,
+                    style: context.style.bodySmall,
+                    color: context.color.surface.highlight,
+                  ),
+                ),
               ),
-            ),
+            ).animate(delay: halfaSecond).fade(
+                  duration: const Duration(milliseconds: 300),
+                  curve: Curves.easeIn,
+                ),
+            child: widget.child,
           ),
         ),
-        child: widget.child,
       ),
     );
   }
