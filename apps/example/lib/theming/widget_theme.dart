@@ -15,7 +15,7 @@ WidgetThemeData widgetTheme(
       horizontalPadding: theme.dimensions.sizing.md,
       verticalPadding: theme.dimensions.sizing.xs,
       borderRadius: theme.borderRadius.md,
-      // processingIcon: PhosphorIcons.duotone.spinnerGap,
+      // processingIcon: Icons.duotone.spinnerGap,
       labelStyle: GoogleFonts.inter(
         fontWeight: FontWeight.w500,
       ).copyWith(

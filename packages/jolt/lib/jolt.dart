@@ -3,7 +3,6 @@ export 'package:flutter/widgets.dart';
 export 'package:flutter/material.dart' show Scrollbar, SelectionArea;
 
 // Package exports
-export 'package:phosphor_flutter/phosphor_flutter.dart';
 export 'package:tinycolor2/tinycolor2.dart';
 
 // Export the JoltApp widget
@@ -28,8 +27,11 @@ export 'src/widgets/surface/surface.dart';
 export 'src/widgets/text/text.dart';
 export 'src/widgets/scaffold/scaffold.dart';
 export 'src/widgets/shell/shell.dart' hide InheritedShell;
+export 'src/widgets/tooltip/tooltip.dart';
 
 // Utils exports
+export 'src/utils/icons/icons.dart';
+export 'src/utils/responsive/bounds.dart';
 export 'src/utils/responsive/edge_insets.dart';
 export 'src/utils/theme/theme_extensions.dart';
 export 'src/utils/theme/widget_theme.dart';

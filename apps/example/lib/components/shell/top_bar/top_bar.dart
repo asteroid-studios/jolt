@@ -32,12 +32,12 @@ class TopBar extends StatelessWidget {
           const Expanded(child: SizedBox()),
           Button(
             onTap: () => DashboardRouteData().go(context),
-            phosphorIcon: PhosphorIcons.duotone.squaresFour,
+            icon: Icons.duotone.squaresFour,
           ),
           const Spacing.md(),
           Button(
             onTap: () => UsersRouteData().go(context),
-            phosphorIcon: PhosphorIcons.duotone.users,
+            icon: Icons.duotone.users,
           ),
         ],
       ),

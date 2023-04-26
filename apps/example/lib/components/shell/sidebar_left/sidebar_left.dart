@@ -24,7 +24,7 @@ class SidebarLeft extends StatelessWidget {
         onTap: onTap,
         background: selected ? context.color.primary : null,
         label: label,
-        phosphorIcon: icon,
+        icon: icon,
       );
     }
 
@@ -37,14 +37,14 @@ class SidebarLeft extends StatelessWidget {
         children: [
           routeButton(
             () => DashboardRouteData().go(context),
-            PhosphorIcons.duotone.squaresFour,
+            Icons.duotone.squaresFour,
             'Dashboard',
             DashboardRouteData().location,
           ),
           const Spacing.md(),
           routeButton(
             () => UsersRouteData().go(context),
-            PhosphorIcons.duotone.users,
+            Icons.duotone.users,
             'Users',
             UsersRouteData().location,
           ),

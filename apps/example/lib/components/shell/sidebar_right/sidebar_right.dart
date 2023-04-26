@@ -9,14 +9,16 @@ class SidebarRight extends StatelessWidget {
   Widget build(BuildContext context) {
     Button themeButton(
       PhosphorIconData icon,
-      ThemeMode mode, {
+      ThemeMode mode,
+      String tooltip, {
       bool? withHighContrast,
     }) {
       final selected = context.jolt.themeMode == mode &&
           (withHighContrast == null ||
               context.jolt.highContrast == withHighContrast);
       return Button(
-        phosphorIcon: icon,
+        icon: icon,
+        tooltip: tooltip,
         borderColor: selected ? context.color.primary : null,
         onTap: () => context.jolt.setTheme(
           mode,
@@ -50,7 +52,7 @@ class SidebarRight extends StatelessWidget {
           context.style.body.fontSize ??
           16;
       return Button(
-        phosphorIcon: icon,
+        icon: icon,
         borderColor: selected ? context.color.primary : null,
         iconSize: defaultIconSize * sizeMultiplier,
         onTap: () => context.jolt.setTextScaleFactorMultiplier(sizeMultiplier),
@@ -66,7 +68,7 @@ class SidebarRight extends StatelessWidget {
           context.style.body.fontSize ??
           16;
       return Button(
-        phosphorIcon: icon,
+        icon: icon,
         borderColor: selected ? context.color.primary : null,
         iconSize: defaultIconSize * sizeMultiplier,
         onTap: () =>
@@ -88,32 +90,37 @@ class SidebarRight extends StatelessWidget {
                 child: Column(
                   children: [
                     themeButton(
-                      PhosphorIcons.duotone.cloudSun,
+                      Icons.duotone.cloudSun,
                       ThemeMode.light,
+                      'Use light theme',
                       withHighContrast: false,
                     ),
                     const Spacing.sm(),
                     themeButton(
-                      PhosphorIcons.duotone.sun,
+                      Icons.duotone.sun,
                       ThemeMode.light,
+                      'Use light theme with high contrast',
                       withHighContrast: true,
                     ),
                     const Spacing.sm(),
                     themeButton(
-                      PhosphorIcons.duotone.cloudMoon,
+                      Icons.duotone.cloudMoon,
                       ThemeMode.dark,
+                      '',
                       withHighContrast: false,
                     ),
                     const Spacing.sm(),
                     themeButton(
-                      PhosphorIcons.duotone.moon,
+                      Icons.duotone.moon,
                       ThemeMode.dark,
+                      '',
                       withHighContrast: true,
                     ),
                     const Spacing.sm(),
                     themeButton(
-                      PhosphorIcons.duotone.gearSix,
+                      Icons.duotone.gearSix,
                       ThemeMode.system,
+                      '',
                     ),
                     const Spacing.xxl(),
                     colorButton(
@@ -126,32 +133,32 @@ class SidebarRight extends StatelessWidget {
                     const Spacing.xxl(),
                     sizeButton(
                       0.8,
-                      PhosphorIcons.duotone.textT,
+                      Icons.duotone.textT,
                     ),
                     const Spacing.sm(),
                     sizeButton(
                       1,
-                      PhosphorIcons.duotone.textT,
+                      Icons.duotone.textT,
                     ),
                     const Spacing.sm(),
                     sizeButton(
                       1.2,
-                      PhosphorIcons.duotone.textT,
+                      Icons.duotone.textT,
                     ),
                     const Spacing.xxl(),
                     spacingButton(
                       0.8,
-                      PhosphorIcons.duotone.alignCenterHorizontal,
+                      Icons.duotone.alignCenterHorizontal,
                     ),
                     const Spacing.sm(),
                     spacingButton(
                       1,
-                      PhosphorIcons.duotone.alignCenterHorizontal,
+                      Icons.duotone.alignCenterHorizontal,
                     ),
                     const Spacing.sm(),
                     spacingButton(
                       1.2,
-                      PhosphorIcons.duotone.alignCenterHorizontal,
+                      Icons.duotone.alignCenterHorizontal,
                     ),
                   ],
                 ),

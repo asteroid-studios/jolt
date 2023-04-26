@@ -11,10 +11,9 @@ class Button extends StatefulWidget {
   const Button({
     super.key,
     this.label,
-    this.toolTip,
+    this.tooltip,
     this.icon,
     this.iconSize,
-    this.phosphorIcon,
     this.iconWidget,
     this.onTap,
     this.onLongPressed,
@@ -34,13 +33,10 @@ class Button extends StatefulWidget {
   final String? label;
 
   ///
-  final String? toolTip;
+  final String? tooltip;
 
   ///
   final IconData? icon;
-
-  ///
-  final PhosphorIconData? phosphorIcon;
 
   ///
   final Widget? iconWidget;
@@ -125,20 +121,17 @@ class _ButtonState extends State<Button> {
 
     // Prepare the icon
     final icon = widget.iconWidget ??
-        (widget.icon != null
-            ? Icon(
-                widget.icon,
-                size: iconSize,
-                color: color,
-              )
-            : null) ??
-        (widget.phosphorIcon != null
-            ? PhosphorIcon(
-                widget.phosphorIcon!,
-                color: color,
-                size: iconSize,
-              )
-            : null);
+        (widget.icon != null && widget.icon is PhosphorIconData
+                ? widget.icon! as PhosphorIconData
+                : null)
+            ?.icon(
+          size: iconSize,
+          color: color,
+        ) ??
+        widget.icon?.icon(
+          color: color,
+          size: iconSize,
+        );
 
     final noLabel = widget.label == null;
     final verticalPadding =
@@ -151,7 +144,7 @@ class _ButtonState extends State<Button> {
       onLongPressed: widget.onLongPressed != null
           ? () async => await handlePressed(widget.onLongPressed!)
           : null,
-      toolTip: widget.toolTip,
+      tooltip: widget.tooltip,
       width: widget.width,
       height: widget.height,
       background: widget.background ?? theme.background,
@@ -167,15 +160,13 @@ class _ButtonState extends State<Button> {
       builder: (context, state) {
         const processingDuration = Duration(milliseconds: 1500);
         final processingIcon =
-            theme.processingIcon ?? PhosphorIcons.duotone.circleNotch;
+            theme.processingIcon ?? Icons.duotone.circleNotch;
         final processingIconWidget = (processingIcon is PhosphorIconData
-                ? PhosphorIcon(
-                    processingIcon,
+                ? processingIcon.icon(
                     color: baseColor,
                     size: iconSize,
                   )
-                : Icon(
-                    processingIcon,
+                : processingIcon.icon(
                     color: baseColor,
                     size: iconSize,
                   ))
@@ -199,7 +190,7 @@ class _ButtonState extends State<Button> {
                   else
                     icon ??
                         Icon(
-                          PhosphorIcons.regular.dot,
+                          Icons.regular.dot,
                           color: Colors.transparent,
                         ),
                   // Necessary for heights to line up without label

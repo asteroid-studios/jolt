@@ -21,7 +21,7 @@ class Surface extends StatefulWidget {
     super.key,
   })  : onTap = null,
         onLongPressed = null,
-        toolTip = null,
+        tooltip = null,
         builder = null,
         selectionEnabled = false,
         focusEnabled = false,
@@ -37,7 +37,7 @@ class Surface extends StatefulWidget {
     this.borderWidth,
     this.padding,
     this.onTap,
-    this.toolTip,
+    this.tooltip,
     this.onLongPressed,
     this.cursor,
     this.width,
@@ -96,7 +96,7 @@ class Surface extends StatefulWidget {
   final double? height;
 
   ///
-  final String? toolTip;
+  final String? tooltip;
 
   @override
   State<Surface> createState() => _SurfaceState();
@@ -179,19 +179,22 @@ class _SurfaceState extends State<Surface> with SingleTickerProviderStateMixin {
       onTap: widget.onTap,
       focusEnabled: widget.focusEnabled,
       builder: (context, state) {
-        if (widget.selectionEnabled) {
-          return buildSurface(
-            widget.builder!(context, state),
-            isHovered: state.isHovered,
-            isFocused: state.isFocused,
-          );
-        }
-        return SelectionContainer.disabled(
-          child: buildSurface(
-            widget.builder!(context, state),
-            isHovered: state.isHovered,
-            isFocused: state.isFocused,
-          ),
+        return Tooltip(
+          tooltip: widget.tooltip,
+          controlState: state,
+          child: widget.selectionEnabled
+              ? buildSurface(
+                  widget.builder!(context, state),
+                  isHovered: state.isHovered,
+                  isFocused: state.isFocused,
+                )
+              : SelectionContainer.disabled(
+                  child: buildSurface(
+                    widget.builder!(context, state),
+                    isHovered: state.isHovered,
+                    isFocused: state.isFocused,
+                  ),
+                ),
         );
       },
     );

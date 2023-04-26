@@ -26,14 +26,15 @@ class DesktopTopbar extends StatelessWidget {
                 children: [
                   Button(
                     onTap: () {},
+                    tooltip: 'Cast',
                     background: context.color.primary.withOpacity(0.05),
-                    phosphorIcon: PhosphorIcons.duotone.screencast,
+                    icon: Icons.duotone.screencast,
                   ),
                   const Spacing.md(),
                   Button(
                     onTap: () {},
                     background: context.color.primary.withOpacity(0.05),
-                    phosphorIcon: PhosphorIcons.duotone.camera,
+                    icon: Icons.duotone.camera,
                   ),
                 ],
               ),

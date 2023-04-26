@@ -199,7 +199,8 @@ class _DashboardPageState extends State<DashboardPage> {
                       const Duration(seconds: 4),
                     );
                   },
-                  icon: PhosphorIcons.regular.gear,
+                  tooltip: 'button',
+                  icon: Icons.regular.gear,
                   label: 'Button',
                 ),
                 Button(
@@ -208,7 +209,7 @@ class _DashboardPageState extends State<DashboardPage> {
                       const Duration(seconds: 4),
                     );
                   },
-                  icon: PhosphorIcons.regular.gear,
+                  icon: Icons.regular.gear,
                 ),
                 Button(
                   onTap: () async {
@@ -219,7 +220,7 @@ class _DashboardPageState extends State<DashboardPage> {
                   label: 'Align',
                 ),
                 Button(
-                  icon: PhosphorIcons.regular.gear,
+                  icon: Icons.regular.gear,
                   label: 'Button Disabled',
                 ),
                 Button(
@@ -229,7 +230,7 @@ class _DashboardPageState extends State<DashboardPage> {
                     );
                   },
                   label: 'Button Primary',
-                  icon: PhosphorIcons.regular.gear,
+                  icon: Icons.regular.gear,
                   background: context.color.primary,
                 ),
               ],
