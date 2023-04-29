@@ -111,7 +111,7 @@ class _TooltipState extends State<Tooltip> {
                 child: Surface(
                   borderRadius: context.borderRadius.md,
                   padding: EdgeInsets.all(context.sizing.xs),
-                  child: JoltText(
+                  child: Text(
                     widget.tooltip!,
                     style: context.style.bodySmall,
                     color: context.color.surface.highlight,

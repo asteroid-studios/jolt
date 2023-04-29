@@ -1,0 +1,60 @@
+import 'package:flutter/widgets.dart' as widgets show Icon;
+
+import 'package:jolt/jolt.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
+
+///
+class Icon extends StatelessWidget {
+  ///
+  const Icon(
+    this.icon, {
+    this.color,
+    this.colorDark,
+    this.size,
+    this.semanticLabel,
+    super.key,
+  });
+
+  ///
+  final IconData icon;
+
+  ///
+  final Color? color;
+
+  ///
+  final Color? colorDark;
+
+  ///
+  final double? size;
+
+  /// Semantic label for the icon.
+  ///
+  /// Announced in accessibility modes (e.g TalkBack/VoiceOver).
+  /// This label does not show in the UI.
+  ///
+  ///  * [SemanticsProperties.label], which is set to [semanticLabel] in the
+  ///    underlying	 [Semantics] widget.
+  final String? semanticLabel;
+
+  @override
+  Widget build(BuildContext context) {
+    final defaultColor = context.color.brightness == Brightness.dark
+        ? (colorDark ?? color)
+        : color;
+
+    if (icon is PhosphorIconData) {
+      return PhosphorIcon(
+        icon as PhosphorIconData,
+        color: defaultColor,
+        size: size,
+        semanticLabel: semanticLabel,
+      );
+    }
+    return widgets.Icon(
+      icon,
+      color: defaultColor,
+      size: size,
+      semanticLabel: semanticLabel,
+    );
+  }
+}

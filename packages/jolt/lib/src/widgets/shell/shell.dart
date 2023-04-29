@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 
 import 'package:jolt/jolt.dart';
@@ -88,39 +86,16 @@ class Shell extends StatelessWidget {
       ],
     );
 
-    return Stack(
-      alignment: Alignment.topCenter,
+    return Column(
       children: [
-        Column(
-          children: [
-            if (Platform.isDesktop)
-              desktopTopBar ??
-                  WindowTitleBarBox(
-                    child: MoveWindow(
-                        child: Container(color: context.color.background)),
-                  ),
-            if (topBar != null && topBarOptions.topBarFullWidth && !mobile)
-              topBar!,
-            Expanded(child: inside),
-          ],
-        ),
-        if (Platform.isMobile &&
-            context.mediaQuery.orientation == Orientation.portrait)
-          ClipRect(
-            child: BackdropFilter(
-              filter: ImageFilter.blur(
-                sigmaX: 5,
-                sigmaY: 5,
+        if (Platform.isDesktop)
+          desktopTopBar ??
+              WindowTitleBarBox(
+                child: MoveWindow(
+                    child: Container(color: context.color.background)),
               ),
-              child: Container(
-                color: context.color.background.withOpacity(
-                  context.color.brightness == Brightness.dark ? 0.7 : 0.3,
-                ),
-                height: context.mediaQuery.padding.top,
-                width: double.infinity,
-              ),
-            ),
-          ),
+        if (topBar != null && topBarOptions.topBarFullWidth && !mobile) topBar!,
+        Expanded(child: inside),
       ],
     );
   }

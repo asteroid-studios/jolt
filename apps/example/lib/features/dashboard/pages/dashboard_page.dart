@@ -103,62 +103,62 @@ class _DashboardPageState extends State<DashboardPage> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          JoltText(
+                          Text(
                             'Build your next idea\neven faster.',
                             style: context.style.hero,
                           ),
                           spacer,
-                          JoltText(
+                          Text(
                             'Display large',
                             style: context.style.displayLarge,
                           ),
                           spacer,
-                          JoltText(
+                          Text(
                             'Display',
                             style: context.style.display,
                           ),
                           spacer,
-                          JoltText(
+                          Text(
                             'Display small',
                             style: context.style.displaySmall,
                           ),
                           spacer,
-                          JoltText(
+                          Text(
                             'Heading large',
                             style: context.style.headingLarge,
                           ),
                           spacer,
-                          JoltText(
+                          Text(
                             'Heading',
                             style: context.style.heading,
                           ),
                           spacer,
-                          JoltText(
+                          Text(
                             'Heading small',
                             style: context.style.headingSmall,
                           ),
                           spacer,
-                          JoltText(
+                          Text(
                             'Body large',
                             style: context.style.bodyLarge,
                           ),
                           spacer,
-                          JoltText(
+                          Text(
                             'Body',
                             style: context.style.body,
                           ),
                           spacer,
-                          JoltText(
+                          Text(
                             'Body small',
                             style: context.style.bodySmall,
                           ),
                           spacer,
-                          JoltText(
+                          Text(
                             'Label',
                             style: context.style.label,
                           ),
                           spacer,
-                          JoltText(
+                          Text(
                             'Label small',
                             style: context.style.labelSmall,
                           ),
@@ -262,7 +262,7 @@ class _DashboardPageState extends State<DashboardPage> {
                       : null,
                   borderRadius: context.borderRadius.sm,
                   builder: (context, state) {
-                    return JoltText(
+                    return Text(
                       'Light',
                       style: context.style.button,
                       color: context.jolt.themeMode == ThemeMode.light &&
@@ -289,7 +289,7 @@ class _DashboardPageState extends State<DashboardPage> {
                       : null,
                   borderRadius: context.borderRadius.sm,
                   builder: (context, state) {
-                    return JoltText(
+                    return Text(
                       'Light high contrast',
                       style: context.style.button,
                       color: context.jolt.themeMode == ThemeMode.light &&
@@ -316,7 +316,7 @@ class _DashboardPageState extends State<DashboardPage> {
                       : null,
                   borderRadius: context.borderRadius.md,
                   builder: (context, state) {
-                    return JoltText(
+                    return Text(
                       'Dark',
                       style: context.style.button,
                       color: context.jolt.themeMode == ThemeMode.dark &&
@@ -343,7 +343,7 @@ class _DashboardPageState extends State<DashboardPage> {
                       : null,
                   borderRadius: context.borderRadius.lg,
                   builder: (context, state) {
-                    return JoltText(
+                    return Text(
                       'Dark high contrast',
                       style: context.style.button,
                       color: context.jolt.themeMode == ThemeMode.dark &&
@@ -366,7 +366,7 @@ class _DashboardPageState extends State<DashboardPage> {
                       : null,
                   borderRadius: context.borderRadius.lg,
                   builder: (context, state) {
-                    return JoltText(
+                    return Text(
                       'System',
                       style: context.style.button,
                       color: context.jolt.themeMode == ThemeMode.system

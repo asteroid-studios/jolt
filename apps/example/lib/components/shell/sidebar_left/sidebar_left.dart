@@ -12,7 +12,7 @@ class SidebarLeft extends StatelessWidget {
   Widget build(BuildContext context) {
     Button routeButton(
       void Function() onTap,
-      PhosphorIconData icon,
+      IconData icon,
       String label,
       String location,
     ) {

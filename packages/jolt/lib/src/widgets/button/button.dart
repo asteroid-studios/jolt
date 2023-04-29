@@ -121,17 +121,9 @@ class _ButtonState extends State<Button> {
 
     // Prepare the icon
     final icon = widget.iconWidget ??
-        (widget.icon != null && widget.icon is PhosphorIconData
-                ? widget.icon! as PhosphorIconData
-                : null)
-            ?.icon(
-          size: iconSize,
-          color: color,
-        ) ??
-        widget.icon?.icon(
-          color: color,
-          size: iconSize,
-        );
+        (widget.icon != null
+            ? Icon(widget.icon!, size: iconSize, color: color)
+            : null);
 
     final noLabel = widget.label == null;
     final verticalPadding =
@@ -161,15 +153,11 @@ class _ButtonState extends State<Button> {
         const processingDuration = Duration(milliseconds: 1500);
         final processingIcon =
             theme.processingIcon ?? Icons.duotone.circleNotch;
-        final processingIconWidget = (processingIcon is PhosphorIconData
-                ? processingIcon.icon(
-                    color: baseColor,
-                    size: iconSize,
-                  )
-                : processingIcon.icon(
-                    color: baseColor,
-                    size: iconSize,
-                  ))
+        final processingIconWidget = Icon(
+          processingIcon,
+          color: baseColor,
+          size: iconSize,
+        )
             .animate(onPlay: (controller) => controller.repeat())
             .rotate(duration: processingDuration);
 
@@ -212,7 +200,7 @@ class _ButtonState extends State<Button> {
                     theme.horizontalSpacing ??
                     context.sizing.xs,
               ),
-            JoltText(
+            Text(
               widget.label!,
               style: labelStyle,
               color: color,

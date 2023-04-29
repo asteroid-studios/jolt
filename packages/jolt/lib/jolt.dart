@@ -1,5 +1,5 @@
 // Flutter exports
-export 'package:flutter/widgets.dart';
+export 'package:flutter/widgets.dart' hide Icon, Text;
 export 'package:flutter/material.dart' show Scrollbar, SelectionArea;
 
 // Package exports
@@ -22,6 +22,7 @@ export 'src/theme/typography/typography.dart';
 // Widget export
 export 'src/widgets/button/button.dart';
 export 'src/widgets/control_builder/control_builder.dart';
+export 'src/widgets/icon/icon.dart';
 export 'src/widgets/spacing/spacing.dart';
 export 'src/widgets/surface/surface.dart';
 export 'src/widgets/text/text.dart';

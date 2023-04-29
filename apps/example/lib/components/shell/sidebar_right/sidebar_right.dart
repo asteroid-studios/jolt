@@ -8,7 +8,7 @@ class SidebarRight extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Button themeButton(
-      PhosphorIconData icon,
+      IconData icon,
       ThemeMode mode,
       String tooltip, {
       bool? withHighContrast,
@@ -45,7 +45,7 @@ class SidebarRight extends StatelessWidget {
 
     Button sizeButton(
       double sizeMultiplier,
-      PhosphorIconData icon,
+      IconData icon,
     ) {
       final selected = context.scaling.textScale == sizeMultiplier;
       final defaultIconSize = context.widgetTheme.button.labelStyle?.fontSize ??
@@ -61,7 +61,7 @@ class SidebarRight extends StatelessWidget {
 
     Button spacingButton(
       double sizeMultiplier,
-      PhosphorIconData icon,
+      IconData icon,
     ) {
       final selected = context.scaling.spacingScale == sizeMultiplier;
       final defaultIconSize = context.widgetTheme.button.labelStyle?.fontSize ??
