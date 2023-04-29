@@ -45,13 +45,10 @@ extension JoltOverlayExtensions on JoltOverlay {
   ]) {
     final overlay = PositionedOverlay.of(context);
     // Get the nearest overlay stack
-    OverlayStackState overlayStack = OverlayStack.of(
-      context,
-      useRootOverlayStack: useRootOverlayStack,
-    );
+    var overlayStack = OverlayStack.of(context);
     // If there are no overlays in the stack, use the root overlay stack
-    if (!useRootOverlayStack && overlayStack.overlaysLength == 0) {
-      OverlayStackState overlayStack = OverlayStack.of(
+    if (overlayStack.overlaysLength == 0) {
+      overlayStack = OverlayStack.of(
         context,
         useRootOverlayStack: true,
       );
