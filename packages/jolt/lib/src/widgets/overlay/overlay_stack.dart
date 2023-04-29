@@ -77,6 +77,8 @@ class OverlayStackState extends State<OverlayStack> {
       initialEntries: [
         OverlayEntry(
           builder: (context) {
+            final hideBarrier =
+                _overlays.lastOrNull?.barrierDisabled ?? _overlays.isEmpty;
             return SelectionArea(
               child: Directionality(
                 textDirection: TextDirection.ltr,
@@ -87,13 +89,13 @@ class OverlayStackState extends State<OverlayStack> {
                       widget.child,
                       Positioned.fill(
                         child: AnimatedOpacity(
-                          opacity: _overlays.isEmpty
+                          opacity: hideBarrier
                               ? 0
                               : _overlays.lastOrNull?.barrierOpacity ??
                                   (context.color.isDark ? 0.5 : 0.2),
                           duration: const Duration(milliseconds: 300),
                           child: IgnorePointer(
-                            ignoring: _overlays.isEmpty,
+                            ignoring: hideBarrier,
                             child: GestureDetector(
                               onTap: popOverlay,
                               child: Container(
@@ -131,6 +133,7 @@ class PositionedOverlay extends InheritedTheme {
     this.zIndex = 0,
     this.barrierOpacity,
     this.barrierColor,
+    this.barrierDisabled = false,
     this.position = Alignment.center,
     super.key,
   });
@@ -143,6 +146,9 @@ class PositionedOverlay extends InheritedTheme {
 
   ///
   final Color? barrierColor;
+
+  ///
+  final bool barrierDisabled;
 
   ///
   final Alignment position;
@@ -163,6 +169,7 @@ class PositionedOverlay extends InheritedTheme {
       zIndex: zIndex,
       barrierOpacity: barrierOpacity,
       barrierColor: barrierColor,
+      barrierDisabled: barrierDisabled,
       child: child,
     );
   }

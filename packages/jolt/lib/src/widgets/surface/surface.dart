@@ -17,6 +17,7 @@ class Surface extends StatefulWidget {
     this.borderRadius,
     this.borderWidth,
     this.padding,
+    this.margin,
     this.width,
     this.height,
     super.key,
@@ -39,6 +40,7 @@ class Surface extends StatefulWidget {
     this.borderRadius,
     this.borderWidth,
     this.padding,
+    this.margin,
     this.onTap,
     this.tooltip,
     this.onLongPressed,
@@ -96,6 +98,9 @@ class Surface extends StatefulWidget {
 
   ///
   final EdgeInsets? padding;
+
+  ///
+  final EdgeInsets? margin;
 
   ///
   final double? width;
@@ -156,6 +161,7 @@ class _SurfaceState extends State<Surface> with SingleTickerProviderStateMixin {
         child: AnimatedContainer(
           width: widget.width,
           height: widget.height,
+          margin: widget.margin,
           duration: const Duration(milliseconds: 300),
           decoration: BoxDecoration(
             borderRadius: defaultBorderRadius,

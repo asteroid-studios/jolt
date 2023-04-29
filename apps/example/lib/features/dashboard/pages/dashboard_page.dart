@@ -248,9 +248,8 @@ class _DashboardPageState extends State<DashboardPage> {
                 Button(
                   onTap: () {
                     context.overlay.show(
-                      child: TestPanel(
-                        key: testPanelKey,
-                      ),
+                      barrierDisabled: true,
+                      child: TestPanel(),
                     );
                   },
                   label: 'Align',
@@ -507,8 +506,6 @@ class TestDialog extends StatelessWidget {
   }
 }
 
-final testPanelKey = GlobalKey();
-
 class TestPanel extends StatelessWidget {
   const TestPanel({super.key});
 
@@ -517,9 +514,14 @@ class TestPanel extends StatelessWidget {
     return Align(
       alignment: Alignment.centerRight,
       child: Surface(
+        margin: EdgeInsets.only(
+          right: context.sizing.xxxl * 2,
+          top: context.sizing.lg,
+          bottom: context.sizing.lg,
+        ),
         padding: EdgeInsets.all(context.sizing.xxl),
-        borderRadius: context.borderRadius.zero,
-        background: context.color.background,
+        borderRadius: context.borderRadius.xl,
+        background: context.color.surface,
         width: 400,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -536,7 +538,6 @@ class TestPanel extends StatelessWidget {
               icon: Icons.regular.x,
               onTap: () {
                 context.overlay.pop();
-                // JoltOverlay.pop(null, testPanelKey);
               },
             ),
           ],

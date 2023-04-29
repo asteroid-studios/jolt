@@ -18,6 +18,7 @@ extension JoltOverlayExtensions on JoltOverlay {
     Alignment position = Alignment.center,
     double? barrierOpacity,
     Color? barrierColor,
+    bool barrierDisabled = false,
   }) async {
     return OverlayStack.of(context).addOverlay<T>(
       PositionedOverlay(
@@ -25,6 +26,7 @@ extension JoltOverlayExtensions on JoltOverlay {
         position: position,
         barrierOpacity: barrierOpacity,
         barrierColor: barrierColor,
+        barrierDisabled: barrierDisabled,
         child: child,
       ),
     );
@@ -55,6 +57,7 @@ class JoltOverlay {
     Alignment position = Alignment.center,
     double? barrierOpacity,
     Color? barrierColor,
+    bool barrierDisabled = false,
   }) async {
     if (joltOverlayKey.currentState == null) {
       throw Exception('No OverlayStack found');
@@ -65,6 +68,7 @@ class JoltOverlay {
         zIndex: zIndex,
         barrierOpacity: barrierOpacity,
         barrierColor: barrierColor,
+        barrierDisabled: barrierDisabled,
         child: child,
       ),
     );
