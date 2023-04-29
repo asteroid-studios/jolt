@@ -23,10 +23,13 @@ class OverlayStack extends StatefulWidget {
   final Widget child;
 
   /// Returns the [OverlayStackState] from the closest [OverlayStack] ancestor.
-  static OverlayStackState of(BuildContext context) {
-    final scope =
-        context.dependOnInheritedWidgetOfExactType<_OverlayStackScope>()!;
-    return scope._overlayStackState;
+  static OverlayStackState of(
+    BuildContext context, {
+    bool useRootOverlayStack = false,
+  }) {
+    return useRootOverlayStack
+        ? context.findRootAncestorStateOfType<OverlayStackState>()!
+        : context.findAncestorStateOfType<OverlayStackState>()!;
   }
 
   @override
@@ -82,39 +85,36 @@ class OverlayStackState extends State<OverlayStack> {
             return SelectionArea(
               child: Directionality(
                 textDirection: TextDirection.ltr,
-                child: _OverlayStackScope(
-                  overlayStackState: this,
-                  child: Stack(
-                    children: [
-                      widget.child,
-                      Positioned.fill(
-                        child: AnimatedOpacity(
-                          opacity: hideBarrier
-                              ? 0
-                              : _overlays.lastOrNull?.barrierOpacity ??
-                                  (context.color.isDark ? 0.5 : 0.2),
-                          duration: const Duration(milliseconds: 300),
-                          child: IgnorePointer(
-                            ignoring: hideBarrier,
-                            child: GestureDetector(
-                              onTap: popOverlay,
-                              child: Container(
-                                color: _overlays.lastOrNull?.barrierColor ??
-                                    Colors.black,
-                              ),
+                child: Stack(
+                  children: [
+                    widget.child,
+                    Positioned.fill(
+                      child: AnimatedOpacity(
+                        opacity: hideBarrier
+                            ? 0
+                            : _overlays.lastOrNull?.barrierOpacity ??
+                                (context.color.isDark ? 0.5 : 0.2),
+                        duration: const Duration(milliseconds: 300),
+                        child: IgnorePointer(
+                          ignoring: hideBarrier,
+                          child: GestureDetector(
+                            onTap: popOverlay,
+                            child: Container(
+                              color: _overlays.lastOrNull?.barrierColor ??
+                                  Colors.black,
                             ),
                           ),
                         ),
                       ),
-                      // TODO animate overlays in and out
-                      ..._overlays.map(
-                        (o) => Align(
-                          alignment: o.position,
-                          child: o,
-                        ),
+                    ),
+                    // TODO animate overlays in and out
+                    ..._overlays.map(
+                      (o) => Align(
+                        alignment: o.position,
+                        child: o,
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
             );
@@ -173,17 +173,4 @@ class PositionedOverlay extends InheritedTheme {
       child: child,
     );
   }
-}
-
-class _OverlayStackScope extends InheritedWidget {
-  const _OverlayStackScope({
-    required super.child,
-    required OverlayStackState overlayStackState,
-  }) : _overlayStackState = overlayStackState;
-
-  final OverlayStackState _overlayStackState;
-
-  @override
-  bool updateShouldNotify(_OverlayStackScope old) =>
-      _overlayStackState != old._overlayStackState;
 }

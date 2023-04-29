@@ -63,23 +63,25 @@ class Shell extends StatelessWidget {
       children: [
         if (sidebarLeft != null && !mobile) sidebarLeft!,
         Expanded(
-          child: Column(
-            children: [
-              if (topBar != null && !topBarOptions.topBarFullWidth && !mobile)
-                topBar!,
-              Expanded(
-                child: ClipRect(
-                  child: InheritedShell._(
-                    topBar: mobile ? topBar : null,
-                    footer: !footerOptions.pinned ? footer : null,
-                    topBarOptions: topBarOptions,
-                    footerOptions: footerOptions,
-                    child: child,
+          child: OverlayStack(
+            child: Column(
+              children: [
+                if (topBar != null && !topBarOptions.topBarFullWidth && !mobile)
+                  topBar!,
+                Expanded(
+                  child: ClipRect(
+                    child: InheritedShell._(
+                      topBar: mobile ? topBar : null,
+                      footer: !footerOptions.pinned ? footer : null,
+                      topBarOptions: topBarOptions,
+                      footerOptions: footerOptions,
+                      child: child,
+                    ),
                   ),
                 ),
-              ),
-              if (footer != null && footerOptions.pinned) footer!,
-            ],
+                if (footer != null && footerOptions.pinned) footer!,
+              ],
+            ),
           ),
         ),
         if (sidebarRight != null && !mobile) sidebarRight!,

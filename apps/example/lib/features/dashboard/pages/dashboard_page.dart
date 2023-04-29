@@ -248,7 +248,8 @@ class _DashboardPageState extends State<DashboardPage> {
                 Button(
                   onTap: () {
                     context.overlay.show(
-                      barrierDisabled: true,
+                      useRootOverlayStack: false,
+                      // barrierDisabled: true,
                       child: TestPanel(),
                     );
                   },
@@ -514,13 +515,13 @@ class TestPanel extends StatelessWidget {
     return Align(
       alignment: Alignment.centerRight,
       child: Surface(
-        margin: EdgeInsets.only(
-          right: context.sizing.xxxl * 2,
-          top: context.sizing.lg,
-          bottom: context.sizing.lg,
-        ),
+        // margin: EdgeInsets.only(
+        //   // right: context.sizing.xxxl * 2,
+        //   top: context.sizing.lg,
+        //   bottom: context.sizing.lg,
+        // ),
         padding: EdgeInsets.all(context.sizing.xxl),
-        borderRadius: context.borderRadius.xl,
+        borderRadius: context.borderRadius.zero,
         background: context.color.surface,
         width: 400,
         child: Column(

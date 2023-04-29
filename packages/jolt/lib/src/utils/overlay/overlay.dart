@@ -4,6 +4,9 @@ import 'package:jolt/jolt.dart';
 final joltOverlayKey = GlobalKey<OverlayStackState>();
 
 ///
+final joltShellOverlayKey = GlobalKey<OverlayStackState>();
+
+///
 extension OverlayExtensions on BuildContext {
   ///
   JoltOverlay get overlay => JoltOverlay(this);
@@ -14,13 +17,17 @@ extension JoltOverlayExtensions on JoltOverlay {
   ///
   Future<T?> show<T extends Object?>({
     required Widget child,
+    bool useRootOverlayStack = true,
     int zIndex = 0,
     Alignment position = Alignment.center,
     double? barrierOpacity,
     Color? barrierColor,
     bool barrierDisabled = false,
   }) async {
-    return OverlayStack.of(context).addOverlay<T>(
+    return OverlayStack.of(
+      context,
+      useRootOverlayStack: useRootOverlayStack,
+    ).addOverlay<T>(
       PositionedOverlay(
         zIndex: zIndex,
         position: position,
@@ -33,9 +40,16 @@ extension JoltOverlayExtensions on JoltOverlay {
   }
 
   ///
-  void pop<T extends Object?>([T? result]) {
+  void pop<T extends Object?>([
+    T? result, // Unfortunately can't have optional positional params and named params
+    // ignore: avoid_positional_boolean_parameters
+    bool useRootOverlayStack = true,
+  ]) {
     final overlay = PositionedOverlay.of(context);
-    OverlayStack.of(context).popOverlay<T>(
+    OverlayStack.of(
+      context,
+      useRootOverlayStack: useRootOverlayStack,
+    ).popOverlay<T>(
       result,
       overlay?.hashCode,
     );
@@ -53,16 +67,18 @@ class JoltOverlay {
   ///
   static Future<T?> show<T extends Object?>({
     required Widget child,
+    bool useRootOverlayStack = true,
     int zIndex = 0,
     Alignment position = Alignment.center,
     double? barrierOpacity,
     Color? barrierColor,
     bool barrierDisabled = false,
   }) async {
-    if (joltOverlayKey.currentState == null) {
+    final key = useRootOverlayStack ? joltOverlayKey : joltShellOverlayKey;
+    if (key.currentState == null) {
       throw Exception('No OverlayStack found');
     }
-    return joltOverlayKey.currentState!.addOverlay<T>(
+    return key.currentState!.addOverlay<T>(
       PositionedOverlay(
         position: position,
         zIndex: zIndex,
@@ -75,15 +91,23 @@ class JoltOverlay {
   }
 
   ///
-  static void pop<T extends Object?>([T? result, GlobalKey? key]) {
-    if (joltOverlayKey.currentState == null) {
+  static void pop<T extends Object?>([
+    T? result,
+    // Unfortunately can't have optional positional params and named params
+    // ignore: avoid_positional_boolean_parameters
+    bool useRootOverlayStack = true,
+    GlobalKey? key,
+  ]) {
+    final overlayKey =
+        useRootOverlayStack ? joltOverlayKey : joltShellOverlayKey;
+    if (overlayKey.currentState == null) {
       throw Exception('No OverlayStack found');
     }
     PositionedOverlay? overlay;
     if (key?.currentContext != null) {
       overlay = PositionedOverlay.of(key!.currentContext!);
     }
-    joltOverlayKey.currentState!.popOverlay<T>(
+    overlayKey.currentState!.popOverlay<T>(
       result,
       overlay?.hashCode,
     );
