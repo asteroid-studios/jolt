@@ -89,7 +89,7 @@ class OverlayStackState extends State<OverlayStack> {
                         child: AnimatedOpacity(
                           opacity: _overlays.isEmpty
                               ? 0
-                              : _overlays.lastOrNull?.backgroundOpacity ??
+                              : _overlays.lastOrNull?.barrierOpacity ??
                                   (context.color.isDark ? 0.5 : 0.2),
                           duration: const Duration(milliseconds: 300),
                           child: IgnorePointer(
@@ -97,7 +97,8 @@ class OverlayStackState extends State<OverlayStack> {
                             child: GestureDetector(
                               onTap: popOverlay,
                               child: Container(
-                                color: Colors.black,
+                                color: _overlays.lastOrNull?.barrierColor ??
+                                    Colors.black,
                               ),
                             ),
                           ),
@@ -128,7 +129,8 @@ class PositionedOverlay extends InheritedTheme {
   const PositionedOverlay({
     required super.child,
     this.zIndex = 0,
-    this.backgroundOpacity,
+    this.barrierOpacity,
+    this.barrierColor,
     this.position = Alignment.center,
     super.key,
   });
@@ -137,7 +139,10 @@ class PositionedOverlay extends InheritedTheme {
   final int zIndex;
 
   ///
-  final double? backgroundOpacity;
+  final double? barrierOpacity;
+
+  ///
+  final Color? barrierColor;
 
   ///
   final Alignment position;
@@ -156,7 +161,8 @@ class PositionedOverlay extends InheritedTheme {
     return PositionedOverlay(
       position: position,
       zIndex: zIndex,
-      backgroundOpacity: backgroundOpacity,
+      barrierOpacity: barrierOpacity,
+      barrierColor: barrierColor,
       child: child,
     );
   }

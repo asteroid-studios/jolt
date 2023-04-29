@@ -16,13 +16,15 @@ extension JoltOverlayExtensions on JoltOverlay {
     required Widget child,
     int zIndex = 0,
     Alignment position = Alignment.center,
-    double? backgroundOpacity,
+    double? barrierOpacity,
+    Color? barrierColor,
   }) async {
     return OverlayStack.of(context).addOverlay<T>(
       PositionedOverlay(
         zIndex: zIndex,
         position: position,
-        backgroundOpacity: backgroundOpacity,
+        barrierOpacity: barrierOpacity,
+        barrierColor: barrierColor,
         child: child,
       ),
     );
@@ -51,7 +53,8 @@ class JoltOverlay {
     required Widget child,
     int zIndex = 0,
     Alignment position = Alignment.center,
-    double? backgroundOpacity,
+    double? barrierOpacity,
+    Color? barrierColor,
   }) async {
     if (joltOverlayKey.currentState == null) {
       throw Exception('No OverlayStack found');
@@ -60,7 +63,8 @@ class JoltOverlay {
       PositionedOverlay(
         position: position,
         zIndex: zIndex,
-        backgroundOpacity: backgroundOpacity,
+        barrierOpacity: barrierOpacity,
+        barrierColor: barrierColor,
         child: child,
       ),
     );

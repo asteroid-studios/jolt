@@ -231,10 +231,11 @@ class _DashboardPageState extends State<DashboardPage> {
                 Button(
                   onTap: () async {
                     await Future.delayed(
-                      const Duration(seconds: 1),
+                      const Duration(milliseconds: 300),
                     );
                     context.overlay.show(
-                      backgroundOpacity: 0.9,
+                      barrierOpacity: 0.5,
+                      barrierColor: context.color.primary,
                       child: TestDialog(),
                     );
                   },
