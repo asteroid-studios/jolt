@@ -17,7 +17,7 @@ extension JoltOverlayExtensions on JoltOverlay {
   ///
   Future<T?> show<T extends Object?>({
     required Widget child,
-    bool useRootOverlayStack = true,
+    bool useRootOverlayStack = false,
     int zIndex = 0,
     Alignment position = Alignment.center,
     double? barrierOpacity,
@@ -41,15 +41,23 @@ extension JoltOverlayExtensions on JoltOverlay {
 
   ///
   void pop<T extends Object?>([
-    T? result, // Unfortunately can't have optional positional params and named params
-    // ignore: avoid_positional_boolean_parameters
-    bool useRootOverlayStack = true,
+    T? result,
   ]) {
     final overlay = PositionedOverlay.of(context);
-    OverlayStack.of(
+    // Get the nearest overlay stack
+    OverlayStackState overlayStack = OverlayStack.of(
       context,
       useRootOverlayStack: useRootOverlayStack,
-    ).popOverlay<T>(
+    );
+    // If there are no overlays in the stack, use the root overlay stack
+    if (!useRootOverlayStack && overlayStack.overlaysLength == 0) {
+      OverlayStackState overlayStack = OverlayStack.of(
+        context,
+        useRootOverlayStack: true,
+      );
+    }
+    // Pop the top layer of the overlay stack
+    overlayStack.popOverlay<T>(
       result,
       overlay?.hashCode,
     );

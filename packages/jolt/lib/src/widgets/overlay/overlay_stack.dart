@@ -2,14 +2,11 @@ import 'dart:async';
 import 'dart:collection';
 
 import 'package:collection/collection.dart';
-
 import 'package:jolt/jolt.dart';
 
 // TODO
-// 1. Overlays should be able to return a value
-// 2. Overlays should be able to be dismissed
-// 3. Overlays should have a zindex
 // 4. Overlays should have a position
+// 4. Overlays should animate in and out
 
 ///
 class OverlayStack extends StatefulWidget {
@@ -41,6 +38,8 @@ class OverlayStackState extends State<OverlayStack> {
   final List<PositionedOverlay> _overlays = [];
   final Map<int, Completer<dynamic>> _popCompleters = {};
   Queue<PositionedOverlay> _snackbars = Queue();
+
+  int get overlaysLength => _overlays.length;
 
   ///
   Future<T?> addOverlay<T extends Object?>(PositionedOverlay overlay) {

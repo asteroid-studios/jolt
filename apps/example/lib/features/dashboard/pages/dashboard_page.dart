@@ -233,9 +233,9 @@ class _DashboardPageState extends State<DashboardPage> {
                     await Future.delayed(
                       const Duration(milliseconds: 300),
                     );
-                    context.overlay.show(
-                      barrierOpacity: 0.5,
-                      barrierColor: context.color.primary,
+                    JoltOverlay.show(
+                      // barrierOpacity: 0.5,
+                      // barrierColor: context.color.primary,
                       child: TestDialog(),
                     );
                   },
@@ -522,7 +522,7 @@ class TestPanel extends StatelessWidget {
         // ),
         padding: EdgeInsets.all(context.sizing.xxl),
         borderRadius: context.borderRadius.zero,
-        background: context.color.surface,
+        background: context.color.background,
         width: 400,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -534,12 +534,24 @@ class TestPanel extends StatelessWidget {
             Expanded(
               child: SizedBox(),
             ),
-            Button(
-              background: context.color.surface.s300,
-              icon: Icons.regular.x,
-              onTap: () {
-                context.overlay.pop();
-              },
+            Row(
+              children: [
+                Button(
+                  background: context.color.surface.s300,
+                  icon: Icons.duotone.floppyDisk,
+                  onTap: () {
+                    JoltOverlay.show(child: TestDialog());
+                  },
+                ),
+                Spacing.md(),
+                Button(
+                  background: context.color.surface.s300,
+                  icon: Icons.regular.x,
+                  onTap: () {
+                    context.overlay.pop();
+                  },
+                ),
+              ],
             ),
           ],
         ),
