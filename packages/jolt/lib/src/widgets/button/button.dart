@@ -26,6 +26,7 @@ class Button extends StatefulWidget {
     this.horizontalSpacing,
     this.width,
     this.height,
+    this.padding,
     this.size = ButtonSize.md,
   });
 
@@ -80,6 +81,9 @@ class Button extends StatefulWidget {
   ///
   final double? height;
 
+  ///
+  final EdgeInsets? padding;
+
   @override
   State<Button> createState() => _ButtonState();
 }
@@ -100,6 +104,7 @@ class _ButtonState extends State<Button> {
         isProcessing || (widget.onTap == null && widget.onLongPressed == null);
 
     // Prepare the theme
+    final surfaceTheme = context.widgetTheme.surface;
     final buttonTheme = context.widgetTheme.button;
     final theme = widget.size == ButtonSize.md
         ? buttonTheme
@@ -126,8 +131,21 @@ class _ButtonState extends State<Button> {
             : null);
 
     final noLabel = widget.label == null;
-    final verticalPadding =
-        theme.verticalPadding ?? context.defaults.verticalPadding;
+
+    // Prepare padding
+    final verticalPadding = theme.verticalPadding ??
+        surfaceTheme.verticalPadding ??
+        context.defaults.verticalPadding;
+    final horizontalPadding = noLabel
+        ? verticalPadding
+        : theme.horizontalPadding ??
+            surfaceTheme.horizontalPadding ??
+            context.defaults.horizontalPadding;
+    final padding = widget.padding ??
+        EdgeInsets.symmetric(
+          horizontal: horizontalPadding,
+          vertical: verticalPadding,
+        );
 
     return Surface.focusable(
       onTap: widget.onTap != null
@@ -143,12 +161,7 @@ class _ButtonState extends State<Button> {
       borderColor: widget.borderColor ?? theme.borderColor,
       borderRadius: widget.borderRadius ?? theme.borderRadius,
       borderWidth: widget.borderWidth,
-      padding: EdgeInsets.symmetric(
-        horizontal: noLabel
-            ? verticalPadding
-            : theme.horizontalPadding ?? context.defaults.horizontalPadding,
-        vertical: verticalPadding,
-      ),
+      padding: padding,
       builder: (context, state) {
         const processingDuration = Duration(milliseconds: 1500);
         final processingIcon =

@@ -177,6 +177,7 @@ class _SurfaceState extends State<Surface> with SingleTickerProviderStateMixin {
     return FocusableControlBuilder(
       cursor: widget.cursor ?? (disabled ? null : SystemMouseCursors.click),
       onTap: widget.onTap,
+      onLongPressed: widget.onLongPressed,
       focusEnabled: widget.focusEnabled,
       builder: (context, state) {
         return Tooltip(

@@ -208,6 +208,9 @@ class _DashboardPageState extends State<DashboardPage> {
                       const Duration(seconds: 4),
                     );
                   },
+                  onLongPressed: () {
+                    print('long pressed from dashboard');
+                  },
                   tooltip: 'Open Settings',
                   icon: Icons.regular.gear,
                 ),
