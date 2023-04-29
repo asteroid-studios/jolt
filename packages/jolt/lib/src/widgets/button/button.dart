@@ -19,7 +19,9 @@ class Button extends StatefulWidget {
     this.onLongPressed,
     this.onExceptionCaught,
     this.background,
+    this.backgroundDark,
     this.color,
+    this.colorDark,
     this.borderColor,
     this.borderWidth,
     this.borderRadius,
@@ -62,7 +64,13 @@ class Button extends StatefulWidget {
   final Color? background;
 
   ///
+  final Color? backgroundDark;
+
+  ///
   final Color? color;
+
+  ///
+  final Color? colorDark;
 
   ///
   final Color? borderColor;
@@ -109,8 +117,14 @@ class _ButtonState extends State<Button> {
         widget.labelStyle ?? theme.labelStyle ?? context.style.body;
     final iconSize = (widget.iconSize ?? labelStyle.fontSize ?? 16) *
         context.scaling.textScale;
-    final background = widget.background ?? theme.background;
-    final baseColor = widget.color ??
+    final background = (context.color.isDark
+            ? (widget.backgroundDark ?? widget.background)
+            : widget.background) ??
+        theme.background;
+    final color = context.color.isDark
+        ? (widget.colorDark ?? widget.color)
+        : widget.color;
+    final baseColor = color ??
         (background is JoltColor ? background.highlight : null) ??
         labelStyle.color;
 

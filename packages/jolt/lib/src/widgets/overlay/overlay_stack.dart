@@ -44,7 +44,7 @@ class OverlayStackState extends State<OverlayStack> {
     final completer = Completer<T?>();
     setState(() {
       _overlays.add(overlay);
-      _popCompleters[overlay.widget.hashCode] = completer;
+      _popCompleters[overlay.hashCode] = completer;
     });
     return completer.future;
   }
@@ -52,52 +52,73 @@ class OverlayStackState extends State<OverlayStack> {
   ///
   void popOverlay<T extends Object?>([
     T? result,
+    int? hashCode,
   ]) {
-    setState(() {
-      final overlay = _overlays.removeLast();
-      final popCompleter = _popCompleters.remove(overlay.widget.hashCode);
-      popCompleter?.complete(result);
-    });
+    PositionedOverlay? overlay;
+    if (hashCode != null) {
+      overlay = _overlays.firstWhereOrNull((o) => o.hashCode == hashCode);
+    } else {
+      overlay = _overlays.last;
+    }
+    if (overlay != null) {
+      setState(() {
+        _overlays.remove(overlay);
+        final popCompleter = _popCompleters.remove(overlay.hashCode);
+        popCompleter?.complete(result);
+      });
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    return Directionality(
-      textDirection: TextDirection.ltr,
-      child: _OverlayStackScope(
-        overlayStackState: this,
-        child: Stack(
-          children: [
-            widget.child,
-            if (_overlays.isNotEmpty)
-              Positioned.fill(
-                child: GestureDetector(
-                  onTap: popOverlay,
-                  child: Container(
-                    color: Colors.black.withOpacity(0.5),
+    return Overlay(
+      initialEntries: [
+        OverlayEntry(
+          builder: (context) {
+            return SelectionArea(
+              child: Directionality(
+                textDirection: TextDirection.ltr,
+                child: _OverlayStackScope(
+                  overlayStackState: this,
+                  child: Stack(
+                    children: [
+                      widget.child,
+                      if (_overlays.isNotEmpty)
+                        Positioned.fill(
+                          child: GestureDetector(
+                            onTap: popOverlay,
+                            child: Container(
+                              color: Colors.black.withOpacity(0.3),
+                            ),
+                          ),
+                        ),
+                      // TODO animate overlays in and out
+                      ..._overlays.sortedBy<num>((o) => o.zIndex).map(
+                            (o) => Align(
+                              alignment: o.position,
+                              child: o,
+                            ),
+                          ),
+                    ],
                   ),
                 ),
               ),
-            ..._overlays.sortedBy<num>((o) => o.zIndex).map(
-                  (o) => Align(
-                    alignment: o.position,
-                    child: o.widget,
-                  ),
-                ),
-          ],
+            );
+          },
         ),
-      ),
+      ],
     );
   }
 }
 
 ///
-class PositionedOverlay {
+class PositionedOverlay extends InheritedTheme {
   ///
-  PositionedOverlay({
-    required this.widget,
+  const PositionedOverlay({
+    required super.child,
     this.zIndex = 0,
     this.position = Alignment.center,
+    super.key,
   });
 
   ///
@@ -107,7 +128,22 @@ class PositionedOverlay {
   final Alignment position;
 
   ///
-  final Widget widget;
+  static PositionedOverlay? of(BuildContext context) {
+    return context.dependOnInheritedWidgetOfExactType<PositionedOverlay>();
+  }
+
+  @override
+  bool updateShouldNotify(PositionedOverlay oldWidget) =>
+      child != oldWidget.child;
+
+  @override
+  Widget wrap(BuildContext context, Widget child) {
+    return PositionedOverlay(
+      position: position,
+      zIndex: zIndex,
+      child: child,
+    );
+  }
 }
 
 class _OverlayStackScope extends InheritedWidget {

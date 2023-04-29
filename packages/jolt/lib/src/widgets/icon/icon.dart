@@ -1,7 +1,8 @@
 import 'package:flutter/widgets.dart' as widgets show Icon;
 
-import 'package:jolt/jolt.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
+
+import 'package:jolt/jolt.dart';
 
 ///
 class Icon extends StatelessWidget {
@@ -38,9 +39,7 @@ class Icon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final defaultColor = context.color.brightness == Brightness.dark
-        ? (colorDark ?? color)
-        : color;
+    final defaultColor = context.color.isDark ? (colorDark ?? color) : color;
 
     if (icon is PhosphorIconData) {
       return PhosphorIcon(

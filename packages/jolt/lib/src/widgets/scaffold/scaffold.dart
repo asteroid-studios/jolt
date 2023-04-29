@@ -151,7 +151,7 @@ class _ScaffoldState extends State<Scaffold> {
                     },
                     child: Container(
                       color: context.color.background.withOpacity(
-                        context.color.brightness == Brightness.dark ? 0.7 : 0.3,
+                        context.color.isDark ? 0.7 : 0.3,
                       ),
                       height: context.mediaQuery.padding.top,
                       width: double.infinity,

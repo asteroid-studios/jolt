@@ -105,9 +105,7 @@ class Text extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final defaultTextStyle = style ?? context.style.body;
-    final defaultColor = context.color.brightness == Brightness.dark
-        ? (colorDark ?? color)
-        : color;
+    final defaultColor = context.color.isDark ? (colorDark ?? color) : color;
 
     return widgets.Text(
       data ?? '',

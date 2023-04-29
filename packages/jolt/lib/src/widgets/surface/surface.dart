@@ -12,6 +12,7 @@ class Surface extends StatefulWidget {
   const Surface({
     required Widget this.child,
     this.background,
+    this.backgroundDark,
     this.borderColor,
     this.borderRadius,
     this.borderWidth,
@@ -33,6 +34,7 @@ class Surface extends StatefulWidget {
   const Surface.focusable({
     required Widget Function(BuildContext, FocusableControlState) this.builder,
     this.background,
+    this.backgroundDark,
     this.borderColor,
     this.borderRadius,
     this.borderWidth,
@@ -78,9 +80,10 @@ class Surface extends StatefulWidget {
   final bool? hasFocusOverride;
 
   ///
+  final Color? background;
 
   ///
-  final Color? background;
+  final Color? backgroundDark;
 
   ///
   final Color? borderColor;
@@ -113,8 +116,11 @@ class _SurfaceState extends State<Surface> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     final theme = context.widgetTheme.surface;
-    final defaultBackground =
-        widget.background ?? theme.background ?? context.color.surface;
+    final defaultBackground = (context.color.isDark
+            ? (widget.backgroundDark ?? widget.background)
+            : widget.background) ??
+        theme.background ??
+        context.color.surface;
     final defaultBorderRadius =
         widget.borderRadius ?? theme.borderRadius ?? context.borderRadius.md;
     final defaultHoverColor =

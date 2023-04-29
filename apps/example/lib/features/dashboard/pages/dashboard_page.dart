@@ -196,9 +196,12 @@ class _DashboardPageState extends State<DashboardPage> {
                 Button(
                   onTap: () async {
                     final result = await JoltOverlay.show(
+                      position: Alignment.topCenter,
                       child: Button(
                         onTap: () async {
                           final result = await JoltOverlay.show(
+                            // zindex: -1,
+                            position: Alignment.bottomCenter,
                             child: Button(
                               onTap: () async {
                                 JoltOverlay.pop('Test');
@@ -228,7 +231,10 @@ class _DashboardPageState extends State<DashboardPage> {
                 Button(
                   onTap: () async {
                     await Future.delayed(
-                      const Duration(seconds: 4),
+                      const Duration(seconds: 1),
+                    );
+                    context.overlay.show(
+                      child: TestDialog(),
                     );
                   },
                   onLongPressed: () {
@@ -238,9 +244,11 @@ class _DashboardPageState extends State<DashboardPage> {
                   icon: Icons.regular.gear,
                 ),
                 Button(
-                  onTap: () async {
-                    await Future.delayed(
-                      const Duration(seconds: 4),
+                  onTap: () {
+                    context.overlay.show(
+                      child: TestPanel(
+                        key: testPanelKey,
+                      ),
                     );
                   },
                   label: 'Align',
@@ -433,6 +441,105 @@ class _DashboardPageState extends State<DashboardPage> {
               ],
             ),
             const Spacing.section(),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class TestDialog extends StatelessWidget {
+  const TestDialog({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return ConstrainedBox(
+      constraints: BoxConstraints(maxWidth: 400),
+      child: Surface(
+        child: Stack(
+          alignment: Alignment.centerRight,
+          children: [
+            Icon(
+              Icons.bold.gear,
+              size: context.style.hero.fontSize,
+              color: context.color.surface.s300,
+            ),
+            Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Settings',
+                  style: context.style.heading,
+                ),
+                const Spacing.xs(),
+                Text(
+                  'Settings',
+                ),
+                const Spacing.md(),
+                Row(
+                  children: [
+                    Button(
+                      label: 'Cancel',
+                      onTap: () {
+                        context.overlay.pop();
+                      },
+                      background: context.color.surface.s300,
+                    ),
+                    const Spacing.md(),
+                    Button(
+                      label: 'Ok',
+                      background: context.color.primary,
+                      onTap: () {
+                        context.overlay.pop();
+                      },
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+final testPanelKey = GlobalKey();
+
+class TestPanel extends StatelessWidget {
+  const TestPanel({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final overlay = PositionedOverlay.of(context);
+    print(overlay?.zIndex);
+
+    return Align(
+      alignment: Alignment.centerRight,
+      child: Surface(
+        padding: EdgeInsets.all(context.sizing.xxl),
+        borderRadius: context.borderRadius.zero,
+        background: context.color.background,
+        width: 400,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'My panel',
+              style: context.style.heading,
+            ),
+            Expanded(
+              child: SizedBox(),
+            ),
+            Button(
+              background: context.color.surface.s300,
+              icon: Icons.regular.x,
+              onTap: () {
+                context.overlay.pop();
+                // JoltOverlay.pop(null, testPanelKey);
+              },
+            ),
           ],
         ),
       ),

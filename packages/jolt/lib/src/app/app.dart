@@ -148,17 +148,21 @@ class _JoltAppState extends State<JoltApp> with WidgetsBindingObserver {
                 );
           return _JoltInherited(
             controller: controller,
-            child: Themes(
-              theme: theme,
-              scaling: ScalingData(
-                spacingScale: controller.spacingScaleFactorMultiplier,
-                textScale: controller.textScaleFactorMultiplier,
-              ),
-              widgetTheme: widget.widgetTheme,
-              child: OverlayStack(
-                key: joltOverlayKey,
-                child: Portal(
-                  child: app,
+            child: Localizations(
+              locale: const Locale('en', 'US'),
+              delegates: localizationsDelegates,
+              child: Themes(
+                theme: theme,
+                scaling: ScalingData(
+                  spacingScale: controller.spacingScaleFactorMultiplier,
+                  textScale: controller.textScaleFactorMultiplier,
+                ),
+                widgetTheme: widget.widgetTheme,
+                child: OverlayStack(
+                  key: joltOverlayKey,
+                  child: Portal(
+                    child: app,
+                  ),
                 ),
               ),
             ),
