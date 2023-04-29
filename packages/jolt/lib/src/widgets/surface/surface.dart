@@ -21,6 +21,7 @@ class Surface extends StatefulWidget {
     super.key,
   })  : onTap = null,
         onLongPressed = null,
+        onExceptionCaught = null,
         tooltip = null,
         builder = null,
         selectionEnabled = false,
@@ -39,6 +40,7 @@ class Surface extends StatefulWidget {
     this.onTap,
     this.tooltip,
     this.onLongPressed,
+    this.onExceptionCaught,
     this.cursor,
     this.width,
     this.height,
@@ -59,6 +61,9 @@ class Surface extends StatefulWidget {
 
   ///
   final FutureOr<void> Function()? onLongPressed;
+
+  ///
+  final void Function(Exception, StackTrace)? onExceptionCaught;
 
   ///
   final SystemMouseCursor? cursor;
@@ -179,6 +184,7 @@ class _SurfaceState extends State<Surface> with SingleTickerProviderStateMixin {
       onTap: widget.onTap,
       onLongPressed: widget.onLongPressed,
       focusEnabled: widget.focusEnabled,
+      onExceptionCaught: widget.onExceptionCaught,
       builder: (context, state) {
         return Tooltip(
           tooltip: widget.tooltip,

@@ -155,8 +155,11 @@ class _JoltAppState extends State<JoltApp> with WidgetsBindingObserver {
                 textScale: controller.textScaleFactorMultiplier,
               ),
               widgetTheme: widget.widgetTheme,
-              child: Portal(
-                child: app,
+              child: OverlayStack(
+                key: joltOverlayKey,
+                child: Portal(
+                  child: app,
+                ),
               ),
             ),
           );

@@ -23,6 +23,7 @@ export 'src/theme/typography/typography.dart';
 export 'src/widgets/button/button.dart';
 export 'src/widgets/control_builder/control_builder.dart';
 export 'src/widgets/icon/icon.dart';
+export 'src/widgets/overlay/overlay_stack.dart';
 export 'src/widgets/spacing/spacing.dart';
 export 'src/widgets/surface/surface.dart';
 export 'src/widgets/text/text.dart';
@@ -32,6 +33,7 @@ export 'src/widgets/tooltip/tooltip.dart';
 
 // Utils exports
 export 'src/utils/icons/icons.dart';
+export 'src/utils/overlay/overlay.dart';
 export 'src/utils/responsive/bounds.dart';
 export 'src/utils/responsive/edge_insets.dart';
 export 'src/utils/theme/theme_extensions.dart';

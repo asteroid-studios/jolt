@@ -12,6 +12,7 @@ class FocusableControlBuilder extends StatefulWidget {
     required this.builder,
     this.onTap,
     this.onLongPressed,
+    this.onExceptionCaught,
     this.onHoverChanged,
     this.onFocusChanged,
     this.semanticButtonLabel,
@@ -37,6 +38,9 @@ class FocusableControlBuilder extends StatefulWidget {
 
   /// Called when the control is long pressed.
   final FutureOr<void> Function()? onLongPressed;
+
+  /// Called when an error occurs inside onTap or onLongPressed
+  final void Function(Exception, StackTrace)? onExceptionCaught;
 
   /// Called after the hover state has changed.
   final void Function(BuildContext context, FocusableControlState control)?
@@ -125,15 +129,22 @@ class FocusableControlState extends State<FocusableControlBuilder> {
     _wasFocused = v;
   }
 
-  Future<void> _handlePressed() async {
-    if (_isAwaiting || widget.onTap == null) return;
+  Future<void> _handlePressed(
+    FutureOr<void> Function()? handler,
+  ) async {
+    // If processing or no handler, do nothing.
+    if (_isAwaiting || handler == null) {
+      return;
+    }
     setState(() => _isAwaiting = true);
     if (widget.requestFocusOnPress) {
       _focusNode?.requestFocus();
     }
     try {
-      await widget.onTap?.call();
-    } catch (_) {
+      await handler();
+    } catch (e, s) {
+      // TODO review this, probably can be done better
+      widget.onExceptionCaught?.call(Exception(e.toString()), s);
       await _controller?.forward(from: 0);
     }
     setState(() => _isAwaiting = false);
@@ -145,8 +156,9 @@ class FocusableControlState extends State<FocusableControlBuilder> {
   Map<Type, Action<Intent>> _getKeyboardActions() {
     return {
       if (hasPressHandler) ...{
-        ActivateIntent:
-            CallbackAction<Intent>(onInvoke: (_) => _handlePressed()),
+        ActivateIntent: CallbackAction<Intent>(
+          onInvoke: (_) => _handlePressed(widget.onTap),
+        ),
       },
       ...widget.actions ?? {},
     };
@@ -203,8 +215,8 @@ class FocusableControlState extends State<FocusableControlBuilder> {
       ],
       child: GestureDetector(
         behavior: widget.hitTestBehavior,
-        onTap: _handlePressed,
-        onLongPress: widget.onLongPressed,
+        onTap: () => _handlePressed(widget.onTap),
+        onLongPress: () => _handlePressed(widget.onLongPressed),
         child: content,
       ),
     );

@@ -195,8 +195,31 @@ class _DashboardPageState extends State<DashboardPage> {
                 ),
                 Button(
                   onTap: () async {
-                    await Future.delayed(
-                      const Duration(seconds: 4),
+                    final result = await JoltOverlay.show(
+                      child: Button(
+                        onTap: () async {
+                          final result = await JoltOverlay.show(
+                            child: Button(
+                              onTap: () async {
+                                JoltOverlay.pop('Test');
+                              },
+                              label: 'Nested Button',
+                            ),
+                          );
+                          JoltOverlay.pop(result);
+                        },
+                        label: 'Test',
+                      ),
+                    );
+                    print(result);
+                    // final test = [].elementAt(10);
+                  },
+                  onExceptionCaught: (e, s) {
+                    print(e);
+                    JoltOverlay.show(
+                      child: Button(
+                        label: 'An error occurred',
+                      ),
                     );
                   },
                   icon: Icons.regular.gear,

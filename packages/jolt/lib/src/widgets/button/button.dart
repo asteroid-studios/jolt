@@ -17,6 +17,7 @@ class Button extends StatefulWidget {
     this.iconWidget,
     this.onTap,
     this.onLongPressed,
+    this.onExceptionCaught,
     this.background,
     this.color,
     this.borderColor,
@@ -55,6 +56,9 @@ class Button extends StatefulWidget {
   final FutureOr<void> Function()? onLongPressed;
 
   ///
+  final void Function(Exception, StackTrace)? onExceptionCaught;
+
+  ///
   final Color? background;
 
   ///
@@ -89,20 +93,8 @@ class Button extends StatefulWidget {
 }
 
 class _ButtonState extends State<Button> {
-  bool isProcessing = false;
-
-  FutureOr<void> handlePressed(FutureOr<void> Function() function) async {
-    if (isProcessing) return;
-    setState(() => isProcessing = true);
-    await function();
-    setState(() => isProcessing = false);
-  }
-
   @override
   Widget build(BuildContext context) {
-    final disabled =
-        isProcessing || (widget.onTap == null && widget.onLongPressed == null);
-
     // Prepare the theme
     final surfaceTheme = context.widgetTheme.surface;
     final buttonTheme = context.widgetTheme.button;
@@ -121,14 +113,6 @@ class _ButtonState extends State<Button> {
     final baseColor = widget.color ??
         (background is JoltColor ? background.highlight : null) ??
         labelStyle.color;
-    final color =
-        disabled ? baseColor?.withOpacity(disabled ? 0.5 : 1) : baseColor;
-
-    // Prepare the icon
-    final icon = widget.iconWidget ??
-        (widget.icon != null
-            ? Icon(widget.icon!, size: iconSize, color: color)
-            : null);
 
     final noLabel = widget.label == null;
 
@@ -148,12 +132,9 @@ class _ButtonState extends State<Button> {
         );
 
     return Surface.focusable(
-      onTap: widget.onTap != null
-          ? () async => await handlePressed(widget.onTap!)
-          : null,
-      onLongPressed: widget.onLongPressed != null
-          ? () async => await handlePressed(widget.onLongPressed!)
-          : null,
+      onTap: widget.onTap,
+      onLongPressed: widget.onLongPressed,
+      onExceptionCaught: widget.onExceptionCaught,
       tooltip: widget.tooltip,
       width: widget.width,
       height: widget.height,
@@ -163,6 +144,18 @@ class _ButtonState extends State<Button> {
       borderWidth: widget.borderWidth,
       padding: padding,
       builder: (context, state) {
+        final disabled = state.isAwaiting ||
+            (widget.onTap == null && widget.onLongPressed == null);
+
+        final color =
+            disabled ? baseColor?.withOpacity(disabled ? 0.5 : 1) : baseColor;
+
+        // Prepare the icon
+        final icon = widget.iconWidget ??
+            (widget.icon != null
+                ? Icon(widget.icon!, size: iconSize, color: color)
+                : null);
+
         const processingDuration = Duration(milliseconds: 1500);
         final processingIcon =
             theme.processingIcon ?? Icons.duotone.circleNotch;
@@ -186,7 +179,7 @@ class _ButtonState extends State<Button> {
               Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  if (isProcessing)
+                  if (state.isAwaiting)
                     processingIconWidget
                   else
                     icon ??
@@ -206,8 +199,11 @@ class _ButtonState extends State<Button> {
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            if (isProcessing) processingIconWidget else if (icon != null) icon,
-            if (icon != null || isProcessing)
+            if (state.isAwaiting)
+              processingIconWidget
+            else if (icon != null)
+              icon,
+            if (icon != null || state.isAwaiting)
               SizedBox(
                 width: widget.horizontalSpacing ??
                     theme.horizontalSpacing ??
