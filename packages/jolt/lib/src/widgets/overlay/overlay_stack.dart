@@ -43,7 +43,9 @@ class OverlayStackState extends State<OverlayStack> {
   Future<T?> addOverlay<T extends Object?>(PositionedOverlay overlay) {
     final completer = Completer<T?>();
     setState(() {
-      _overlays.add(overlay);
+      _overlays
+        ..add(overlay)
+        ..sort((a, b) => a.zIndex.compareTo(b.zIndex));
       _popCompleters[overlay.hashCode] = completer;
     });
     return completer.future;
@@ -83,22 +85,31 @@ class OverlayStackState extends State<OverlayStack> {
                   child: Stack(
                     children: [
                       widget.child,
-                      if (_overlays.isNotEmpty)
-                        Positioned.fill(
-                          child: GestureDetector(
-                            onTap: popOverlay,
-                            child: Container(
-                              color: Colors.black.withOpacity(0.3),
+                      Positioned.fill(
+                        child: AnimatedOpacity(
+                          opacity: _overlays.isEmpty
+                              ? 0
+                              : _overlays.lastOrNull?.backgroundOpacity ??
+                                  (context.color.isDark ? 0.5 : 0.2),
+                          duration: const Duration(milliseconds: 300),
+                          child: IgnorePointer(
+                            ignoring: _overlays.isEmpty,
+                            child: GestureDetector(
+                              onTap: popOverlay,
+                              child: Container(
+                                color: Colors.black,
+                              ),
                             ),
                           ),
                         ),
+                      ),
                       // TODO animate overlays in and out
-                      ..._overlays.sortedBy<num>((o) => o.zIndex).map(
-                            (o) => Align(
-                              alignment: o.position,
-                              child: o,
-                            ),
-                          ),
+                      ..._overlays.map(
+                        (o) => Align(
+                          alignment: o.position,
+                          child: o,
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -117,12 +128,16 @@ class PositionedOverlay extends InheritedTheme {
   const PositionedOverlay({
     required super.child,
     this.zIndex = 0,
+    this.backgroundOpacity,
     this.position = Alignment.center,
     super.key,
   });
 
   ///
   final int zIndex;
+
+  ///
+  final double? backgroundOpacity;
 
   ///
   final Alignment position;
@@ -141,6 +156,7 @@ class PositionedOverlay extends InheritedTheme {
     return PositionedOverlay(
       position: position,
       zIndex: zIndex,
+      backgroundOpacity: backgroundOpacity,
       child: child,
     );
   }

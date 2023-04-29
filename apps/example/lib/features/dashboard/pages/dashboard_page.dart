@@ -234,6 +234,7 @@ class _DashboardPageState extends State<DashboardPage> {
                       const Duration(seconds: 1),
                     );
                     context.overlay.show(
+                      backgroundOpacity: 0.9,
                       child: TestDialog(),
                     );
                   },
@@ -512,9 +513,6 @@ class TestPanel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final overlay = PositionedOverlay.of(context);
-    print(overlay?.zIndex);
-
     return Align(
       alignment: Alignment.centerRight,
       child: Surface(
