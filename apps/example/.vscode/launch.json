@@ -1,0 +1,41 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Default",
+            "request": "launch",
+            "type": "dart",
+            "program": "lib/main.dart",
+            "args": ["--web-renderer", "html"]
+        },
+        {
+            "name": "Web - canvaskit",
+            "request": "launch",
+            "type": "dart",
+            "program": "lib/main.dart",
+            "args": ["--web-renderer", "canvaskit"]
+        },
+        // {
+        //     "name": "Local",
+        //     "request": "launch",
+        //     "type": "dart",
+        //     "program": "lib/main.dart",
+        //     "args": ["--dart-define-from-file", "config/local.json"]
+        // },
+        // {
+        //     "name": "Staging",
+        //     "request": "launch",
+        //     "type": "dart",
+        //     "program": "lib/main.dart",
+        //     "args": ["--dart-define-from-file", "config/staging.json"]
+        // },
+        // {
+        //     "name": "Production",
+        //     "request": "launch",
+        //     "type": "dart",
+        //     "program": "lib/main.dart",
+        //     "args": ["--dart-define-from-file", "config/production.json"]
+        // },
+    ],
+    "compounds": []
+}

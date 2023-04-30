@@ -14,22 +14,22 @@ class Platform {
   static bool get isWeb => kIsWeb;
 
   /// Determine if the platform is iOS
-  static bool get isIOS => platform == TargetPlatform.iOS;
+  static bool get isIOS => !isWeb && platform == TargetPlatform.iOS;
 
   /// Determine if the platform is Android
-  static bool get isAndroid => platform == TargetPlatform.android;
+  static bool get isAndroid => !isWeb && platform == TargetPlatform.android;
 
   /// Determine if the platform is Fuchsia
-  static bool get isFuchsia => platform == TargetPlatform.fuchsia;
+  static bool get isFuchsia => !isWeb && platform == TargetPlatform.fuchsia;
 
   /// Determine if the platform is MacOS
-  static bool get isMacOS => platform == TargetPlatform.macOS;
+  static bool get isMacOS => !isWeb && platform == TargetPlatform.macOS;
 
   /// Determine if the platform is Windows
-  static bool get isWindows => platform == TargetPlatform.windows;
+  static bool get isWindows => !isWeb && platform == TargetPlatform.windows;
 
   /// Determine if the platform is Linux
-  static bool get isLinux => platform == TargetPlatform.linux;
+  static bool get isLinux => !isWeb && platform == TargetPlatform.linux;
 
   /// Determine if the platform is mobile
   static bool get isMobile => isIOS || isAndroid || isFuchsia;

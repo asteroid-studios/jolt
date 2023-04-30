@@ -10,6 +10,9 @@ dependencies:
   bitsdojo_window: ^0.1.5
   flutter:
     sdk: flutter
+  flutter_syntax_view: ^4.0.0
+  flutter_web_plugins:
+    sdk: flutter
   go_router: ^6.5.7
   google_fonts: ^4.0.3
   jolt: 
@@ -25,4 +28,5 @@ dev_dependencies:
 
 flutter:
   uses-material-design: false
-
+  assets:
+    - code_snippets/
