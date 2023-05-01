@@ -10,13 +10,15 @@ dependencies:
   bitsdojo_window: ^0.1.5
   flutter:
     sdk: flutter
-  flutter_syntax_view: ^4.0.0
+  flutter_jimtl: ^0.0.3
   flutter_web_plugins:
     sdk: flutter
   go_router: ^6.5.7
   google_fonts: ^4.0.3
+  intl:
   jolt: 
     path: ../../packages/jolt
+  path_provider:
 
 
 dev_dependencies:
@@ -24,9 +26,10 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   go_router_builder: ^1.2.2
+  jimtl_codegen: ^0.0.4
   very_good_analysis: ^4.0.0+1
 
 flutter:
   uses-material-design: false
   assets:
-    - code_snippets/
+    - assets/arb/

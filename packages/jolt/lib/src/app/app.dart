@@ -1,9 +1,11 @@
-import 'package:flutter/cupertino.dart' show DefaultCupertinoLocalizations;
-import 'package:flutter/material.dart'
-    show DefaultMaterialLocalizations, MaterialPageRoute;
+import 'package:flutter/material.dart' show MaterialPageRoute;
+
 import 'package:flutter_portal/flutter_portal.dart';
 
 import 'package:jolt/jolt.dart';
+
+export 'package:flutter/cupertino.dart' show DefaultCupertinoLocalizations;
+export 'package:flutter/material.dart' show DefaultMaterialLocalizations;
 
 /// The Jolt app.
 class JoltApp extends StatefulWidget {
@@ -13,6 +15,9 @@ class JoltApp extends StatefulWidget {
     this.title,
     this.navigatorObservers,
     this.debugShowCheckedModeBanner = true,
+    this.locale,
+    this.supportedLocales = const <Locale>[Locale('en', 'US')],
+    this.localizationsDelegates,
     this.themes,
     this.widgetTheme,
     super.key,
@@ -27,6 +32,9 @@ class JoltApp extends StatefulWidget {
     this.title,
     this.routeInformationProvider,
     this.debugShowCheckedModeBanner = true,
+    this.locale,
+    this.supportedLocales = const <Locale>[Locale('en', 'US')],
+    this.localizationsDelegates,
     this.routeInformationParser,
     this.routerDelegate,
     this.routerConfig,
@@ -70,6 +78,15 @@ class JoltApp extends StatefulWidget {
   /// The themes to use for the app
   final List<ThemeData>? themes;
 
+  /// {@macro flutter.widgets.widgetsApp.locale}
+  final Locale? locale;
+
+  /// {@macro flutter.widgets.widgetsApp.localizationsDelegates}
+  final List<LocalizationsDelegate<dynamic>>? localizationsDelegates;
+
+  /// {@macro flutter.widgets.widgetsApp.supportedLocales}
+  final Iterable<Locale> supportedLocales;
+
   @override
   State<JoltApp> createState() => _JoltAppState();
 }
@@ -104,11 +121,13 @@ class _JoltAppState extends State<JoltApp> with WidgetsBindingObserver {
 
   @override
   Widget build(BuildContext context) {
-    final localizationsDelegates = [
+    final defaultLocalizations = [
       DefaultMaterialLocalizations.delegate,
       DefaultCupertinoLocalizations.delegate,
       DefaultWidgetsLocalizations.delegate,
     ];
+    final localizationsDelegates =
+        widget.localizationsDelegates ?? defaultLocalizations;
 
     return MediaQuery.fromWindow(
       child: ValueListenableBuilder<ThemeData>(
@@ -122,6 +141,8 @@ class _JoltAppState extends State<JoltApp> with WidgetsBindingObserver {
                   color: theme.colorScheme.primary,
                   title: widget.title ?? '',
                   debugShowCheckedModeBanner: widget.debugShowCheckedModeBanner,
+                  locale: widget.locale,
+                  supportedLocales: widget.supportedLocales,
                   localizationsDelegates: localizationsDelegates,
                   routerConfig: widget.routerConfig,
                   useInheritedMediaQuery: true,
@@ -135,6 +156,8 @@ class _JoltAppState extends State<JoltApp> with WidgetsBindingObserver {
                   home: child,
                   title: widget.title ?? '',
                   useInheritedMediaQuery: true,
+                  locale: widget.locale,
+                  supportedLocales: widget.supportedLocales,
                   localizationsDelegates: localizationsDelegates,
                   debugShowCheckedModeBanner: widget.debugShowCheckedModeBanner,
                   navigatorObservers: widget.navigatorObservers ?? [],
@@ -150,7 +173,7 @@ class _JoltAppState extends State<JoltApp> with WidgetsBindingObserver {
             controller: controller,
             child: Localizations(
               locale: const Locale('en', 'US'),
-              delegates: localizationsDelegates,
+              delegates: defaultLocalizations,
               child: Themes(
                 theme: theme,
                 scaling: ScalingData(

@@ -262,6 +262,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.1.1+1"
+  flutter_jimtl:
+    dependency: "direct main"
+    description:
+      name: flutter_jimtl
+      sha256: "5f0b162f0e9575976894e9b951f6d6cac43414507de9475e3c3205a272d9a3d5"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.3"
   flutter_portal:
     dependency: transitive
     description:
@@ -270,14 +278,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.1.3"
-  flutter_syntax_view:
-    dependency: "direct main"
-    description:
-      name: flutter_syntax_view
-      sha256: bed469c548993f2f9158514c4b5526dcd6de19e008c5321bb55216cb1afc675b
-      url: "https://pub.dev"
-    source: hosted
-    version: "4.0.0"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -376,6 +376,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.0.2"
+  intl:
+    dependency: "direct main"
+    description:
+      name: intl
+      sha256: "3bc132a9dbce73a7e4a21a17d06e1878839ffbf975568bc875c60537824b0c4d"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.18.1"
+  intl_generator:
+    dependency: transitive
+    description:
+      name: intl_generator
+      sha256: "120e03ccefe0c215801e44a8ccbaeabe6c895c5792f44298133745ab0a0e0bf5"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.4.1"
   io:
     dependency: transitive
     description:
@@ -384,6 +400,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.4"
+  jimtl:
+    dependency: transitive
+    description:
+      name: jimtl
+      sha256: e355bb05d0e8d76ba85a80206a8939af580755cff6be3a0144f821b80e8ebf9b
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.7"
+  jimtl_codegen:
+    dependency: "direct dev"
+    description:
+      name: jimtl_codegen
+      sha256: "1fd98f2890cc3fdf93ffe958de0c28fb034bc4a0ff6337166f52d495e075b532"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.4"
   jolt:
     dependency: "direct main"
     description:
@@ -464,7 +496,7 @@ packages:
     source: hosted
     version: "1.8.2"
   path_provider:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: path_provider
       sha256: c7edf82217d4b2952b2129a61d3ad60f1075b9299e629e149a8d2e39c2e6aad4
@@ -527,6 +559,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.0"
+  petitparser:
+    dependency: transitive
+    description:
+      name: petitparser
+      sha256: "49392a45ced973e8d94a85fdb21293fbb40ba805fc49f2965101ae748a3683b4"
+      url: "https://pub.dev"
+    source: hosted
+    version: "5.1.0"
   phosphor_flutter:
     dependency: transitive
     description:

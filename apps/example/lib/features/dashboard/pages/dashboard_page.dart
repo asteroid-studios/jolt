@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:jolt/jolt.dart';
 
 import 'package:example/theming/typography.dart';
+import 'package:example/utils/translation.dart';
 
 ///
 class DashboardPage extends StatefulWidget {
@@ -34,8 +35,7 @@ class _DashboardPageState extends State<DashboardPage> {
     const end = 8;
     const spacer = Spacing.sm();
     return Scaffold(
-      title: 'Dashboard',
-      // content: Text('Test'),
+      title: context.translations.dashboard.title,
       content: Padding(
         padding: EdgeInsets.all(context.sizing.md),
         child: Column(
@@ -104,7 +104,7 @@ class _DashboardPageState extends State<DashboardPage> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'Build your next idea\neven faster.',
+                            context.translations.dashboard.hero,
                             style: context.style.hero,
                           ),
                           spacer,

@@ -3,6 +3,7 @@ import 'package:jolt/jolt.dart';
 import 'package:example/components/router/router.dart';
 import 'package:example/theming/themes.dart';
 import 'package:example/theming/widget_theme.dart';
+import 'package:example/utils/translation.dart';
 
 /// The main app widget.
 class App extends StatelessWidget {
@@ -16,6 +17,11 @@ class App extends StatelessWidget {
       themes: themes,
       widgetTheme: widgetTheme,
       routerConfig: router,
+      supportedLocales: locales,
+      localizationsDelegates: [
+        DefaultMaterialLocalizations.delegate,
+        ...translations,
+      ],
     );
   }
 }

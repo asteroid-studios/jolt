@@ -1,0 +1,15 @@
+{
+  "@@locale": "en",
+  "title": "Dashboard title",
+  "@title": {
+    "type": "text",
+    "placeholders_order": [],
+    "placeholders": {}
+  },
+  "hero": "Build your next idea even faster.",
+  "@hero": {
+    "type": "text",
+    "placeholders_order": [],
+    "placeholders": {}
+  }
+}
