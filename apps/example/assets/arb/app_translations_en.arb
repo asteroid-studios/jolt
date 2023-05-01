@@ -1,0 +1,21 @@
+{
+  "@@locale": "en",
+  "title": "Jolt",
+  "@title": {
+    "type": "text",
+    "placeholders_order": [],
+    "placeholders": {}
+  },
+  "dashboard": "Dashboard",
+  "@dashboard": {
+    "type": "text",
+    "placeholders_order": [],
+    "placeholders": {}
+  },
+  "users": "Users",
+  "@users": {
+    "type": "text",
+    "placeholders_order": [],
+    "placeholders": {}
+  }
+}

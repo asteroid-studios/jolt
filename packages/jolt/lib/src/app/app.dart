@@ -85,7 +85,7 @@ class JoltApp extends StatefulWidget {
   final List<LocalizationsDelegate<dynamic>>? localizationsDelegates;
 
   /// {@macro flutter.widgets.widgetsApp.supportedLocales}
-  final Iterable<Locale> supportedLocales;
+  final List<Locale> supportedLocales;
 
   @override
   State<JoltApp> createState() => _JoltAppState();
@@ -97,6 +97,8 @@ class _JoltAppState extends State<JoltApp> with WidgetsBindingObserver {
   @override
   void initState() {
     controller = JoltAppController(
+      locale: widget.locale,
+      supportedLocales: widget.supportedLocales,
       window: WidgetsBinding.instance.window,
       themes: widget.themes ??
           [
@@ -141,7 +143,7 @@ class _JoltAppState extends State<JoltApp> with WidgetsBindingObserver {
                   color: theme.colorScheme.primary,
                   title: widget.title ?? '',
                   debugShowCheckedModeBanner: widget.debugShowCheckedModeBanner,
-                  locale: widget.locale,
+                  locale: controller.locale,
                   supportedLocales: widget.supportedLocales,
                   localizationsDelegates: localizationsDelegates,
                   routerConfig: widget.routerConfig,
@@ -156,7 +158,7 @@ class _JoltAppState extends State<JoltApp> with WidgetsBindingObserver {
                   home: child,
                   title: widget.title ?? '',
                   useInheritedMediaQuery: true,
-                  locale: widget.locale,
+                  locale: controller.locale,
                   supportedLocales: widget.supportedLocales,
                   localizationsDelegates: localizationsDelegates,
                   debugShowCheckedModeBanner: widget.debugShowCheckedModeBanner,

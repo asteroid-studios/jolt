@@ -1,7 +1,8 @@
 import 'package:go_router/go_router.dart';
 import 'package:jolt/jolt.dart';
 
-import 'package:example/components/router/routes/routes.dart';
+import 'package:example/routing/routes.dart';
+import 'package:example/translation/app_translations.dart';
 
 ///
 class SidebarLeft extends StatelessWidget {
@@ -38,14 +39,14 @@ class SidebarLeft extends StatelessWidget {
           routeButton(
             () => DashboardRouteData().go(context),
             Icons.duotone.squaresFour,
-            'Dashboard',
+            context.translations.app.dashboard,
             DashboardRouteData().location,
           ),
           const Spacing.md(),
           routeButton(
             () => UsersRouteData().go(context),
             Icons.duotone.users,
-            'Users',
+            context.translations.app.users,
             UsersRouteData().location,
           ),
         ],

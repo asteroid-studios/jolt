@@ -1,9 +1,10 @@
 import 'dart:ui';
 
+import 'package:go_router/go_router.dart';
 import 'package:jolt/jolt.dart';
 
-import 'package:example/theming/typography.dart';
-import 'package:example/utils/translation.dart';
+import 'package:example/routing/routes.dart';
+import 'package:example/translation/app_translations.dart';
 
 ///
 class DashboardPage extends StatefulWidget {
@@ -281,13 +282,14 @@ class _DashboardPageState extends State<DashboardPage> {
               spacing: context.sizing.md,
               runSpacing: context.sizing.md,
               children: [
-                Surface.focusable(
+                Button(
                   onTap: () {
                     context.jolt.setTheme(
                       ThemeMode.light,
                       withHighContrast: false,
                     );
                   },
+                  label: 'Light',
                   padding: EdgeInsets.symmetric(
                     horizontal: context.sizing.sm,
                     vertical: context.sizing.xs,
@@ -297,16 +299,6 @@ class _DashboardPageState extends State<DashboardPage> {
                       ? context.color.primary
                       : null,
                   borderRadius: context.borderRadius.sm,
-                  builder: (context, state) {
-                    return Text(
-                      'Light',
-                      style: context.style.button,
-                      color: context.jolt.themeMode == ThemeMode.light &&
-                              !context.color.highContrast
-                          ? context.color.primary.highlight
-                          : null,
-                    );
-                  },
                 ),
                 Surface.focusable(
                   onTap: () {
@@ -327,7 +319,6 @@ class _DashboardPageState extends State<DashboardPage> {
                   builder: (context, state) {
                     return Text(
                       'Light high contrast',
-                      style: context.style.button,
                       color: context.jolt.themeMode == ThemeMode.light &&
                               context.color.highContrast
                           ? context.color.primary.highlight
@@ -354,7 +345,6 @@ class _DashboardPageState extends State<DashboardPage> {
                   builder: (context, state) {
                     return Text(
                       'Dark',
-                      style: context.style.button,
                       color: context.jolt.themeMode == ThemeMode.dark &&
                               !context.color.highContrast
                           ? context.color.primary.highlight
@@ -381,7 +371,6 @@ class _DashboardPageState extends State<DashboardPage> {
                   builder: (context, state) {
                     return Text(
                       'Dark high contrast',
-                      style: context.style.button,
                       color: context.jolt.themeMode == ThemeMode.dark &&
                               context.color.highContrast
                           ? context.color.primary.highlight
@@ -404,7 +393,6 @@ class _DashboardPageState extends State<DashboardPage> {
                   builder: (context, state) {
                     return Text(
                       'System',
-                      style: context.style.button,
                       color: context.jolt.themeMode == ThemeMode.system
                           ? context.color.primary.highlight
                           : null,
@@ -439,6 +427,18 @@ class _DashboardPageState extends State<DashboardPage> {
                     padding: EdgeInsets.zero,
                     child: const Spacing.xl(),
                   ),
+                ),
+              ],
+            ),
+            const Spacing.section(),
+            Text(
+              'Translation',
+              style: context.style.heading,
+            ),
+            Wrap(
+              children: [
+                Button(
+                  label: 'English',
                 ),
               ],
             ),

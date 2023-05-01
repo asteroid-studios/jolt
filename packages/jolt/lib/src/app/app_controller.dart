@@ -1,10 +1,7 @@
 import 'dart:ui';
 
-import 'package:flutter/services.dart';
-
 import 'package:collection/collection.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-
 import 'package:jolt/jolt.dart';
 
 /// The Hive key for storing Jolt preferences.
@@ -18,7 +15,20 @@ class JoltAppController extends ValueNotifier<ThemeData> {
   JoltAppController({
     required this.themes,
     required SingletonFlutterWindow window,
+    this.supportedLocales = const <Locale>[Locale('en', 'US')],
+    Locale? locale,
   }) : super(themes.first) {
+    // Initialise locale
+    final defaultLocale = locale ?? supportedLocales.first;
+    final savedLocale = _joltPrefs
+        .get(
+          _JoltPreferences.locale.name,
+          defaultValue: defaultLocale.toLanguageTag(),
+        )
+        .toString();
+    this.locale = supportedLocales.firstWhere(
+      (l) => l.toLanguageTag() == savedLocale,
+    );
     // Initialise theme mode
     themeMode = ThemeMode.values.byName(
       _joltPrefs
@@ -93,6 +103,18 @@ class JoltAppController extends ValueNotifier<ThemeData> {
     }
   }
 
+  /// Change the locale.
+  void setLocale(Locale locale) {
+    if (supportedLocales.firstWhereOrNull(
+          (l) => l.toLanguageTag() == locale.toLanguageTag(),
+        ) !=
+        null) {
+      this.locale = locale;
+      _save(_JoltPreferences.locale, locale.toLanguageTag());
+      notifyListeners();
+    }
+  }
+
   /// Change the theme.
   void setTheme(ThemeMode mode, {bool? withHighContrast}) {
     themeMode = mode;
@@ -128,8 +150,14 @@ class JoltAppController extends ValueNotifier<ThemeData> {
   /// The list of themes.
   final List<ThemeData> themes;
 
+  /// The list of supported locales.
+  final List<Locale> supportedLocales;
+
   /// The current primary color.
   Color? primaryColor;
+
+  /// The current locale;
+  late Locale locale;
 
   /// The current theme mode.
   late ThemeMode themeMode;
@@ -156,6 +184,7 @@ class JoltAppController extends ValueNotifier<ThemeData> {
 
 enum _JoltPreferences {
   themeMode,
+  locale,
   highContrast,
   primaryColor,
   textScale,

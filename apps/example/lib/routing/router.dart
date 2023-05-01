@@ -1,7 +1,7 @@
 import 'package:go_router/go_router.dart';
 import 'package:jolt/jolt.dart';
 
-import 'package:example/components/router/routes/routes.dart';
+import 'package:example/routing/routes.dart';
 
 final GlobalKey<NavigatorState> rootNavigatorKey = GlobalKey<NavigatorState>();
 final GlobalKey<NavigatorState> shellNavigatorKey = GlobalKey<NavigatorState>();

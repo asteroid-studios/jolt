@@ -1,33 +1,13 @@
 import 'package:flutter/services.dart' show rootBundle;
 
 import 'package:flutter_jimtl/flutter_jimtl.dart';
-import 'package:jolt/jolt.dart';
 
 import 'package:example/features/dashboard/translations/dashboard_translations.dart';
+import 'package:example/translation/app_translations.dart';
+import 'package:example/translation/locales.dart';
 
 ///
-extension TranslationsExtensions on BuildContext {
-  ///
-  TranslationsMapping get translations => TranslationsMapping(this);
-}
-
-///
-class TranslationsMapping {
-  ///
-  const TranslationsMapping(this.context);
-
-  ///
-  final BuildContext context;
-
-  ///
-  DashboardTranslations get dashboard => DashboardTranslations.of(context);
-}
-
-///
-const locales = [Locale('en'), Locale('fr')];
-
-///
-TranslationsDelegate<dynamic> getTranslations<T>(
+TranslationsDelegate<dynamic> delegate<T>(
     T Function() translations, String prefix) {
   return TranslationsDelegate<T>(
     translationsBuilder: translations,
@@ -44,9 +24,13 @@ TranslationsDelegate<dynamic> getTranslations<T>(
 }
 
 ///
-final translations = [
-  getTranslations<DashboardTranslations>(
+final translationDelegates = [
+  delegate<DashboardTranslations>(
     DashboardTranslations.new,
     'dashboard',
+  ),
+  delegate<AppTranslations>(
+    AppTranslations.new,
+    'app',
   ),
 ];

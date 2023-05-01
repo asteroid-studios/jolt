@@ -1,7 +1,7 @@
 import 'package:jolt/jolt.dart';
 
-import 'package:example/components/router/routes/routes.dart';
-import 'package:example/theming/typography.dart';
+import 'package:example/routing/routes.dart';
+import 'package:example/translation/app_translations.dart';
 
 ///
 class TopBar extends StatelessWidget {
@@ -28,7 +28,7 @@ class TopBar extends StatelessWidget {
               onTap: () => DashboardRouteData().go(context),
               builder: (context, state) {
                 return Text(
-                  'Jolt',
+                  context.translations.app.title,
                   style: context.style.heading,
                 );
               },
