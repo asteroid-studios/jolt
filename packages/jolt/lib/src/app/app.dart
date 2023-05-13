@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart' show MaterialPageRoute;
 
 import 'package:flutter_portal/flutter_portal.dart';
+
 import 'package:jolt/jolt.dart';
 
 export 'package:flutter/cupertino.dart' show DefaultCupertinoLocalizations;
@@ -98,7 +99,7 @@ class _JoltAppState extends State<JoltApp> with WidgetsBindingObserver {
     controller = JoltAppController(
       locale: widget.locale,
       supportedLocales: widget.supportedLocales,
-      window: WidgetsBinding.instance.window,
+      platformDispatcher: WidgetsBinding.instance.platformDispatcher,
       themes: widget.themes ??
           [
             ThemeData(

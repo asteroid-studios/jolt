@@ -33,7 +33,7 @@ class Interaction extends StatefulWidget {
     this.shakeOnError = true,
     this.requestFocusOnPress = false,
     this.autoFocus = false,
-    this.disableTextSelection = false,
+    this.disableTextSelection = true,
     this.supportedInteractions = const [
       InteractionType.focus,
       InteractionType.hover,
@@ -272,6 +272,7 @@ class InteractionState extends State<Interaction> {
         child: interaction,
       );
     }
+
     // Return the interaction
     return Semantics(
       label: widget.semanticLabel,

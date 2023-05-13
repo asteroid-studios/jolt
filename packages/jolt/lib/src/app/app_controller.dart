@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:collection/collection.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+
 import 'package:jolt/jolt.dart';
 
 /// The Hive key for storing Jolt preferences.
@@ -14,7 +15,7 @@ class JoltAppController extends ValueNotifier<ThemeData> {
   ///
   JoltAppController({
     required this.themes,
-    required SingletonFlutterWindow window,
+    required PlatformDispatcher platformDispatcher,
     this.supportedLocales = const <Locale>[Locale('en', 'US')],
     Locale? locale,
   }) : super(themes.first) {
@@ -59,10 +60,10 @@ class JoltAppController extends ValueNotifier<ThemeData> {
       defaultValue: 1.0,
     ) as double;
     // Init platform brightness
-    _platformBrightness = window.platformBrightness;
-    window.onPlatformBrightnessChanged = () {
+    _platformBrightness = platformDispatcher.platformBrightness;
+    platformDispatcher.onPlatformBrightnessChanged = () {
       WidgetsBinding.instance.handlePlatformBrightnessChanged();
-      _platformBrightness = window.platformBrightness;
+      _platformBrightness = platformDispatcher.platformBrightness;
       _refreshTheme();
     };
     _refreshTheme();
@@ -168,7 +169,7 @@ class JoltAppController extends ValueNotifier<ThemeData> {
   // The current platform brightness.
   late Brightness _platformBrightness;
 
-  final _joltPrefs = Hive.box(joltStorageKey);
+  final _joltPrefs = Hive.box<dynamic>(joltStorageKey);
 
   /// The text scale factor multiplier.
   late double textScaleFactorMultiplier;
