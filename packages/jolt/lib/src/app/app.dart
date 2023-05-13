@@ -114,6 +114,18 @@ class _JoltAppState extends State<JoltApp> with WidgetsBindingObserver {
     super.initState();
   }
 
+  void popFocus() {
+    // This logic is to make sure
+    // the wrong focus scope isn't popped
+    final primaryFocus = FocusManager.instance.primaryFocus;
+    final deepParent = primaryFocus?.parent?.parent?.parent;
+    if (primaryFocus != null &&
+        deepParent != null &&
+        deepParent.debugLabel != 'Shortcuts') {
+      primaryFocus.unfocus();
+    }
+  }
+
   @override
   void dispose() {
     controller.dispose();
@@ -197,14 +209,7 @@ class _JoltAppState extends State<JoltApp> with WidgetsBindingObserver {
                           child: SelectionArea(
                             focusNode: FocusNode(canRequestFocus: false),
                             child: GestureDetector(
-                              onTap: () {
-                                final primaryFocus =
-                                    FocusManager.instance.primaryFocus;
-                                // if (primaryFocus?.parent != null) {
-                                //   print('UNFOCUSED');
-                                primaryFocus?.unfocus();
-                                // }
-                              },
+                              onTap: popFocus,
                               child: OverlayStack(
                                 key: joltOverlayKey,
                                 child: app,

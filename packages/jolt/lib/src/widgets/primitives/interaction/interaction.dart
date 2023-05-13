@@ -6,6 +6,8 @@ import 'package:flutter_animate/flutter_animate.dart';
 
 import 'package:jolt/jolt.dart';
 
+const interactionDebugLabel = 'JoltInteraction';
+
 /// A widget to handle user interaction.
 class Interaction extends StatefulWidget {
   /// A widget to handle user interaction.
@@ -157,7 +159,8 @@ class InteractionState extends State<Interaction> {
   @override
   void initState() {
     supportedInteractions = widget.supportedInteractions;
-    _focusNode = canBeFocused ? FocusNode() : null;
+    _focusNode =
+        canBeFocused ? FocusNode(debugLabel: interactionDebugLabel) : null;
     super.initState();
   }
 
