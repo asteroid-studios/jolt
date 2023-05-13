@@ -300,8 +300,7 @@ class InteractionState extends State<Interaction> {
     if (widget.tooltip != null) {
       interaction = Tooltip(
         tooltip: widget.tooltip,
-        focusNode: _focusNode,
-        disabled: wasFocusedAfterPress,
+        hasFocus: isFocused && !wasFocusedAfterPress,
         child: interaction,
       );
     }

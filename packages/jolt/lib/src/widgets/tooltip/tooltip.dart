@@ -11,7 +11,7 @@ class Tooltip extends StatefulWidget {
   const Tooltip({
     required this.child,
     this.tooltip,
-    this.focusNode,
+    this.hasFocus = false,
     this.disabled = false,
     super.key,
   });
@@ -20,20 +20,19 @@ class Tooltip extends StatefulWidget {
   final String? tooltip;
 
   ///
-  final FocusNode? focusNode;
-
-  ///
   final Widget child;
 
   /// Will stop the tooltip from showing
   final bool disabled;
+
+  /// If the tooltip should be shown as if it has focus
+  final bool hasFocus;
 
   @override
   State<Tooltip> createState() => _TooltipState();
 }
 
 class _TooltipState extends State<Tooltip> {
-  bool isFocused = false;
   bool isHovered = false;
   bool isPressing = false;
   Timer? timer;
@@ -60,12 +59,7 @@ class _TooltipState extends State<Tooltip> {
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      widget.focusNode?.addListener(() {
-        getPosition();
-        setState(() {
-          isFocused = widget.focusNode?.hasFocus ?? false;
-        });
-      });
+      getPosition();
     });
     super.initState();
   }
@@ -76,7 +70,7 @@ class _TooltipState extends State<Tooltip> {
       return widget.child;
     }
 
-    final visible = isFocused || isHovered || isPressing;
+    final visible = widget.hasFocus || isHovered || isPressing;
 
     return MouseRegion(
       onEnter: (_) {
