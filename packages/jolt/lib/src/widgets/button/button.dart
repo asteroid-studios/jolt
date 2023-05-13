@@ -17,7 +17,7 @@ class Button extends StatefulWidget {
     this.iconWidget,
     this.onTap,
     this.onLongPressed,
-    this.onExceptionCaught,
+    this.errorHandler,
     this.background,
     this.backgroundDark,
     this.color,
@@ -57,8 +57,8 @@ class Button extends StatefulWidget {
   ///
   final FutureOr<void> Function()? onLongPressed;
 
-  ///
-  final void Function(Exception, StackTrace)? onExceptionCaught;
+  /// Called when an error occurs inside onTap or onLongPressed
+  final void Function(InteractionException)? errorHandler;
 
   ///
   final Color? background;
@@ -145,24 +145,17 @@ class _ButtonState extends State<Button> {
           vertical: verticalPadding,
         );
 
-    return Surface.focusable(
+    return Interaction(
       onTap: widget.onTap,
       onLongPressed: widget.onLongPressed,
-      onExceptionCaught: widget.onExceptionCaught,
+      errorHandler: widget.errorHandler,
       tooltip: widget.tooltip,
-      width: widget.width,
-      height: widget.height,
-      background: widget.background ?? theme.background,
-      borderColor: widget.borderColor ?? theme.borderColor,
-      borderRadius: widget.borderRadius ?? theme.borderRadius,
-      borderWidth: widget.borderWidth,
-      padding: padding,
       builder: (context, state) {
-        final disabled = state.isAwaiting ||
-            (widget.onTap == null && widget.onLongPressed == null);
+        final isDisabled = state.isAwaiting || !state.hasPressHandler;
 
-        final color =
-            disabled ? baseColor?.withOpacity(disabled ? 0.5 : 1) : baseColor;
+        final color = isDisabled
+            ? baseColor?.withOpacity(isDisabled ? 0.5 : 1)
+            : baseColor;
 
         // Prepare the icon
         final icon = widget.iconWidget ??
@@ -181,8 +174,9 @@ class _ButtonState extends State<Button> {
             .animate(onPlay: (controller) => controller.repeat())
             .rotate(duration: processingDuration);
 
+        late Widget button;
         if (noLabel) {
-          return Column(
+          button = Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               // Necessary for widths to line up without label
@@ -207,28 +201,40 @@ class _ButtonState extends State<Button> {
               ),
             ],
           );
+        } else {
+          button = Row(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              if (state.isAwaiting)
+                processingIconWidget
+              else if (icon != null)
+                icon,
+              if (icon != null || state.isAwaiting)
+                SizedBox(
+                  width: widget.horizontalSpacing ??
+                      theme.horizontalSpacing ??
+                      context.sizing.xs,
+                ),
+              Text(
+                widget.label!,
+                style: labelStyle,
+                color: color,
+              ),
+            ],
+          );
         }
 
-        return Row(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            if (state.isAwaiting)
-              processingIconWidget
-            else if (icon != null)
-              icon,
-            if (icon != null || state.isAwaiting)
-              SizedBox(
-                width: widget.horizontalSpacing ??
-                    theme.horizontalSpacing ??
-                    context.sizing.xs,
-              ),
-            Text(
-              widget.label!,
-              style: labelStyle,
-              color: color,
-            ),
-          ],
+        return Surface(
+          width: widget.width,
+          height: widget.height,
+          background: widget.background ?? theme.background,
+          borderColor: widget.borderColor ?? theme.borderColor,
+          borderRadius: widget.borderRadius ?? theme.borderRadius,
+          borderWidth: widget.borderWidth,
+          padding: padding,
+          interactionState: state,
+          child: button,
         );
       },
     );

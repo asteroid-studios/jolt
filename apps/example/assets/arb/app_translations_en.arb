@@ -1,19 +1,19 @@
 {
   "@@locale": "en",
-  "title": "Jolt",
-  "@title": {
+  "AppTranslations_title": "Jolt",
+  "@AppTranslations_title": {
     "type": "text",
     "placeholders_order": [],
     "placeholders": {}
   },
-  "dashboard": "Dashboard",
-  "@dashboard": {
+  "AppTranslations_dashboard": "Dashboard",
+  "@AppTranslations_dashboard": {
     "type": "text",
     "placeholders_order": [],
     "placeholders": {}
   },
-  "users": "Users",
-  "@users": {
+  "AppTranslations_users": "Users",
+  "@AppTranslations_users": {
     "type": "text",
     "placeholders_order": [],
     "placeholders": {}

@@ -16,6 +16,8 @@ class Icon extends StatelessWidget {
     super.key,
   });
 
+  // TODO make composable icon stack a thing. to combine icons together.
+
   ///
   final IconData icon;
 

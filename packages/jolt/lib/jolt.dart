@@ -21,12 +21,12 @@ export 'src/theme/typography/typography.dart';
 
 // Widget export
 export 'src/widgets/button/button.dart';
-export 'src/widgets/control_builder/control_builder.dart';
-export 'src/widgets/icon/icon.dart';
+export 'src/widgets/primitives/interaction/interaction.dart';
+export 'src/widgets/primitives/icon/icon.dart';
 export 'src/widgets/overlay/overlay_stack.dart';
 export 'src/widgets/spacing/spacing.dart';
-export 'src/widgets/surface/surface.dart';
-export 'src/widgets/text/text.dart';
+export 'src/widgets/primitives/surface/surface.dart';
+export 'src/widgets/primitives/text/text.dart';
 export 'src/widgets/scaffold/scaffold.dart';
 export 'src/widgets/shell/shell.dart' hide InheritedShell;
 export 'src/widgets/tooltip/tooltip.dart';

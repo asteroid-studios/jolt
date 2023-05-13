@@ -18,7 +18,7 @@ class App extends StatelessWidget {
       themes: themes,
       widgetTheme: widgetTheme,
       routerConfig: router,
-      supportedLocales: locales,
+      supportedLocales: supportedLocales,
       localizationsDelegates: [
         DefaultMaterialLocalizations.delegate,
         ...translationDelegates,

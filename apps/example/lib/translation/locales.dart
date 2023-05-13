@@ -10,7 +10,7 @@ class Locales {
 }
 
 ///
-const locales = [
+const supportedLocales = [
   Locales.en,
   Locales.fr,
 ];

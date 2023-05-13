@@ -11,13 +11,13 @@ class DashboardTranslations {
 
   ///
   String get title => Intl.message(
-        'Dashboard title',
-        name: 'title',
+        'Dashboard title edited',
+        name: 'DashboardTranslations_title',
       );
 
   ///
   String get hero => Intl.message(
         'Build your next idea even faster.',
-        name: 'hero',
+        name: 'DashboardTranslations_hero',
       );
 }

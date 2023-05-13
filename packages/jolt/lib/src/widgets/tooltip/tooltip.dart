@@ -11,7 +11,6 @@ class Tooltip extends StatefulWidget {
   const Tooltip({
     required this.child,
     this.tooltip,
-    this.controlState,
     super.key,
   });
 
@@ -20,9 +19,6 @@ class Tooltip extends StatefulWidget {
 
   ///
   final Widget child;
-
-  // TOdo maybe I can get nearest focus node
-  final FocusableControlState? controlState;
 
   @override
   State<Tooltip> createState() => _TooltipState();
@@ -58,8 +54,9 @@ class _TooltipState extends State<Tooltip> {
       return widget.child;
     }
 
-    final visible =
-        (widget.controlState?.isFocused ?? false) || isHovered || isPressing;
+    final isFocused = FocusScope.of(context).nearestScope.hasFocus;
+
+    final visible = isFocused || isHovered || isPressing;
 
     return MouseRegion(
       onEnter: (_) {

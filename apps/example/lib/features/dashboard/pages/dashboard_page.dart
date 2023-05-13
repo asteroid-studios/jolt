@@ -5,6 +5,7 @@ import 'package:jolt/jolt.dart';
 
 import 'package:example/routing/routes.dart';
 import 'package:example/translation/app_translations.dart';
+import 'package:example/translation/locales.dart';
 
 ///
 class DashboardPage extends StatefulWidget {
@@ -438,6 +439,9 @@ class _DashboardPageState extends State<DashboardPage> {
             Wrap(
               children: [
                 Button(
+                  onTap: () {
+                    context.jolt.setLocale(Locales.fr);
+                  },
                   label: 'English',
                 ),
               ],
