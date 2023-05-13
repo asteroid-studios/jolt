@@ -2,8 +2,9 @@ import 'dart:ui';
 
 import 'package:flutter/services.dart';
 
-import 'package:jolt/jolt.dart';
 import 'package:persistent_header_adaptive/adaptive_height_sliver_persistent_header.dart';
+
+import 'package:jolt/jolt.dart';
 
 ///
 class Scaffold extends StatefulWidget {

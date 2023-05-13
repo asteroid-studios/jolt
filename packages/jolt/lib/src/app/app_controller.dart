@@ -8,6 +8,11 @@ import 'package:jolt/jolt.dart';
 /// The Hive key for storing Jolt preferences.
 const joltStorageKey = 'joltPreferences';
 
+// class JoltControllerState {
+//   Locale locale;
+//   ThemeData theme;
+// }
+
 /// Control the JoltApp
 /// Eg:
 /// - Set the theme

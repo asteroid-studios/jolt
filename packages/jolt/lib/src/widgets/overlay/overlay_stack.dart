@@ -102,7 +102,7 @@ class OverlayStackState extends State<OverlayStack> {
         ..._overlays.map(
           (o) => Align(
             alignment: o.position,
-            child: o,
+            child: SelectionArea(child: o),
           ),
         ),
       ],

@@ -25,6 +25,7 @@ class Tooltip extends StatefulWidget {
   ///
   final Widget child;
 
+  /// Will stop the tooltip from showing
   final bool disabled;
 
   @override

@@ -113,22 +113,20 @@ class _JoltAppState extends State<JoltApp> with WidgetsBindingObserver {
     super.initState();
   }
 
-  void popFocus() {
-    // This logic is to make sure
-    // the wrong focus scope isn't popped
-    final primaryFocus = FocusManager.instance.primaryFocus;
-    final deepParent = primaryFocus?.parent?.parent?.parent;
-    if (primaryFocus != null &&
-        deepParent != null &&
-        deepParent.debugLabel != 'Shortcuts') {
-      primaryFocus.unfocus();
-    }
-  }
-
   @override
   void dispose() {
     controller.dispose();
     super.dispose();
+  }
+
+  void popFocus() {
+    final primaryFocus = FocusManager.instance.primaryFocus;
+    final enclosingScope = primaryFocus?.enclosingScope;
+    // This logic is to make sure the wrong focus scope isn't popped
+    if (enclosingScope != null &&
+        enclosingScope.debugLabel != 'Root Focus Scope') {
+      primaryFocus!.unfocus();
+    }
   }
 
   // Combine the Localizations for Material with the ones contributed
@@ -145,6 +143,16 @@ class _JoltAppState extends State<JoltApp> with WidgetsBindingObserver {
       GlobalWidgetsLocalizations.delegate,
       GlobalCupertinoLocalizations.delegate,
     ];
+  }
+
+  Widget wrapWithSelectionAndUnfocus(Widget? child) {
+    return SelectionArea(
+      focusNode: FocusNode(canRequestFocus: false),
+      child: GestureDetector(
+        onTap: popFocus,
+        child: child ?? const SizedBox.shrink(),
+      ),
+    );
   }
 
   @override
@@ -169,10 +177,11 @@ class _JoltAppState extends State<JoltApp> with WidgetsBindingObserver {
                 routeInformationParser: widget.routeInformationParser,
                 routerDelegate: widget.routerDelegate,
                 backButtonDispatcher: widget.backButtonDispatcher,
+                builder: (context, child) => wrapWithSelectionAndUnfocus(child),
               )
             : WidgetsApp(
                 color: theme.colorScheme.primary,
-                home: child,
+                home: wrapWithSelectionAndUnfocus(child),
                 title: widget.title ?? '',
                 locale: controller.locale,
                 supportedLocales: widget.supportedLocales,
@@ -190,42 +199,35 @@ class _JoltAppState extends State<JoltApp> with WidgetsBindingObserver {
                 },
               );
 
-        return Directionality(
-          textDirection: TextDirection.ltr,
-          child: Localizations(
-            locale: controller.locale,
-            delegates: _localizationsDelegates,
-            child: Overlay(
-              initialEntries: [
-                OverlayEntry(
-                  builder: (context) {
-                    return Portal(
-                      child: _JoltInherited(
-                        controller: controller,
-                        child: Themes(
-                          theme: theme,
-                          scaling: ScalingData(
-                            spacingScale:
-                                controller.spacingScaleFactorMultiplier,
-                            textScale: controller.textScaleFactorMultiplier,
-                          ),
-                          widgetTheme: widget.widgetTheme,
-                          child: SelectionArea(
-                            focusNode: FocusNode(canRequestFocus: false),
-                            child: GestureDetector(
-                              onTap: popFocus,
-                              child: OverlayStack(
-                                key: joltOverlayKey,
-                                child: app,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    );
-                  },
+        return Portal(
+          child: Directionality(
+            textDirection: TextDirection.ltr,
+            child: Localizations(
+              locale: controller.locale,
+              delegates: _localizationsDelegates,
+              child: Themes(
+                theme: theme,
+                scaling: ScalingData(
+                  spacingScale: controller.spacingScaleFactorMultiplier,
+                  textScale: controller.textScaleFactorMultiplier,
                 ),
-              ],
+                widgetTheme: widget.widgetTheme,
+                child: _JoltInherited(
+                  controller: controller,
+                  child: Overlay(
+                    initialEntries: [
+                      OverlayEntry(
+                        builder: (context) {
+                          return OverlayStack(
+                            key: joltOverlayKey,
+                            child: app,
+                          );
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+              ),
             ),
           ),
         );
@@ -252,7 +254,8 @@ class _JoltInherited extends InheritedWidget {
   }
 
   @override
-  bool updateShouldNotify(covariant InheritedWidget oldWidget) => false;
+  bool updateShouldNotify(covariant InheritedWidget oldWidget) =>
+      controller != (oldWidget as _JoltInherited).controller;
 }
 
 ///

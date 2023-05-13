@@ -178,6 +178,12 @@ class InteractionState extends State<Interaction> {
     super.initState();
   }
 
+  @override
+  void dispose() {
+    _focusNode?.dispose();
+    super.dispose();
+  }
+
   void _handleHoverChanged(bool v) {
     setState(() => _isHovered = v);
     widget.onHoverChanged?.call(context, this);
