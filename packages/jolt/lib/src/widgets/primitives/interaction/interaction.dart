@@ -140,6 +140,10 @@ class InteractionState extends State<Interaction> {
   bool get isFocused => _isFocused;
   bool _isFocused = false;
 
+  /// True if the widget was focused after pressing
+  bool get wasFocusedAfterPress => _wasFocusedAfterPress;
+  bool _wasFocusedAfterPress = false;
+
   /// Whether the widget has a press handler.
   bool get hasPressHandler =>
       widget.onTap != null || widget.onLongPressed != null;
@@ -163,6 +167,9 @@ class InteractionState extends State<Interaction> {
   }
 
   void _handleFocusChanged(bool v) {
+    if (!v && _wasFocusedAfterPress) {
+      setState(() => _wasFocusedAfterPress = false);
+    }
     setState(() => _isFocused = v);
     widget.onFocusChanged?.call(context, this);
   }
@@ -179,6 +186,7 @@ class InteractionState extends State<Interaction> {
       setState(() => _isAwaiting = true);
     }
     if (widget.requestFocusOnPress) {
+      setState(() => _wasFocusedAfterPress = true);
       _focusNode?.requestFocus();
     }
     try {
@@ -270,6 +278,7 @@ class InteractionState extends State<Interaction> {
       interaction = Tooltip(
         tooltip: widget.tooltip,
         focusNode: _focusNode,
+        disabled: wasFocusedAfterPress,
         child: interaction,
       );
     }

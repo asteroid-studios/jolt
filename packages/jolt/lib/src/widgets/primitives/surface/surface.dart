@@ -1,5 +1,6 @@
 import 'package:jolt/jolt.dart';
 import 'package:jolt/src/utils/theme/defaults.dart';
+import 'package:jolt/src/widgets/ripple_effect/ripple_effect.dart';
 
 ///
 class Surface extends StatefulWidget {
@@ -16,6 +17,7 @@ class Surface extends StatefulWidget {
     this.width,
     this.height,
     this.interactionState,
+    this.ripple = false,
     super.key,
   });
 
@@ -52,6 +54,9 @@ class Surface extends StatefulWidget {
   /// Pass the state of an interaction to the surface.
   final InteractionState? interactionState;
 
+  /// Whether to show a ripple effect on tap
+  final bool ripple;
+
   @override
   State<Surface> createState() => _SurfaceState();
 }
@@ -78,12 +83,23 @@ class _SurfaceState extends State<Surface> with SingleTickerProviderStateMixin {
     // Support for interactions
     final interaction = widget.interactionState;
     final isHovered = interaction?.isHovered ?? false;
+    final focusedAfterPressed = interaction?.wasFocusedAfterPress ?? false;
     final isFocused = interaction?.isFocused ?? false;
     final backgroundColor = isHovered
         ? defaultHoverColor
         : isFocused
             ? defaultFocusColor
             : defaultBackground;
+
+    final child = Padding(
+      padding: widget.padding ??
+          EdgeInsets.symmetric(
+            horizontal:
+                theme.horizontalPadding ?? context.defaults.horizontalPadding,
+            vertical: theme.verticalPadding ?? context.defaults.verticalPadding,
+          ),
+      child: widget.child,
+    );
 
     return ClipRRect(
       borderRadius: defaultBorderRadius,
@@ -95,28 +111,20 @@ class _SurfaceState extends State<Surface> with SingleTickerProviderStateMixin {
         decoration: BoxDecoration(
           borderRadius: defaultBorderRadius,
           border: Border.all(
-            color: isFocused ? defaultFocusBorderColor : defaultBorderColor,
+            color: (isFocused && !focusedAfterPressed)
+                ? defaultFocusBorderColor
+                : defaultBorderColor,
             width: widget.borderWidth ?? context.borderWidth,
           ),
           color: backgroundColor,
         ),
-        child: Padding(
-          padding: widget.padding ??
-              EdgeInsets.symmetric(
-                horizontal: theme.horizontalPadding ??
-                    context.defaults.horizontalPadding,
-                vertical:
-                    theme.verticalPadding ?? context.defaults.verticalPadding,
-              ),
-          child: widget.child,
-        ),
-        // child: widget.child != null
-        //     ? child
-        //     : TouchRippleEffect(
-        //         borderRadius: defaultBorderRadius,
-        //         backgroundColor: defaultBackground,
-        //         child: child,
-        //       ),
+        child: widget.ripple
+            ? TouchRippleEffect(
+                backgroundColor: backgroundColor,
+                borderRadius: defaultBorderRadius,
+                child: child,
+              )
+            : child,
       ),
     );
   }

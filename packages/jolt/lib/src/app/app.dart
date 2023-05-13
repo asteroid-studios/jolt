@@ -198,7 +198,12 @@ class _JoltAppState extends State<JoltApp> with WidgetsBindingObserver {
                             focusNode: FocusNode(canRequestFocus: false),
                             child: GestureDetector(
                               onTap: () {
-                                FocusManager.instance.primaryFocus?.unfocus();
+                                final primaryFocus =
+                                    FocusManager.instance.primaryFocus;
+                                // if (primaryFocus?.parent != null) {
+                                //   print('UNFOCUSED');
+                                primaryFocus?.unfocus();
+                                // }
                               },
                               child: OverlayStack(
                                 key: joltOverlayKey,

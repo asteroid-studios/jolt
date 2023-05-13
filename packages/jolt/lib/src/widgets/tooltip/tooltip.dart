@@ -12,6 +12,7 @@ class Tooltip extends StatefulWidget {
     required this.child,
     this.tooltip,
     this.focusNode,
+    this.disabled = false,
     super.key,
   });
 
@@ -23,6 +24,8 @@ class Tooltip extends StatefulWidget {
 
   ///
   final Widget child;
+
+  final bool disabled;
 
   @override
   State<Tooltip> createState() => _TooltipState();
@@ -110,7 +113,7 @@ class _TooltipState extends State<Tooltip> {
           }
         },
         child: PortalTarget(
-          visible: visible,
+          visible: visible && !widget.disabled,
           anchor: Aligned(
             follower: followerAlignment,
             target: targetAlignment,
