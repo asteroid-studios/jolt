@@ -2,9 +2,8 @@ import 'dart:ui';
 
 import 'package:flutter/services.dart';
 
-import 'package:persistent_header_adaptive/adaptive_height_sliver_persistent_header.dart';
-
 import 'package:jolt/jolt.dart';
+import 'package:persistent_header_adaptive/adaptive_height_sliver_persistent_header.dart';
 
 ///
 class Scaffold extends StatefulWidget {
@@ -69,68 +68,66 @@ class _ScaffoldState extends State<Scaffold> {
         child: Stack(
           alignment: Alignment.topCenter,
           children: [
-            SelectionArea(
-              child: CustomScrollView(
-                controller: scrollController,
-                slivers: [
-                  // If both app bars are floating, group them
-                  AdaptiveHeightSliverPersistentHeader(
-                    floating: true,
-                    // Builder is important or theme changes don't get picked up
-                    child: GestureDetector(
-                      onTap: () {
-                        scrollController.animateTo(
-                          0,
-                          duration: const Duration(milliseconds: 500),
-                          curve: Curves.easeInOut,
+            CustomScrollView(
+              controller: scrollController,
+              slivers: [
+                // If both app bars are floating, group them
+                AdaptiveHeightSliverPersistentHeader(
+                  floating: true,
+                  // Builder is important or theme changes don't get picked up
+                  child: GestureDetector(
+                    onTap: () {
+                      scrollController.animateTo(
+                        0,
+                        duration: const Duration(milliseconds: 500),
+                        curve: Curves.easeInOut,
+                      );
+                    },
+                    child: Builder(
+                      builder: (context) {
+                        return Hero(
+                          tag: 'shellTopBar',
+                          child: Column(
+                            children: [
+                              if (shell.topBar != null) shell.topBar!,
+                              Surface(
+                                borderColor: Colors.transparent,
+                                borderRadius: BorderRadius.zero,
+                                padding: EdgeInsets.all(context.sizing.lg),
+                                background:
+                                    context.color.surface.withOpacity(0.4),
+                                child: Row(
+                                  children: [
+                                    Expanded(
+                                      child: Text(
+                                        widget.title,
+                                        style: context.style.headingSmall,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
                         );
                       },
-                      child: Builder(
-                        builder: (context) {
-                          return Hero(
-                            tag: 'shellTopBar',
-                            child: Column(
-                              children: [
-                                if (shell.topBar != null) shell.topBar!,
-                                Surface(
-                                  borderColor: Colors.transparent,
-                                  borderRadius: BorderRadius.zero,
-                                  padding: EdgeInsets.all(context.sizing.lg),
-                                  background:
-                                      context.color.surface.withOpacity(0.4),
-                                  child: Row(
-                                    children: [
-                                      Expanded(
-                                        child: Text(
-                                          widget.title,
-                                          style: context.style.headingSmall,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                          );
-                        },
-                      ),
                     ),
                   ),
-                  SliverFillRemaining(
-                    hasScrollBody: false,
-                    child: Column(
-                      children: [
-                        Expanded(child: widget.content!),
-                        if (shell.footer != null)
-                          Hero(
-                            tag: 'shellFooter',
-                            child: shell.footer!,
-                          ),
-                      ],
-                    ),
+                ),
+                SliverFillRemaining(
+                  hasScrollBody: false,
+                  child: Column(
+                    children: [
+                      Expanded(child: widget.content!),
+                      if (shell.footer != null)
+                        Hero(
+                          tag: 'shellFooter',
+                          child: shell.footer!,
+                        ),
+                    ],
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
             if (Platform.isMobile &&
                 context.mediaQuery.orientation == Orientation.portrait)

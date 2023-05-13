@@ -11,11 +11,15 @@ class Tooltip extends StatefulWidget {
   const Tooltip({
     required this.child,
     this.tooltip,
+    this.focusNode,
     super.key,
   });
 
   ///
   final String? tooltip;
+
+  ///
+  final FocusNode? focusNode;
 
   ///
   final Widget child;
@@ -25,6 +29,7 @@ class Tooltip extends StatefulWidget {
 }
 
 class _TooltipState extends State<Tooltip> {
+  bool isFocused = false;
   bool isHovered = false;
   bool isPressing = false;
   Timer? timer;
@@ -49,12 +54,23 @@ class _TooltipState extends State<Tooltip> {
   }
 
   @override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      widget.focusNode?.addListener(() {
+        getPosition();
+        setState(() {
+          isFocused = widget.focusNode?.hasFocus ?? false;
+        });
+      });
+    });
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     if (widget.tooltip == null) {
       return widget.child;
     }
-
-    final isFocused = FocusScope.of(context).nearestScope.hasFocus;
 
     final visible = isFocused || isHovered || isPressing;
 
@@ -100,23 +116,24 @@ class _TooltipState extends State<Tooltip> {
             target: targetAlignment,
             shiftToWithinBound: const AxisFlag(x: true, y: true),
           ),
-          portalFollower: Padding(
+          portalFollower: Container(
             padding: EdgeInsets.all(context.sizing.sm),
-            child: Container(
-              decoration: BoxDecoration(
-                // TODO handle shadow dynamically. Add to surface theme
-                boxShadow: [
-                  BoxShadow(
-                    spreadRadius: -12,
-                    color: Colors.black.withOpacity(0.6),
-                    blurRadius: 24,
-                    offset: const Offset(0, 8),
-                  ),
-                ],
-              ),
-              child: Surface(
-                borderRadius: context.borderRadius.md,
-                padding: EdgeInsets.all(context.sizing.xs),
+            decoration: BoxDecoration(
+              // TODO handle shadow dynamically. Add to surface theme
+              boxShadow: [
+                BoxShadow(
+                  spreadRadius: -12,
+                  color: Colors.black.withOpacity(0.6),
+                  blurRadius: 24,
+                  offset: const Offset(0, 8),
+                ),
+              ],
+            ),
+            child: Surface(
+              borderRadius: context.borderRadius.md,
+              padding: EdgeInsets.all(context.sizing.xs),
+              child: SelectionArea(
+                focusNode: FocusNode(canRequestFocus: false),
                 child: Text(
                   widget.tooltip!,
                   style: context.style.bodySmall,

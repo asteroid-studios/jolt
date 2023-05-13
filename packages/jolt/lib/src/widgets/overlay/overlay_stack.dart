@@ -76,49 +76,35 @@ class OverlayStackState extends State<OverlayStack> {
 
   @override
   Widget build(BuildContext context) {
-    return Overlay(
-      initialEntries: [
-        OverlayEntry(
-          builder: (context) {
-            final hideBarrier =
-                _overlays.lastOrNull?.barrierDisabled ?? _overlays.isEmpty;
-            return SelectionArea(
-              child: Directionality(
-                textDirection: TextDirection.ltr,
-                child: Stack(
-                  children: [
-                    widget.child,
-                    Positioned.fill(
-                      child: AnimatedOpacity(
-                        opacity: hideBarrier
-                            ? 0
-                            : _overlays.lastOrNull?.barrierOpacity ??
-                                (context.color.isDark ? 0.5 : 0.2),
-                        duration: const Duration(milliseconds: 300),
-                        child: IgnorePointer(
-                          ignoring: hideBarrier,
-                          child: GestureDetector(
-                            onTap: popOverlay,
-                            child: Container(
-                              color: _overlays.lastOrNull?.barrierColor ??
-                                  Colors.black,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    // TODO animate overlays in and out
-                    ..._overlays.map(
-                      (o) => Align(
-                        alignment: o.position,
-                        child: o,
-                      ),
-                    ),
-                  ],
+    final hideBarrier =
+        _overlays.lastOrNull?.barrierDisabled ?? _overlays.isEmpty;
+    return Stack(
+      children: [
+        widget.child,
+        Positioned.fill(
+          child: AnimatedOpacity(
+            opacity: hideBarrier
+                ? 0
+                : _overlays.lastOrNull?.barrierOpacity ??
+                    (context.color.isDark ? 0.5 : 0.2),
+            duration: const Duration(milliseconds: 300),
+            child: IgnorePointer(
+              ignoring: hideBarrier,
+              child: GestureDetector(
+                onTap: popOverlay,
+                child: Container(
+                  color: _overlays.lastOrNull?.barrierColor ?? Colors.black,
                 ),
               ),
-            );
-          },
+            ),
+          ),
+        ),
+        // TODO animate overlays in and out
+        ..._overlays.map(
+          (o) => Align(
+            alignment: o.position,
+            child: o,
+          ),
         ),
       ],
     );

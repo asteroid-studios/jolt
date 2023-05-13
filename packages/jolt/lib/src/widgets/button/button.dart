@@ -30,6 +30,7 @@ class Button extends StatefulWidget {
     this.width,
     this.height,
     this.padding,
+    this.autoFocus = false,
     this.size = ButtonSize.md,
   });
 
@@ -94,6 +95,9 @@ class Button extends StatefulWidget {
   final double? height;
 
   ///
+  final bool autoFocus;
+
+  ///
   final EdgeInsets? padding;
 
   @override
@@ -150,6 +154,7 @@ class _ButtonState extends State<Button> {
       onLongPressed: widget.onLongPressed,
       errorHandler: widget.errorHandler,
       tooltip: widget.tooltip,
+      autoFocus: widget.autoFocus,
       builder: (context, state) {
         final isDisabled = state.isAwaiting || !state.hasPressHandler;
 

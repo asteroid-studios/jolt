@@ -31,7 +31,7 @@ class Interaction extends StatefulWidget {
     this.descendantsAreFocusable = true,
     this.descendantsAreTraversable = true,
     this.shakeOnError = true,
-    this.requestFocusOnPress = false,
+    this.requestFocusOnPress = true,
     this.autoFocus = false,
     this.disableTextSelection = true,
     this.supportedInteractions = const [
@@ -269,6 +269,7 @@ class InteractionState extends State<Interaction> {
     if (widget.tooltip != null) {
       interaction = Tooltip(
         tooltip: widget.tooltip,
+        focusNode: _focusNode,
         child: interaction,
       );
     }

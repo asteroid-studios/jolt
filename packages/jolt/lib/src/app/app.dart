@@ -1,11 +1,10 @@
-import 'package:flutter/material.dart' show MaterialPageRoute;
-
 import 'package:flutter_portal/flutter_portal.dart';
 
 import 'package:jolt/jolt.dart';
 
 export 'package:flutter/cupertino.dart' show DefaultCupertinoLocalizations;
-export 'package:flutter/material.dart' show DefaultMaterialLocalizations;
+export 'package:flutter/material.dart'
+    show DefaultMaterialLocalizations, MaterialPageRoute;
 
 /// The Jolt app.
 class JoltApp extends StatefulWidget {
@@ -131,68 +130,91 @@ class _JoltAppState extends State<JoltApp> with WidgetsBindingObserver {
     final localizationsDelegates =
         widget.localizationsDelegates ?? defaultLocalizations;
 
-    return MediaQuery.fromWindow(
-      child: ValueListenableBuilder<ThemeData>(
-        valueListenable: controller,
-        child: widget.child,
-        builder: (BuildContext context, ThemeData theme, Widget? child) {
-          final usesRouter =
-              widget.routerDelegate != null || widget.routerConfig != null;
-          final app = usesRouter
-              ? WidgetsApp.router(
-                  color: theme.colorScheme.primary,
-                  title: widget.title ?? '',
-                  debugShowCheckedModeBanner: widget.debugShowCheckedModeBanner,
-                  locale: controller.locale,
-                  supportedLocales: widget.supportedLocales,
-                  localizationsDelegates: localizationsDelegates,
-                  routerConfig: widget.routerConfig,
-                  useInheritedMediaQuery: true,
-                  routeInformationProvider: widget.routeInformationProvider,
-                  routeInformationParser: widget.routeInformationParser,
-                  routerDelegate: widget.routerDelegate,
-                  backButtonDispatcher: widget.backButtonDispatcher,
-                )
-              : WidgetsApp(
-                  color: theme.colorScheme.primary,
-                  home: child,
-                  title: widget.title ?? '',
-                  useInheritedMediaQuery: true,
-                  locale: controller.locale,
-                  supportedLocales: widget.supportedLocales,
-                  localizationsDelegates: localizationsDelegates,
-                  debugShowCheckedModeBanner: widget.debugShowCheckedModeBanner,
-                  navigatorObservers: widget.navigatorObservers ?? [],
-                  pageRouteBuilder:
-                      <T>(RouteSettings settings, WidgetBuilder builder) {
-                    return MaterialPageRoute<T>(
-                      settings: settings,
-                      builder: builder,
-                    );
-                  },
-                );
-          return _JoltInherited(
-            controller: controller,
-            child: Localizations(
-              locale: const Locale('en', 'US'),
-              delegates: defaultLocalizations,
-              child: Themes(
-                theme: theme,
-                scaling: ScalingData(
-                  spacingScale: controller.spacingScaleFactorMultiplier,
-                  textScale: controller.textScaleFactorMultiplier,
-                ),
-                widgetTheme: widget.widgetTheme,
-                child: OverlayStack(
-                  key: joltOverlayKey,
-                  child: Portal(
-                    child: app,
-                  ),
-                ),
-              ),
-            ),
-          );
-        },
+    return Directionality(
+      textDirection: TextDirection.ltr,
+      child: Overlay(
+        initialEntries: [
+          OverlayEntry(
+            builder: (context) {
+              return ValueListenableBuilder<ThemeData>(
+                valueListenable: controller,
+                child: widget.child,
+                builder:
+                    (BuildContext context, ThemeData theme, Widget? child) {
+                  final usesRouter = widget.routerDelegate != null ||
+                      widget.routerConfig != null;
+                  final app = usesRouter
+                      ? WidgetsApp.router(
+                          color: theme.colorScheme.primary,
+                          title: widget.title ?? '',
+                          debugShowCheckedModeBanner:
+                              widget.debugShowCheckedModeBanner,
+                          locale: controller.locale,
+                          supportedLocales: widget.supportedLocales,
+                          localizationsDelegates: localizationsDelegates,
+                          routerConfig: widget.routerConfig,
+                          routeInformationProvider:
+                              widget.routeInformationProvider,
+                          routeInformationParser: widget.routeInformationParser,
+                          routerDelegate: widget.routerDelegate,
+                          backButtonDispatcher: widget.backButtonDispatcher,
+                        )
+                      : WidgetsApp(
+                          color: theme.colorScheme.primary,
+                          home: child,
+                          title: widget.title ?? '',
+                          locale: controller.locale,
+                          supportedLocales: widget.supportedLocales,
+                          localizationsDelegates: localizationsDelegates,
+                          debugShowCheckedModeBanner:
+                              widget.debugShowCheckedModeBanner,
+                          navigatorObservers: widget.navigatorObservers ?? [],
+                          pageRouteBuilder: <T>(
+                            RouteSettings settings,
+                            WidgetBuilder builder,
+                          ) {
+                            return MaterialPageRoute<T>(
+                              settings: settings,
+                              builder: builder,
+                            );
+                          },
+                        );
+
+                  return Portal(
+                    child: _JoltInherited(
+                      controller: controller,
+                      child: Localizations(
+                        locale: controller.locale,
+                        delegates: defaultLocalizations,
+                        child: Themes(
+                          theme: theme,
+                          scaling: ScalingData(
+                            spacingScale:
+                                controller.spacingScaleFactorMultiplier,
+                            textScale: controller.textScaleFactorMultiplier,
+                          ),
+                          widgetTheme: widget.widgetTheme,
+                          child: SelectionArea(
+                            focusNode: FocusNode(canRequestFocus: false),
+                            child: GestureDetector(
+                              onTap: () {
+                                FocusManager.instance.primaryFocus?.unfocus();
+                              },
+                              child: OverlayStack(
+                                key: joltOverlayKey,
+                                child: app,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  );
+                },
+              );
+            },
+          ),
+        ],
       ),
     );
   }
