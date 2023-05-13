@@ -1,10 +1,9 @@
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_portal/flutter_portal.dart';
 
 import 'package:jolt/jolt.dart';
 
-export 'package:flutter/cupertino.dart' show DefaultCupertinoLocalizations;
-export 'package:flutter/material.dart'
-    show DefaultMaterialLocalizations, MaterialPageRoute;
+export 'package:flutter/material.dart' show MaterialPageRoute;
 
 /// The Jolt app.
 class JoltApp extends StatefulWidget {
@@ -132,72 +131,77 @@ class _JoltAppState extends State<JoltApp> with WidgetsBindingObserver {
     super.dispose();
   }
 
+  // Combine the Localizations for Material with the ones contributed
+  // by the localizationsDelegates parameter, if any. Only the first delegate
+  // of a particular LocalizationsDelegate.type is loaded so the
+  // localizationsDelegate parameter can be used to override
+  // _MaterialLocalizationsDelegate.
+  List<LocalizationsDelegate<dynamic>> get _localizationsDelegates {
+    return <LocalizationsDelegate<dynamic>>[
+      ...?widget.localizationsDelegates,
+      // DefaultMaterialLocalizations.delegate,
+      // DefaultCupertinoLocalizations.delegate,
+      GlobalMaterialLocalizations.delegate,
+      GlobalWidgetsLocalizations.delegate,
+      GlobalCupertinoLocalizations.delegate,
+    ];
+  }
+
   @override
   Widget build(BuildContext context) {
-    final defaultLocalizations = [
-      DefaultMaterialLocalizations.delegate,
-      DefaultCupertinoLocalizations.delegate,
-      DefaultWidgetsLocalizations.delegate,
-    ];
-    final localizationsDelegates =
-        widget.localizationsDelegates ?? defaultLocalizations;
+    return ValueListenableBuilder<ThemeData>(
+      valueListenable: controller,
+      child: widget.child,
+      builder: (BuildContext context, ThemeData theme, Widget? child) {
+        final usesRouter =
+            widget.routerDelegate != null || widget.routerConfig != null;
 
-    return Directionality(
-      textDirection: TextDirection.ltr,
-      child: Overlay(
-        initialEntries: [
-          OverlayEntry(
-            builder: (context) {
-              return ValueListenableBuilder<ThemeData>(
-                valueListenable: controller,
-                child: widget.child,
-                builder:
-                    (BuildContext context, ThemeData theme, Widget? child) {
-                  final usesRouter = widget.routerDelegate != null ||
-                      widget.routerConfig != null;
-                  final app = usesRouter
-                      ? WidgetsApp.router(
-                          color: theme.colorScheme.primary,
-                          title: widget.title ?? '',
-                          debugShowCheckedModeBanner:
-                              widget.debugShowCheckedModeBanner,
-                          locale: controller.locale,
-                          supportedLocales: widget.supportedLocales,
-                          localizationsDelegates: localizationsDelegates,
-                          routerConfig: widget.routerConfig,
-                          routeInformationProvider:
-                              widget.routeInformationProvider,
-                          routeInformationParser: widget.routeInformationParser,
-                          routerDelegate: widget.routerDelegate,
-                          backButtonDispatcher: widget.backButtonDispatcher,
-                        )
-                      : WidgetsApp(
-                          color: theme.colorScheme.primary,
-                          home: child,
-                          title: widget.title ?? '',
-                          locale: controller.locale,
-                          supportedLocales: widget.supportedLocales,
-                          localizationsDelegates: localizationsDelegates,
-                          debugShowCheckedModeBanner:
-                              widget.debugShowCheckedModeBanner,
-                          navigatorObservers: widget.navigatorObservers ?? [],
-                          pageRouteBuilder: <T>(
-                            RouteSettings settings,
-                            WidgetBuilder builder,
-                          ) {
-                            return MaterialPageRoute<T>(
-                              settings: settings,
-                              builder: builder,
-                            );
-                          },
-                        );
+        final app = usesRouter
+            ? WidgetsApp.router(
+                color: theme.colorScheme.primary,
+                title: widget.title ?? '',
+                debugShowCheckedModeBanner: widget.debugShowCheckedModeBanner,
+                locale: controller.locale,
+                supportedLocales: widget.supportedLocales,
+                localizationsDelegates: _localizationsDelegates,
+                routerConfig: widget.routerConfig,
+                routeInformationProvider: widget.routeInformationProvider,
+                routeInformationParser: widget.routeInformationParser,
+                routerDelegate: widget.routerDelegate,
+                backButtonDispatcher: widget.backButtonDispatcher,
+              )
+            : WidgetsApp(
+                color: theme.colorScheme.primary,
+                home: child,
+                title: widget.title ?? '',
+                locale: controller.locale,
+                supportedLocales: widget.supportedLocales,
+                localizationsDelegates: _localizationsDelegates,
+                debugShowCheckedModeBanner: widget.debugShowCheckedModeBanner,
+                navigatorObservers: widget.navigatorObservers ?? [],
+                pageRouteBuilder: <T>(
+                  RouteSettings settings,
+                  WidgetBuilder builder,
+                ) {
+                  return MaterialPageRoute<T>(
+                    settings: settings,
+                    builder: builder,
+                  );
+                },
+              );
 
-                  return Portal(
-                    child: _JoltInherited(
-                      controller: controller,
-                      child: Localizations(
-                        locale: controller.locale,
-                        delegates: defaultLocalizations,
+        return Directionality(
+          textDirection: TextDirection.ltr,
+          child: Localizations(
+            locale: controller.locale,
+            delegates: _localizationsDelegates,
+            child: Overlay(
+              initialEntries: [
+                OverlayEntry(
+                  builder: (context) {
+                    return Portal(
+                      child: _JoltInherited(
+                        controller: controller,
                         child: Themes(
                           theme: theme,
                           scaling: ScalingData(
@@ -218,14 +222,14 @@ class _JoltAppState extends State<JoltApp> with WidgetsBindingObserver {
                           ),
                         ),
                       ),
-                    ),
-                  );
-                },
-              );
-            },
+                    );
+                  },
+                ),
+              ],
+            ),
           ),
-        ],
-      ),
+        );
+      },
     );
   }
 }

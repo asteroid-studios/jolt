@@ -950,7 +950,6 @@ class _TextFieldState extends State<TextField>
       builder: (context, state) {
         return Surface(
           interactionState: state,
-          padding: EdgeInsets.zero,
           child: AnimatedBuilder(
             animation: Listenable.merge(<Listenable>[focusNode, controller]),
             child: TextFieldTapRegion(
@@ -968,8 +967,8 @@ class _TextFieldState extends State<TextField>
                               if (!_effectiveController.selection.isValid) {
                                 _effectiveController.selection =
                                     TextSelection.collapsed(
-                                        offset:
-                                            _effectiveController.text.length);
+                                  offset: _effectiveController.text.length,
+                                );
                               }
                               _requestKeyboard();
                             },
@@ -986,22 +985,20 @@ class _TextFieldState extends State<TextField>
               ),
             ),
             builder: (context, child) {
-              return Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Stack(
-                  children: [
-                    child ?? const SizedBox.shrink(),
-                    if (_currentLength == 0)
-                      SelectionContainer.disabled(
-                        child: Text(
-                          widget.hintText ?? '',
-                          style: theme.typography.body.copyWith(
-                            color: theme.colorScheme.neutral.s400,
-                          ),
+              return Stack(
+                children: [
+                  child ?? const SizedBox.shrink(),
+                  // Show the hint if the text is empty
+                  if (_currentLength == 0)
+                    SelectionContainer.disabled(
+                      child: Text(
+                        widget.hintText ?? '',
+                        style: theme.typography.body.copyWith(
+                          color: theme.colorScheme.neutral.s400,
                         ),
                       ),
-                  ],
-                ),
+                    ),
+                ],
               );
             },
           ),
