@@ -4,7 +4,6 @@ import 'package:flutter_animate/flutter_animate.dart';
 
 import 'package:jolt/jolt.dart';
 import 'package:jolt/src/utils/theme/defaults.dart';
-import 'package:jolt/src/widgets/ripple_effect/ripple_effect.dart';
 
 ///
 class Button extends StatefulWidget {

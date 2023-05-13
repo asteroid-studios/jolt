@@ -6,8 +6,6 @@ import 'package:flutter_animate/flutter_animate.dart';
 
 import 'package:jolt/jolt.dart';
 
-const interactionDebugLabel = 'JoltInteraction';
-
 /// A widget to handle user interaction.
 class Interaction extends StatefulWidget {
   /// A widget to handle user interaction.
@@ -29,6 +27,8 @@ class Interaction extends StatefulWidget {
     this.actions,
     this.shortcuts,
     this.hitTestBehavior,
+    this.focusNode,
+    this.focusNodeListenOnly,
     this.disablePressWhenAwaiting = true,
     this.descendantsAreFocusable = true,
     this.descendantsAreTraversable = true,
@@ -109,6 +109,12 @@ class Interaction extends StatefulWidget {
   /// The tooltip for the widget
   final String? tooltip;
 
+  /// Provide a focus node for the widget
+  final FocusNode? focusNode;
+
+  /// A focus node that should only be listened to
+  final FocusNode? focusNodeListenOnly;
+
   @override
   State<Interaction> createState() => InteractionState();
 }
@@ -159,8 +165,16 @@ class InteractionState extends State<Interaction> {
   @override
   void initState() {
     supportedInteractions = widget.supportedInteractions;
-    _focusNode =
-        canBeFocused ? FocusNode(debugLabel: interactionDebugLabel) : null;
+    _focusNode = canBeFocused && widget.focusNodeListenOnly == null
+        ? (widget.focusNode ?? FocusNode())
+        : null;
+    if (widget.focusNodeListenOnly != null) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        widget.focusNodeListenOnly!.addListener(() {
+          _handleFocusChanged(widget.focusNodeListenOnly!.hasFocus);
+        });
+      });
+    }
     super.initState();
   }
 
@@ -234,7 +248,7 @@ class InteractionState extends State<Interaction> {
     final cursor = widget.cursor ?? defaultCursor;
 
     late Widget interaction;
-    if (canBeFocused) {
+    if (canBeFocused && _focusNode != null) {
       interaction = FocusableActionDetector(
         enabled: pressEnabled,
         focusNode: _focusNode,

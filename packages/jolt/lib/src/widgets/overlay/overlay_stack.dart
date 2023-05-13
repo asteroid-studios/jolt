@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:collection';
 
 import 'package:collection/collection.dart';
 
@@ -38,7 +37,7 @@ class OverlayStack extends StatefulWidget {
 class OverlayStackState extends State<OverlayStack> {
   final List<PositionedOverlay> _overlays = [];
   final Map<int, Completer<dynamic>> _popCompleters = {};
-  final Queue<PositionedOverlay> _snackbars = Queue();
+  // final Queue<PositionedOverlay> _snackbars = Queue();
 
   int get overlaysLength => _overlays.length;
 

@@ -1,6 +1,6 @@
 import 'package:jolt/jolt.dart';
 
-export 'package:jolt/src/widgets/primitives/surface/surface_theme.dart';
+export 'package:jolt/src/widgets/basics/surface/surface_theme.dart';
 export 'package:jolt/src/widgets/button/button_theme.dart';
 
 /// Wrap a section of the widget tree with a theme which will be inherited by
