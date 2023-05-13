@@ -30,6 +30,7 @@ class Button extends StatefulWidget {
     this.width,
     this.height,
     this.padding,
+    this.verticalButton = false,
     this.autoFocus = false,
     this.size = ButtonSize.md,
   });
@@ -99,6 +100,9 @@ class Button extends StatefulWidget {
 
   ///
   final EdgeInsets? padding;
+
+  /// Whether to arrange items vertically instead of horizontally
+  final bool verticalButton;
 
   @override
   State<Button> createState() => _ButtonState();
@@ -181,6 +185,7 @@ class _ButtonState extends State<Button> {
 
         late Widget button;
         if (noLabel) {
+          // Layout ICON button
           button = Column(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -207,27 +212,38 @@ class _ButtonState extends State<Button> {
             ],
           );
         } else {
-          button = Row(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              if (state.isAwaiting)
-                processingIconWidget
-              else if (icon != null)
-                icon,
-              if (icon != null || state.isAwaiting)
-                SizedBox(
-                  width: widget.horizontalSpacing ??
-                      theme.horizontalSpacing ??
-                      context.sizing.xs,
-                ),
-              Text(
-                widget.label!,
-                style: labelStyle,
-                color: color,
+          // Prepare LABEL button
+          final buttonChildren = [
+            if (state.isAwaiting)
+              processingIconWidget
+            else if (icon != null)
+              icon,
+            if (icon != null || state.isAwaiting)
+              SizedBox(
+                width: widget.horizontalSpacing ??
+                    theme.horizontalSpacing ??
+                    context.sizing.xs,
               ),
-            ],
-          );
+            Text(
+              widget.label!,
+              style: labelStyle,
+              color: color,
+            ),
+          ];
+          if (widget.verticalButton) {
+            // Layout VERTICAL button
+            button = Column(
+              mainAxisSize: MainAxisSize.min,
+              children: buttonChildren,
+            );
+          } else {
+            // Layout HORIZONTAL button
+            button = Row(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: buttonChildren,
+            );
+          }
         }
 
         return Surface(

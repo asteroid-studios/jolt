@@ -10,14 +10,14 @@ class Tooltip extends StatefulWidget {
   ///
   const Tooltip({
     required this.child,
-    this.tooltip,
+    required this.tooltip,
     this.hasFocus = false,
     this.disabled = false,
     super.key,
   });
 
   ///
-  final String? tooltip;
+  final String tooltip;
 
   ///
   final Widget child;
@@ -66,10 +66,6 @@ class _TooltipState extends State<Tooltip> {
 
   @override
   Widget build(BuildContext context) {
-    if (widget.tooltip == null) {
-      return widget.child;
-    }
-
     final visible = widget.hasFocus || isHovered || isPressing;
 
     return MouseRegion(
@@ -133,7 +129,7 @@ class _TooltipState extends State<Tooltip> {
               child: SelectionArea(
                 focusNode: FocusNode(canRequestFocus: false),
                 child: Text(
-                  widget.tooltip!,
+                  widget.tooltip,
                   style: context.style.bodySmall,
                   color: context.color.surface.highlight,
                 ),
