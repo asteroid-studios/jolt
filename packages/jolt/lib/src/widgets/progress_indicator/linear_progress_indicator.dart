@@ -1,12 +1,11 @@
 import 'package:flutter_animate/flutter_animate.dart';
-
 import 'package:jolt/jolt.dart';
 
 ///
 class LinearProgressIndicator extends StatelessWidget {
   ///
   const LinearProgressIndicator({
-    this.width,
+    this.lineWidth,
     this.color,
     this.backgroundOpacity,
     this.duration,
@@ -14,7 +13,7 @@ class LinearProgressIndicator extends StatelessWidget {
   });
 
   ///
-  final double? width;
+  final double? lineWidth;
 
   ///
   final Color? color;
@@ -28,7 +27,7 @@ class LinearProgressIndicator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = context.widgetTheme.progressIndicator;
-    final width = this.width ?? theme.linearIndicatorWidth ?? 4;
+    final width = lineWidth ?? theme.linearIndicatorWidth ?? 4;
     final backgroundOpacity =
         this.backgroundOpacity ?? theme.linearIndicatorBackgroundOpacity;
     final color = this.color ?? theme.color ?? context.color.primary;
