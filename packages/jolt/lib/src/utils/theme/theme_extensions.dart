@@ -23,14 +23,14 @@ extension JoltThemeExtensions on BuildContext {
   /// Returns the current border radius values.
   BorderRadiusData get borderRadius => dimensions.borderRadius;
 
-  /// Returns the current border width.
-  double get borderWidth => dimensions.borderWidth;
-
   /// Returns the current media query data.
   MediaQueryData get mediaQuery => MediaQuery.of(this);
 
   /// Returns the current widget theme data.
   WidgetThemeData get widgetTheme => WidgetTheme.of(this);
+
+  /// Returns the current surface theme data.
+  SurfaceTheme get surfaceTheme => widgetTheme.surface;
 }
 
 /// Some theming utility methods on BuildContext
@@ -43,9 +43,15 @@ extension ThemeDataExtensions on ThemeData {
 
   /// Returns the current border radius values.
   BorderRadiusData get borderRadius => dimensions.borderRadius;
+}
 
-  /// Returns the current border width.
-  double get borderWidth => dimensions.borderWidth;
+/// Some utility methods on Color
+extension ColorExtension on Color {
+  /// If the color is dark, make it darker, if light make lighter
+  Color strengthen([int value = 10]) => isDark ? darken(value) : lighten(value);
+
+  /// If the color is dark, make it light, if light make darker
+  Color weaken([int value = 10]) => isDark ? lighten(value) : darken(value);
 }
 
 /// Some utility methods on ColorScheme

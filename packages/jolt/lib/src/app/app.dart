@@ -18,6 +18,7 @@ class JoltApp extends StatefulWidget {
     this.localizationsDelegates,
     this.themes,
     this.widgetTheme,
+    this.builder,
     super.key,
   })  : routeInformationProvider = null,
         routeInformationParser = null,
@@ -39,6 +40,7 @@ class JoltApp extends StatefulWidget {
     this.backButtonDispatcher,
     this.themes,
     this.widgetTheme,
+    this.builder,
     super.key,
   })  : child = null,
         navigatorObservers = null;
@@ -81,6 +83,9 @@ class JoltApp extends StatefulWidget {
 
   /// {@macro flutter.widgets.widgetsApp.localizationsDelegates}
   final List<LocalizationsDelegate<dynamic>>? localizationsDelegates;
+
+  /// {@macro flutter.widgets.widgetsApp.builder}
+  final Widget Function(BuildContext, Widget?)? builder;
 
   /// {@macro flutter.widgets.widgetsApp.supportedLocales}
   final List<Locale> supportedLocales;
@@ -145,18 +150,20 @@ class _JoltAppState extends State<JoltApp> with WidgetsBindingObserver {
     ];
   }
 
-  Widget wrapWithSelectionAndUnfocus(Widget? child) {
-    return SelectionArea(
-      focusNode: FocusNode(canRequestFocus: false),
-      child: GestureDetector(
-        onTap: popFocus,
-        child: child ?? const SizedBox.shrink(),
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
+    Widget wrapChild(Widget? child) {
+      return SelectionArea(
+        focusNode: FocusNode(canRequestFocus: false),
+        child: GestureDetector(
+          onTap: popFocus,
+          child: widget.builder?.call(context, child) ??
+              child ??
+              const SizedBox.shrink(),
+        ),
+      );
+    }
+
     return ValueListenableBuilder<ThemeData>(
       valueListenable: controller,
       child: widget.child,
@@ -177,11 +184,12 @@ class _JoltAppState extends State<JoltApp> with WidgetsBindingObserver {
                 routeInformationParser: widget.routeInformationParser,
                 routerDelegate: widget.routerDelegate,
                 backButtonDispatcher: widget.backButtonDispatcher,
-                builder: (context, child) => wrapWithSelectionAndUnfocus(child),
+                builder: (context, child) => wrapChild(child),
               )
             : WidgetsApp(
                 color: theme.colorScheme.primary,
-                home: wrapWithSelectionAndUnfocus(child),
+                builder: (context, child) => wrapChild(child),
+                home: child,
                 title: widget.title ?? '',
                 locale: controller.locale,
                 supportedLocales: widget.supportedLocales,
@@ -207,11 +215,11 @@ class _JoltAppState extends State<JoltApp> with WidgetsBindingObserver {
               delegates: _localizationsDelegates,
               child: Themes(
                 theme: theme,
+                widgetTheme: widget.widgetTheme,
                 scaling: ScalingData(
                   spacingScale: controller.spacingScaleFactorMultiplier,
                   textScale: controller.textScaleFactorMultiplier,
                 ),
-                widgetTheme: widget.widgetTheme,
                 child: _JoltInherited(
                   controller: controller,
                   child: Overlay(

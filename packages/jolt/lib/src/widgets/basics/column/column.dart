@@ -1,7 +1,5 @@
 import 'package:flutter/widgets.dart' as widgets show Column;
 
-import 'package:collection/collection.dart';
-
 import 'package:jolt/jolt.dart';
 
 ///

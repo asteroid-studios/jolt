@@ -29,6 +29,7 @@ class JoltColor extends Color {
     required int shade900,
     required int shade950,
     int? shade500,
+    this.opacity = 1.0,
   })  : _shadeHighlight = highlight,
         _shade50 = shade50,
         _shade100 = shade100,
@@ -43,27 +44,27 @@ class JoltColor extends Color {
         _shade950 = shade950;
 
   /// A shade which has the highest contrast with the default shade.
-  Color get highlight => Color(_shadeHighlight);
+  Color get highlight => Color(_shadeHighlight).withOpacity(opacity);
   final int _shadeHighlight;
 
   /// The lightest shade.
-  Color get s50 => Color(_shade50);
+  Color get s50 => Color(_shade50).withOpacity(opacity);
   final int _shade50;
 
   /// The second lightest shade.
-  Color get s100 => Color(_shade100);
+  Color get s100 => Color(_shade100).withOpacity(opacity);
   final int _shade100;
 
   /// The third lightest shade.
-  Color get s200 => Color(_shade200);
+  Color get s200 => Color(_shade200).withOpacity(opacity);
   final int _shade200;
 
   /// The fourth lightest shade.
-  Color get s300 => Color(_shade300);
+  Color get s300 => Color(_shade300).withOpacity(opacity);
   final int _shade300;
 
   /// The fifth lightest shade.
-  Color get s400 => Color(_shade400);
+  Color get s400 => Color(_shade400).withOpacity(opacity);
   final int _shade400;
 
   /// The middle shade. you only need to specify this
@@ -72,24 +73,28 @@ class JoltColor extends Color {
   final int? _shade500;
 
   /// The fifth darkest shade.
-  Color get s600 => Color(_shade600);
+  Color get s600 => Color(_shade600).withOpacity(opacity);
   final int _shade600;
 
   /// The fourth darkest shade.
-  Color get s700 => Color(_shade700);
+  Color get s700 => Color(_shade700).withOpacity(opacity);
   final int _shade700;
 
   /// The third darkest shade.
-  Color get s800 => Color(_shade800);
+  Color get s800 => Color(_shade800).withOpacity(opacity);
   final int _shade800;
 
   /// The second darkest shade.
-  Color get s900 => Color(_shade900);
+  Color get s900 => Color(_shade900).withOpacity(opacity);
   final int _shade900;
 
   /// The darkest shade.
-  Color get s950 => Color(_shade950);
+  Color get s950 => Color(_shade950).withOpacity(opacity);
   final int _shade950;
+
+  /// The opacity of the color.
+  @override
+  final double opacity;
 
   /// Get a list of all the shades in the swatch.
   List<Color> get shades => [
@@ -105,4 +110,52 @@ class JoltColor extends Color {
         s900,
         s950,
       ];
+
+  @override
+  JoltColor withOpacity(double opacity) {
+    assert(
+      opacity >= 0.0 && opacity <= 1.0,
+      'Opacity must be between 0 and 1',
+    );
+    final newValue = super.withOpacity(opacity).value;
+    return copyWith(
+      opacity: opacity,
+      primary: newValue,
+    );
+  }
+
+  /// Copy with new values.
+  JoltColor copyWith({
+    int? primary,
+    int? highlight,
+    int? shade50,
+    int? shade100,
+    int? shade200,
+    int? shade300,
+    int? shade400,
+    int? shade500,
+    int? shade600,
+    int? shade700,
+    int? shade800,
+    int? shade900,
+    int? shade950,
+    double? opacity,
+  }) {
+    return JoltColor(
+      primary ?? value,
+      highlight: highlight ?? _shadeHighlight,
+      shade50: shade50 ?? _shade50,
+      shade100: shade100 ?? _shade100,
+      shade200: shade200 ?? _shade200,
+      shade300: shade300 ?? _shade300,
+      shade400: shade400 ?? _shade400,
+      shade500: shade500 ?? _shade500!,
+      shade600: shade600 ?? _shade600,
+      shade700: shade700 ?? _shade700,
+      shade800: shade800 ?? _shade800,
+      shade900: shade900 ?? _shade900,
+      shade950: shade950 ?? _shade950,
+      opacity: opacity ?? this.opacity,
+    );
+  }
 }

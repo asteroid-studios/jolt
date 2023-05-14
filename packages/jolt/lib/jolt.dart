@@ -38,10 +38,10 @@ export 'src/widgets/tooltip/tooltip.dart';
 export 'src/widgets/text_field/text_field.dart';
 
 // Utils exports
+export 'src/utils/duration/durations.dart';
 export 'src/utils/icons/icons.dart';
 export 'src/utils/overlay/overlay.dart';
-export 'src/utils/responsive/bounds.dart';
-export 'src/utils/responsive/edge_insets.dart';
+export 'src/utils/responsive/responsive.dart';
 export 'src/utils/theme/theme_extensions.dart';
 export 'src/utils/theme/widget_theme.dart';
 export 'src/utils/platform/platform.dart';

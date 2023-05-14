@@ -6,7 +6,6 @@ class Dimensions {
   const Dimensions({
     this.borderRadius = const BorderRadiusData(),
     this.sizing = const Sizing(),
-    this.borderWidth = 2,
   });
 
   ///
@@ -14,9 +13,6 @@ class Dimensions {
 
   ///
   final Sizing sizing;
-
-  ///
-  final double borderWidth;
 }
 
 ///

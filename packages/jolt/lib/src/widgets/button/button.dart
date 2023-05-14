@@ -111,42 +111,52 @@ class Button extends StatefulWidget {
 class _ButtonState extends State<Button> {
   @override
   Widget build(BuildContext context) {
-    // Prepare the theme
-    final surfaceTheme = context.widgetTheme.surface;
-    final buttonTheme = context.widgetTheme.button;
+    // Prepare the button theme
+    final button = context.widgetTheme.button;
+    final smallButton = button.copyWith(labelStyle: context.style.label);
+    final largeButton = button.copyWith(labelStyle: context.style.heading);
     final theme = widget.size == ButtonSize.md
-        ? buttonTheme
+        ? button
         : widget.size == ButtonSize.sm
-            // TODO come up with default button themes for small and large
-            ? buttonTheme.smallButtonTheme ?? buttonTheme
-            : buttonTheme.largeButtonTheme ?? buttonTheme;
+            ? button.smallButtonTheme ?? smallButton
+            : button.largeButtonTheme ?? largeButton;
 
+    // Prepare the surface
+    final surface = context.surfaceTheme.merge(button.surface).copyWith(
+          background: context.color.darkWithFallback(
+            widget.backgroundDark,
+            widget.background,
+          ),
+        );
+
+    // Prepare the label style
+    final noLabel = widget.label == null;
     final labelStyle =
         widget.labelStyle ?? theme.labelStyle ?? context.style.body;
+
+    // Prepare the icon size
     final iconSize = (widget.iconSize ?? labelStyle.fontSize ?? 16) *
         context.scaling.textScale;
-    final background = (context.color.isDark
-            ? (widget.backgroundDark ?? widget.background)
-            : widget.background) ??
-        theme.background;
-    final color = context.color.isDark
-        ? (widget.colorDark ?? widget.color)
-        : widget.color;
+
+    // Prepare the foreground color
+    final background = surface.background;
+    final color = context.color.darkWithFallback(
+      widget.colorDark,
+      widget.color,
+    );
     final baseColor = color ??
+        button.color?.call(background) ??
         (background is JoltColor ? background.highlight : null) ??
         labelStyle.color;
 
-    final noLabel = widget.label == null;
-
     // Prepare padding
-    final verticalPadding = theme.verticalPadding ??
-        surfaceTheme.verticalPadding ??
-        context.defaults.verticalPadding;
+    final verticalPadding =
+        surface.verticalPadding ?? context.defaults.verticalPadding;
     final horizontalPadding = noLabel
+        // When there is no label, we want a square button so make
+        // the horizontal padding the same as the vertical padding
         ? verticalPadding
-        : theme.horizontalPadding ??
-            surfaceTheme.horizontalPadding ??
-            context.defaults.horizontalPadding;
+        : surface.horizontalPadding ?? context.defaults.horizontalPadding;
     final padding = widget.padding ??
         EdgeInsets.symmetric(
           horizontal: horizontalPadding,
@@ -172,21 +182,21 @@ class _ButtonState extends State<Button> {
                 ? Icon(widget.icon!, size: iconSize, color: color)
                 : null);
 
-        const processingDuration = Duration(milliseconds: 1500);
-        final processingIcon =
-            theme.processingIcon ?? Icons.duotone.circleNotch;
-        final processingIconWidget = Icon(
-          processingIcon,
+        // Prepare the awaiting icon
+        const awaitingDuration = Duration(milliseconds: 1500);
+        final awaitingIcon = theme.awaitingIcon ?? Icons.duotone.circleNotch;
+        final awaitingIconWidget = Icon(
+          awaitingIcon,
           color: baseColor,
           size: iconSize,
         )
             .animate(onPlay: (controller) => controller.repeat())
-            .rotate(duration: processingDuration);
+            .rotate(duration: awaitingDuration);
 
-        late Widget button;
+        late Widget child;
         if (noLabel) {
           // Layout ICON button
-          button = Column(
+          child = Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               // Necessary for widths to line up without label
@@ -198,7 +208,7 @@ class _ButtonState extends State<Button> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   if (state.isAwaiting)
-                    processingIconWidget
+                    awaitingIconWidget
                   else
                     icon ??
                         Icon(
@@ -216,7 +226,7 @@ class _ButtonState extends State<Button> {
           final spacing = widget.spacing ?? theme.spacing ?? context.sizing.xs;
           final buttonChildren = [
             if (state.isAwaiting)
-              processingIconWidget
+              awaitingIconWidget
             else if (icon != null)
               icon,
             Text(
@@ -227,14 +237,14 @@ class _ButtonState extends State<Button> {
           ];
           if (widget.verticalButton) {
             // Layout VERTICAL button
-            button = Column(
+            child = Column(
               mainAxisSize: MainAxisSize.min,
               spacing: spacing,
               children: buttonChildren,
             );
           } else {
             // Layout HORIZONTAL button
-            button = Row(
+            child = Row(
               mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.center,
               spacing: spacing,
@@ -246,14 +256,14 @@ class _ButtonState extends State<Button> {
         return Surface(
           width: widget.width,
           height: widget.height,
-          background: widget.background ?? theme.background,
-          borderColor: widget.borderColor ?? theme.borderColor,
-          borderRadius: widget.borderRadius ?? theme.borderRadius,
+          theme: surface,
+          borderColor: widget.borderColor,
+          borderRadius: widget.borderRadius,
           borderWidth: widget.borderWidth,
           padding: padding,
           interactionState: state,
           ripple: true,
-          child: button,
+          child: child,
         );
       },
     );

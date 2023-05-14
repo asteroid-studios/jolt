@@ -1,23 +1,20 @@
 import 'package:jolt/jolt.dart';
 
 ///
-class ButtonTheme extends SurfaceTheme {
+class ButtonTheme {
   ///
   const ButtonTheme({
-    super.borderRadius,
-    super.horizontalPadding,
-    super.verticalPadding,
-    super.background,
-    super.backgroundOnFocus,
-    super.backgroundOnHover,
-    super.borderColor,
-    super.borderColorOnFocus,
+    this.surface,
+    this.color,
     this.spacing,
     this.labelStyle,
     this.smallButtonTheme,
     this.largeButtonTheme,
-    this.processingIcon,
+    this.awaitingIcon,
   });
+
+  /// The theme of the button surface
+  final SurfaceTheme? surface;
 
   /// The spacing between a button icon and label
   final double? spacing;
@@ -31,39 +28,30 @@ class ButtonTheme extends SurfaceTheme {
   /// A style for a large button
   final ButtonTheme? largeButtonTheme;
 
-  ///
-  final IconData? processingIcon;
+  /// The icon to show when the button is awaiting
+  final IconData? awaitingIcon;
+
+  /// override the foreground color of the button
+  final Color Function(Color? background)? color;
 
   ///
   ButtonTheme copyWith({
-    BorderRadius? borderRadius,
-    double? horizontalPadding,
-    double? verticalPadding,
-    Color? background,
-    Color? backgroundOnFocus,
-    Color? backgroundOnHover,
-    Color? borderColor,
-    Color? borderColorOnFocus,
+    SurfaceTheme? surface,
     double? spacing,
     TextStyle? labelStyle,
     ButtonTheme? smallButtonTheme,
     ButtonTheme? largeButtonTheme,
-    IconData? processingIcon,
+    IconData? awaitingIcon,
+    Color Function(Color? background)? color,
   }) {
     return ButtonTheme(
-      borderRadius: borderRadius ?? this.borderRadius,
-      horizontalPadding: horizontalPadding ?? this.horizontalPadding,
-      verticalPadding: verticalPadding ?? this.verticalPadding,
-      background: background ?? this.background,
-      backgroundOnFocus: backgroundOnFocus ?? this.backgroundOnFocus,
-      backgroundOnHover: backgroundOnHover ?? this.backgroundOnHover,
-      borderColor: borderColor ?? this.borderColor,
-      borderColorOnFocus: borderColorOnFocus ?? this.borderColorOnFocus,
+      surface: surface ?? this.surface,
       spacing: spacing ?? this.spacing,
       labelStyle: labelStyle ?? this.labelStyle,
       smallButtonTheme: smallButtonTheme ?? this.smallButtonTheme,
       largeButtonTheme: largeButtonTheme ?? this.largeButtonTheme,
-      processingIcon: processingIcon ?? this.processingIcon,
+      awaitingIcon: awaitingIcon ?? this.awaitingIcon,
+      color: color ?? this.color,
     );
   }
 }

@@ -7,6 +7,7 @@ class Surface extends StatefulWidget {
   ///
   const Surface({
     required this.child,
+    this.theme,
     this.background,
     this.backgroundDark,
     this.borderColor,
@@ -54,6 +55,9 @@ class Surface extends StatefulWidget {
   /// Pass the state of an interaction to the surface.
   final InteractionState? interactionState;
 
+  /// Pass an entire surface theme to the surface.
+  final SurfaceTheme? theme;
+
   /// Whether to show a ripple effect on tap
   final bool ripple;
 
@@ -64,33 +68,50 @@ class Surface extends StatefulWidget {
 class _SurfaceState extends State<Surface> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
-    final theme = context.widgetTheme.surface;
-    final defaultBackground = (context.color.isDark
-            ? (widget.backgroundDark ?? widget.background)
-            : widget.background) ??
+    // The surface theme will either be the default
+    // or a merge of the default and one passed in
+    final theme = context.widgetTheme.surface.merge(widget.theme);
+
+    // Default background color
+    final backgroundColor = context.color.darkWithFallback(
+          widget.backgroundDark,
+          widget.background,
+        ) ??
         theme.background ??
         context.color.surface;
-    final defaultBorderRadius =
+
+    // Border
+    final borderWidth = widget.borderWidth ?? theme.borderWidth ?? 2;
+    final borderRadius =
         widget.borderRadius ?? theme.borderRadius ?? context.borderRadius.md;
-    final defaultHoverColor =
-        theme.backgroundOnHover ?? defaultBackground.darken(5);
-    final defaultFocusColor =
-        theme.backgroundOnFocus ?? defaultBackground.darken(5);
-    final defaultBorderColor =
-        widget.borderColor ?? theme.borderColor ?? defaultBackground;
-    final defaultFocusBorderColor =
-        theme.borderColorOnFocus ?? context.color.primary;
+    final borderColor = widget.borderColor ??
+        theme.borderColor?.call(backgroundColor) ??
+        backgroundColor;
+
     // Support for interactions
     final interaction = widget.interactionState;
+
+    // Hover state
     final isHovered = interaction?.isHovered ?? false;
+    final hoverColor = theme.backgroundOnHover?.call(backgroundColor) ??
+        backgroundColor.darken(5);
+
+    // Focus state
     final focusedAfterPressed = interaction?.wasFocusedAfterPress ?? false;
     final isFocused = interaction?.isFocused ?? false;
-    final backgroundColor = isHovered
-        ? defaultHoverColor
-        : isFocused
-            ? defaultFocusColor
-            : defaultBackground;
+    final focusBorderColor = theme.borderColorOnFocus?.call(backgroundColor) ??
+        context.color.primary;
+    final focusColor = theme.backgroundOnFocus?.call(backgroundColor) ??
+        backgroundColor.darken(5);
 
+    // The end result of the background color and borderColor
+    final background = isHovered
+        ? hoverColor
+        : isFocused
+            ? focusColor
+            : backgroundColor;
+
+    // Wrap the child with the padding
     final child = Padding(
       padding: widget.padding ??
           EdgeInsets.symmetric(
@@ -101,27 +122,28 @@ class _SurfaceState extends State<Surface> with SingleTickerProviderStateMixin {
       child: widget.child,
     );
 
+    // Return the surface
     return ClipRRect(
-      borderRadius: defaultBorderRadius,
+      borderRadius: borderRadius,
       child: AnimatedContainer(
         width: widget.width,
         height: widget.height,
         margin: widget.margin,
-        duration: const Duration(milliseconds: 300),
+        duration: context.durations.mid,
         decoration: BoxDecoration(
-          borderRadius: defaultBorderRadius,
+          borderRadius: borderRadius,
           border: Border.all(
             color: (isFocused && !focusedAfterPressed)
-                ? defaultFocusBorderColor
-                : defaultBorderColor,
-            width: widget.borderWidth ?? context.borderWidth,
+                ? focusBorderColor
+                : borderColor,
+            width: borderWidth,
           ),
-          color: backgroundColor,
+          color: background,
         ),
         child: widget.ripple
             ? TouchRippleEffect(
                 backgroundColor: backgroundColor,
-                borderRadius: defaultBorderRadius,
+                borderRadius: borderRadius,
                 child: child,
               )
             : child,

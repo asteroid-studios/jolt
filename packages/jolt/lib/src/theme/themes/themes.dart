@@ -4,8 +4,8 @@ import 'package:jolt/jolt.dart';
 class Themes extends StatelessWidget {
   ///
   const Themes({
-    required this.theme,
     required this.child,
+    this.theme,
     this.widgetTheme,
     this.scaling,
     super.key,
@@ -18,13 +18,14 @@ class Themes extends StatelessWidget {
   final ScalingData? scaling;
 
   ///
-  final ThemeData theme;
+  final ThemeData? theme;
 
   ///
   final Widget child;
 
   @override
   Widget build(BuildContext context) {
+    final theme = this.theme ?? context.theme;
     final scaling = this.scaling ?? Scaling.of(context);
     return Scaling(
       data: scaling,
@@ -44,12 +45,9 @@ class Themes extends StatelessWidget {
                   context.style.body.color ?? context.color.surface.highlight;
               return AnimatedContainer(
                 duration: const Duration(milliseconds: 300),
-                // TODO move this into my scaffold thing I end up making
                 color: theme.colorScheme.background,
                 child: WidgetTheme(
-                  data: widgetTheme != null
-                      ? widgetTheme!(context.theme)
-                      : const WidgetThemeData(),
+                  data: widgetTheme?.call(theme) ?? context.widgetTheme,
                   child: DefaultTextStyle(
                     style: context.style.body.copyWith(color: defaultColor),
                     child: IconTheme(
