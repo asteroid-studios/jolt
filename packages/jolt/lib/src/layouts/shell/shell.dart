@@ -41,13 +41,9 @@ class Shell extends StatelessWidget {
   final Widget? desktopTopBar;
 
   ///
-  static InheritedShell of(BuildContext context) {
+  static InheritedShell? of(BuildContext context) {
     final inheritedShell =
         context.dependOnInheritedWidgetOfExactType<InheritedShell>();
-
-    if (inheritedShell == null) {
-      throw Exception('No shell found in the current context');
-    }
 
     return inheritedShell;
   }

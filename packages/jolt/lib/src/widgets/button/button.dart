@@ -26,7 +26,7 @@ class Button extends StatefulWidget {
     this.borderWidth,
     this.borderRadius,
     this.labelStyle,
-    this.horizontalSpacing,
+    this.spacing,
     this.width,
     this.height,
     this.padding,
@@ -81,7 +81,7 @@ class Button extends StatefulWidget {
   final double? borderWidth;
 
   ///
-  final double? horizontalSpacing;
+  final double? spacing;
 
   ///
   final BorderRadius? borderRadius;
@@ -213,17 +213,12 @@ class _ButtonState extends State<Button> {
           );
         } else {
           // Prepare LABEL button
+          final spacing = widget.spacing ?? theme.spacing ?? context.sizing.xs;
           final buttonChildren = [
             if (state.isAwaiting)
               processingIconWidget
             else if (icon != null)
               icon,
-            if (icon != null || state.isAwaiting)
-              SizedBox(
-                width: widget.horizontalSpacing ??
-                    theme.horizontalSpacing ??
-                    context.sizing.xs,
-              ),
             Text(
               widget.label!,
               style: labelStyle,
@@ -234,6 +229,7 @@ class _ButtonState extends State<Button> {
             // Layout VERTICAL button
             button = Column(
               mainAxisSize: MainAxisSize.min,
+              spacing: spacing,
               children: buttonChildren,
             );
           } else {
@@ -241,6 +237,7 @@ class _ButtonState extends State<Button> {
             button = Row(
               mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.center,
+              spacing: spacing,
               children: buttonChildren,
             );
           }

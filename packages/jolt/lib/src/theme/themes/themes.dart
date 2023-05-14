@@ -7,7 +7,7 @@ class Themes extends StatelessWidget {
     required this.theme,
     required this.child,
     this.widgetTheme,
-    this.scaling = const ScalingData(),
+    this.scaling,
     super.key,
   });
 
@@ -15,7 +15,7 @@ class Themes extends StatelessWidget {
   final WidgetThemeData Function(ThemeData)? widgetTheme;
 
   ///
-  final ScalingData scaling;
+  final ScalingData? scaling;
 
   ///
   final ThemeData theme;
@@ -25,6 +25,7 @@ class Themes extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final scaling = this.scaling ?? Scaling.of(context);
     return Scaling(
       data: scaling,
       child: MediaQuery(

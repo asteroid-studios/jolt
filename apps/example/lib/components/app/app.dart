@@ -20,7 +20,6 @@ class App extends StatelessWidget {
       routerConfig: router,
       supportedLocales: supportedLocales,
       localizationsDelegates: [
-        DefaultMaterialLocalizations.delegate,
         ...translationDelegates,
       ],
     );

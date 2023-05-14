@@ -921,17 +921,6 @@ class _TextFieldState extends State<TextField>
       ),
     );
 
-    // final MouseCursor effectiveMouseCursor =
-    //     MaterialStateProperty.resolveAs<MouseCursor>(
-    //   widget.mouseCursor ?? MaterialStateMouseCursor.textable,
-    //   <MaterialState>{
-    //     if (!_isEnabled) MaterialState.disabled,
-    //     if (_isHovering) MaterialState.hovered,
-    //     if (focusNode.hasFocus) MaterialState.focused,
-    //     if (_hasError) MaterialState.error,
-    //   },
-    // );
-
     final int? semanticsMaxValueLength;
     if (_effectiveMaxLengthEnforcement != MaxLengthEnforcement.none &&
         widget.maxLength != null &&

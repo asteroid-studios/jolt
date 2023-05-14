@@ -1,5 +1,5 @@
 // Flutter exports
-export 'package:flutter/widgets.dart' hide Icon, Text;
+export 'package:flutter/widgets.dart' hide Column, Icon, Row, Text;
 export 'package:flutter/material.dart' show Scrollbar, SelectionArea;
 
 // Package exports
@@ -20,6 +20,8 @@ export 'src/theme/theme_data/theme_data.dart';
 export 'src/theme/typography/typography.dart';
 
 // Basics exports
+export 'src/widgets/basics/column/column.dart';
+export 'src/widgets/basics/row/row.dart';
 export 'src/widgets/basics/surface/surface.dart';
 export 'src/widgets/basics/text/text.dart';
 export 'src/widgets/basics/interaction/interaction.dart';

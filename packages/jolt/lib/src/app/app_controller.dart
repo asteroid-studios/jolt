@@ -110,6 +110,7 @@ class JoltAppController extends ValueNotifier<ThemeData> {
   }
 
   /// Change the locale.
+  //  TODO support using device locale
   void setLocale(Locale locale) {
     if (supportedLocales.firstWhereOrNull(
           (l) => l.toLanguageTag() == locale.toLanguageTag(),

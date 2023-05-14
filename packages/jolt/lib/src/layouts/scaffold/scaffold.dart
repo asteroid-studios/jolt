@@ -90,7 +90,7 @@ class _ScaffoldState extends State<Scaffold> {
                           tag: 'shellTopBar',
                           child: Column(
                             children: [
-                              if (shell.topBar != null) shell.topBar!,
+                              if (shell?.topBar != null) shell!.topBar!,
                               Surface(
                                 borderColor: Colors.transparent,
                                 borderRadius: BorderRadius.zero,
@@ -120,10 +120,10 @@ class _ScaffoldState extends State<Scaffold> {
                   child: Column(
                     children: [
                       Expanded(child: widget.content!),
-                      if (shell.footer != null)
+                      if (shell?.footer != null)
                         Hero(
                           tag: 'shellFooter',
-                          child: shell.footer!,
+                          child: shell!.footer!,
                         ),
                     ],
                   ),

@@ -23,16 +23,6 @@ class TopBar extends StatelessWidget {
         right: false,
         child: Row(
           children: [
-            Surface.focusable(
-              background: Colors.transparent,
-              onTap: () => DashboardRouteData().go(context),
-              builder: (context, state) {
-                return Text(
-                  context.translations.app.title,
-                  style: context.style.heading,
-                );
-              },
-            ),
             const Expanded(child: SizedBox()),
             Button(
               onTap: () => DashboardRouteData().go(context),

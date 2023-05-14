@@ -12,7 +12,7 @@ class ButtonTheme extends SurfaceTheme {
     super.backgroundOnHover,
     super.borderColor,
     super.borderColorOnFocus,
-    this.horizontalSpacing,
+    this.spacing,
     this.labelStyle,
     this.smallButtonTheme,
     this.largeButtonTheme,
@@ -20,7 +20,7 @@ class ButtonTheme extends SurfaceTheme {
   });
 
   /// The spacing between a button icon and label
-  final double? horizontalSpacing;
+  final double? spacing;
 
   /// The text style of the button label
   final TextStyle? labelStyle;
@@ -44,7 +44,7 @@ class ButtonTheme extends SurfaceTheme {
     Color? backgroundOnHover,
     Color? borderColor,
     Color? borderColorOnFocus,
-    double? horizontalSpacing,
+    double? spacing,
     TextStyle? labelStyle,
     ButtonTheme? smallButtonTheme,
     ButtonTheme? largeButtonTheme,
@@ -59,7 +59,7 @@ class ButtonTheme extends SurfaceTheme {
       backgroundOnHover: backgroundOnHover ?? this.backgroundOnHover,
       borderColor: borderColor ?? this.borderColor,
       borderColorOnFocus: borderColorOnFocus ?? this.borderColorOnFocus,
-      horizontalSpacing: horizontalSpacing ?? this.horizontalSpacing,
+      spacing: spacing ?? this.spacing,
       labelStyle: labelStyle ?? this.labelStyle,
       smallButtonTheme: smallButtonTheme ?? this.smallButtonTheme,
       largeButtonTheme: largeButtonTheme ?? this.largeButtonTheme,
