@@ -31,6 +31,7 @@ export 'src/widgets/basics/pop_over/pop_over.dart';
 
 // Widget exports
 export 'src/widgets/button/button.dart';
+export 'src/widgets/progress_indicator/progress_indicator.dart';
 export 'src/widgets/overlay/overlay_stack.dart';
 export 'src/layouts/scaffold/scaffold.dart';
 export 'src/layouts/shell/shell.dart' hide InheritedShell;

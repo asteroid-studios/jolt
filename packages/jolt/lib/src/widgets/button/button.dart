@@ -182,16 +182,11 @@ class _ButtonState extends State<Button> {
                 ? Icon(widget.icon!, size: iconSize, color: color)
                 : null);
 
-        // Prepare the awaiting icon
-        const awaitingDuration = Duration(milliseconds: 1500);
-        final awaitingIcon = theme.awaitingIcon ?? Icons.duotone.circleNotch;
-        final awaitingIconWidget = Icon(
-          awaitingIcon,
+        // Prepare the progressIndicator
+        final progressIndicator = ProgressIndicator(
           color: baseColor,
           size: iconSize,
-        )
-            .animate(onPlay: (controller) => controller.repeat())
-            .rotate(duration: awaitingDuration);
+        );
 
         late Widget child;
         if (noLabel) {
@@ -208,7 +203,7 @@ class _ButtonState extends State<Button> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   if (state.isAwaiting)
-                    awaitingIconWidget
+                    progressIndicator
                   else
                     icon ??
                         Icon(
@@ -225,10 +220,7 @@ class _ButtonState extends State<Button> {
           // Prepare LABEL button
           final spacing = widget.spacing ?? theme.spacing ?? context.sizing.xs;
           final buttonChildren = [
-            if (state.isAwaiting)
-              awaitingIconWidget
-            else if (icon != null)
-              icon,
+            if (state.isAwaiting) progressIndicator else if (icon != null) icon,
             Text(
               widget.label!,
               style: labelStyle,

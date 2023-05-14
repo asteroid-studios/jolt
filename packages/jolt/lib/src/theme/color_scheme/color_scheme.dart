@@ -193,6 +193,7 @@ class ColorScheme {
   ///
   bool get isLight => brightness == Brightness.light;
 
+  /// Return darkColor when dark theme but fallback to the fallback color.
   Color? darkWithFallback(Color? darkColor, Color? fallback) {
     return isDark ? (darkColor ?? fallback) : fallback;
   }

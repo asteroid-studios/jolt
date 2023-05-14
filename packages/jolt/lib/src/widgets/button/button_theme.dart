@@ -10,7 +10,6 @@ class ButtonTheme {
     this.labelStyle,
     this.smallButtonTheme,
     this.largeButtonTheme,
-    this.awaitingIcon,
   });
 
   /// The theme of the button surface
@@ -28,9 +27,6 @@ class ButtonTheme {
   /// A style for a large button
   final ButtonTheme? largeButtonTheme;
 
-  /// The icon to show when the button is awaiting
-  final IconData? awaitingIcon;
-
   /// override the foreground color of the button
   final Color Function(Color? background)? color;
 
@@ -41,7 +37,6 @@ class ButtonTheme {
     TextStyle? labelStyle,
     ButtonTheme? smallButtonTheme,
     ButtonTheme? largeButtonTheme,
-    IconData? awaitingIcon,
     Color Function(Color? background)? color,
   }) {
     return ButtonTheme(
@@ -50,7 +45,6 @@ class ButtonTheme {
       labelStyle: labelStyle ?? this.labelStyle,
       smallButtonTheme: smallButtonTheme ?? this.smallButtonTheme,
       largeButtonTheme: largeButtonTheme ?? this.largeButtonTheme,
-      awaitingIcon: awaitingIcon ?? this.awaitingIcon,
       color: color ?? this.color,
     );
   }

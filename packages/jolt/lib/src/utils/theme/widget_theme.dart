@@ -2,6 +2,7 @@ import 'package:jolt/jolt.dart';
 
 export 'package:jolt/src/widgets/basics/surface/surface_theme.dart';
 export 'package:jolt/src/widgets/button/button_theme.dart';
+export 'package:jolt/src/widgets/progress_indicator/progress_indicator_theme.dart';
 
 /// Wrap a section of the widget tree with a theme which will be inherited by
 /// all children.
@@ -38,6 +39,7 @@ class WidgetThemeData {
   const WidgetThemeData({
     this.surface = const SurfaceTheme(),
     this.button = const ButtonTheme(),
+    this.progressIndicator = const ProgressIndicatorTheme(),
   });
 
   /// The theme of a surface.
@@ -45,4 +47,7 @@ class WidgetThemeData {
 
   /// The theme of a button
   final ButtonTheme button;
+
+  /// The theme of the progress indicator
+  final ProgressIndicatorTheme progressIndicator;
 }
