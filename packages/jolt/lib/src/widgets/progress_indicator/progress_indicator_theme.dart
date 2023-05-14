@@ -4,25 +4,37 @@ import 'package:jolt/jolt.dart';
 class ProgressIndicatorTheme {
   ///
   const ProgressIndicatorTheme({
-    this.icon,
-    this.widget,
+    this.circularIndicatorIcon,
+    this.circularIndicatorWidget,
     this.color,
-    this.size,
-    this.durationOfRotation,
+    this.circularIndicatorSize,
+    this.circularIndicatorDuration,
+    this.linearIndicatorDuration,
+    this.linearIndicatorWidth,
+    this.linearIndicatorBackgroundOpacity = 0.2,
   });
 
   ///
-  final IconData? icon;
+  final IconData? circularIndicatorIcon;
 
   ///
-  final double? size;
+  final double? circularIndicatorSize;
 
   ///
   final Color? color;
 
   ///
-  final Duration? durationOfRotation;
+  final Duration? circularIndicatorDuration;
 
   /// A custom widget to spin.
-  final Widget? widget;
+  final Widget? circularIndicatorWidget;
+
+  ///
+  final Duration? linearIndicatorDuration;
+
+  /// The widget of the linear indicator.
+  final double? linearIndicatorWidth;
+
+  ///
+  final double linearIndicatorBackgroundOpacity;
 }

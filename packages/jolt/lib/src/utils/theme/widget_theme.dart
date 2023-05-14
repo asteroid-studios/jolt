@@ -48,6 +48,6 @@ class WidgetThemeData {
   /// The theme of a button
   final ButtonTheme button;
 
-  /// The theme of the progress indicator
+  /// The theme of the circularIndicator
   final ProgressIndicatorTheme progressIndicator;
 }

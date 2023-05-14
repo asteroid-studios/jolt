@@ -183,7 +183,7 @@ class _ButtonState extends State<Button> {
                 : null);
 
         // Prepare the progressIndicator
-        final progressIndicator = ProgressIndicator(
+        final progressIndicator = CircularProgressIndicator(
           color: baseColor,
           size: iconSize,
         );

@@ -3,9 +3,9 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:jolt/jolt.dart';
 
 ///
-class ProgressIndicator extends StatelessWidget {
+class CircularProgressIndicator extends StatelessWidget {
   ///
-  const ProgressIndicator({
+  const CircularProgressIndicator({
     this.icon,
     this.widget,
     this.color,
@@ -32,14 +32,15 @@ class ProgressIndicator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = context.widgetTheme.progressIndicator;
-    final icon = this.icon ?? theme.icon ?? Icons.duotone.circleNotch;
     final color = this.color ?? theme.color ?? context.color.primary;
-    final size = this.size ?? theme.size;
+    final size = this.size ?? theme.circularIndicatorSize;
+    final icon =
+        this.icon ?? theme.circularIndicatorIcon ?? Icons.duotone.circleNotch;
     final duration = this.duration ??
-        theme.durationOfRotation ??
+        theme.circularIndicatorDuration ??
         const Duration(milliseconds: 1500);
     final widget = this.widget ??
-        theme.widget ??
+        theme.circularIndicatorWidget ??
         Icon(
           icon,
           color: color,
