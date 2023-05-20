@@ -142,15 +142,16 @@ class _ButtonState extends State<Button> {
         context.scaling.textScale;
 
     // Prepare the foreground color
-    final background = surface.background;
+    final background = surface.background ?? context.color.surface;
     final color = context.color.darkWithFallback(
       widget.colorDark,
       widget.color,
     );
+
     final baseColor = color ??
         button.color?.call(background) ??
         (background is JoltColor ? background.highlight : null) ??
-        labelStyle.color;
+        context.color.surface.highlight;
 
     // Prepare padding
     final verticalPadding =

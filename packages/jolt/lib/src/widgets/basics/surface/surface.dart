@@ -79,29 +79,35 @@ class _SurfaceState extends State<Surface> with SingleTickerProviderStateMixin {
         ) ??
         theme.background ??
         context.color.surface;
+    final backgroundIsTransparent = background == Colors.transparent;
 
     // Border
     final borderWidth = widget.borderWidth ?? theme.borderWidth ?? 2;
     final borderRadius =
         widget.borderRadius ?? theme.borderRadius ?? context.borderRadius.md;
-    final borderColor =
-        widget.borderColor ?? theme.borderColor?.call(background) ?? background;
+    final borderColor = widget.borderColor ??
+        theme.borderColor?.call(background) ??
+        (backgroundIsTransparent ? context.color.surface : background);
 
     // Support for interactions
     final interaction = widget.interactionState;
 
     // Hover state
     final isHovered = interaction?.isHovered ?? false;
-    final hoverColor =
-        theme.backgroundOnHover?.call(background) ?? background.weaken();
+    final hoverColor = theme.backgroundOnHover?.call(background) ??
+        (backgroundIsTransparent
+            ? context.color.surface.withOpacity(0.5)
+            : background.weaken());
 
     // Focus state
     final focusedAfterPressed = interaction?.wasFocusedAfterPress ?? false;
     final isFocused = interaction?.isFocused ?? false;
     final focusBorderColor =
         theme.borderColorOnFocus?.call(background) ?? context.color.primary;
-    final focusColor =
-        theme.backgroundOnFocus?.call(background) ?? background.weaken();
+    final focusColor = theme.backgroundOnFocus?.call(background) ??
+        (backgroundIsTransparent
+            ? context.color.surface.withOpacity(0.5)
+            : background.weaken());
 
     // The end result of the background color and borderColor
     final foreground = isHovered
@@ -139,7 +145,9 @@ class _SurfaceState extends State<Surface> with SingleTickerProviderStateMixin {
           ),
           color: foreground != null
               ? Color.alphaBlend(foreground, background)
-              : background,
+              : backgroundIsTransparent
+                  ? null
+                  : background,
         ),
         child: widget.ripple
             ? TouchRippleEffect(

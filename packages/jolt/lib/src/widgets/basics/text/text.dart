@@ -107,6 +107,7 @@ class Text extends StatelessWidget {
   Widget build(BuildContext context) {
     final defaultColor = context.color.isDark ? (colorDark ?? color) : color;
     final defaultTextStyle = style ?? context.style.body;
+    final fontWeight = this.fontWeight ?? defaultTextStyle.fontWeight;
 
     return widgets.Text(
       data ?? '',
@@ -118,13 +119,12 @@ class Text extends StatelessWidget {
       style: defaultTextStyle.copyWith(
         color: defaultColor,
         fontWeight: fontWeight,
-        fontVariations: fontWeight == null
-            ? defaultTextStyle.fontVariations
-            : [
-                ...?defaultTextStyle.fontVariations,
-                // Support for variable fonts from font weight
-                FontVariation('wght', fontWeight!.value.toDouble()),
-              ],
+        fontVariations: [
+          ...?defaultTextStyle.fontVariations,
+          // Support for variable fonts from font weight
+          if (fontWeight != null)
+            FontVariation('wght', fontWeight.value.toDouble()),
+        ],
       ),
       // Pass text options
       textDirection: options?.textDirection,
