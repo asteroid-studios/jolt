@@ -5,7 +5,29 @@ import 'package:jolt/jolt.dart';
 ///
 extension ResponsiveExtensions on BuildContext {
   ///
-  ResponsiveMapping get responsive => ResponsiveMapping(this);
+  // ResponsiveMapping get responsive => ResponsiveMapping(this);
+
+  T responsive<T>({
+    required T mobile,
+    T? tablet,
+    T? tabletLandscape,
+    T? desktop,
+    T? tv,
+  }) {
+    return mobile;
+    //   switch (_context.view) {
+    //     case FlutterView.mobile:
+    //       return mobile;
+    //     case FlutterView.tablet:
+    //       return tablet ?? mobile;
+    //     case FlutterView.tabletLandscape:
+    //       return tabletLandscape ?? tablet ?? mobile;
+    //     case FlutterView.desktop:
+    //       return desktop ?? tablet ?? mobile;
+    //     case FlutterView.tv:
+    //       return tv ?? desktop ?? tablet ?? mobile;
+    //   }
+  }
 
   ///
   ViewMapping get view => ViewMapping(this);
@@ -32,61 +54,4 @@ class ViewMapping {
 
   ///
   final BuildContext _context;
-}
-
-///
-class ResponsiveMapping {
-  ///
-  const ResponsiveMapping(this._context);
-
-  ///
-  final BuildContext _context;
-
-  // TODO
-  ///
-  EdgeInsets edgeInsets({
-    required EdgeInsets mobile,
-    EdgeInsets? tablet,
-    EdgeInsets? tabletLandscape,
-    EdgeInsets? desktop,
-    EdgeInsets? tv,
-  }) {
-    return mobile;
-    // switch (_context.view) {
-    //   case FlutterView.mobile:
-    //     return mobile;
-    //   case FlutterView.tablet:
-    //     return tablet ?? mobile;
-    //   case FlutterView.tabletLandscape:
-    //     return tabletLandscape ?? tablet ?? mobile;
-    //   case FlutterView.desktop:
-    //     return desktop ?? tablet ?? mobile;
-    //   case FlutterView.tv:
-    //     return tv ?? desktop ?? tablet ?? mobile;
-    // }
-  }
-
-  // TODO
-  ///
-  TextStyle style({
-    required TextStyle mobile,
-    TextStyle? tablet,
-    TextStyle? tabletLandscape,
-    TextStyle? desktop,
-    TextStyle? tv,
-  }) {
-    return mobile;
-    //   switch (_context.view) {
-    //     case FlutterView.mobile:
-    //       return mobile;
-    //     case FlutterView.tablet:
-    //       return tablet ?? mobile;
-    //     case FlutterView.tabletLandscape:
-    //       return tabletLandscape ?? tablet ?? mobile;
-    //     case FlutterView.desktop:
-    //       return desktop ?? tablet ?? mobile;
-    //     case FlutterView.tv:
-    //       return tv ?? desktop ?? tablet ?? mobile;
-    //   }
-  }
 }
