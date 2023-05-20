@@ -1,7 +1,6 @@
 import 'dart:ui';
 
 import 'package:jolt/jolt.dart';
-export 'package:jolt/src/utils/responsive/edge_insets.dart';
 
 ///
 extension ResponsiveExtensions on BuildContext {
@@ -43,21 +42,51 @@ class ResponsiveMapping {
   ///
   final BuildContext _context;
 
+  // TODO
   ///
-  EdgeInsetsResponsive edgeInsets({
+  EdgeInsets edgeInsets({
     required EdgeInsets mobile,
     EdgeInsets? tablet,
     EdgeInsets? tabletLandscape,
     EdgeInsets? desktop,
     EdgeInsets? tv,
   }) {
-    return EdgeInsetsResponsive(
-      _context,
-      mobile: mobile,
-      tablet: tablet,
-      tabletLandscape: tabletLandscape,
-      desktop: desktop,
-      tv: tv,
-    );
+    return mobile;
+    // switch (_context.view) {
+    //   case FlutterView.mobile:
+    //     return mobile;
+    //   case FlutterView.tablet:
+    //     return tablet ?? mobile;
+    //   case FlutterView.tabletLandscape:
+    //     return tabletLandscape ?? tablet ?? mobile;
+    //   case FlutterView.desktop:
+    //     return desktop ?? tablet ?? mobile;
+    //   case FlutterView.tv:
+    //     return tv ?? desktop ?? tablet ?? mobile;
+    // }
+  }
+
+  // TODO
+  ///
+  TextStyle style({
+    required TextStyle mobile,
+    TextStyle? tablet,
+    TextStyle? tabletLandscape,
+    TextStyle? desktop,
+    TextStyle? tv,
+  }) {
+    return mobile;
+    //   switch (_context.view) {
+    //     case FlutterView.mobile:
+    //       return mobile;
+    //     case FlutterView.tablet:
+    //       return tablet ?? mobile;
+    //     case FlutterView.tabletLandscape:
+    //       return tabletLandscape ?? tablet ?? mobile;
+    //     case FlutterView.desktop:
+    //       return desktop ?? tablet ?? mobile;
+    //     case FlutterView.tv:
+    //       return tv ?? desktop ?? tablet ?? mobile;
+    //   }
   }
 }
