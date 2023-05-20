@@ -117,9 +117,9 @@ class _TooltipState extends State<Tooltip> {
               boxShadow: [
                 BoxShadow(
                   spreadRadius: -12,
-                  color: Colors.black.withOpacity(0.6),
+                  color: Colors.black.withOpacity(0.3),
                   blurRadius: 24,
-                  offset: const Offset(0, 8),
+                  offset: const Offset(0, 4),
                 ),
               ],
             ),

@@ -1,4 +1,5 @@
 import 'dart:ui' as ui show TextHeightBehavior;
+import 'dart:ui';
 
 import 'package:flutter/widgets.dart' as widgets show Text;
 
@@ -104,8 +105,8 @@ class Text extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final defaultTextStyle = style ?? context.style.body;
     final defaultColor = context.color.isDark ? (colorDark ?? color) : color;
+    final defaultTextStyle = style ?? context.style.body;
 
     return widgets.Text(
       data ?? '',
@@ -117,6 +118,13 @@ class Text extends StatelessWidget {
       style: defaultTextStyle.copyWith(
         color: defaultColor,
         fontWeight: fontWeight,
+        fontVariations: fontWeight == null
+            ? defaultTextStyle.fontVariations
+            : [
+                ...?defaultTextStyle.fontVariations,
+                // Support for variable fonts from font weight
+                FontVariation('wght', fontWeight!.value.toDouble()),
+              ],
       ),
       // Pass text options
       textDirection: options?.textDirection,

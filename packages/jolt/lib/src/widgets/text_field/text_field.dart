@@ -749,8 +749,10 @@ class _TextFieldState extends State<TextField>
     final theme = Theme.of(context);
     final DefaultSelectionStyle selectionStyle =
         DefaultSelectionStyle.of(context);
-    final TextStyle style = theme.typography.body
-        .copyWith(color: theme.colorScheme.surface.highlight);
+
+    final TextStyle style = theme.typography.body.copyWith(
+      color: theme.colorScheme.surface.highlight,
+    );
     final Brightness keyboardAppearance =
         widget.keyboardAppearance ?? theme.colorScheme.brightness;
     final TextEditingController controller = _effectiveController;
@@ -944,6 +946,7 @@ class _TextFieldState extends State<TextField>
             child: TextFieldTapRegion(
               child: IgnorePointer(
                 ignoring: !_isEnabled,
+                // TODO remove second builder
                 child: AnimatedBuilder(
                   animation: controller, // changes the _currentLength
                   builder: (BuildContext context, Widget? child) {
@@ -975,18 +978,18 @@ class _TextFieldState extends State<TextField>
             ),
             builder: (context, child) {
               return Stack(
+                alignment: Alignment.centerLeft,
                 children: [
                   child ?? const SizedBox.shrink(),
-                  // Show the hint if the text is empty
-                  if (_currentLength == 0)
-                    SelectionContainer.disabled(
-                      child: Text(
-                        widget.hintText ?? '',
-                        style: theme.typography.body.copyWith(
-                          color: theme.colorScheme.neutral.s400,
-                        ),
+                  SelectionContainer.disabled(
+                    child: Text(
+                      // Show the hint if the text is empty
+                      _currentLength == 0 ? widget.hintText ?? '' : '',
+                      style: theme.typography.body.copyWith(
+                        color: theme.colorScheme.neutral.s400,
                       ),
                     ),
+                  ),
                 ],
               );
             },

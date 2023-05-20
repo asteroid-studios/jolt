@@ -7,11 +7,12 @@ class Shell extends StatelessWidget {
   ///
   const Shell({
     required this.child,
+    this.desktopTopBar,
     this.topBar,
     this.sidebarLeft,
     this.sidebarRight,
+    this.bottomBar,
     this.footer,
-    this.desktopTopBar,
     this.topBarOptions = const TopBarOptions(),
     this.footerOptions = const FooterOptions(),
     super.key,
@@ -19,6 +20,9 @@ class Shell extends StatelessWidget {
 
   ///
   final Widget child;
+
+  ///
+  final Widget? desktopTopBar;
 
   ///
   final Widget? topBar;
@@ -30,6 +34,9 @@ class Shell extends StatelessWidget {
   final Widget? sidebarRight;
 
   ///
+  final Widget? bottomBar;
+
+  ///
   final Widget? footer;
 
   ///
@@ -37,8 +44,6 @@ class Shell extends StatelessWidget {
 
   ///
   final FooterOptions footerOptions;
-
-  final Widget? desktopTopBar;
 
   ///
   static InheritedShell? of(BuildContext context) {

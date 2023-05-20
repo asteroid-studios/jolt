@@ -48,10 +48,11 @@ extension ThemeDataExtensions on ThemeData {
 /// Some utility methods on Color
 extension ColorExtension on Color {
   /// If the color is dark, make it darker, if light make lighter
-  Color strengthen([int value = 10]) => isDark ? darken(value) : lighten(value);
+  Color strengthen([int value = 10]) =>
+      isDark ? darken(value) : brighten(value);
 
   /// If the color is dark, make it light, if light make darker
-  Color weaken([int value = 10]) => isDark ? lighten(value) : darken(value);
+  Color weaken([int value = 10]) => isDark ? brighten(value) : darken(value);
 }
 
 /// Some utility methods on ColorScheme
@@ -156,4 +157,10 @@ extension TextStyleExtensions on TextStyle {
 
   ///
   TextStyle withSize([double? size]) => copyWith(fontSize: size);
+}
+
+/// Available font variation axis
+class FontVariationAxis {
+  /// The font variation axis for the font weight
+  static const weight = 'wght';
 }

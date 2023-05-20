@@ -1,22 +1,19 @@
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
-///
-abstract class Icons {
-  /// Bold Icons
-  static final bold = PhosphorIcons.bold;
+/// Regular Phosphor Icons
+typedef Icons = PhosphorIconsRegular;
 
-  /// Duotone Icons
-  static final duotone = PhosphorIcons.duotone;
+/// Bold Phosphor Icons
+typedef IconsBold = PhosphorIconsBold;
 
-  /// Fill Icons
-  static final fill = PhosphorIcons.fill;
+/// Duotone Phosphor Icons
+typedef IconsDuotone = PhosphorIconsDuotone;
 
-  /// Light Icons
-  static final light = PhosphorIcons.light;
+/// Filled Phosphor Icons
+typedef IconsFill = PhosphorIconsFill;
 
-  /// Regular Icons
-  static final regular = PhosphorIcons.regular;
+/// Thin Phosphor Icons
+typedef IconsThin = PhosphorIconsThin;
 
-  /// Thin Icons
-  static final thin = PhosphorIcons.thin;
-}
+/// Light Phosphor Icons
+typedef IconsLight = PhosphorIconsLight;

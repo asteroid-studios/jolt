@@ -12,7 +12,7 @@ class Themes extends StatelessWidget {
   });
 
   ///
-  final WidgetThemeData Function(ThemeData)? widgetTheme;
+  final WidgetThemeData Function(ThemeData, ScalingData)? widgetTheme;
 
   ///
   final ScalingData? scaling;
@@ -47,7 +47,11 @@ class Themes extends StatelessWidget {
                 duration: const Duration(milliseconds: 300),
                 color: theme.colorScheme.background,
                 child: WidgetTheme(
-                  data: widgetTheme?.call(theme) ?? context.widgetTheme,
+                  data: widgetTheme?.call(
+                        theme,
+                        scaling,
+                      ) ??
+                      context.widgetTheme,
                   child: DefaultTextStyle(
                     style: context.style.body.copyWith(color: defaultColor),
                     child: IconTheme(

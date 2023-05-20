@@ -575,10 +575,11 @@ packages:
   phosphor_flutter:
     dependency: transitive
     description:
-      name: phosphor_flutter
-      sha256: "925b6e2031886d5fe0b3719a0497712d26914bdb8e74c217fe990a9c6d60184d"
-      url: "https://pub.dev"
-    source: hosted
+      path: "."
+      ref: HEAD
+      resolved-ref: f370dd2c25d3ea51ffb8f1c7c183bc9f33889c82
+      url: "https://github.com/phosphor-icons/flutter.git"
+    source: git
     version: "2.0.0"
   pigment:
     dependency: transitive
@@ -818,5 +819,5 @@ packages:
     source: hosted
     version: "3.1.1"
 sdks:
-  dart: ">=3.0.0-0 <4.0.0"
+  dart: ">=3.0.0 <4.0.0"
   flutter: ">=3.3.0"

@@ -197,11 +197,24 @@ class InteractionState extends State<Interaction> {
     widget.onFocusChanged?.call(context, this);
   }
 
+  Future<void> _shake() async {
+    if (widget.shakeOnError) {
+      // Shake the widget.
+      await _controller?.forward(from: 0);
+    }
+  }
+
   Future<void> _handlePressed(
-    FutureOr<void> Function()? handler,
-  ) async {
+    FutureOr<void> Function()? handler, {
+    bool longPress = false,
+  }) async {
     // If nothing to do, return
-    if (handler == null) return;
+    if (handler == null) {
+      // Don't shake on missing long press as
+      // commonly taps will not have a long press
+      if (!longPress) await _shake();
+      return;
+    }
     if (widget.disablePressWhenAwaiting) {
       // If processing or no handler, do nothing.
       if (_isAwaiting) return;
@@ -224,10 +237,7 @@ class InteractionState extends State<Interaction> {
           stackTrace: s,
         ),
       );
-      if (widget.shakeOnError) {
-        // Shake the widget.
-        await _controller?.forward(from: 0);
-      }
+      await _shake();
     }
     setState(() => _isAwaiting = false);
   }
@@ -311,11 +321,14 @@ class InteractionState extends State<Interaction> {
       button: pressEnabled,
       focused: isFocused,
       focusable: canBeFocused,
-      child: pressEnabled
+      child: canBePressed
           ? GestureDetector(
               behavior: widget.hitTestBehavior,
               onTap: () => _handlePressed(widget.onTap),
-              onLongPress: () => _handlePressed(widget.onLongPressed),
+              onLongPress: () => _handlePressed(
+                widget.onLongPressed,
+                longPress: true,
+              ),
               child: interaction,
             )
           : interaction,

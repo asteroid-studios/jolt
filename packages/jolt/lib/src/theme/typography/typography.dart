@@ -1,5 +1,7 @@
 import 'package:flutter/widgets.dart';
 
+import 'package:jolt/src/utils/theme/defaults.dart';
+
 const _defaultHero = TextStyle(fontSize: 72);
 const _defaultDisplayLarge = TextStyle(fontSize: 60);
 const _defaultDisplay = TextStyle(fontSize: 48);
@@ -30,59 +32,71 @@ class Typography {
     TextStyle? bodySmall,
     TextStyle? label,
     TextStyle? labelSmall,
-  })  : hero = hero?.merge(_defaultHero) ?? _defaultHero,
-        displayLarge =
+  })  : _hero = hero?.merge(_defaultHero) ?? _defaultHero,
+        _displayLarge =
             displayLarge?.merge(_defaultDisplayLarge) ?? _defaultDisplayLarge,
-        display = display?.merge(_defaultDisplay) ?? _defaultDisplay,
-        displaySmall =
+        _display = display?.merge(_defaultDisplay) ?? _defaultDisplay,
+        _displaySmall =
             displaySmall?.merge(_defaultDisplaySmall) ?? _defaultDisplaySmall,
-        headingLarge =
+        _headingLarge =
             headingLarge?.merge(_defaultHeadingLarge) ?? _defaultHeadingLarge,
-        heading = heading?.merge(_defaultHeading) ?? _defaultHeading,
-        headingSmall =
+        _heading = heading?.merge(_defaultHeading) ?? _defaultHeading,
+        _headingSmall =
             headingSmall?.merge(_defaultHeadingSmall) ?? _defaultHeadingSmall,
-        bodyLarge = bodyLarge?.merge(_defaultBodyLarge) ?? _defaultBodyLarge,
-        body = body?.merge(_defaultBody) ?? _defaultBody,
-        bodySmall = bodySmall?.merge(_defaultBodySmall) ?? _defaultBodySmall,
-        label = label?.merge(_defaultLabel) ?? _defaultLabel,
-        labelSmall =
+        _bodyLarge = bodyLarge?.merge(_defaultBodyLarge) ?? _defaultBodyLarge,
+        _body = body?.merge(_defaultBody) ?? _defaultBody,
+        _bodySmall = bodySmall?.merge(_defaultBodySmall) ?? _defaultBodySmall,
+        _label = label?.merge(_defaultLabel) ?? _defaultLabel,
+        _labelSmall =
             labelSmall?.merge(_defaultLabelSmall) ?? _defaultLabelSmall;
 
   /// Used for hero text.
-  final TextStyle hero;
+  TextStyle get hero => _hero.withFontVariationsFromWeight();
+  final TextStyle _hero;
 
   /// Used for large display text.
-  final TextStyle displayLarge;
+  TextStyle get displayLarge => _displayLarge.withFontVariationsFromWeight();
+  final TextStyle _displayLarge;
 
   /// Used for display text.
-  final TextStyle display;
+  TextStyle get display => _display.withFontVariationsFromWeight();
+  final TextStyle _display;
 
   /// Used for small display text.
-  final TextStyle displaySmall;
+  TextStyle get displaySmall => _displaySmall.withFontVariationsFromWeight();
+  final TextStyle _displaySmall;
 
-  /// Used for large heading text.)
-  final TextStyle headingLarge;
+  /// Used for large heading text.
+  TextStyle get headingLarge => _headingLarge.withFontVariationsFromWeight();
+  final TextStyle _headingLarge;
 
   /// Used for heading text.
-  final TextStyle heading;
+  TextStyle get heading => _heading.withFontVariationsFromWeight();
+  final TextStyle _heading;
 
   /// Used for small heading text.
-  final TextStyle headingSmall;
+  TextStyle get headingSmall => _headingSmall.withFontVariationsFromWeight();
+  final TextStyle _headingSmall;
 
   /// Used for large body text.
-  final TextStyle bodyLarge;
+  TextStyle get bodyLarge => _bodyLarge.withFontVariationsFromWeight();
+  final TextStyle _bodyLarge;
 
   /// Used for body text.
-  final TextStyle body;
+  TextStyle get body => _body.withFontVariationsFromWeight();
+  final TextStyle _body;
 
   /// Used for small body text.
-  final TextStyle bodySmall;
+  TextStyle get bodySmall => _bodySmall.withFontVariationsFromWeight();
+  final TextStyle _bodySmall;
 
   /// Used for label text.
-  final TextStyle label;
+  TextStyle get label => _label.withFontVariationsFromWeight();
+  final TextStyle _label;
 
   /// Used for small label text.
-  final TextStyle labelSmall;
+  TextStyle get labelSmall => _labelSmall.withFontVariationsFromWeight();
+  final TextStyle _labelSmall;
 
   /// Return a copy of Typography with the given parameters replaced
   Typography copyWith({
@@ -100,18 +114,18 @@ class Typography {
     TextStyle? labelSmall,
   }) {
     return Typography(
-      hero: hero ?? this.hero,
-      displayLarge: displayLarge ?? this.displayLarge,
-      display: display ?? this.display,
-      displaySmall: displaySmall ?? this.displaySmall,
-      headingLarge: headingLarge ?? this.headingLarge,
-      heading: heading ?? this.heading,
-      headingSmall: headingSmall ?? this.headingSmall,
-      bodyLarge: bodyLarge ?? this.bodyLarge,
-      body: body ?? this.body,
-      bodySmall: bodySmall ?? this.bodySmall,
-      label: label ?? this.label,
-      labelSmall: labelSmall ?? this.labelSmall,
+      hero: hero ?? _hero,
+      displayLarge: displayLarge ?? _displayLarge,
+      display: display ?? _display,
+      displaySmall: displaySmall ?? _displaySmall,
+      headingLarge: headingLarge ?? _headingLarge,
+      heading: heading ?? _heading,
+      headingSmall: headingSmall ?? _headingSmall,
+      bodyLarge: bodyLarge ?? _bodyLarge,
+      body: body ?? _body,
+      bodySmall: bodySmall ?? _bodySmall,
+      label: label ?? _label,
+      labelSmall: labelSmall ?? _labelSmall,
     );
   }
 
@@ -121,35 +135,35 @@ class Typography {
       return false;
     }
     return other is Typography &&
-        other.hero == hero &&
-        other.displayLarge == displayLarge &&
-        other.display == display &&
-        other.displaySmall == displaySmall &&
-        other.headingLarge == headingLarge &&
-        other.heading == heading &&
-        other.headingSmall == headingSmall &&
-        other.bodyLarge == bodyLarge &&
-        other.body == body &&
-        other.bodySmall == bodySmall &&
-        other.label == label &&
-        other.labelSmall == labelSmall;
+        other._hero == _hero &&
+        other._displayLarge == _displayLarge &&
+        other._display == _display &&
+        other._displaySmall == _displaySmall &&
+        other._headingLarge == _headingLarge &&
+        other._heading == _heading &&
+        other._headingSmall == _headingSmall &&
+        other._bodyLarge == _bodyLarge &&
+        other._body == _body &&
+        other._bodySmall == _bodySmall &&
+        other._label == _label &&
+        other._labelSmall == _labelSmall;
   }
 
   @override
   int get hashCode {
     final values = <Object?>[
-      hero,
-      displayLarge,
-      display,
-      displaySmall,
-      headingLarge,
-      heading,
-      headingSmall,
-      bodyLarge,
-      body,
-      bodySmall,
-      label,
-      labelSmall,
+      _hero,
+      _displayLarge,
+      _display,
+      _displaySmall,
+      _headingLarge,
+      _heading,
+      _headingSmall,
+      _bodyLarge,
+      _body,
+      _bodySmall,
+      _label,
+      _labelSmall,
     ];
     return Object.hashAll(values);
   }

@@ -1,7 +1,5 @@
 import 'dart:async';
 
-import 'package:flutter_animate/flutter_animate.dart';
-
 import 'package:jolt/jolt.dart';
 import 'package:jolt/src/utils/theme/defaults.dart';
 
@@ -14,6 +12,7 @@ class Button extends StatefulWidget {
     this.tooltip,
     this.icon,
     this.iconSize,
+    this.iconScale = 1.0,
     this.iconWidget,
     this.onTap,
     this.onLongPressed,
@@ -49,6 +48,9 @@ class Button extends StatefulWidget {
 
   ///
   final ButtonSize size;
+
+  ///
+  final double iconScale;
 
   ///
   final double? iconSize;
@@ -136,6 +138,7 @@ class _ButtonState extends State<Button> {
 
     // Prepare the icon size
     final iconSize = (widget.iconSize ?? labelStyle.fontSize ?? 16) *
+        widget.iconScale *
         context.scaling.textScale;
 
     // Prepare the foreground color
@@ -205,11 +208,7 @@ class _ButtonState extends State<Button> {
                   if (state.isAwaiting)
                     progressIndicator
                   else
-                    icon ??
-                        Icon(
-                          Icons.regular.dot,
-                          color: Colors.transparent,
-                        ),
+                    icon ?? const Icon(Icons.dot, color: Colors.transparent),
                   // Necessary for heights to line up without label
                   Text('', style: labelStyle),
                 ],

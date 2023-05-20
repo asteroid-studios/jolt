@@ -73,7 +73,7 @@ class _SurfaceState extends State<Surface> with SingleTickerProviderStateMixin {
     final theme = context.widgetTheme.surface.merge(widget.theme);
 
     // Default background color
-    final backgroundColor = context.color.darkWithFallback(
+    final background = context.color.darkWithFallback(
           widget.backgroundDark,
           widget.background,
         ) ??
@@ -84,32 +84,31 @@ class _SurfaceState extends State<Surface> with SingleTickerProviderStateMixin {
     final borderWidth = widget.borderWidth ?? theme.borderWidth ?? 2;
     final borderRadius =
         widget.borderRadius ?? theme.borderRadius ?? context.borderRadius.md;
-    final borderColor = widget.borderColor ??
-        theme.borderColor?.call(backgroundColor) ??
-        backgroundColor;
+    final borderColor =
+        widget.borderColor ?? theme.borderColor?.call(background) ?? background;
 
     // Support for interactions
     final interaction = widget.interactionState;
 
     // Hover state
     final isHovered = interaction?.isHovered ?? false;
-    final hoverColor = theme.backgroundOnHover?.call(backgroundColor) ??
-        backgroundColor.darken(5);
+    final hoverColor =
+        theme.backgroundOnHover?.call(background) ?? background.weaken();
 
     // Focus state
     final focusedAfterPressed = interaction?.wasFocusedAfterPress ?? false;
     final isFocused = interaction?.isFocused ?? false;
-    final focusBorderColor = theme.borderColorOnFocus?.call(backgroundColor) ??
-        context.color.primary;
-    final focusColor = theme.backgroundOnFocus?.call(backgroundColor) ??
-        backgroundColor.darken(5);
+    final focusBorderColor =
+        theme.borderColorOnFocus?.call(background) ?? context.color.primary;
+    final focusColor =
+        theme.backgroundOnFocus?.call(background) ?? background.weaken();
 
     // The end result of the background color and borderColor
-    final background = isHovered
+    final foreground = isHovered
         ? hoverColor
         : isFocused
             ? focusColor
-            : backgroundColor;
+            : null;
 
     // Wrap the child with the padding
     final child = Padding(
@@ -138,11 +137,13 @@ class _SurfaceState extends State<Surface> with SingleTickerProviderStateMixin {
                 : borderColor,
             width: borderWidth,
           ),
-          color: background,
+          color: foreground != null
+              ? Color.alphaBlend(foreground, background)
+              : background,
         ),
         child: widget.ripple
             ? TouchRippleEffect(
-                backgroundColor: backgroundColor,
+                backgroundColor: background,
                 borderRadius: borderRadius,
                 child: child,
               )
