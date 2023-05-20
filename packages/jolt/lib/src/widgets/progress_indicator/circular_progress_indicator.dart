@@ -36,9 +36,7 @@ class CircularProgressIndicator extends StatelessWidget {
     final size = this.size ?? theme.circularIndicatorSize;
     final icon =
         this.icon ?? theme.circularIndicatorIcon ?? IconsDuotone.circleNotch;
-    final duration = this.duration ??
-        theme.circularIndicatorDuration ??
-        const Duration(milliseconds: 1500);
+    final duration = this.duration ?? theme.circularIndicatorDuration;
     final widget = this.widget ??
         theme.circularIndicatorWidget ??
         Icon(

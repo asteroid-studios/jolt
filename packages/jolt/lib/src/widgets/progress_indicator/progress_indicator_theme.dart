@@ -8,10 +8,11 @@ class ProgressIndicatorTheme {
     this.circularIndicatorWidget,
     this.color,
     this.circularIndicatorSize,
-    this.circularIndicatorDuration,
-    this.linearIndicatorDuration,
-    this.linearIndicatorWidth,
-    this.linearIndicatorBackgroundOpacity = 0.2,
+    this.circularIndicatorDuration = const Duration(milliseconds: 1500),
+    this.linearIndicatorBorderRadius,
+    this.linearIndicatorDuration = const Duration(milliseconds: 1000),
+    this.linearIndicatorWidth = 5,
+    this.linearIndicatorBackgroundOpacity = 0.5,
   });
 
   ///
@@ -24,17 +25,20 @@ class ProgressIndicatorTheme {
   final Color? color;
 
   ///
-  final Duration? circularIndicatorDuration;
+  final Duration circularIndicatorDuration;
 
   /// A custom widget to spin.
   final Widget? circularIndicatorWidget;
 
   ///
-  final Duration? linearIndicatorDuration;
+  final Duration linearIndicatorDuration;
 
   /// The widget of the linear indicator.
-  final double? linearIndicatorWidth;
+  final double linearIndicatorWidth;
 
   ///
   final double linearIndicatorBackgroundOpacity;
+
+  ///
+  final BorderRadius? linearIndicatorBorderRadius;
 }
