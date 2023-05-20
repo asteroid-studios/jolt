@@ -12,7 +12,7 @@ class DurationMapping {
   Duration zero = Duration.zero;
 
   ///
-  Duration fast = const Duration(milliseconds: 100);
+  Duration short = const Duration(milliseconds: 100);
 
   ///
   Duration mid = const Duration(milliseconds: 300);

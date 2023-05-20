@@ -14,7 +14,13 @@ extension ResponsiveExtensions on BuildContext {
     T? desktop,
     T? tv,
   }) {
-    return mobile;
+    final width = mediaQuery.size.width;
+    // Add some basic breakpoints
+    if (width < 600) return mobile;
+    if (width < 900) return tablet ?? mobile;
+    if (width < 1200) return tabletLandscape ?? tablet ?? mobile;
+    if (width < 1800) return desktop ?? tabletLandscape ?? tablet ?? mobile;
+    return tv ?? desktop ?? tabletLandscape ?? tablet ?? mobile;
     //   switch (_context.view) {
     //     case FlutterView.mobile:
     //       return mobile;

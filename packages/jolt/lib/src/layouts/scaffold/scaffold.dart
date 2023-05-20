@@ -74,6 +74,7 @@ class _ScaffoldState extends State<Scaffold> {
               slivers: [
                 // If both app bars are floating, group them
                 AdaptiveHeightSliverPersistentHeader(
+                  // pinned: true,
                   floating: true,
                   // Builder is important or theme changes don't get picked up
                   child: GestureDetector(
@@ -96,7 +97,7 @@ class _ScaffoldState extends State<Scaffold> {
                                 borderRadius: BorderRadius.zero,
                                 padding: EdgeInsets.all(context.sizing.lg),
                                 background:
-                                    context.color.surface.withOpacity(0.4),
+                                    context.color.surface.withOpacity(0.8),
                                 child: Row(
                                   children: [
                                     Expanded(
