@@ -13,8 +13,7 @@ class Shell extends StatelessWidget {
     this.sidebarRight,
     this.bottomBar,
     this.footer,
-    this.topBarOptions = const TopBarOptions(),
-    this.footerOptions = const FooterOptions(),
+    this.options = const ShellOptions(),
     super.key,
   });
 
@@ -40,10 +39,7 @@ class Shell extends StatelessWidget {
   final Widget? footer;
 
   ///
-  final TopBarOptions topBarOptions;
-
-  ///
-  final FooterOptions footerOptions;
+  final ShellOptions options;
 
   ///
   static InheritedShell? of(BuildContext context) {
@@ -55,49 +51,39 @@ class Shell extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final mobile = context.mediaQuery.size.width < 900;
-
-    // TODO proper breakpoints
-    // TODO safe area
+    final topBarType = options.topBarType;
+    final footerType = options.footerType;
 
     final inside = Row(
       children: [
-        if (sidebarLeft != null && !mobile) sidebarLeft!,
+        if (sidebarLeft != null) sidebarLeft!,
         Expanded(
           child: OverlayStack(
             child: Column(
               children: [
-                if (topBar != null && !topBarOptions.topBarFullWidth && !mobile)
-                  topBar!,
+                if (topBar != null && topBarType == TopBarType.pinned) topBar!,
                 Expanded(
                   child: ClipRect(
                     child: InheritedShell._(
-                      topBar: mobile ? topBar : null,
-                      footer: !footerOptions.pinned ? footer : null,
-                      topBarOptions: topBarOptions,
-                      footerOptions: footerOptions,
+                      topBar: topBarType == TopBarType.floating ? topBar : null,
+                      footer: footerType == FooterType.floating ? footer : null,
                       child: child,
                     ),
                   ),
                 ),
-                if (footer != null && footerOptions.pinned) footer!,
+                if (footer != null && footerType == FooterType.pinned) footer!,
               ],
             ),
           ),
         ),
-        if (sidebarRight != null && !mobile) sidebarRight!,
+        if (sidebarRight != null) sidebarRight!,
       ],
     );
 
     return Column(
       children: [
-        if (Platform.isDesktop)
-          desktopTopBar ??
-              WindowTitleBarBox(
-                child: MoveWindow(
-                    child: Container(color: context.color.background)),
-              ),
-        if (topBar != null && topBarOptions.topBarFullWidth && !mobile) topBar!,
+        if (Platform.isDesktop) desktopTopBar ?? _DefaultDesktopTopBar(),
+        if (topBar != null && topBarType == TopBarType.fullWidth) topBar!,
         Expanded(child: inside),
       ],
     );
@@ -105,25 +91,39 @@ class Shell extends StatelessWidget {
 }
 
 ///
-class TopBarOptions {
+class ShellOptions {
   ///
-  const TopBarOptions({
-    this.topBarFullWidth = true,
+  const ShellOptions({
+    this.topBarType = TopBarType.fullWidth,
+    this.footerType = FooterType.floating,
   });
 
   ///
-  final bool topBarFullWidth;
+  final TopBarType topBarType;
+
+  ///
+  final FooterType footerType;
 }
 
 ///
-class FooterOptions {
+enum TopBarType {
   ///
-  const FooterOptions({
-    this.pinned = false,
-  });
+  fullWidth,
 
   ///
-  final bool pinned;
+  pinned,
+
+  ///
+  floating,
+}
+
+///
+enum FooterType {
+  ///
+  pinned,
+
+  ///
+  floating,
 }
 
 ///
@@ -131,8 +131,6 @@ class InheritedShell extends InheritedWidget {
   ///
   const InheritedShell._({
     required super.child,
-    required this.topBarOptions,
-    required this.footerOptions,
     this.topBar,
     this.footer,
   });
@@ -143,14 +141,19 @@ class InheritedShell extends InheritedWidget {
   ///
   final Widget? footer;
 
-  ///
-  final TopBarOptions topBarOptions;
-
-  ///
-  final FooterOptions footerOptions;
-
   @override
   bool updateShouldNotify(InheritedShell oldWidget) {
     return topBar != oldWidget.topBar || footer != oldWidget.footer;
+  }
+}
+
+class _DefaultDesktopTopBar extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return WindowTitleBarBox(
+      child: MoveWindow(
+        child: Container(color: context.color.background),
+      ),
+    );
   }
 }
