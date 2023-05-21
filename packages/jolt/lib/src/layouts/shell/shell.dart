@@ -9,8 +9,8 @@ class Shell extends StatelessWidget {
     required this.child,
     this.desktopTopBar,
     this.topBar,
-    this.sidebarLeft,
-    this.sidebarRight,
+    this.sideBarLeft,
+    this.sideBarRight,
     this.bottomBar,
     this.footer,
     this.options = const ShellOptions(),
@@ -27,10 +27,10 @@ class Shell extends StatelessWidget {
   final Widget? topBar;
 
   ///
-  final Widget? sidebarLeft;
+  final Widget? sideBarLeft;
 
   ///
-  final Widget? sidebarRight;
+  final Widget? sideBarRight;
 
   ///
   final Widget? bottomBar;
@@ -56,7 +56,7 @@ class Shell extends StatelessWidget {
 
     final inside = Row(
       children: [
-        if (sidebarLeft != null) sidebarLeft!,
+        if (sideBarLeft != null) sideBarLeft!,
         Expanded(
           child: OverlayStack(
             child: Column(
@@ -67,6 +67,7 @@ class Shell extends StatelessWidget {
                     child: InheritedShell._(
                       topBar: topBarType == TopBarType.floating ? topBar : null,
                       footer: footerType == FooterType.floating ? footer : null,
+                      bottomBar: bottomBar,
                       child: child,
                     ),
                   ),
@@ -76,7 +77,7 @@ class Shell extends StatelessWidget {
             ),
           ),
         ),
-        if (sidebarRight != null) sidebarRight!,
+        if (sideBarRight != null) sideBarRight!,
       ],
     );
 
@@ -133,6 +134,7 @@ class InheritedShell extends InheritedWidget {
     required super.child,
     this.topBar,
     this.footer,
+    this.bottomBar,
   });
 
   ///
@@ -141,9 +143,14 @@ class InheritedShell extends InheritedWidget {
   ///
   final Widget? footer;
 
+  ///
+  final Widget? bottomBar;
+
   @override
   bool updateShouldNotify(InheritedShell oldWidget) {
-    return topBar != oldWidget.topBar || footer != oldWidget.footer;
+    return topBar != oldWidget.topBar ||
+        footer != oldWidget.footer ||
+        bottomBar != oldWidget.bottomBar;
   }
 }
 

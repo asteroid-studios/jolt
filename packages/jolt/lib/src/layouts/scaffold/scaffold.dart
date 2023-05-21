@@ -67,7 +67,6 @@ class _ScaffoldState extends State<Scaffold> {
             ? SystemUiOverlayStyle.dark
             : SystemUiOverlayStyle.light,
         child: Stack(
-          alignment: Alignment.topCenter,
           children: [
             CustomScrollView(
               controller: scrollController,
@@ -126,6 +125,7 @@ class _ScaffoldState extends State<Scaffold> {
                           tag: 'shellFooter',
                           child: shell!.footer!,
                         ),
+                      // TODO make sure to put enough space here for the bottom bar.
                     ],
                   ),
                 ),
@@ -133,28 +133,39 @@ class _ScaffoldState extends State<Scaffold> {
             ),
             if (Platform.isMobile &&
                 context.mediaQuery.orientation == Orientation.portrait)
-              ClipRect(
-                child: BackdropFilter(
-                  filter: ImageFilter.blur(
-                    sigmaX: 5,
-                    sigmaY: 5,
-                  ),
-                  child: GestureDetector(
-                    onTap: () {
-                      scrollController.animateTo(
-                        0,
-                        duration: const Duration(milliseconds: 500),
-                        curve: Curves.easeInOut,
-                      );
-                    },
-                    child: Container(
-                      color: context.color.background.withOpacity(
-                        context.color.isDark ? 0.7 : 0.3,
+              Align(
+                alignment: Alignment.topCenter,
+                child: ClipRect(
+                  child: BackdropFilter(
+                    filter: ImageFilter.blur(
+                      sigmaX: 5,
+                      sigmaY: 5,
+                    ),
+                    child: GestureDetector(
+                      onTap: () {
+                        scrollController.animateTo(
+                          0,
+                          duration: const Duration(milliseconds: 500),
+                          curve: Curves.easeInOut,
+                        );
+                      },
+                      child: Container(
+                        color: context.color.background.withOpacity(
+                          context.color.isDark ? 0.7 : 0.3,
+                        ),
+                        height: context.mediaQuery.padding.top,
+                        width: double.infinity,
                       ),
-                      height: context.mediaQuery.padding.top,
-                      width: double.infinity,
                     ),
                   ),
+                ),
+              ),
+            if (shell?.bottomBar != null)
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: Hero(
+                  tag: 'shellBottomBar',
+                  child: shell!.bottomBar!,
                 ),
               ),
           ],
