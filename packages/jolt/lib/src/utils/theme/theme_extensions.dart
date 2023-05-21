@@ -29,8 +29,8 @@ extension JoltThemeExtensions on BuildContext {
   /// Returns the current widget theme data.
   WidgetThemeData get widgetTheme => WidgetTheme.of(this);
 
-  /// Returns the current surface theme data.
-  SurfaceTheme get surfaceTheme => widgetTheme.surface;
+  /// The closest surface in the current context
+  InheritedSurface? get inheritedSurface => InheritedSurface.of(this);
 }
 
 /// Some theming utility methods on BuildContext
@@ -47,6 +47,9 @@ extension ThemeDataExtensions on ThemeData {
 
 /// Some utility methods on Color
 extension ColorExtension on Color {
+  /// Return a jolt color if this Color is a JoltColor
+  JoltColor? get asJoltColor => this is JoltColor ? this as JoltColor : null;
+
   /// If the color is dark, make it darker, if light make lighter
   Color strengthen([int value = 10]) =>
       isDark ? darken(value) : brighten(value);
@@ -93,61 +96,44 @@ extension JoltColorExtension on JoltColor {
   /// For example:
   /// - s50 would return the old value for s950
   /// - s950 would return the old value for s50
-  JoltColor get reversed => JoltColor(
-        value,
-        highlight: highlight.value,
-        shade50: s950.value,
-        shade100: s900.value,
-        shade200: s800.value,
-        shade300: s700.value,
-        shade400: s600.value,
-        shade500: s500.value,
-        shade600: s400.value,
-        shade700: s300.value,
-        shade800: s200.value,
-        shade900: s100.value,
-        shade950: s50.value,
+  JoltColor get reversed => copyWith(
+        shade50: s950,
+        shade100: s900,
+        shade200: s800,
+        shade300: s700,
+        shade400: s600,
+        shade500: s500,
+        shade600: s400,
+        shade700: s300,
+        shade800: s200,
+        shade900: s100,
+        shade950: s50,
       );
 
   /// Return a copy of the JoltColor which will work better as a **background**
-  /// - Reassigns the primary color to be the value from **shade50**
-  /// - Reassigns the highlight color to be the value from **shade900**
-  JoltColor asBackground({bool highContrast = true}) => JoltColor(
-        highContrast
-            ? (s50.isLight ? Colors.white : Colors.black).value
-            : s50.value,
-        highlight: s900.value,
-        shade50: s50.value,
-        shade100: s100.value,
-        shade200: s200.value,
-        shade300: s300.value,
-        shade400: s400.value,
-        shade500: s500.value,
-        shade600: s600.value,
-        shade700: s700.value,
-        shade800: s800.value,
-        shade900: s900.value,
-        shade950: s950.value,
-      );
+  JoltColor asBackground({bool highContrast = true}) {
+    // If high contrast background, use pure black or white
+    var primary = s50;
+    if (highContrast) {
+      primary = s50.isLight ? Colors.white : Colors.black;
+    }
+    return copyWith(
+      primary: primary.value,
+      onTop: s900,
+      onHover: s200,
+      onFocus: s200,
+    );
+  }
 
   /// Return a copy of the JoltColor which will work better as a **surface**
-  /// - Reassigns the primary color to be the value from **shade200**
-  /// - Reassigns the highlight color to be the value from **shade950**
-  JoltColor asSurface({bool highContrast = true}) => JoltColor(
-        highContrast || s50.isLight ? s200.value : s100.value,
-        highlight: s950.value,
-        shade50: s50.value,
-        shade100: s100.value,
-        shade200: s200.value,
-        shade300: s300.value,
-        shade400: s400.value,
-        shade500: s500.value,
-        shade600: s600.value,
-        shade700: s700.value,
-        shade800: s800.value,
-        shade900: s900.value,
-        shade950: s950.value,
-      );
+  JoltColor asSurface({bool highContrast = true}) {
+    return copyWith(
+      primary: highContrast ? s300.value : s200.value,
+      onTop: s950,
+      onHover: highContrast ? s200 : s300,
+      onFocus: highContrast ? s200 : s300,
+    );
+  }
 }
 
 ///

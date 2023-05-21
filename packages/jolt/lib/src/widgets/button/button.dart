@@ -124,7 +124,7 @@ class _ButtonState extends State<Button> {
             : button.largeButtonTheme ?? largeButton;
 
     // Prepare the surface
-    final surface = context.surfaceTheme.merge(button.surface).copyWith(
+    final surface = context.widgetTheme.surface.merge(button.surface).copyWith(
           background: context.color.darkWithFallback(
             widget.backgroundDark,
             widget.background,
@@ -150,8 +150,8 @@ class _ButtonState extends State<Button> {
 
     final baseColor = color ??
         button.color?.call(background) ??
-        (background is JoltColor ? background.highlight : null) ??
-        context.color.surface.highlight;
+        background.asJoltColor?.onTop ??
+        context.color.surface.onTop;
 
     // Prepare padding
     final verticalPadding =
@@ -177,7 +177,7 @@ class _ButtonState extends State<Button> {
         final isDisabled = state.isAwaiting || !state.hasPressHandler;
 
         final color = isDisabled
-            ? baseColor?.withOpacity(isDisabled ? 0.5 : 1)
+            ? baseColor.withOpacity(isDisabled ? 0.5 : 1)
             : baseColor;
 
         // Prepare the icon

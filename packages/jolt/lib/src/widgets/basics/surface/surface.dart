@@ -1,6 +1,7 @@
 import 'package:jolt/jolt.dart';
 import 'package:jolt/src/utils/theme/defaults.dart';
 import 'package:jolt/src/widgets/ripple_effect/ripple_effect.dart';
+export 'package:jolt/src/widgets/basics/surface/inherited_surface.dart';
 
 ///
 class Surface extends StatefulWidget {
@@ -95,8 +96,9 @@ class _SurfaceState extends State<Surface> with SingleTickerProviderStateMixin {
     // Hover state
     final isHovered = interaction?.isHovered ?? false;
     final hoverColor = theme.backgroundOnHover?.call(background) ??
+        background.asJoltColor?.onHover ??
         (backgroundIsTransparent
-            ? context.color.surface.withOpacity(0.5)
+            ? context.color.surface.withOpacity(0.8)
             : background.weaken());
 
     // Focus state
@@ -105,8 +107,9 @@ class _SurfaceState extends State<Surface> with SingleTickerProviderStateMixin {
     final focusBorderColor =
         theme.borderColorOnFocus?.call(background) ?? context.color.primary;
     final focusColor = theme.backgroundOnFocus?.call(background) ??
+        background.asJoltColor?.onFocus ??
         (backgroundIsTransparent
-            ? context.color.surface.withOpacity(0.5)
+            ? context.color.surface.withOpacity(0.8)
             : background.weaken());
 
     // The end result of the background color and borderColor
@@ -149,13 +152,16 @@ class _SurfaceState extends State<Surface> with SingleTickerProviderStateMixin {
                   ? null
                   : background,
         ),
-        child: widget.ripple
-            ? TouchRippleEffect(
-                backgroundColor: background,
-                borderRadius: borderRadius,
-                child: child,
-              )
-            : child,
+        child: InheritedSurface(
+          background: background,
+          child: widget.ripple
+              ? TouchRippleEffect(
+                  backgroundColor: background,
+                  borderRadius: borderRadius,
+                  child: child,
+                )
+              : child,
+        ),
       ),
     );
   }

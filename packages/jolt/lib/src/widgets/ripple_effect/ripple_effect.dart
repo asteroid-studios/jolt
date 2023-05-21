@@ -16,7 +16,7 @@ class TouchRippleEffect extends StatefulWidget {
   /// child widget [child]
   final Widget? child;
 
-  /// touch effect color of widget [rippleColor]
+  /// The background color behind the RippleEffect
   final Color backgroundColor;
 
   /// if you have border of child widget then you should apply [borderRadius]
@@ -141,7 +141,7 @@ class _TouchRippleEffectState extends State<TouchRippleEffect>
         rippleColor = context.color.primary;
       } else {
         rippleOpacity = 0.1;
-        rippleColor = background.highlight;
+        rippleColor = background.onTop;
       }
     } else {
       rippleColor = context.color.primary;

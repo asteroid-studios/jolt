@@ -39,7 +39,7 @@ class ColorScheme {
   })  : brightness = Brightness.light,
         primary = primary ?? Colors.emerald,
         secondary = secondary ?? Colors.violet,
-        tertiary = tertiary ?? Colors.violet,
+        tertiary = tertiary ?? Colors.black,
         neutral = neutral ?? Colors.slate,
         background = background ??
             (neutral ?? Colors.slate).asBackground(highContrast: highContrast),
@@ -67,7 +67,7 @@ class ColorScheme {
   })  : brightness = Brightness.dark,
         primary = primary ?? Colors.emerald,
         secondary = secondary ?? Colors.violet,
-        tertiary = tertiary ?? Colors.violet,
+        tertiary = tertiary ?? Colors.white,
         neutral = neutral ?? Colors.slate,
         background = background ??
             (neutral ?? Colors.slate)

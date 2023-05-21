@@ -42,7 +42,7 @@ class Themes extends StatelessWidget {
               // - The default color from the typography class
               // - The darkest neutral color from the color scheme
               final defaultColor =
-                  context.style.body.color ?? context.color.surface.highlight;
+                  context.style.body.color ?? context.color.surface.onTop;
               return AnimatedContainer(
                 duration: const Duration(milliseconds: 300),
                 color: theme.colorScheme.background,
