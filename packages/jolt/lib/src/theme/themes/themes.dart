@@ -46,24 +46,28 @@ class Themes extends StatelessWidget {
               return AnimatedContainer(
                 duration: const Duration(milliseconds: 300),
                 color: theme.colorScheme.background,
-                child: WidgetTheme(
-                  data: widgetTheme?.call(
-                        theme,
-                        scaling,
-                      ) ??
-                      context.widgetTheme,
-                  child: DefaultTextStyle(
-                    style: context.style.body.copyWith(color: defaultColor),
-                    child: IconTheme(
-                      data: IconThemeData(
-                        color: defaultColor,
-                        size: (context.style.body.fontSize ?? 16) *
-                            context.scaling.textScale,
-                      ),
-                      child: DefaultSelectionStyle(
-                        cursorColor: context.color.primary,
-                        selectionColor: context.color.primary.withOpacity(0.3),
-                        child: child,
+                child: InheritedSurface(
+                  background: theme.colorScheme.background,
+                  child: WidgetTheme(
+                    data: widgetTheme?.call(
+                          theme,
+                          scaling,
+                        ) ??
+                        context.widgetTheme,
+                    child: DefaultTextStyle(
+                      style: context.style.body.copyWith(color: defaultColor),
+                      child: IconTheme(
+                        data: IconThemeData(
+                          color: defaultColor,
+                          size: (context.style.body.fontSize ?? 16) *
+                              context.scaling.textScale,
+                        ),
+                        child: DefaultSelectionStyle(
+                          cursorColor: context.color.primary,
+                          selectionColor:
+                              context.color.primary.withOpacity(0.3),
+                          child: child,
+                        ),
                       ),
                     ),
                   ),

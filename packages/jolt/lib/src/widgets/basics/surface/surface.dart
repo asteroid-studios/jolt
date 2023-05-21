@@ -156,7 +156,7 @@ class _SurfaceState extends State<Surface> with SingleTickerProviderStateMixin {
           background: background,
           child: widget.ripple
               ? TouchRippleEffect(
-                  backgroundColor: background,
+                  backgroundColor: background.withOpacity(1),
                   borderRadius: borderRadius,
                   child: child,
                 )

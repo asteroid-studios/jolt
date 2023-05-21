@@ -116,10 +116,9 @@ class _TooltipState extends State<Tooltip> {
               // TODO handle shadow dynamically. Add to surface theme
               boxShadow: [
                 BoxShadow(
-                  spreadRadius: -12,
-                  color: Colors.black.withOpacity(0.3),
+                  color: context.color.background.withOpacity(0.9),
                   blurRadius: 24,
-                  offset: const Offset(0, 4),
+                  spreadRadius: -8,
                 ),
               ],
             ),
