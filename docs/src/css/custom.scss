@@ -13,7 +13,6 @@ $headingFont : 'Outfit', sans-serif;
 
 .home_hero {
   background: #ffffff;
-  margin-top: -10px;
   padding: 0px 20px 50px 20px;
   text-align: center;
   span {
@@ -39,7 +38,7 @@ $headingFont : 'Outfit', sans-serif;
 :root {
   --ifm-font-family-base: 'Switzer', sans-serif;
   --ifm-heading-font-family: 'Outfit', sans-serif;
-  --ifm-background-color: #f8fafc;
+  --ifm-background-color: #f1f5f9;
   --ifm-navbar-background-color: #ffffff;
   --ifm-color-primary: #8b5cf6;
   --ifm-color-primary-dark: #29784c;
@@ -51,15 +50,28 @@ $headingFont : 'Outfit', sans-serif;
   --ifm-code-font-size: 95%;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
 
-  .menu, .footer {
-    background: #ffffff !important;
+  .menu {
+    background: #f8fafc !important;
+  }
+
+  .footer {
+    background: #0f172a;
+  }
+
+  .menu {
+    padding: 20px;
+  }
+
+  .navbar {
+    box-shadow: none !important;
+    height: 75px !important;
   }
 }
 
 /* For readability concerns, you should choose a lighter palette in dark mode. */
 [data-theme='dark'] {
-  --ifm-background-color: #0f172a !important;
-  --ifm-navbar-background-color: #020617;
+  --ifm-background-color: #020617 !important;
+  --ifm-navbar-background-color: #00020b;
   --ifm-color-primary: #a855f7;
   --ifm-color-primary-dark: #21af90;
   --ifm-color-primary-darker: #1fa588;
@@ -70,7 +82,7 @@ $headingFont : 'Outfit', sans-serif;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
   
   .menu, .footer {
-    background: #020617 !important;
+    background: #0f172a !important;
   }
 
   .home_hero {
