@@ -126,6 +126,12 @@ class _ScaffoldState extends State<Scaffold> {
                           child: shell!.footer!,
                         ),
                       // TODO make sure to put enough space here for the bottom bar.
+                      // Obviously dont use the actual widget
+                      if (shell?.bottomBar != null)
+                        Opacity(
+                          opacity: 0,
+                          child: shell!.bottomBar,
+                        ),
                     ],
                   ),
                 ),

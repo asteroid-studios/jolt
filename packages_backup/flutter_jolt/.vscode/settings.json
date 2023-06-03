@@ -1,8 +1,0 @@
-{
-    "cSpell.words": [
-        "textstyle"
-    ],
-    "explorer.fileNesting.patterns": {
-        "*.dart": "${capture}.g.theme.dart"
-    }
-}
