@@ -1,0 +1,278 @@
+{
+  "configVersion": 2,
+  "packages": [
+    {
+      "name": "bitsdojo_window",
+      "rootUri": "file:///Users/kanewickman/.pub-cache/hosted/pub.dev/bitsdojo_window-0.1.5",
+      "packageUri": "lib/",
+      "languageVersion": "2.17"
+    },
+    {
+      "name": "bitsdojo_window_linux",
+      "rootUri": "file:///Users/kanewickman/.pub-cache/hosted/pub.dev/bitsdojo_window_linux-0.1.3",
+      "packageUri": "lib/",
+      "languageVersion": "2.17"
+    },
+    {
+      "name": "bitsdojo_window_macos",
+      "rootUri": "file:///Users/kanewickman/.pub-cache/hosted/pub.dev/bitsdojo_window_macos-0.1.3",
+      "packageUri": "lib/",
+      "languageVersion": "2.17"
+    },
+    {
+      "name": "bitsdojo_window_platform_interface",
+      "rootUri": "file:///Users/kanewickman/.pub-cache/hosted/pub.dev/bitsdojo_window_platform_interface-0.1.2",
+      "packageUri": "lib/",
+      "languageVersion": "2.17"
+    },
+    {
+      "name": "bitsdojo_window_windows",
+      "rootUri": "file:///Users/kanewickman/.pub-cache/hosted/pub.dev/bitsdojo_window_windows-0.1.5",
+      "packageUri": "lib/",
+      "languageVersion": "2.17"
+    },
+    {
+      "name": "characters",
+      "rootUri": "file:///Users/kanewickman/.pub-cache/hosted/pub.dev/characters-1.3.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "clock",
+      "rootUri": "file:///Users/kanewickman/.pub-cache/hosted/pub.dev/clock-1.1.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "collection",
+      "rootUri": "file:///Users/kanewickman/.pub-cache/hosted/pub.dev/collection-1.17.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.18"
+    },
+    {
+      "name": "crypto",
+      "rootUri": "file:///Users/kanewickman/.pub-cache/hosted/pub.dev/crypto-3.0.2",
+      "packageUri": "lib/",
+      "languageVersion": "2.14"
+    },
+    {
+      "name": "cryptography",
+      "rootUri": "file:///Users/kanewickman/.pub-cache/hosted/pub.dev/cryptography-2.5.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.17"
+    },
+    {
+      "name": "ffi",
+      "rootUri": "file:///Users/kanewickman/.pub-cache/hosted/pub.dev/ffi-2.0.2",
+      "packageUri": "lib/",
+      "languageVersion": "2.17"
+    },
+    {
+      "name": "file",
+      "rootUri": "file:///Users/kanewickman/.pub-cache/hosted/pub.dev/file-6.1.2",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "flutter",
+      "rootUri": "file:///Applications/flutter/packages/flutter",
+      "packageUri": "lib/",
+      "languageVersion": "3.0"
+    },
+    {
+      "name": "flutter_animate",
+      "rootUri": "file:///Users/kanewickman/.pub-cache/hosted/pub.dev/flutter_animate-4.1.1+1",
+      "packageUri": "lib/",
+      "languageVersion": "2.17"
+    },
+    {
+      "name": "flutter_localizations",
+      "rootUri": "file:///Applications/flutter/packages/flutter_localizations",
+      "packageUri": "lib/",
+      "languageVersion": "3.0"
+    },
+    {
+      "name": "flutter_portal",
+      "rootUri": "file:///Users/kanewickman/.pub-cache/hosted/pub.dev/flutter_portal-1.1.4",
+      "packageUri": "lib/",
+      "languageVersion": "2.16"
+    },
+    {
+      "name": "hive",
+      "rootUri": "file:///Users/kanewickman/.pub-cache/hosted/pub.dev/hive-3.0.0-dev",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "hive_flutter",
+      "rootUri": "file:///Users/kanewickman/.pub-cache/hosted/pub.dev/hive_flutter-2.0.0-dev",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "intl",
+      "rootUri": "file:///Users/kanewickman/.pub-cache/hosted/pub.dev/intl-0.18.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "jolt",
+      "rootUri": "../../packages/jolt",
+      "packageUri": "lib/",
+      "languageVersion": "3.0"
+    },
+    {
+      "name": "js",
+      "rootUri": "file:///Users/kanewickman/.pub-cache/hosted/pub.dev/js-0.6.7",
+      "packageUri": "lib/",
+      "languageVersion": "2.19"
+    },
+    {
+      "name": "material_color_utilities",
+      "rootUri": "file:///Users/kanewickman/.pub-cache/hosted/pub.dev/material_color_utilities-0.2.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.13"
+    },
+    {
+      "name": "meta",
+      "rootUri": "file:///Users/kanewickman/.pub-cache/hosted/pub.dev/meta-1.9.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "path",
+      "rootUri": "file:///Users/kanewickman/.pub-cache/hosted/pub.dev/path-1.8.3",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "path_provider",
+      "rootUri": "file:///Users/kanewickman/.pub-cache/hosted/pub.dev/path_provider-2.0.11",
+      "packageUri": "lib/",
+      "languageVersion": "2.14"
+    },
+    {
+      "name": "path_provider_android",
+      "rootUri": "file:///Users/kanewickman/.pub-cache/hosted/pub.dev/path_provider_android-2.0.19",
+      "packageUri": "lib/",
+      "languageVersion": "2.14"
+    },
+    {
+      "name": "path_provider_ios",
+      "rootUri": "file:///Users/kanewickman/.pub-cache/hosted/pub.dev/path_provider_ios-2.0.11",
+      "packageUri": "lib/",
+      "languageVersion": "2.14"
+    },
+    {
+      "name": "path_provider_linux",
+      "rootUri": "file:///Users/kanewickman/.pub-cache/hosted/pub.dev/path_provider_linux-2.1.7",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "path_provider_macos",
+      "rootUri": "file:///Users/kanewickman/.pub-cache/hosted/pub.dev/path_provider_macos-2.0.6",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "path_provider_platform_interface",
+      "rootUri": "file:///Users/kanewickman/.pub-cache/hosted/pub.dev/path_provider_platform_interface-2.0.4",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "path_provider_windows",
+      "rootUri": "file:///Users/kanewickman/.pub-cache/hosted/pub.dev/path_provider_windows-2.1.6",
+      "packageUri": "lib/",
+      "languageVersion": "2.17"
+    },
+    {
+      "name": "persistent_header_adaptive",
+      "rootUri": "file:///Users/kanewickman/.pub-cache/hosted/pub.dev/persistent_header_adaptive-2.0.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.17"
+    },
+    {
+      "name": "phosphor_flutter",
+      "rootUri": "file:///Users/kanewickman/.pub-cache/git/flutter-f370dd2c25d3ea51ffb8f1c7c183bc9f33889c82/",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "pigment",
+      "rootUri": "file:///Users/kanewickman/.pub-cache/hosted/pub.dev/pigment-1.0.4",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "platform",
+      "rootUri": "file:///Users/kanewickman/.pub-cache/hosted/pub.dev/platform-3.1.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "plugin_platform_interface",
+      "rootUri": "file:///Users/kanewickman/.pub-cache/hosted/pub.dev/plugin_platform_interface-2.1.2",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "process",
+      "rootUri": "file:///Users/kanewickman/.pub-cache/hosted/pub.dev/process-4.2.4",
+      "packageUri": "lib/",
+      "languageVersion": "2.14"
+    },
+    {
+      "name": "sky_engine",
+      "rootUri": "file:///Applications/flutter/bin/cache/pkg/sky_engine",
+      "packageUri": "lib/",
+      "languageVersion": "3.0"
+    },
+    {
+      "name": "sliver_tools",
+      "rootUri": "file:///Users/kanewickman/.pub-cache/hosted/pub.dev/sliver_tools-0.2.10",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "tinycolor2",
+      "rootUri": "file:///Users/kanewickman/.pub-cache/hosted/pub.dev/tinycolor2-3.0.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.17"
+    },
+    {
+      "name": "typed_data",
+      "rootUri": "file:///Users/kanewickman/.pub-cache/hosted/pub.dev/typed_data-1.3.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "vector_math",
+      "rootUri": "file:///Users/kanewickman/.pub-cache/hosted/pub.dev/vector_math-2.1.4",
+      "packageUri": "lib/",
+      "languageVersion": "2.14"
+    },
+    {
+      "name": "win32",
+      "rootUri": "file:///Users/kanewickman/.pub-cache/hosted/pub.dev/win32-3.1.4",
+      "packageUri": "lib/",
+      "languageVersion": "2.17"
+    },
+    {
+      "name": "xdg_directories",
+      "rootUri": "file:///Users/kanewickman/.pub-cache/hosted/pub.dev/xdg_directories-0.2.0+1",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "docs_snippets",
+      "rootUri": "../",
+      "packageUri": "lib/",
+      "languageVersion": "3.0"
+    }
+  ],
+  "generated": "2023-06-03T10:09:20.480833Z",
+  "generator": "pub",
+  "generatorVersion": "3.0.3"
+}
