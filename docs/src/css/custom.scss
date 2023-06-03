@@ -11,13 +11,19 @@ $headingFont : 'Outfit', sans-serif;
 
 .home_hero {
   background: #ffffff;
-  padding: 0px 20px 50px 20px;
+  padding: 0px 30px 50px 30px;
   text-align: center;
+  @media only screen and (max-width: 600px) {
+    padding: 30px 40px 50px 40px;
+  }
   span {
     font-family: $headingFont;
     font-weight: 700;
     font-size: 1.5rem;
     color: #bfade8;
+    @media only screen and (max-width: 600px) {
+      font-size: 1rem;
+    }
   }
   h1 {
     background: none !important;
@@ -26,7 +32,7 @@ $headingFont : 'Outfit', sans-serif;
     color: #8B5CF6;
     text-wrap: balance;
     @media only screen and (max-width: 600px) {
-      font-size: 2.5rem;
+      font-size: 2rem;
     }
   }
 }
