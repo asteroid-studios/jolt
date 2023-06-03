@@ -4,10 +4,8 @@
  * work well for content-centric websites.
  */
 
-// @import url('https://fonts.cdnfonts.com/css/satoshi');
+@import url('https://fonts.cdnfonts.com/css/satoshi');
 @import url('https://fonts.cdnfonts.com/css/outfit');
-@import url('https://fonts.cdnfonts.com/css/general-sans');
-@import url('https://fonts.cdnfonts.com/css/switzer');
 
 $headingFont : 'Outfit', sans-serif;
 
@@ -24,7 +22,7 @@ $headingFont : 'Outfit', sans-serif;
   h1 {
     background: none !important;
     padding: 0px !important;
-    font-size: 4rem;
+    font-size: 3.5rem;
     color: #8B5CF6;
     text-wrap: balance;
     @media only screen and (max-width: 600px) {
@@ -36,7 +34,9 @@ $headingFont : 'Outfit', sans-serif;
 
 /* You can override the default Infima variables here. */
 :root {
-  --ifm-font-family-base: 'Switzer', sans-serif;
+  font-weight: 500;
+  --ifm-font-size-base: 110%;
+  --ifm-font-family-base: 'Satoshi', sans-serif;
   --ifm-heading-font-family: 'Outfit', sans-serif;
   --ifm-background-color: #f1f5f9;
   --ifm-navbar-background-color: #ffffff;
@@ -52,6 +52,10 @@ $headingFont : 'Outfit', sans-serif;
 
   .menu {
     background: #f8fafc !important;
+  }
+
+  hr {
+    background: #e2e8f0 !important;
   }
 
   .footer {
@@ -82,6 +86,10 @@ $headingFont : 'Outfit', sans-serif;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
   
   .menu, .footer {
+    background: #0f172a !important;
+  }
+
+  hr {
     background: #0f172a !important;
   }
 

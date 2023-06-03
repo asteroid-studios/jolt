@@ -18,43 +18,60 @@ alt="Logo"
 <span>Built as an alternative to Material and Cupertino</span>
 </div>
 
+## Mission
 
-## Getting Started
+> Jolt's primary purpose is to provide an alternative to Material/Cupertino when building Flutter apps.
 
-Get started by **creating a new site**.
+> It aims to be more flexible, more composable and enhance the developer experience.
 
-Or **try Docusaurus immediately** with **[docusaurus.new](https://docusaurus.new)**.
+### Flexible
+Theming in has been rebuilt from the ground up, but in a way that should feel familiar for Flutter developers. There are no options locked away because "it doesn't fit the spec" and it is super easy to extend the defaults.
 
-### What you'll need
+### Composable
+Jolt introduces two new important widgets: **Interaction** and **Surface**. These widgets form the basis of many widgets such as Buttons and FormFields. The reason this is significant is that it is much easier to compose your own custom widgets using these building blocks.
 
-- [Node.js](https://nodejs.org/en/download/) version 16.14 or above:
-  - When installing Node.js, you are recommended to check all checkboxes related to dependencies.
+### Developer experience
+Jolt provides a huge range of optional extensions to make life easier. You can access your colors, typography and much more from the build context. Optional syntax is also provided for a SwiftUI-like way of working.
 
-## Generate a new site
+### More features
+- Redesigned Scaffold (accompanied by Shell), is better suited to cross platform development and is far more flexible.
+- Theme, scaling and locale management.
+- More flexible overlays (Snackbars, dialogs, etc).
+- Pre-bundled with **[Phosphor Icons](https://phosphoricons.com/)** instead of Material Icons.
+<!-- TODO Much more to go here I think -->
 
-Generate a new Docusaurus site using the **classic template**.
+---
 
-The classic template will automatically be added to your project after you run the command:
 
-```bash
-npm init docusaurus@latest my-website classic
-```
+### See it in action
 
-You can type this command into Command Prompt, Powershell, Terminal, or any other integrated terminal of your code editor.
+Check out the  **[demo](https://docusaurus.new)** to see how Jolt can look.
 
-The command also installs all necessary dependencies you need to run Docusaurus.
+---
 
-## Start your site
 
-Run the development server:
+### Disclaimer
 
-```bash
-cd my-website
-npm run start
-```
+- Jolt is not Material and as such is not built to the Material 3 specification.
+- Jolt is not production ready (yet).
+- Jolt is not a fully complete alternative to Material (yet).
 
-The `cd` command changes the directory you're working with. In order to work with your newly created Docusaurus site, you'll need to navigate the terminal there.
+---
 
-The `npm run start` command builds your website locally and serves it through a development server, ready for you to view at http://localhost:3000/.
+### Acknowledgements
 
-Open `docs/intro.md` (this page) and edit some lines: the site **reloads automatically** and displays your changes.
+#### Icons
+
+Jolt comes pre-bundled with **[Phosphor Icons](https://phosphoricons.com/)**, check them out.
+
+#### Jolt is heavily inspired by other UI frameworks, thank you to the following projects:
+- **[Material Design](https://m3.material.io/)**
+- **[Tailwind CSS](https://tailwindcss.com/)**
+
+---
+
+### Roadmap
+
+Jolt is a work in progress, check out the  **[roadmap](https://github.com/orgs/asteroid-studios/projects/3)** to see what's being worked on.
+
+
