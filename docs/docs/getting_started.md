@@ -28,21 +28,21 @@ You can also pass your **themes** and **widgetTheme** at this point, which we wi
 ``` dart title="main.dart"
 
 void main() {
-    runApp(
-        JoltApp(
-            themes: themes,
-            widgetTheme: widgetTheme,
-        );
+  runApp(
+    JoltApp(
+      themes: themes,
+      widgetTheme: widgetTheme,
     );
+  );
 
-    // You can also use JoltApp.router if using routing
-    runApp(
-        JoltApp.router(
-            themes: themes,
-            widgetTheme: widgetTheme,
-            routerConfig: _appRouter.config(),
-        );
+  // You can also use JoltApp.router if using routing
+  runApp(
+    JoltApp.router(
+      themes: themes,
+      widgetTheme: widgetTheme,
+      routerConfig: _appRouter.config(),
     );
+  );
 }
 
 ```

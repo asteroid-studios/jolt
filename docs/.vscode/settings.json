@@ -5,5 +5,8 @@
         "Roadmap",
         "Satoshi",
         "Wickman"
-    ]
+    ],
+    "editor.tabSize": 2,
+    "editor.indentSize": "tabSize",
+    "editor.detectIndentation": false
 }
