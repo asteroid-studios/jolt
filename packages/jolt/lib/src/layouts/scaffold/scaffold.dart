@@ -72,6 +72,8 @@ class _ScaffoldState extends State<Scaffold> {
               controller: scrollController,
               slivers: [
                 // If both app bars are floating, group them
+                // TODO issue where the bar is rebuilt after the rest of the page, so there is a gap when using alternative scaling
+                // TO test, set spacing to non medium and reload the app
                 AdaptiveHeightSliverPersistentHeader(
                   // pinned: true,
                   floating: true,

@@ -21,6 +21,7 @@ $headingFont : 'Outfit', sans-serif;
     font-weight: 700;
     font-size: 1.5rem;
     color: #bfade8;
+    text-wrap: balance;
     @media only screen and (max-width: 600px) {
       font-size: 1rem;
     }
