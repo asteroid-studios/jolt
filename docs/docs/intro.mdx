@@ -5,14 +5,17 @@ title: 'Introduction'
 hide_title: true
 ---
 
-import ImageSwitcher from '../src/components/ImageSwitcher.js';
+import useBaseUrl from '@docusaurus/useBaseUrl';
+import ThemedImage from '@theme/ThemedImage';
 
 
 <div class="home_hero">
-<ImageSwitcher 
-lightImageSrc="/img/cover_light.png"
-darkImageSrc="/img/cover_dark.png"
-alt="Logo"
+<ThemedImage
+  alt="Logo"
+  sources={{
+    light: useBaseUrl('/img/cover_light.png'),
+    dark: useBaseUrl('/img/cover_dark.png'),
+  }}
 />
 <h1>A beautiful and flexible UI framework for Flutter</h1>
 <span>Built as an alternative to Material and Cupertino</span>
