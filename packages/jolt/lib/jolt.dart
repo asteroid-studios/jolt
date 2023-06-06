@@ -1,5 +1,6 @@
 // Flutter exports
-export 'package:flutter/widgets.dart' hide Column, Icon, Row, Text;
+export 'package:flutter/widgets.dart'
+    hide Column, Form, FormField, FormState, Icon, Row, Text;
 export 'package:flutter/material.dart' show Scrollbar, SelectionArea;
 
 // Package exports
