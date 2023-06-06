@@ -209,19 +209,6 @@ class _FormScope extends InheritedWidget {
   bool updateShouldNotify(_FormScope old) => _generation != old._generation;
 }
 
-/// Signature for validating a form field.
-///
-/// Returns an error string to display if the input is invalid, or null
-/// otherwise.
-///
-/// Used by [FormField.validator].
-typedef FormFieldValidator<T> = String? Function(T? value);
-
-/// Signature for being notified when a form field changes value.
-///
-/// Used by [FormField.onSaved].
-typedef FormFieldSetter<T> = void Function(T? newValue);
-
 /// Signature for building the widget representing the form field.
 ///
 /// Used by [FormField.builder].
@@ -434,17 +421,4 @@ class FormFieldState<T> extends State<FormField<T>> with RestorationMixin {
     Form.maybeOf(context)?._register(this);
     return widget.builder(this);
   }
-}
-
-/// Used to configure the auto validation of [FormField] and [Form] widgets.
-enum AutovalidateMode {
-  /// No auto validation will occur.
-  disabled,
-
-  /// Used to auto-validate [Form] and [FormField] even without user interaction.
-  always,
-
-  /// Used to auto-validate [Form] and [FormField] only after each user
-  /// interaction.
-  onUserInteraction,
 }
