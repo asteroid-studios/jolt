@@ -35,7 +35,9 @@ Form(
 ),
 ```
 
-You can also access the **FormState** like this:
+## Accessing FormState
+
+In addition to the one passed to the form builder, you can also access the **FormState** like this:
 ``` dart
 final state = Form.of(context);
 // or..
@@ -52,3 +54,5 @@ Form(
   // ...
 )
 ```
+
+## TypeSafe forms

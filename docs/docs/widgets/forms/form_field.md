@@ -46,3 +46,7 @@ class MyColorPicker extends StatelessWidget {
   }
 }
 ```
+
+##  Validation
+
+<!-- TODO Validation docs -->
