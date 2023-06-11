@@ -127,13 +127,9 @@ class _ScaffoldState extends State<Scaffold> {
                           tag: 'shellFooter',
                           child: shell!.footer!,
                         ),
-                      // TODO make sure to put enough space here for the bottom bar.
-                      // Obviously dont use the actual widget
-                      if (shell?.bottomBar != null)
-                        Opacity(
-                          opacity: 0,
-                          child: shell!.bottomBar,
-                        ),
+                      SizedBox(
+                        height: shell?.bottomBarHeight,
+                      ),
                     ],
                   ),
                 ),
@@ -166,14 +162,6 @@ class _ScaffoldState extends State<Scaffold> {
                       ),
                     ),
                   ),
-                ),
-              ),
-            if (shell?.bottomBar != null)
-              Align(
-                alignment: Alignment.bottomCenter,
-                child: Hero(
-                  tag: 'shellBottomBar',
-                  child: shell!.bottomBar!,
                 ),
               ),
           ],

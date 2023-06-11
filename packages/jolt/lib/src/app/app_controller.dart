@@ -2,12 +2,8 @@ import 'dart:ui';
 
 import 'package:collection/collection.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-
 import 'package:jolt/jolt.dart';
 export 'package:jolt/src/app/models/jolt_app_state.dart';
-
-/// The Hive key for storing Jolt preferences.
-const joltStorageKey = 'joltPreferences';
 
 /// Control the JoltApp
 /// Eg:
@@ -31,12 +27,6 @@ class JoltAppController extends ValueNotifier<JoltAppState> {
             locale: locale ?? supportedLocales.first,
           ),
         ) {
-    Future<void>.delayed(Duration.zero, () async {
-      await Hive.initFlutter();
-      // ignore: inference_failure_on_function_invocation
-      await Hive.openBox(joltStorageKey);
-      _initFromStorage();
-    });
     // Init platform brightness
     _platformBrightness = platformDispatcher.platformBrightness;
     platformDispatcher.onPlatformBrightnessChanged = () {
@@ -44,6 +34,7 @@ class JoltAppController extends ValueNotifier<JoltAppState> {
       _platformBrightness = platformDispatcher.platformBrightness;
       _refreshTheme();
     };
+    _initFromStorage();
   }
 
   void _initFromStorage() {
@@ -183,7 +174,7 @@ class JoltAppController extends ValueNotifier<JoltAppState> {
   // The current platform brightness.
   late Brightness _platformBrightness;
 
-  Box<dynamic> get _joltPrefs => Hive.box<dynamic>(joltStorageKey);
+  Box<dynamic> get _joltPrefs => Hive.box<dynamic>(Jolt.storageKey);
 
   // Save preferences to Hive.
   Future<void> _save(_JoltPreferences option, dynamic value) async {

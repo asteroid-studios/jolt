@@ -3,7 +3,7 @@ import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:jolt/jolt.dart';
 
 ///
-class Shell extends StatelessWidget {
+class Shell extends StatefulWidget {
   ///
   const Shell({
     required this.child,
@@ -50,42 +50,68 @@ class Shell extends StatelessWidget {
   }
 
   @override
+  State<Shell> createState() => _ShellState();
+}
+
+class _ShellState extends State<Shell> {
+  double bottomBarHeight = 0;
+
+  @override
   Widget build(BuildContext context) {
-    final topBarType = options.topBarType;
-    final footerType = options.footerType;
+    final topBarType = widget.options.topBarType;
+    final footerType = widget.options.footerType;
 
     final inside = Row(
       children: [
-        if (sideBarLeft != null) sideBarLeft!,
+        if (widget.sideBarLeft != null) widget.sideBarLeft!,
         Expanded(
           child: OverlayStack(
             child: Column(
               children: [
-                if (topBar != null && topBarType == TopBarType.pinned) topBar!,
+                if (widget.topBar != null && topBarType == TopBarType.pinned)
+                  widget.topBar!,
                 Expanded(
                   child: ClipRect(
                     child: InheritedShell._(
-                      topBar: topBarType == TopBarType.floating ? topBar : null,
-                      footer: footerType == FooterType.floating ? footer : null,
-                      bottomBar: bottomBar,
-                      child: child,
+                      topBar: topBarType == TopBarType.floating
+                          ? widget.topBar
+                          : null,
+                      footer: footerType == FooterType.floating
+                          ? widget.footer
+                          : null,
+                      bottomBarHeight: bottomBarHeight,
+                      child: widget.child,
                     ),
                   ),
                 ),
-                if (footer != null && footerType == FooterType.pinned) footer!,
+                if (widget.footer != null && footerType == FooterType.pinned)
+                  widget.footer!,
               ],
             ),
           ),
         ),
-        if (sideBarRight != null) sideBarRight!,
+        if (widget.sideBarRight != null) widget.sideBarRight!,
       ],
     );
 
-    return Column(
+    return Stack(
+      alignment: Alignment.bottomCenter,
       children: [
-        if (Platform.isDesktop) desktopTopBar ?? _DefaultDesktopTopBar(),
-        if (topBar != null && topBarType == TopBarType.fullWidth) topBar!,
-        Expanded(child: inside),
+        Column(
+          children: [
+            if (Platform.isDesktop)
+              widget.desktopTopBar ?? _DefaultDesktopTopBar(),
+            if (widget.topBar != null && topBarType == TopBarType.fullWidth)
+              widget.topBar!,
+            Expanded(child: inside),
+          ],
+        ),
+        if (widget.bottomBar != null)
+          SizeReportingWidget(
+            onSizeChange: (size) =>
+                setState(() => bottomBarHeight = size.height),
+            child: widget.bottomBar!,
+          ),
       ],
     );
   }
@@ -132,9 +158,9 @@ class InheritedShell extends InheritedWidget {
   ///
   const InheritedShell._({
     required super.child,
+    required this.bottomBarHeight,
     this.topBar,
     this.footer,
-    this.bottomBar,
   });
 
   ///
@@ -144,13 +170,13 @@ class InheritedShell extends InheritedWidget {
   final Widget? footer;
 
   ///
-  final Widget? bottomBar;
+  final double bottomBarHeight;
 
   @override
   bool updateShouldNotify(InheritedShell oldWidget) {
     return topBar != oldWidget.topBar ||
         footer != oldWidget.footer ||
-        bottomBar != oldWidget.bottomBar;
+        bottomBarHeight != oldWidget.bottomBarHeight;
   }
 }
 

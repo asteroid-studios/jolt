@@ -32,6 +32,7 @@ class Button extends StatefulWidget {
     this.verticalButton = false,
     this.autoFocus = false,
     this.size = ButtonSize.md,
+    this.mainAxisAlignment = MainAxisAlignment.center,
   });
 
   ///
@@ -105,6 +106,9 @@ class Button extends StatefulWidget {
 
   /// Whether to arrange items vertically instead of horizontally
   final bool verticalButton;
+
+  ///
+  final MainAxisAlignment mainAxisAlignment;
 
   @override
   State<Button> createState() => _ButtonState();
@@ -204,7 +208,7 @@ class _ButtonState extends State<Button> {
                 child: Text('', style: labelStyle),
               ),
               Row(
-                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: widget.mainAxisAlignment,
                 children: [
                   if (state.isAwaiting)
                     progressIndicator
@@ -213,7 +217,7 @@ class _ButtonState extends State<Button> {
                   // Necessary for heights to line up without label
                   Text('', style: labelStyle),
                 ],
-              ),
+              )
             ],
           );
         } else {
@@ -238,7 +242,7 @@ class _ButtonState extends State<Button> {
             // Layout HORIZONTAL button
             child = Row(
               mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: widget.mainAxisAlignment,
               spacing: spacing,
               children: buttonChildren,
             );

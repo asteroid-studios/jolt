@@ -1,9 +1,10 @@
+import 'package:flutter/material.dart' as m
+    show ColorScheme, MaterialPageRoute, Theme, ThemeData;
+
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_portal/flutter_portal.dart';
 
 import 'package:jolt/jolt.dart';
-
-export 'package:flutter/material.dart' show MaterialPageRoute;
 
 /// The Jolt app.
 class JoltApp extends StatefulWidget {
@@ -164,6 +165,25 @@ class _JoltAppState extends State<JoltApp> with WidgetsBindingObserver {
       );
     }
 
+    m.ThemeData materialThemeData(ColorScheme color) {
+      return m.ThemeData(
+        scaffoldBackgroundColor: color.background,
+        colorScheme: m.ColorScheme(
+          brightness: color.brightness,
+          primary: color.primary,
+          onPrimary: color.primary.onTop,
+          secondary: color.secondary,
+          onSecondary: color.secondary.onTop,
+          surface: color.surface,
+          onSurface: color.surface.onTop,
+          background: color.background,
+          onBackground: color.background.onTop,
+          error: color.error,
+          onError: color.error.onTop,
+        ),
+      );
+    }
+
     return ValueListenableBuilder<JoltAppState>(
       valueListenable: controller,
       child: widget.child,
@@ -200,7 +220,7 @@ class _JoltAppState extends State<JoltApp> with WidgetsBindingObserver {
                   RouteSettings settings,
                   WidgetBuilder builder,
                 ) {
-                  return MaterialPageRoute<T>(
+                  return m.MaterialPageRoute<T>(
                     settings: settings,
                     builder: builder,
                   );
@@ -220,19 +240,22 @@ class _JoltAppState extends State<JoltApp> with WidgetsBindingObserver {
                   spacingScale: state.spacingScaleFactorMultiplier,
                   textScale: state.textScaleFactorMultiplier,
                 ),
-                child: _JoltInherited(
-                  controller: controller,
-                  child: Overlay(
-                    initialEntries: [
-                      OverlayEntry(
-                        builder: (context) {
-                          return OverlayStack(
-                            key: joltOverlayKey,
-                            child: app,
-                          );
-                        },
-                      ),
-                    ],
+                child: m.Theme(
+                  data: materialThemeData(state.theme.color),
+                  child: _JoltInherited(
+                    controller: controller,
+                    child: Overlay(
+                      initialEntries: [
+                        OverlayEntry(
+                          builder: (context) {
+                            return OverlayStack(
+                              key: joltOverlayKey,
+                              child: app,
+                            );
+                          },
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
