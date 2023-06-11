@@ -96,7 +96,13 @@ class _ScaffoldState extends State<Scaffold> {
                               Surface(
                                 borderColor: Colors.transparent,
                                 borderRadius: BorderRadius.zero,
-                                padding: EdgeInsets.all(context.sizing.lg),
+                                padding: EdgeInsets.only(
+                                  left: context.sizing.lg,
+                                  right: context.sizing.lg,
+                                  bottom: context.sizing.lg,
+                                  top: context.sizing.lg +
+                                      context.mediaQuery.viewPadding.top,
+                                ),
                                 background:
                                     context.color.surface.withOpacity(0.8),
                                 child: Row(
@@ -128,7 +134,8 @@ class _ScaffoldState extends State<Scaffold> {
                           child: shell!.footer!,
                         ),
                       SizedBox(
-                        height: shell?.bottomBarHeight,
+                        height: shell?.bottomBarHeight ??
+                            context.mediaQuery.viewPadding.bottom,
                       ),
                     ],
                   ),
