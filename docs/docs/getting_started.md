@@ -48,7 +48,7 @@ void main() async {
     );
   );
 
-  // You can also use JoltApp.router if using routing
+  // Alternatively, you can also use JoltApp.router
   runApp(
     JoltApp.router(
       themes: themes,

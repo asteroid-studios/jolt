@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:collection/collection.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+
 import 'package:jolt/jolt.dart';
 export 'package:jolt/src/app/models/jolt_app_state.dart';
 
@@ -45,7 +46,7 @@ class JoltAppController extends ValueNotifier<JoltAppState> {
           defaultValue: value.locale.toLanguageTag(),
         )
         .toString();
-    final locale = value.supportedLocales.firstWhere(
+    final locale = value.supportedLocales.firstWhereOrNull(
       (l) => l.toLanguageTag() == savedLocale,
     );
     // Initialise theme mode

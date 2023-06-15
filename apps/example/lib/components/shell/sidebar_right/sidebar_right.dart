@@ -1,9 +1,9 @@
-import 'package:jolt/jolt.dart';
+import 'package:ui/ui.dart';
 
 ///
-class SidebarRight extends StatelessWidget {
+class SideBarRight extends StatelessWidget {
   ///
-  const SidebarRight({super.key});
+  const SideBarRight({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -13,9 +13,9 @@ class SidebarRight extends StatelessWidget {
       String tooltip, {
       bool? withHighContrast,
     }) {
-      final selected = context.jolt.themeMode == mode &&
+      final selected = context.jolt.value.themeMode == mode &&
           (withHighContrast == null ||
-              context.jolt.highContrast == withHighContrast);
+              context.jolt.value.highContrast == withHighContrast);
       return Button(
         icon: icon,
         tooltip: tooltip,
@@ -76,6 +76,24 @@ class SidebarRight extends StatelessWidget {
       );
     }
 
+    Button localeButton(
+      Locale locale,
+    ) {
+      final selected = context.jolt.value.locale == locale;
+      return Button(
+        padding: EdgeInsets.all(context.sizing.xs),
+        icon: IconsDuotone.translate,
+        iconSize: context.style.body.fontSize,
+        label: locale.languageCode.characters.first,
+        labelStyle: context.style.button.copyWith(
+          fontSize: context.style.label.fontSize,
+        ),
+        verticalButton: true,
+        background: selected ? context.color.primary : null,
+        onTap: () => context.jolt.setLocale(locale),
+      );
+    }
+
     return Surface(
       borderColor: Colors.transparent,
       borderRadius: BorderRadius.zero,
@@ -90,35 +108,35 @@ class SidebarRight extends StatelessWidget {
                 child: Column(
                   children: [
                     themeButton(
-                      Icons.duotone.cloudSun,
+                      IconsDuotone.cloudSun,
                       ThemeMode.light,
                       'Use light theme',
                       withHighContrast: false,
                     ),
                     const Spacing.sm(),
                     themeButton(
-                      Icons.duotone.sun,
+                      IconsDuotone.sun,
                       ThemeMode.light,
                       'Use light theme with high contrast',
                       withHighContrast: true,
                     ),
                     const Spacing.sm(),
                     themeButton(
-                      Icons.duotone.cloudMoon,
+                      IconsDuotone.cloudMoon,
                       ThemeMode.dark,
                       'Use dark theme',
                       withHighContrast: false,
                     ),
                     const Spacing.sm(),
                     themeButton(
-                      Icons.duotone.moon,
+                      IconsDuotone.moon,
                       ThemeMode.dark,
                       'Use dark theme with high contrast',
                       withHighContrast: true,
                     ),
                     const Spacing.sm(),
                     themeButton(
-                      Icons.duotone.gearSix,
+                      IconsDuotone.gearSix,
                       ThemeMode.system,
                       'Use system theme',
                     ),
@@ -133,33 +151,37 @@ class SidebarRight extends StatelessWidget {
                     const Spacing.xxl(),
                     sizeButton(
                       0.8,
-                      Icons.duotone.textT,
+                      IconsDuotone.textT,
                     ),
                     const Spacing.sm(),
                     sizeButton(
                       1,
-                      Icons.duotone.textT,
+                      IconsDuotone.textT,
                     ),
                     const Spacing.sm(),
                     sizeButton(
                       1.2,
-                      Icons.duotone.textT,
+                      IconsDuotone.textT,
                     ),
                     const Spacing.xxl(),
                     spacingButton(
                       0.8,
-                      Icons.duotone.alignCenterHorizontal,
+                      IconsDuotone.alignCenterHorizontal,
                     ),
                     const Spacing.sm(),
                     spacingButton(
                       1,
-                      Icons.duotone.alignCenterHorizontal,
+                      IconsDuotone.alignCenterHorizontal,
                     ),
                     const Spacing.sm(),
                     spacingButton(
                       1.2,
-                      Icons.duotone.alignCenterHorizontal,
+                      IconsDuotone.alignCenterHorizontal,
                     ),
+                    const Spacing.xxl(),
+                    // localeButton(const Locale('fr', 'FR')),
+                    // const Spacing.sm(),
+                    // localeButton(const Locale('en', 'US')),
                   ],
                 ),
               ),

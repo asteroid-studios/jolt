@@ -1,8 +1,8 @@
 import 'package:flutter_jimtl/flutter_jimtl.dart';
 import 'package:intl/intl.dart';
-import 'package:jolt/jolt.dart';
+import 'package:ui/ui.dart';
 
-import 'package:example/translation/delegates.dart';
+import 'package:example/utils/translation/delegates.dart';
 
 ///
 extension TranslationsExtensions on BuildContext {

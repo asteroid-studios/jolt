@@ -15,27 +15,6 @@
             "program": "lib/main.dart",
             "args": ["--web-renderer", "canvaskit"]
         },
-        // {
-        //     "name": "Local",
-        //     "request": "launch",
-        //     "type": "dart",
-        //     "program": "lib/main.dart",
-        //     "args": ["--dart-define-from-file", "config/local.json"]
-        // },
-        // {
-        //     "name": "Staging",
-        //     "request": "launch",
-        //     "type": "dart",
-        //     "program": "lib/main.dart",
-        //     "args": ["--dart-define-from-file", "config/staging.json"]
-        // },
-        // {
-        //     "name": "Production",
-        //     "request": "launch",
-        //     "type": "dart",
-        //     "program": "lib/main.dart",
-        //     "args": ["--dart-define-from-file", "config/production.json"]
-        // },
     ],
     "compounds": []
 }

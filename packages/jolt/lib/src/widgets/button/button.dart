@@ -221,6 +221,8 @@ class _ButtonState extends State<Button> {
                 child: Text('', style: labelStyle),
               ),
               Row(
+                mainAxisSize:
+                    widget.fullWidth ? MainAxisSize.max : MainAxisSize.min,
                 mainAxisAlignment: widget.mainAxisAlignment,
                 children: [
                   if (state.isAwaiting)

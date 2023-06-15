@@ -1,26 +1,15 @@
-import 'package:jolt/jolt.dart';
-
-import 'package:example/theming/typography.dart';
+import 'package:ui/ui.dart';
+import 'package:ui/typography.dart';
+import 'package:ui/themes.dart';
 
 const _neutralColor = Colors.slate;
-
 final _colorSchemeLight = ColorScheme.light(
   neutral: _neutralColor,
+  primary: Colors.violet,
+  secondary: Colors.emerald,
 ).swapSurfaceWithBackground;
+final _colorSchemeDark = ColorScheme.dark(neutral: _neutralColor);
 
-final _colorSchemeLightHighContrast = _colorSchemeLight.withHighContrast;
-
-final _colorSchemeDark = ColorScheme.dark(
-  neutral: _neutralColor,
-);
-
-// final _buttonData = ButtonData(
-//   defaultStyle = _typography.body,
-// );
-// final _widgetsData = WidgetsData(
-//   button: _buttonData;
-// );
-///
 final themes = [
   ThemeData(
     colorScheme: _colorSchemeLight,
@@ -28,17 +17,24 @@ final themes = [
     typography: typographyLight,
   ),
   ThemeData(
-    colorScheme: _colorSchemeLightHighContrast,
+    colorScheme: _colorSchemeLight.withHighContrast.swapSurfaceWithBackground,
     id: 'default_light_high_contrast',
     typography: typographyLight,
   ),
   ThemeData(
-    colorScheme: _colorSchemeLight.copyWith(primary: Colors.violet),
+    colorScheme: _colorSchemeLight.copyWith(
+      primary: Colors.violet,
+      secondary: Colors.emerald,
+    ),
     id: 'default_light_violet',
     typography: typographyLight,
   ),
   ThemeData(
-    colorScheme: _colorSchemeLightHighContrast.copyWith(primary: Colors.violet),
+    colorScheme:
+        _colorSchemeLight.withHighContrast.swapSurfaceWithBackground.copyWith(
+      primary: Colors.violet,
+      secondary: Colors.emerald,
+    ),
     id: 'default_light_violet_high_contrast',
     typography: typographyLight,
   ),
@@ -53,13 +49,18 @@ final themes = [
     typography: typographyDark,
   ),
   ThemeData(
-    colorScheme: _colorSchemeDark.copyWith(primary: Colors.violet),
+    colorScheme: _colorSchemeDark.copyWith(
+      primary: Colors.violet,
+      secondary: Colors.emerald,
+    ),
     id: 'default_dark_violet',
     typography: typographyDark,
   ),
   ThemeData(
-    colorScheme:
-        _colorSchemeDark.withHighContrast.copyWith(primary: Colors.violet),
+    colorScheme: _colorSchemeDark.withHighContrast.copyWith(
+      primary: Colors.violet,
+      secondary: Colors.emerald,
+    ),
     id: 'default_dark_violet_high_contrast',
     typography: typographyDark,
   ),

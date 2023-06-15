@@ -1,7 +1,9 @@
-import 'package:jolt/jolt.dart';
+import 'package:ui/ui.dart';
 
-import 'package:example/routing/routes.dart';
-import 'package:example/translation/app_translations.dart';
+import 'package:example/components/shell/sidebar_left/sidebar_left.dart';
+import 'package:example/utils/assets/assets.dart';
+import 'package:example/utils/router/router.dart';
+import 'package:example/utils/translation/app_translations.dart';
 
 ///
 class TopBar extends StatelessWidget {
@@ -14,24 +16,38 @@ class TopBar extends StatelessWidget {
       borderRadius: BorderRadius.zero,
       padding: EdgeInsets.symmetric(
         horizontal: context.sizing.md,
-        vertical: context.sizing.md,
+        vertical: context.sizing.sm,
       ),
-      background: context.color.surface.withOpacity(0.2),
+      background: context.color.surface,
+      backgroundDark: context.color.background,
       child: SafeArea(
         bottom: false,
         left: false,
         right: false,
         child: Row(
           children: [
+            Image.asset(
+              context.color.isDark
+                  ? Assets.iconsLogoDarkPng
+                  : Assets.iconsLogoLightPng,
+              height: 35,
+            ),
             const Expanded(child: SizedBox()),
             Button(
-              onTap: () => DashboardRouteData().go(context),
-              icon: Icons.duotone.squaresFour,
+              onTap: () {
+                showSideBar();
+              },
+              tooltip: 'Hide Menu',
+              icon: IconsDuotone.sidebar,
             ),
-            const Spacing.md(),
+            const Spacing.sm(),
             Button(
-              onTap: () => UsersRouteData().go(context),
-              icon: Icons.duotone.users,
+              onTap: () {},
+              tooltip: 'Hide SideBar',
+              iconWidget: IconsDuotone.sidebar.icon(
+                flipHorizontal: true,
+                color: context.color.surface.onTop,
+              ),
             ),
           ],
         ),

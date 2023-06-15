@@ -1,11 +1,11 @@
 import 'package:flutter/services.dart';
 
 import 'package:flutter_jimtl/flutter_jimtl.dart';
-import 'package:jolt/jolt.dart';
+import 'package:ui/ui.dart';
 
 import 'package:example/features/dashboard/translations/dashboard_translations.dart';
-import 'package:example/translation/app_translations.dart';
-import 'package:example/translation/locales.dart';
+import 'package:example/utils/translation/app_translations.dart';
+import 'package:example/utils/translation/locales.dart';
 
 ///
 TranslationsDelegate<dynamic> delegate<T>(
@@ -21,7 +21,7 @@ TranslationsDelegate<dynamic> delegate<T>(
       // setState(() {});
     },
     dataLoader: (locale, _) async => rootBundle.loadString(
-      'assets/arb/${prefix}_translations_$locale.arb',
+      'assets/arb/${prefix}_translations_${locale.languageCode}.arb',
     ),
   );
 }

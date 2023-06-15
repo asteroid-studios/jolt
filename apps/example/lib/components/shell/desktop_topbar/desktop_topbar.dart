@@ -1,5 +1,5 @@
 import 'package:bitsdojo_window/bitsdojo_window.dart';
-import 'package:jolt/jolt.dart';
+import 'package:ui/ui.dart';
 
 ///
 class DesktopTopbar extends StatelessWidget {
@@ -28,13 +28,13 @@ class DesktopTopbar extends StatelessWidget {
                     onTap: () {},
                     tooltip: 'Cast',
                     background: context.color.primary.withOpacity(0.05),
-                    icon: Icons.duotone.screencast,
+                    icon: IconsDuotone.screencast,
                   ),
                   const Spacing.md(),
                   Button(
                     onTap: () {},
                     background: context.color.primary.withOpacity(0.05),
-                    icon: Icons.duotone.camera,
+                    icon: IconsDuotone.camera,
                   ),
                 ],
               ),
