@@ -1,3 +1,5 @@
+import 'dart:math' as math;
+
 import 'package:flutter/widgets.dart' as widgets show Icon;
 
 import 'package:phosphor_flutter/phosphor_flutter.dart';

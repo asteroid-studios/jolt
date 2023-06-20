@@ -38,13 +38,13 @@ class TopBar extends StatelessWidget {
                 showSideBar();
               },
               tooltip: 'Hide Menu',
-              icon: IconsDuotone.sidebar,
+              icon: Icons.sidebar,
             ),
             const Spacing.sm(),
             Button(
               onTap: () {},
               tooltip: 'Hide SideBar',
-              iconWidget: IconsDuotone.sidebar.icon(
+              iconWidget: Icons.sidebar.icon(
                 flipHorizontal: true,
                 color: context.color.surface.onTop,
               ),

@@ -82,7 +82,7 @@ class SideBarRight extends StatelessWidget {
       final selected = context.jolt.value.locale == locale;
       return Button(
         padding: EdgeInsets.all(context.sizing.xs),
-        icon: IconsDuotone.translate,
+        icon: Icons.translate,
         iconSize: context.style.body.fontSize,
         label: locale.languageCode.characters.first,
         labelStyle: context.style.button.copyWith(
@@ -108,35 +108,35 @@ class SideBarRight extends StatelessWidget {
                 child: Column(
                   children: [
                     themeButton(
-                      IconsDuotone.cloudSun,
+                      Icons.cloudSun,
                       ThemeMode.light,
                       'Use light theme',
                       withHighContrast: false,
                     ),
                     const Spacing.sm(),
                     themeButton(
-                      IconsDuotone.sun,
+                      Icons.sun,
                       ThemeMode.light,
                       'Use light theme with high contrast',
                       withHighContrast: true,
                     ),
                     const Spacing.sm(),
                     themeButton(
-                      IconsDuotone.cloudMoon,
+                      Icons.cloudMoon,
                       ThemeMode.dark,
                       'Use dark theme',
                       withHighContrast: false,
                     ),
                     const Spacing.sm(),
                     themeButton(
-                      IconsDuotone.moon,
+                      Icons.moon,
                       ThemeMode.dark,
                       'Use dark theme with high contrast',
                       withHighContrast: true,
                     ),
                     const Spacing.sm(),
                     themeButton(
-                      IconsDuotone.gearSix,
+                      Icons.gearSix,
                       ThemeMode.system,
                       'Use system theme',
                     ),
@@ -151,32 +151,32 @@ class SideBarRight extends StatelessWidget {
                     const Spacing.xxl(),
                     sizeButton(
                       0.8,
-                      IconsDuotone.textT,
+                      Icons.textT,
                     ),
                     const Spacing.sm(),
                     sizeButton(
                       1,
-                      IconsDuotone.textT,
+                      Icons.textT,
                     ),
                     const Spacing.sm(),
                     sizeButton(
                       1.2,
-                      IconsDuotone.textT,
+                      Icons.textT,
                     ),
                     const Spacing.xxl(),
                     spacingButton(
                       0.8,
-                      IconsDuotone.alignCenterHorizontal,
+                      Icons.alignCenterHorizontal,
                     ),
                     const Spacing.sm(),
                     spacingButton(
                       1,
-                      IconsDuotone.alignCenterHorizontal,
+                      Icons.alignCenterHorizontal,
                     ),
                     const Spacing.sm(),
                     spacingButton(
                       1.2,
-                      IconsDuotone.alignCenterHorizontal,
+                      Icons.alignCenterHorizontal,
                     ),
                     const Spacing.xxl(),
                     // localeButton(const Locale('fr', 'FR')),

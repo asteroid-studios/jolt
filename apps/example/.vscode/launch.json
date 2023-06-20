@@ -6,14 +6,14 @@
             "request": "launch",
             "type": "dart",
             "program": "lib/main.dart",
-            "args": ["--web-renderer", "html"]
+            "args": ["--web-renderer", "canvaskit"]
         },
         {
-            "name": "Web - canvaskit",
+            "name": "Web - html",
             "request": "launch",
             "type": "dart",
             "program": "lib/main.dart",
-            "args": ["--web-renderer", "canvaskit"]
+            "args": ["--web-renderer", "html"]
         },
     ],
     "compounds": []
