@@ -48,14 +48,16 @@ class TopBar extends StatelessWidget {
               onTap: () {
                 showSideBar();
               },
-              tooltip: 'Hide Menu',
+              tooltip: 'Show Mobile Menu',
               icon: Icons.sidebar,
+              iconSize: 20,
             ),
             const Spacing.sm(),
             Button(
               onTap: () {},
               tooltip: 'Hide SideBar',
               iconWidget: Icons.sidebar.icon(
+                size: 20,
                 flipHorizontal: true,
                 color: context.color.surface.foreground,
               ),

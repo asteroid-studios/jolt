@@ -71,34 +71,33 @@ class _SideBarLeftState extends State<SideBarLeft> {
               Column(
                 spacing: context.sizing.sm,
                 children: navBarItems.mapIndexed((index, item) {
-                  final router = AppRouter.instance;
                   final tabsController =
                       autoTabsRouterKey.currentState?.controller;
-                  final currentIndex = tabsController?.activeIndex ?? 0;
+                  final router = AppRouter.instance;
                   final currentName = router.currentSegments.last.name;
+                  final currentIndex = tabsController?.activeIndex ?? 0;
                   final selected = currentIndex == index;
-                  return Button(
-                    background: (selected
-                            ? context.color.primary
-                            : context.color.surface)
-                        .withOpacity(0.2),
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    requestFocusOnPress: false,
-                    fullWidth: true,
-                    color: selected ? null : context.color.surface.s500,
-                    icon: selected ? item.selectedIcon : item.icon,
-                    label: item.label,
-                    onTap: () {
-                      if (!selected && !Platform.isWeb) {
-                        tabsController?.setActiveIndex(index);
-                      } else if (item.route.routeName != currentName) {
-                        router.navigate(item.route);
-                      } else {
-                        // TODO scroll to top
-                        print('Scroll to top');
-                      }
-                      if (widget.isOverlay) JoltOverlay.pop();
-                    },
+                  final button = SideBarButton(
+                    item: item,
+                    selected: selected,
+                    topLevel: true,
+                    index: index,
+                    isOverlay: widget.isOverlay,
+                  );
+                  if (!selected) return button;
+                  return Column(
+                    children: [
+                      button,
+                      ...item.children.map(
+                        (i) => SideBarButton(
+                          item: i,
+                          selected: i.route.routeName == currentName,
+                          topLevel: false,
+                          index: index,
+                          isOverlay: widget.isOverlay,
+                        ),
+                      ),
+                    ],
                   );
                 }).toList(),
               ),
@@ -146,6 +145,92 @@ class _SideBarLeftState extends State<SideBarLeft> {
           ),
         ),
       ),
+    );
+  }
+}
+
+///
+class SideBarButton extends StatelessWidget {
+  ///
+  const SideBarButton({
+    required this.item,
+    required this.selected,
+    required this.index,
+    required this.isOverlay,
+    required this.topLevel,
+    super.key,
+  });
+
+  ///
+  final NavItem item;
+
+  ///
+  final int index;
+
+  ///
+  final bool selected;
+
+  final bool topLevel;
+
+  ///
+  final bool isOverlay;
+
+  @override
+  Widget build(BuildContext context) {
+    final router = AppRouter.instance;
+    final currentName = router.currentSegments.last.name;
+    final decorationColor = context.color.surface.s200;
+
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.end,
+      children: [
+        if (!topLevel)
+          Padding(
+            padding: const EdgeInsets.only(bottom: 20),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                const Spacing.sm(),
+                Container(
+                  width: 2,
+                  height: 35,
+                  color: decorationColor,
+                ),
+                Container(
+                  height: 2,
+                  width: 15,
+                  color: decorationColor,
+                ),
+                const Spacing.sm(),
+              ],
+            ),
+          ),
+        Expanded(
+          child: Button(
+            background:
+                (selected ? context.color.primary : context.color.surface)
+                    .withOpacity(0.2),
+            mainAxisAlignment: MainAxisAlignment.start,
+            requestFocusOnPress: false,
+            fullWidth: true,
+            color: selected ? null : context.color.surface.s500,
+            icon: selected ? item.selectedIcon : item.icon,
+            label: item.label,
+            onTap: () {
+              if (!selected && !Platform.isWeb && topLevel) {
+                autoTabsRouterKey.currentState?.controller
+                    ?.setActiveIndex(index);
+              } else if (item.route.routeName != currentName) {
+                router.navigate(item.route);
+              } else {
+                // TODO scroll to top
+                print('Scroll to top');
+              }
+              if (isOverlay) JoltOverlay.pop();
+            },
+          ),
+        ),
+      ],
     );
   }
 }

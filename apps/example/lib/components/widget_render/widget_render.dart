@@ -1,5 +1,4 @@
-import 'package:flutter_highlight/themes/a11y-dark.dart';
-import 'package:flutter_highlight/themes/a11y-light.dart';
+import 'package:flutter_highlight/flutter_highlight.dart';
 import 'package:flutter_highlight/themes/paraiso-dark.dart';
 import 'package:flutter_highlight/themes/paraiso-light.dart';
 import 'package:markdown_widget/markdown_widget.dart';
@@ -12,6 +11,7 @@ class WidgetRender extends StatelessWidget {
     required this.title,
     required this.code,
     required this.child,
+    this.height,
     super.key,
   });
 
@@ -24,9 +24,31 @@ class WidgetRender extends StatelessWidget {
   ///
   final String code;
 
+  ///
+  final double? height;
+
   @override
   Widget build(BuildContext context) {
+    final childWidget = Padding(
+      padding: EdgeInsets.all(context.sizing.xl),
+      child: Center(child: child),
+    );
+
+    final codeTheme = Map<String, TextStyle>.from(
+      context.color.isDark ? paraisoDarkTheme : paraisoLightTheme,
+    );
+    codeTheme['root'] = TextStyle(backgroundColor: context.color.background);
+    final codeWidget = HighlightView(
+      code,
+      textStyle: DefaultTextStyle.of(context).style.copyWith(
+            fontFamily: 'FiraCode',
+          ),
+      language: 'dart',
+      theme: codeTheme,
+    );
+
     return Surface(
+      // height: height,
       margin: EdgeInsets.only(bottom: context.sizing.md),
       padding: EdgeInsets.zero,
       background: Colors.transparent,
@@ -64,54 +86,23 @@ class WidgetRender extends StatelessWidget {
               ],
             ),
           ),
-          Expanded(
-            child: Row(
-              spacing: context.sizing.md,
-              children: [
-                Expanded(
-                  child: Padding(
-                    padding: EdgeInsets.all(context.sizing.xl),
-                    child: Center(child: child),
-                  ),
-                ),
-                Expanded(
-                  flex: 2,
-                  child: DefaultTextStyle(
-                    style: DefaultTextStyle.of(context).style.copyWith(
-                          fontFamily: 'FiraCode',
-                        ),
-                    child: MarkdownWidget(
-                      padding: EdgeInsets.zero,
-                      shrinkWrap: true,
-                      data: '```\n$code',
-                      config: MarkdownConfig(
-                        configs: [
-                          PreConfig(
-                            // textStyle:
-                            //     DefaultTextStyle.of(context).style.copyWith(
-                            //           fontWeight: FontWeight.w900,
-                            //         ),
-                            decoration: BoxDecoration(
-                              color: context.color.background,
-                              borderRadius: context.borderRadius.md,
-                            ),
-                            theme: context.color.isDark
-                                ? paraisoDarkTheme
-                                : paraisoLightTheme,
-                          ),
-                          // Config
-                          // CodeConfig(
-                          //   style: TextStyle(
-                          //     fontFamily: 'FiraCode',
-                          //     fontWeight: FontWeight.w900,
-                          //   ),
-                          // ),
-                        ],
-                      ),
+          Flexible(
+            child: Padding(
+              padding: EdgeInsets.all(context.sizing.xl),
+              child: context.view.isMobileOrSmaller
+                  ? Column(
+                      children: [
+                        childWidget,
+                        codeWidget,
+                        const Spacing.xl(),
+                      ],
+                    )
+                  : Row(
+                      children: [
+                        Expanded(child: childWidget),
+                        Expanded(flex: 2, child: codeWidget),
+                      ],
                     ),
-                  ),
-                ),
-              ],
             ),
           ),
         ],

@@ -22,22 +22,16 @@ class TypographyPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
-              width: 800,
-              height: 300,
-              child: WidgetRender(
-                title: 'How to use text styles',
-                code: '''
-Text(
+            WidgetRender(
+              title: 'How to use text styles',
+              code: '''Text(
   'Heading',
   // swap out heading for the desired style
   style: context.style.heading,
-)
-            ''',
-                child: Text(
-                  'Heading',
-                  style: context.style.heading,
-                ),
+)''',
+              child: Text(
+                'Heading',
+                style: context.style.heading,
               ),
             ),
             Text(

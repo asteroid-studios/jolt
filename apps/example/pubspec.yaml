@@ -19,7 +19,6 @@ dependencies:
   flutter_web_plugins:
     sdk: flutter
   intl:
-  markdown_widget: ^2.2.0
   path_provider:
   ui:
     path: packages/ui
