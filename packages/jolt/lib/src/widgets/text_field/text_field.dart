@@ -751,7 +751,7 @@ class _TextFieldState extends State<TextField>
         DefaultSelectionStyle.of(context);
 
     final TextStyle style = theme.typography.body.copyWith(
-      color: theme.colorScheme.surface.onTop,
+      color: theme.colorScheme.surface.foreground,
     );
     final Brightness keyboardAppearance =
         widget.keyboardAppearance ?? theme.colorScheme.brightness;
@@ -988,7 +988,7 @@ class _TextFieldState extends State<TextField>
                     child: Text(
                       // Show the hint if the text is empty
                       _currentLength == 0 ? widget.hintText ?? '' : '',
-                      color: inheritedSurface.onTop.withOpacity(0.5),
+                      color: inheritedSurface.foreground.withOpacity(0.5),
                     ),
                   ),
                 ],

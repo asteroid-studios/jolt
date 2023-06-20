@@ -26,11 +26,22 @@ class TopBar extends StatelessWidget {
         right: false,
         child: Row(
           children: [
-            Image.asset(
-              context.color.isDark
-                  ? Assets.iconsLogoDarkPng
-                  : Assets.iconsLogoLightPng,
-              height: 35,
+            Interaction(
+              onTap: () {
+                context.navigateTo(const DashboardRoute());
+              },
+              builder: (context, state) {
+                return AnimatedScale(
+                  duration: context.durations.short,
+                  scale: state.isHovered ? 1.05 : 1,
+                  child: Image.asset(
+                    context.color.isDark
+                        ? Assets.iconsLogoDarkPng
+                        : Assets.iconsLogoLightPng,
+                    height: 35,
+                  ),
+                );
+              },
             ),
             const Expanded(child: SizedBox()),
             Button(
@@ -46,7 +57,7 @@ class TopBar extends StatelessWidget {
               tooltip: 'Hide SideBar',
               iconWidget: Icons.sidebar.icon(
                 flipHorizontal: true,
-                color: context.color.surface.onTop,
+                color: context.color.surface.foreground,
               ),
             ),
           ],

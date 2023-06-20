@@ -41,9 +41,9 @@ WidgetThemeData widgetTheme(
             return (color.isDark ? background.s300 : background.s800)
                 .withOpacity(1);
           }
-          return background.onTop;
+          return background.foreground;
         }
-        return color.surface.onTop;
+        return color.surface.foreground;
       },
     ),
   );

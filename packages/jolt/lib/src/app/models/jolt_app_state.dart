@@ -12,12 +12,16 @@ class JoltAppState {
     required this.themeMode,
     required this.highContrast,
     required this.primaryColor,
+    required this.breakpoints,
     this.textScaleFactorMultiplier = 1.0,
     this.spacingScaleFactorMultiplier = 1.0,
   });
 
   ///
   final ThemeData theme;
+
+  /// The breakpoints for the app
+  final BreakpointsData breakpoints;
 
   /// The list of themes.
   final List<ThemeData> themes;
@@ -47,6 +51,7 @@ class JoltAppState {
   JoltAppState copyWith({
     ThemeData? theme,
     List<ThemeData>? themes,
+    BreakpointsData? breakpoints,
     List<Locale>? supportedLocales,
     Color? primaryColor,
     Locale? locale,
@@ -58,6 +63,7 @@ class JoltAppState {
     return JoltAppState(
       theme: theme ?? this.theme,
       themes: themes ?? this.themes,
+      breakpoints: breakpoints ?? this.breakpoints,
       supportedLocales: supportedLocales ?? this.supportedLocales,
       primaryColor: primaryColor ?? this.primaryColor,
       locale: locale ?? this.locale,
@@ -78,6 +84,7 @@ class JoltAppState {
           runtimeType == other.runtimeType &&
           theme == other.theme &&
           themes == other.themes &&
+          breakpoints == other.breakpoints &&
           supportedLocales == other.supportedLocales &&
           primaryColor == other.primaryColor &&
           locale == other.locale &&
@@ -90,6 +97,7 @@ class JoltAppState {
   @override
   int get hashCode =>
       theme.hashCode ^
+      breakpoints.hashCode ^
       themes.hashCode ^
       supportedLocales.hashCode ^
       primaryColor.hashCode ^

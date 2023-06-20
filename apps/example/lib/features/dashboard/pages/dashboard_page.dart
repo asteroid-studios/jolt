@@ -36,7 +36,6 @@ class _DashboardPageState extends State<DashboardPage> {
     const begin = 3;
     const end = 8;
     const spacer = Spacing.sm();
-    print(context.translations.dashboard.title);
     return Scaffold(
       title: context.translations.dashboard.title,
       content: Padding(

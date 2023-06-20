@@ -13,14 +13,16 @@ export 'src/app/app.dart';
 export 'src/app/app_controller.dart';
 
 // Theming exports
-export 'src/theme/color/jolt_color.dart';
-export 'src/theme/color_scheme/color_scheme.dart';
-export 'src/theme/colors/colors.dart';
-export 'src/theme/dimensions/dimensions.dart';
-export 'src/theme/themes/themes.dart';
-export 'src/theme/scaling/scaling.dart';
-export 'src/theme/theme_data/theme_data.dart';
-export 'src/theme/typography/typography.dart';
+export 'src/theming/breakpoints/breakpoints.dart';
+export 'src/theming/breakpoints/breakpoints_extensions.dart';
+export 'src/theming/color/jolt_color.dart';
+export 'src/theming/color/color_scheme.dart';
+export 'src/theming/color/colors.dart';
+export 'src/theming/dimensions/dimensions.dart';
+export 'src/theming/themes/themes.dart';
+export 'src/theming/scaling/scaling.dart';
+export 'src/theming/theme/theme_data.dart';
+export 'src/theming/typography/typography.dart';
 
 // Basics exports
 export 'src/widgets/basics/column/column.dart';
@@ -31,6 +33,7 @@ export 'src/widgets/basics/interaction/interaction.dart';
 export 'src/widgets/basics/icon/icon.dart';
 export 'src/widgets/basics/size_reporting_widget/size_reporting_widget.dart';
 export 'src/widgets/basics/spacing/spacing.dart';
+export 'src/widgets/basics/symbol/symbol_theme.dart';
 export 'src/widgets/basics/pop_over/pop_over.dart';
 
 // Widget exports
@@ -47,7 +50,6 @@ export 'src/widgets/text_field/text_field.dart';
 export 'src/utils/duration/durations.dart';
 export 'src/utils/icons/icons.dart';
 export 'src/utils/overlay/overlay.dart';
-export 'src/utils/responsive/responsive.dart';
 export 'src/utils/theme/theme_extensions.dart';
 export 'src/utils/theme/widget_theme.dart';
 export 'src/utils/platform/platform.dart';

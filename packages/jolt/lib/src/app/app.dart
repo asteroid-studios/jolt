@@ -19,6 +19,7 @@ class JoltApp extends StatefulWidget {
     this.localizationsDelegates,
     this.themes,
     this.widgetTheme,
+    this.breakpoints,
     this.builder,
     super.key,
   })  : routeInformationProvider = null,
@@ -41,6 +42,7 @@ class JoltApp extends StatefulWidget {
     this.backButtonDispatcher,
     this.themes,
     this.widgetTheme,
+    this.breakpoints,
     this.builder,
     super.key,
   })  : child = null,
@@ -48,6 +50,9 @@ class JoltApp extends StatefulWidget {
 
   /// {@macro flutter.widgets.widgetsApp.title}
   final String? title;
+
+  /// Define the breakpoints for the app
+  final BreakpointsData? breakpoints;
 
   /// Styling for all Jolt widgets.
   final WidgetThemeData Function(ThemeData, ScalingData)? widgetTheme;
@@ -101,6 +106,7 @@ class _JoltAppState extends State<JoltApp> with WidgetsBindingObserver {
   @override
   void initState() {
     controller = JoltAppController(
+      breakpoints: widget.breakpoints ?? const BreakpointsData(),
       locale: widget.locale,
       supportedLocales: widget.supportedLocales,
       platformDispatcher: WidgetsBinding.instance.platformDispatcher,
@@ -171,15 +177,15 @@ class _JoltAppState extends State<JoltApp> with WidgetsBindingObserver {
         colorScheme: m.ColorScheme(
           brightness: color.brightness,
           primary: color.primary,
-          onPrimary: color.primary.onTop,
+          onPrimary: color.primary.foreground,
           secondary: color.secondary,
-          onSecondary: color.secondary.onTop,
+          onSecondary: color.secondary.foreground,
           surface: color.surface,
-          onSurface: color.surface.onTop,
+          onSurface: color.surface.foreground,
           background: color.background,
-          onBackground: color.background.onTop,
+          onBackground: color.background.foreground,
           error: color.error,
-          onError: color.error.onTop,
+          onError: color.error.foreground,
         ),
       );
     }

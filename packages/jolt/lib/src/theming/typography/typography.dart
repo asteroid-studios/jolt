@@ -203,3 +203,9 @@ class Typography {
     return Object.hashAll(values);
   }
 }
+
+/// Available font variation axis
+class FontVariationAxis {
+  /// The font variation axis for the font weight
+  static const weight = 'wght';
+}

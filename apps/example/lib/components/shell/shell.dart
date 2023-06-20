@@ -23,17 +23,17 @@ class AppShell extends StatelessWidget {
           // desktopTopBar: const DesktopTopBar(),
           sideBarLeft: context.responsive(
             mobile: null,
-            tabletLandscape: const SideBarLeft(),
+            laptop: const SideBarLeft(),
           ),
           sideBarRight: context.responsive(
             mobile: null,
-            tabletLandscape: const SideBarRight(),
+            laptop: const SideBarRight(),
           ),
           bottomBar: context.responsive(
             mobile: !Platform.isWeb && tabsRouter != null
                 ? BottomBar(tabsRouter)
                 : const SizedBox.shrink(),
-            tabletLandscape: const SizedBox.shrink(),
+            laptop: const SizedBox.shrink(),
           ),
           topBar: const TopBar(),
           // footer: const Footer(),

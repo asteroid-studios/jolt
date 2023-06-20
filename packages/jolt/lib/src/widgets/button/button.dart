@@ -166,17 +166,17 @@ class _ButtonState extends State<Button> {
 
     final baseColor = color ??
         button.color?.call(background) ??
-        background.asJoltColor?.onTop ??
-        context.color.surface.onTop;
+        background.asJoltColor?.foreground ??
+        context.color.surface.foreground;
 
     // Prepare padding
     final verticalPadding =
-        surface.verticalPadding ?? context.defaults.verticalPadding;
+        surface.padding?.vertical ?? context.defaults.verticalPadding;
     final horizontalPadding = noLabel
         // When there is no label, we want a square button so make
         // the horizontal padding the same as the vertical padding
         ? verticalPadding
-        : surface.horizontalPadding ?? context.defaults.horizontalPadding;
+        : surface.padding?.horizontal ?? context.defaults.horizontalPadding;
     final padding = widget.padding ??
         EdgeInsets.symmetric(
           horizontal: horizontalPadding,

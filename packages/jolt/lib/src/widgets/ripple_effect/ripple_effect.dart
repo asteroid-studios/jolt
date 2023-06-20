@@ -141,7 +141,7 @@ class _TouchRippleEffectState extends State<TouchRippleEffect>
         rippleColor = context.color.primary;
       } else {
         rippleOpacity = 0.1;
-        rippleColor = background.onTop;
+        rippleColor = background.foreground;
       }
     } else {
       rippleColor = context.color.primary;

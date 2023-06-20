@@ -1,26 +1,9 @@
-import 'dart:ui';
-
 import 'package:jolt/jolt.dart';
 
 ///
 extension Defaults on BuildContext {
   ///
   DefaultMapping get defaults => DefaultMapping(this);
-}
-
-///
-extension TextStyleHelper on TextStyle {
-  ///
-  TextStyle withFontVariationsFromWeight() => copyWith(
-        fontVariations: [
-          ...?fontVariations,
-          if (fontWeight != null)
-            FontVariation(
-              FontVariationAxis.weight,
-              fontWeight!.value.toDouble(),
-            ),
-        ],
-      );
 }
 
 ///

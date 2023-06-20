@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
 
-import 'package:jolt/src/theme/color/jolt_color.dart';
+import 'package:jolt/src/theming/color/jolt_color.dart';
 
 /// Some pre-made colors for Jolt.
 class Colors {
@@ -14,45 +14,47 @@ class Colors {
   /// Pure white
   static const white = JoltColor(
     0xffffffff,
-    onTop: Color(0xff000000),
-    onHover: Color(0xff9ca3af),
-    onFocus: Color(0xff9ca3af),
-    shade50: Color(0xff000000),
-    shade100: Color(0xff111827),
-    shade200: Color(0xff1f2937),
-    shade300: Color(0xff4b5563),
-    shade400: Color(0xff4b5563),
-    shade500: Color(0xff6b7280),
-    shade600: Color(0xff9ca3af),
-    shade700: Color(0xffd1d5db),
-    shade800: Color(0xffe5e7eb),
-    shade900: Color(0xfff3f4f6),
-    shade950: Color(0xffffffff),
+    foreground: Color(0xff000000),
+    onHover: Color(0xffa3a3a3),
+    onFocus: Color(0xffa3a3a3),
+    onDragged: Color(0xffe5e5e5),
+    onDisabled: Color(0xffe5e5e5),
+    shade50: Color(0xffffffff),
+    shade100: Color(0xfff5f5f5),
+    shade200: Color(0xffe5e5e5),
+    shade300: Color(0xffd4d4d4),
+    shade400: Color(0xffa3a3a3),
+    shade500: Color(0xff737373),
+    shade600: Color(0xff525252),
+    shade700: Color(0xff404040),
+    shade800: Color(0xff262626),
+    shade900: Color(0xff171717),
+    shade950: Color(0xff000000),
   );
 
   /// Pure black
   static const black = JoltColor(
     0xff000000,
-    onTop: Color(0xffffffff),
-    onHover: Color(0xff4b5563),
-    onFocus: Color(0xff4b5563),
+    foreground: Color(0xffffffff),
+    onHover: Color(0xff404040),
+    onFocus: Color(0xff404040),
     shade50: Color(0xffffffff),
-    shade100: Color(0xfff3f4f6),
-    shade200: Color(0xffe5e7eb),
-    shade300: Color(0xffd1d5db),
-    shade400: Color(0xff9ca3af),
-    shade500: Color(0xff6b7280),
-    shade600: Color(0xff4b5563),
-    shade700: Color(0xff4b5563),
-    shade800: Color(0xff1f2937),
-    shade900: Color(0xff111827),
+    shade100: Color(0xfff5f5f5),
+    shade200: Color(0xffe5e5e5),
+    shade300: Color(0xffd4d4d4),
+    shade400: Color(0xffa3a3a3),
+    shade500: Color(0xff737373),
+    shade600: Color(0xff525252),
+    shade700: Color(0xff404040),
+    shade800: Color(0xff262626),
+    shade900: Color(0xff171717),
     shade950: Color(0xff000000),
   );
 
   /// A neutral color with a blueish tint
   static const slate = JoltColor(
     0xff475569,
-    onTop: Color(0xfff1f5f9),
+    foreground: Color(0xfff1f5f9),
     onHover: Color(0xff334155),
     onFocus: Color(0xff334155),
     shade50: Color(0xfff8fafc),
@@ -71,9 +73,11 @@ class Colors {
   /// A neutral color
   static const stone = JoltColor(
     0xff525252,
-    onTop: Color(0xfff5f5f4),
+    foreground: Color(0xfff5f5f4),
     onHover: Color(0xff404040),
     onFocus: Color(0xff404040),
+    onDisabled: Color(0xffa3a3a3),
+    onDragged: Color(0xffa3a3a3),
     shade50: Color(0xfffafaf9),
     shade100: Color(0xfff5f5f4),
     shade200: Color(0xffe7e5e4),
@@ -90,9 +94,11 @@ class Colors {
   /// A light green color.
   static const emerald = JoltColor(
     0xff059669,
-    onTop: Color(0xffecfdf5),
+    foreground: Color(0xffecfdf5),
     onHover: Color(0xff047857),
     onFocus: Color(0xff047857),
+    onDisabled: Color(0xff065f46),
+    onDragged: Color(0xff065f46),
     shade50: Color(0xffecfdf5),
     shade100: Color(0xffd1fae5),
     shade200: Color(0xffa7f3d0),
@@ -109,9 +115,11 @@ class Colors {
   /// A light purple color.
   static const violet = JoltColor(
     0xff7c3aed,
-    onTop: Color(0xffede9fe),
+    foreground: Color(0xffede9fe),
     onHover: Color(0xff5b21b6),
     onFocus: Color(0xff5b21b6),
+    onDisabled: Color(0xff4c1d95),
+    onDragged: Color(0xff4c1d95),
     shade50: Color(0xfffaf5ff),
     shade100: Color(0xffede9fe),
     shade200: Color(0xffddd6fe),
@@ -128,9 +136,11 @@ class Colors {
   /// A light red color.
   static const red = JoltColor(
     0xffdc2626,
-    onTop: Color(0xfffee2e2),
+    foreground: Color(0xfffee2e2),
     onHover: Color(0xffb91c1c),
     onFocus: Color(0xffb91c1c),
+    onDisabled: Color(0xff7f1d1d),
+    onDragged: Color(0xff7f1d1d),
     shade50: Color(0xfffef2f2),
     shade100: Color(0xfffee2e2),
     shade200: Color(0xfffecaca),
@@ -147,9 +157,11 @@ class Colors {
   /// A light yellow color.
   static const amber = JoltColor(
     0xffd97706,
-    onTop: Color(0xfffef3c7),
+    foreground: Color(0xfffef3c7),
     onHover: Color(0xffb45309),
     onFocus: Color(0xffb45309),
+    onDisabled: Color(0xff78350f),
+    onDragged: Color(0xff78350f),
     shade50: Color(0xfffffbeb),
     shade100: Color(0xfffef3c7),
     shade200: Color(0xfffde68a),
@@ -166,9 +178,11 @@ class Colors {
   /// A light blue color.
   static const sky = JoltColor(
     0xff0284c7,
-    onTop: Color(0xffe0f2fe),
+    foreground: Color(0xffe0f2fe),
     onHover: Color(0xff0369a1),
     onFocus: Color(0xff0369a1),
+    onDisabled: Color(0xff0c4a6e),
+    onDragged: Color(0xff0c4a6e),
     shade50: Color(0xfff0f9ff),
     shade100: Color(0xffe0f2fe),
     shade200: Color(0xffbae6fd),

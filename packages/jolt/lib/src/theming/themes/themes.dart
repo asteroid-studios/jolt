@@ -32,7 +32,8 @@ class Themes extends StatelessWidget {
       child: MediaQuery(
         data: context.mediaQuery.copyWith(
           textScaleFactor:
-              context.mediaQuery.textScaleFactor * scaling.textScale,
+              MediaQueryData.fromView(context.view.value).textScaleFactor *
+                  scaling.textScale,
         ),
         child: Theme(
           data: theme,
@@ -40,9 +41,9 @@ class Themes extends StatelessWidget {
             builder: (context) {
               // Set the default color for text and icons to be either:
               // - The default color from the typography class
-              // - The darkest neutral color from the color scheme
+              // - The default surface foreground color
               final defaultColor =
-                  context.style.body.color ?? context.color.surface.onTop;
+                  context.style.body.color ?? context.color.surface.foreground;
               return AnimatedContainer(
                 duration: const Duration(milliseconds: 300),
                 color: theme.colorScheme.background,
@@ -54,20 +55,12 @@ class Themes extends StatelessWidget {
                           scaling,
                         ) ??
                         context.widgetTheme,
-                    child: DefaultTextStyle(
+                    child: SymbolTheme(
                       style: context.style.body.copyWith(color: defaultColor),
-                      child: IconTheme(
-                        data: IconThemeData(
-                          color: defaultColor,
-                          size: (context.style.body.fontSize ?? 16) *
-                              context.scaling.textScale,
-                        ),
-                        child: DefaultSelectionStyle(
-                          cursorColor: context.color.primary,
-                          selectionColor:
-                              context.color.primary.withOpacity(0.3),
-                          child: child,
-                        ),
+                      child: DefaultSelectionStyle(
+                        cursorColor: context.color.primary,
+                        selectionColor: context.color.primary.withOpacity(0.3),
+                        child: child,
                       ),
                     ),
                   ),

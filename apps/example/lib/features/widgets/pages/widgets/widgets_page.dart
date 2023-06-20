@@ -84,8 +84,7 @@ Button(
 
     return LayoutBuilder(
       builder: (context, constraints) {
-        final crossAxisCount =
-            context.responsive<int>(mobile: 1, desktop: 2, tv: 3);
+        final crossAxisCount = context.responsive<int>(desktop: 2, tv: 3) ?? 1;
         final itemWidth = constraints.maxWidth / crossAxisCount;
         return Scaffold(
           title: 'Widgets',

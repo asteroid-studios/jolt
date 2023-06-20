@@ -1,19 +1,20 @@
-import 'package:flutter/widgets.dart';
+import 'package:collection/collection.dart';
+
+import 'package:jolt/jolt.dart';
+
+export 'package:jolt/src/theming/color/color_extensions.dart';
 
 /// A color that has a small table of related colors called a "swatch"
 class JoltColor extends Color {
   /// Creates a swatch of colors
   ///
   /// - Provide a base [value] for the color.
-  /// - [onTop] should contrast well on top of the base color
+  /// - [foreground] should contrast well on top of the base color
   /// - [onHover] is what will be used when the user hovers over the color.
   /// - [onFocus] is what will be used when the color is focused.
   ///
   const JoltColor(
     super.value, {
-    required Color onTop,
-    required Color onHover,
-    required Color onFocus,
     required Color shade50,
     required Color shade100,
     required Color shade200,
@@ -25,10 +26,17 @@ class JoltColor extends Color {
     required Color shade800,
     required Color shade900,
     required Color shade950,
+    Color? foreground,
+    Color? onDisabled,
+    Color? onDragged,
+    Color? onFocus,
+    Color? onHover,
     this.opacity = 1.0,
-  })  : _onTop = onTop,
+  })  : _foreground = foreground,
         _onHover = onHover,
         _onFocus = onFocus,
+        _onDisabled = onDisabled,
+        _onDragged = onDragged,
         _shade50 = shade50,
         _shade100 = shade100,
         _shade200 = shade200,
@@ -41,17 +49,67 @@ class JoltColor extends Color {
         _shade900 = shade900,
         _shade950 = shade950;
 
+  int get _shadeIndex => shades.indexWhere((c) => c.value == value);
+
+  int _newShadeIndex(int n) => isLight ? _shadeIndex + n : _shadeIndex - n;
+
+  Color get _defaultForeground {
+    if (isLight) return _shade950;
+    return _shade50;
+  }
+
+  Color get _defaultHoverOrFocus {
+    // If user has configured color wrong and value is not in shade list
+    if (_shadeIndex == -1) {
+      if (isLight) return _shade600;
+      return _shade400;
+    }
+    // Create a new index that is 2 shades lighter or darker
+    // Return the first shade that is not null
+    // fallbacks are if the current index is out of bounds
+    return shades.elementAtOrNull(_newShadeIndex(2)) ??
+        shades.elementAtOrNull(_newShadeIndex(1)) ??
+        shades.elementAtOrNull(_newShadeIndex(0)) ??
+        _shade500;
+  }
+
+  Color get _defaultDraggedOrDisabled {
+    // If user has configured color wrong and value is not in shade list
+    if (_shadeIndex == -1) {
+      if (isLight) return _shade400;
+      return _shade600;
+    }
+    // Create a new index that is 2 shades lighter or darker
+    // Return the first shade that is not null
+    // fallbacks are if the current index is out of bounds
+    return shades.elementAtOrNull(_newShadeIndex(-2)) ??
+        shades.elementAtOrNull(_newShadeIndex(-1)) ??
+        shades.elementAtOrNull(_newShadeIndex(0)) ??
+        _shade500;
+  }
+
   /// A color which will contrast well on top of the base color.
-  Color get onTop => _onTop.withOpacity(opacity);
-  final Color _onTop;
+  Color get foreground =>
+      (_foreground ?? _defaultForeground).withOpacity(opacity);
+  final Color? _foreground;
 
   /// The color to show when the user hovers over the base color.
-  Color get onHover => _onHover.withOpacity(opacity);
-  final Color _onHover;
+  Color get onHover => (_onHover ?? _defaultHoverOrFocus).withOpacity(opacity);
+  final Color? _onHover;
 
   /// The color to show when the base color is focused.
-  Color get onFocus => _onFocus.withOpacity(opacity);
-  final Color _onFocus;
+  Color get onFocus => (_onFocus ?? _defaultHoverOrFocus).withOpacity(opacity);
+  final Color? _onFocus;
+
+  /// The color to show when the base color is disabled.
+  Color get onDisabled =>
+      (_onDisabled ?? _defaultDraggedOrDisabled).withOpacity(opacity);
+  final Color? _onDisabled;
+
+  /// The color to show when the base color is dragged.
+  Color get onDragged =>
+      (_onDragged ?? _defaultDraggedOrDisabled).withOpacity(opacity);
+  final Color? _onDragged;
 
   /// The lightest shade.
   Color get s50 => _shade50.withOpacity(opacity);
@@ -122,7 +180,7 @@ class JoltColor extends Color {
       opacity >= 0.0 && opacity <= 1.0,
       'Opacity must be between 0 and 1',
     );
-    final newValue = super.withOpacity(opacity).value;
+    final newValue = super.withOpacity(opacity);
     return copyWith(
       opacity: opacity,
       primary: newValue,
@@ -131,9 +189,9 @@ class JoltColor extends Color {
 
   /// Copy with new values.
   JoltColor copyWith({
-    int? primary,
+    Color? primary,
     Color? onHover,
-    Color? onTop,
+    Color? foreground,
     Color? onFocus,
     Color? shade50,
     Color? shade100,
@@ -149,16 +207,16 @@ class JoltColor extends Color {
     double? opacity,
   }) {
     return JoltColor(
-      primary ?? value,
+      primary?.value ?? value,
       onHover: onHover ?? _onHover,
-      onTop: onTop ?? _onTop,
+      foreground: foreground ?? _foreground,
       onFocus: onFocus ?? _onFocus,
       shade50: shade50 ?? _shade50,
       shade100: shade100 ?? _shade100,
       shade200: shade200 ?? _shade200,
       shade300: shade300 ?? _shade300,
       shade400: shade400 ?? _shade400,
-      shade500: shade500 ?? _shade500!,
+      shade500: shade500 ?? _shade500,
       shade600: shade600 ?? _shade600,
       shade700: shade700 ?? _shade700,
       shade800: shade800 ?? _shade800,
