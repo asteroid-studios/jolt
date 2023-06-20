@@ -1,8 +1,11 @@
 import 'package:flutter/widgets.dart';
 
-import 'package:jolt/src/utils/theme/defaults.dart';
+import 'package:jolt/src/theming/typography/typography_extensions.dart';
+export 'package:jolt/src/theming/typography/typography_extensions.dart';
 
-const _defaultHero = TextStyle(fontSize: 72);
+const _defaultHeroLarge = TextStyle(fontSize: 128);
+const _defaultHero = TextStyle(fontSize: 96);
+const _defaultHeroSmall = TextStyle(fontSize: 72);
 const _defaultDisplayLarge = TextStyle(fontSize: 60);
 const _defaultDisplay = TextStyle(fontSize: 48);
 const _defaultDisplaySmall = TextStyle(fontSize: 36);
@@ -12,15 +15,18 @@ const _defaultHeadingSmall = TextStyle(fontSize: 20);
 const _defaultBodyLarge = TextStyle(fontSize: 18);
 const _defaultBody = TextStyle(fontSize: 16);
 const _defaultBodySmall = TextStyle(fontSize: 14);
-const _defaultLabel = TextStyle(fontSize: 12);
-const _defaultLabelSmall = TextStyle(fontSize: 10);
+const _defaultLabelLarge = TextStyle(fontSize: 12);
+const _defaultLabel = TextStyle(fontSize: 10);
+const _defaultLabelSmall = TextStyle(fontSize: 8);
 
 /// The typography for the theme.
 @immutable
 class Typography {
   /// Initialise the typography for the theme.
   Typography({
+    TextStyle? heroLarge,
     TextStyle? hero,
+    TextStyle? heroSmall,
     TextStyle? displayLarge,
     TextStyle? display,
     TextStyle? displaySmall,
@@ -30,9 +36,12 @@ class Typography {
     TextStyle? bodyLarge,
     TextStyle? body,
     TextStyle? bodySmall,
+    TextStyle? labelLarge,
     TextStyle? label,
     TextStyle? labelSmall,
-  })  : _hero = hero?.merge(_defaultHero) ?? _defaultHero,
+  })  : _heroLarge = heroLarge?.merge(_defaultHeroLarge) ?? _defaultHeroLarge,
+        _hero = hero?.merge(_defaultHero) ?? _defaultHero,
+        _heroSmall = heroSmall?.merge(_defaultHeroSmall) ?? _defaultHeroSmall,
         _displayLarge =
             displayLarge?.merge(_defaultDisplayLarge) ?? _defaultDisplayLarge,
         _display = display?.merge(_defaultDisplay) ?? _defaultDisplay,
@@ -46,13 +55,23 @@ class Typography {
         _bodyLarge = bodyLarge?.merge(_defaultBodyLarge) ?? _defaultBodyLarge,
         _body = body?.merge(_defaultBody) ?? _defaultBody,
         _bodySmall = bodySmall?.merge(_defaultBodySmall) ?? _defaultBodySmall,
+        _labelLarge =
+            labelLarge?.merge(_defaultLabelLarge) ?? _defaultLabelLarge,
         _label = label?.merge(_defaultLabel) ?? _defaultLabel,
         _labelSmall =
             labelSmall?.merge(_defaultLabelSmall) ?? _defaultLabelSmall;
 
+  /// Used for large hero text.
+  TextStyle get heroLarge => _heroLarge.withFontVariationsFromWeight();
+  final TextStyle _heroLarge;
+
   /// Used for hero text.
   TextStyle get hero => _hero.withFontVariationsFromWeight();
   final TextStyle _hero;
+
+  /// Used for small hero text.
+  TextStyle get heroSmall => _heroSmall.withFontVariationsFromWeight();
+  final TextStyle _heroSmall;
 
   /// Used for large display text.
   TextStyle get displayLarge => _displayLarge.withFontVariationsFromWeight();
@@ -90,6 +109,10 @@ class Typography {
   TextStyle get bodySmall => _bodySmall.withFontVariationsFromWeight();
   final TextStyle _bodySmall;
 
+  /// Used for large label text.
+  TextStyle get labelLarge => _labelLarge.withFontVariationsFromWeight();
+  final TextStyle _labelLarge;
+
   /// Used for label text.
   TextStyle get label => _label.withFontVariationsFromWeight();
   final TextStyle _label;
@@ -100,7 +123,9 @@ class Typography {
 
   /// Return a copy of Typography with the given parameters replaced
   Typography copyWith({
+    TextStyle? heroLarge,
     TextStyle? hero,
+    TextStyle? heroSmall,
     TextStyle? displayLarge,
     TextStyle? display,
     TextStyle? displaySmall,
@@ -110,11 +135,14 @@ class Typography {
     TextStyle? bodyLarge,
     TextStyle? body,
     TextStyle? bodySmall,
+    TextStyle? labelLarge,
     TextStyle? label,
     TextStyle? labelSmall,
   }) {
     return Typography(
+      heroLarge: heroLarge ?? _heroLarge,
       hero: hero ?? _hero,
+      heroSmall: heroSmall ?? _heroSmall,
       displayLarge: displayLarge ?? _displayLarge,
       display: display ?? _display,
       displaySmall: displaySmall ?? _displaySmall,
@@ -124,6 +152,7 @@ class Typography {
       bodyLarge: bodyLarge ?? _bodyLarge,
       body: body ?? _body,
       bodySmall: bodySmall ?? _bodySmall,
+      labelLarge: labelLarge ?? _labelLarge,
       label: label ?? _label,
       labelSmall: labelSmall ?? _labelSmall,
     );
@@ -135,7 +164,9 @@ class Typography {
       return false;
     }
     return other is Typography &&
+        other._heroLarge == _heroLarge &&
         other._hero == _hero &&
+        other._heroSmall == _heroSmall &&
         other._displayLarge == _displayLarge &&
         other._display == _display &&
         other._displaySmall == _displaySmall &&
@@ -145,6 +176,7 @@ class Typography {
         other._bodyLarge == _bodyLarge &&
         other._body == _body &&
         other._bodySmall == _bodySmall &&
+        other._labelLarge == _labelLarge &&
         other._label == _label &&
         other._labelSmall == _labelSmall;
   }
@@ -152,7 +184,9 @@ class Typography {
   @override
   int get hashCode {
     final values = <Object?>[
+      _heroLarge,
       _hero,
+      _heroSmall,
       _displayLarge,
       _display,
       _displaySmall,
@@ -162,6 +196,7 @@ class Typography {
       _bodyLarge,
       _body,
       _bodySmall,
+      _labelLarge,
       _label,
       _labelSmall,
     ];
