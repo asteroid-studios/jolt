@@ -30,8 +30,12 @@ class Button extends StatefulWidget {
     this.height,
     this.padding,
     this.verticalButton = false,
+    this.fullWidth = false,
     this.autoFocus = false,
+    this.requestFocusOnPress = true,
     this.size = ButtonSize.md,
+    this.mainAxisAlignment = MainAxisAlignment.center,
+    this.direction = TextDirection.ltr,
   });
 
   ///
@@ -63,6 +67,9 @@ class Button extends StatefulWidget {
 
   /// Called when an error occurs inside onTap or onLongPressed
   final void Function(InteractionException)? errorHandler;
+
+  ///
+  final bool requestFocusOnPress;
 
   ///
   final Color? background;
@@ -105,6 +112,15 @@ class Button extends StatefulWidget {
 
   /// Whether to arrange items vertically instead of horizontally
   final bool verticalButton;
+
+  ///
+  final MainAxisAlignment mainAxisAlignment;
+
+  ///
+  final TextDirection direction;
+
+  ///
+  final bool fullWidth;
 
   @override
   State<Button> createState() => _ButtonState();
@@ -173,6 +189,7 @@ class _ButtonState extends State<Button> {
       errorHandler: widget.errorHandler,
       tooltip: widget.tooltip,
       autoFocus: widget.autoFocus,
+      requestFocusOnPress: widget.requestFocusOnPress,
       builder: (context, state) {
         final isDisabled = state.isAwaiting || !state.hasPressHandler;
 
@@ -204,7 +221,9 @@ class _ButtonState extends State<Button> {
                 child: Text('', style: labelStyle),
               ),
               Row(
-                mainAxisSize: MainAxisSize.min,
+                mainAxisSize:
+                    widget.fullWidth ? MainAxisSize.max : MainAxisSize.min,
+                mainAxisAlignment: widget.mainAxisAlignment,
                 children: [
                   if (state.isAwaiting)
                     progressIndicator
@@ -213,7 +232,7 @@ class _ButtonState extends State<Button> {
                   // Necessary for heights to line up without label
                   Text('', style: labelStyle),
                 ],
-              ),
+              )
             ],
           );
         } else {
@@ -230,6 +249,9 @@ class _ButtonState extends State<Button> {
           if (widget.verticalButton) {
             // Layout VERTICAL button
             child = Column(
+              verticalDirection: widget.direction == TextDirection.ltr
+                  ? VerticalDirection.down
+                  : VerticalDirection.up,
               mainAxisSize: MainAxisSize.min,
               spacing: spacing,
               children: buttonChildren,
@@ -237,8 +259,10 @@ class _ButtonState extends State<Button> {
           } else {
             // Layout HORIZONTAL button
             child = Row(
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.center,
+              textDirection: widget.direction,
+              mainAxisSize:
+                  widget.fullWidth ? MainAxisSize.max : MainAxisSize.min,
+              mainAxisAlignment: widget.mainAxisAlignment,
               spacing: spacing,
               children: buttonChildren,
             );

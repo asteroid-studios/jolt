@@ -18,8 +18,8 @@ extension ResponsiveExtensions on BuildContext {
     // Add some basic breakpoints
     if (width < 600) return mobile;
     if (width < 900) return tablet ?? mobile;
-    if (width < 1200) return tabletLandscape ?? tablet ?? mobile;
-    if (width < 1800) return desktop ?? tabletLandscape ?? tablet ?? mobile;
+    if (width < 1600) return tabletLandscape ?? tablet ?? mobile;
+    if (width < 2000) return desktop ?? tabletLandscape ?? tablet ?? mobile;
     return tv ?? desktop ?? tabletLandscape ?? tablet ?? mobile;
     //   switch (_context.view) {
     //     case FlutterView.mobile:

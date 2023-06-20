@@ -1,4 +1,4 @@
-import 'package:jolt/jolt.dart';
+import 'package:ui/ui.dart';
 
 ///
 class Footer extends StatelessWidget {
@@ -13,7 +13,7 @@ class Footer extends StatelessWidget {
         border: Border(
           top: BorderSide(
             color: context.color.surface.s100,
-            width: context.dimensions.borderWidth,
+            width: 2,
           ),
         ),
         color: context.color.background,

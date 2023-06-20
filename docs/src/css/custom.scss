@@ -4,24 +4,86 @@
  * work well for content-centric websites.
  */
 
- @import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,500&display=swap');
+@import url('https://fonts.cdnfonts.com/css/satoshi');
+@import url('https://fonts.cdnfonts.com/css/outfit');
+
+$headingFont : 'Outfit', sans-serif;
+
+.home_hero {
+  background: #ffffff;
+  padding: 0px 30px 50px 30px;
+  text-align: center;
+  @media only screen and (max-width: 600px) {
+    padding: 30px 40px 50px 40px;
+  }
+  span {
+    font-family: $headingFont;
+    font-weight: 700;
+    font-size: 1.5rem;
+    color: #bfade8;
+    text-wrap: balance;
+    @media only screen and (max-width: 600px) {
+      font-size: 1rem;
+    }
+  }
+  h1 {
+    background: none !important;
+    padding: 0px !important;
+    font-size: 3.5rem;
+    color: #8B5CF6;
+    text-wrap: balance;
+    @media only screen and (max-width: 600px) {
+      font-size: 2rem;
+    }
+  }
+}
+
 
 /* You can override the default Infima variables here. */
 :root {
-  --ifm-color-primary: #148d60;
+  font-weight: 500;
+  --ifm-font-size-base: 110%;
+  --ifm-font-family-base: 'Satoshi', sans-serif;
+  --ifm-heading-font-family: 'Outfit', sans-serif;
+  --ifm-background-color: #f1f5f9;
+  --ifm-navbar-background-color: #ffffff;
+  --ifm-color-primary: #8b5cf6;
   --ifm-color-primary-dark: #29784c;
   --ifm-color-primary-darker: #277148;
   --ifm-color-primary-darkest: #205d3b;
-  --ifm-color-primary-light: #24b47f;
+  --ifm-color-primary-light: #33925d;
   --ifm-color-primary-lighter: #359962;
   --ifm-color-primary-lightest: #3cad6e;
   --ifm-code-font-size: 95%;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+
+  .menu {
+    background: #f8fafc !important;
+  }
+
+  hr {
+    background: #e2e8f0 !important;
+  }
+
+  .footer {
+    background: #0f172a;
+  }
+
+  .menu {
+    padding: 20px;
+  }
+
+  .navbar {
+    box-shadow: none !important;
+    height: 75px !important;
+  }
 }
 
 /* For readability concerns, you should choose a lighter palette in dark mode. */
 [data-theme='dark'] {
-  --ifm-color-primary: #148d60;
+  --ifm-background-color: #020617 !important;
+  --ifm-navbar-background-color: #00020b;
+  --ifm-color-primary: #a855f7;
   --ifm-color-primary-dark: #21af90;
   --ifm-color-primary-darker: #1fa588;
   --ifm-color-primary-darkest: #1a8870;
@@ -29,4 +91,25 @@
   --ifm-color-primary-lighter: #32d8b4;
   --ifm-color-primary-lightest: #4fddbf;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+  
+  .menu, .footer {
+    background: #0f172a !important;
+  }
+
+  hr {
+    background: #0f172a !important;
+  }
+
+  .home_hero {
+    background: #04000D;
+    span {
+      color: #342052;
+    }
+  }
+}
+
+
+[data-theme='light'] img[src$='#gh-dark-mode-only'],
+[data-theme='dark'] img[src$='#gh-light-mode-only'] {
+  display: none;
 }

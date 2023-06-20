@@ -72,6 +72,8 @@ class _ScaffoldState extends State<Scaffold> {
               controller: scrollController,
               slivers: [
                 // If both app bars are floating, group them
+                // TODO issue where the bar is rebuilt after the rest of the page, so there is a gap when using alternative scaling
+                // TO test, set spacing to non medium and reload the app
                 AdaptiveHeightSliverPersistentHeader(
                   // pinned: true,
                   floating: true,
@@ -94,7 +96,13 @@ class _ScaffoldState extends State<Scaffold> {
                               Surface(
                                 borderColor: Colors.transparent,
                                 borderRadius: BorderRadius.zero,
-                                padding: EdgeInsets.all(context.sizing.lg),
+                                padding: EdgeInsets.only(
+                                  left: context.sizing.lg,
+                                  right: context.sizing.lg,
+                                  bottom: context.sizing.lg,
+                                  top: context.sizing.lg +
+                                      context.mediaQuery.viewPadding.top,
+                                ),
                                 background:
                                     context.color.surface.withOpacity(0.8),
                                 child: Row(
@@ -125,13 +133,10 @@ class _ScaffoldState extends State<Scaffold> {
                           tag: 'shellFooter',
                           child: shell!.footer!,
                         ),
-                      // TODO make sure to put enough space here for the bottom bar.
-                      // Obviously dont use the actual widget
-                      if (shell?.bottomBar != null)
-                        Opacity(
-                          opacity: 0,
-                          child: shell!.bottomBar,
-                        ),
+                      SizedBox(
+                        height: shell?.bottomBarHeight ??
+                            context.mediaQuery.viewPadding.bottom,
+                      ),
                     ],
                   ),
                 ),
@@ -164,14 +169,6 @@ class _ScaffoldState extends State<Scaffold> {
                       ),
                     ),
                   ),
-                ),
-              ),
-            if (shell?.bottomBar != null)
-              Align(
-                alignment: Alignment.bottomCenter,
-                child: Hero(
-                  tag: 'shellBottomBar',
-                  child: shell!.bottomBar!,
                 ),
               ),
           ],

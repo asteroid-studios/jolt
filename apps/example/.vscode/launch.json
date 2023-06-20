@@ -6,36 +6,15 @@
             "request": "launch",
             "type": "dart",
             "program": "lib/main.dart",
-            "args": ["--web-renderer", "html"]
+            "args": ["--web-renderer", "canvaskit"]
         },
         {
-            "name": "Web - canvaskit",
+            "name": "Web - html",
             "request": "launch",
             "type": "dart",
             "program": "lib/main.dart",
-            "args": ["--web-renderer", "canvaskit"]
+            "args": ["--web-renderer", "html"]
         },
-        // {
-        //     "name": "Local",
-        //     "request": "launch",
-        //     "type": "dart",
-        //     "program": "lib/main.dart",
-        //     "args": ["--dart-define-from-file", "config/local.json"]
-        // },
-        // {
-        //     "name": "Staging",
-        //     "request": "launch",
-        //     "type": "dart",
-        //     "program": "lib/main.dart",
-        //     "args": ["--dart-define-from-file", "config/staging.json"]
-        // },
-        // {
-        //     "name": "Production",
-        //     "request": "launch",
-        //     "type": "dart",
-        //     "program": "lib/main.dart",
-        //     "args": ["--dart-define-from-file", "config/production.json"]
-        // },
     ],
     "compounds": []
 }

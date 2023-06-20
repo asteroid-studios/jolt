@@ -1,13 +1,13 @@
 import 'dart:ui';
 
-import 'package:go_router/go_router.dart';
-import 'package:jolt/jolt.dart';
+import 'package:ui/ui.dart';
 
-import 'package:example/routing/routes.dart';
-import 'package:example/translation/app_translations.dart';
-import 'package:example/translation/locales.dart';
+import 'package:example/utils/router/router.dart';
+import 'package:example/utils/translation/app_translations.dart';
+import 'package:example/utils/translation/locales.dart';
 
 ///
+@RoutePage()
 class DashboardPage extends StatefulWidget {
   ///
   const DashboardPage({super.key});
@@ -36,6 +36,7 @@ class _DashboardPageState extends State<DashboardPage> {
     const begin = 3;
     const end = 8;
     const spacer = Spacing.sm();
+    print(context.translations.dashboard.title);
     return Scaffold(
       title: context.translations.dashboard.title,
       content: Padding(
@@ -219,7 +220,7 @@ class _DashboardPageState extends State<DashboardPage> {
                     print(result);
                     // final test = [].elementAt(10);
                   },
-                  icon: Icons.regular.gear,
+                  icon: Icons.gear,
                   label: 'Button',
                 ),
                 Button(
@@ -237,7 +238,7 @@ class _DashboardPageState extends State<DashboardPage> {
                     print('long pressed from dashboard');
                   },
                   tooltip: 'Open Settings',
-                  icon: Icons.regular.gear,
+                  icon: Icons.gear,
                 ),
                 Button(
                   onTap: () {
@@ -250,7 +251,7 @@ class _DashboardPageState extends State<DashboardPage> {
                   label: 'Align',
                 ),
                 Button(
-                  icon: Icons.regular.gear,
+                  icon: Icons.gear,
                   label: 'Button Disabled',
                 ),
                 Button(
@@ -260,7 +261,7 @@ class _DashboardPageState extends State<DashboardPage> {
                     );
                   },
                   label: 'Button Primary',
-                  icon: Icons.regular.gear,
+                  icon: Icons.gear,
                   background: context.color.primary,
                 ),
               ],
@@ -335,7 +336,7 @@ class TestDialog extends StatelessWidget {
           alignment: Alignment.centerRight,
           children: [
             Icon(
-              Icons.bold.gear,
+              IconsBold.gear,
               size: context.style.hero.fontSize,
               color: context.color.surface.s300,
             ),
@@ -411,7 +412,7 @@ class TestPanel extends StatelessWidget {
               children: [
                 Button(
                   background: context.color.surface.s300,
-                  icon: Icons.duotone.floppyDisk,
+                  icon: IconsDuotone.floppyDisk,
                   onTap: () {
                     JoltOverlay.show(child: TestDialog());
                   },
@@ -419,7 +420,7 @@ class TestPanel extends StatelessWidget {
                 Spacing.md(),
                 Button(
                   background: context.color.surface.s300,
-                  icon: Icons.regular.x,
+                  icon: Icons.x,
                   onTap: () {
                     context.overlay.pop();
                   },

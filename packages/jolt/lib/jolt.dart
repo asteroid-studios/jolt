@@ -1,5 +1,8 @@
 // Flutter exports
-export 'package:flutter/widgets.dart' hide Column, Icon, Row, Text;
+import 'package:hive_flutter/hive_flutter.dart';
+
+export 'package:flutter/widgets.dart'
+    hide Column, Form, FormField, FormFieldState, FormState, Icon, Row, Text;
 export 'package:flutter/material.dart' show Scrollbar, SelectionArea;
 
 // Package exports
@@ -26,6 +29,7 @@ export 'src/widgets/basics/surface/surface.dart';
 export 'src/widgets/basics/text/text.dart';
 export 'src/widgets/basics/interaction/interaction.dart';
 export 'src/widgets/basics/icon/icon.dart';
+export 'src/widgets/basics/size_reporting_widget/size_reporting_widget.dart';
 export 'src/widgets/basics/spacing/spacing.dart';
 export 'src/widgets/basics/pop_over/pop_over.dart';
 
@@ -47,3 +51,15 @@ export 'src/utils/responsive/responsive.dart';
 export 'src/utils/theme/theme_extensions.dart';
 export 'src/utils/theme/widget_theme.dart';
 export 'src/utils/platform/platform.dart';
+
+///
+class Jolt {
+  /// The Hive key for storing Jolt preferences.
+  static const storageKey = 'joltPreferences';
+
+  /// Initializes Jolt.
+  static Future<void> initJolt({bool initializeHive = true}) async {
+    if (initializeHive) await Hive.initFlutter();
+    await Hive.openBox<dynamic>(Jolt.storageKey);
+  }
+}

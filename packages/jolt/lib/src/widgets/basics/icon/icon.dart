@@ -1,8 +1,30 @@
+import 'dart:math' as math;
+
 import 'package:flutter/widgets.dart' as widgets show Icon;
 
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import 'package:jolt/jolt.dart';
+
+///
+extension IconExtension on IconData {
+  ///
+  Icon icon({
+    double? size,
+    Color? color,
+    Color? colorDark,
+    bool flipHorizontal = false,
+    bool flipVertical = false,
+  }) =>
+      Icon(
+        this,
+        size: size,
+        color: color,
+        colorDark: colorDark,
+        flipHorizontal: flipHorizontal,
+        flipVertical: flipVertical,
+      );
+}
 
 ///
 class Icon extends StatelessWidget {
@@ -12,6 +34,8 @@ class Icon extends StatelessWidget {
     this.color,
     this.colorDark,
     this.size,
+    this.flipHorizontal = false,
+    this.flipVertical = false,
     this.semanticLabel,
     super.key,
   });
@@ -30,6 +54,14 @@ class Icon extends StatelessWidget {
   ///
   final double? size;
 
+  ///
+  final bool flipHorizontal;
+
+  ///
+  final bool flipVertical;
+
+  // TODO add rotation as well
+
   /// Semantic label for the icon.
   ///
   /// Announced in accessibility modes (e.g TalkBack/VoiceOver).
@@ -43,19 +75,26 @@ class Icon extends StatelessWidget {
   Widget build(BuildContext context) {
     final defaultColor = context.color.isDark ? (colorDark ?? color) : color;
 
-    if (icon is PhosphorIconData) {
-      return PhosphorIcon(
-        icon as PhosphorIconData,
-        color: defaultColor,
-        size: size,
-        semanticLabel: semanticLabel,
-      );
-    }
-    return widgets.Icon(
-      icon,
-      color: defaultColor,
-      size: size,
-      semanticLabel: semanticLabel,
+    final iconWidget = icon is PhosphorIconData
+        ? PhosphorIcon(
+            icon as PhosphorIconData,
+            color: defaultColor,
+            size: size,
+            semanticLabel: semanticLabel,
+          )
+        : widgets.Icon(
+            icon,
+            color: defaultColor,
+            size: size,
+            semanticLabel: semanticLabel,
+          );
+
+    if (!flipHorizontal && !flipVertical) return iconWidget;
+
+    return Transform.scale(
+      scaleX: flipHorizontal ? -1 : 1,
+      scaleY: flipVertical ? -1 : 1,
+      child: iconWidget,
     );
   }
 }

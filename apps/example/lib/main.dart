@@ -1,20 +1,25 @@
 import 'package:bitsdojo_window/bitsdojo_window.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
-import 'package:jolt/jolt.dart';
-import 'package:jolt/jolt_init.dart';
+import 'package:ui/ui.dart';
 
 import 'package:example/components/app/app.dart';
 
 void main() async {
-  // turn off the # in the URLs on the web
-  usePathUrlStrategy();
-  Paint.enableDithering = true;
-  await Jolt.initFlutter();
+  final widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+  setUrlStrategy(PathUrlStrategy());
+  await Jolt.initJolt();
+
   runApp(const App());
 
   if (Platform.isDesktop) {
     doWhenWindowReady(() {
+      appWindow.minSize = const Size(400, 800);
+      // appWindow.alignment = Alignment.center;
       appWindow.show();
     });
   }
+
+  FlutterNativeSplash.remove();
 }

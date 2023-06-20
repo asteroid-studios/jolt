@@ -1,0 +1,23 @@
+name: ui
+description: A new Flutter package project.
+version: 0.0.1
+publish_to: none
+
+environment:
+  sdk: '>=3.0.3 <4.0.0'
+  flutter: ">=3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  jolt: 
+    path: ../../../../packages/jolt
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  very_good_analysis: ^4.0.0+1
+
+# The following section is specific to Flutter packages.
+flutter:
+  uses-material-design: false

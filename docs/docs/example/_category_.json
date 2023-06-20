@@ -1,8 +1,0 @@
-{
-  "label": "Example",
-  "position": 5,
-  "link": {
-    "type": "generated-index",
-    "description": "A basic chat app put together with Flutter, Jolt + Supabase"
-  }
-}

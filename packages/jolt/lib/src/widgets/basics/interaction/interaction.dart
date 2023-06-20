@@ -221,7 +221,7 @@ class InteractionState extends State<Interaction> {
       // Set is awaiting to true, and rebuild.
       setState(() => _isAwaiting = true);
     }
-    if (widget.requestFocusOnPress) {
+    if (widget.requestFocusOnPress && !Platform.isMobile) {
       setState(() => _wasFocusedAfterPress = true);
       _focusNode?.requestFocus();
     }

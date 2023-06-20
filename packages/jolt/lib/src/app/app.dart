@@ -1,9 +1,10 @@
+import 'package:flutter/material.dart' as m
+    show ColorScheme, MaterialPageRoute, Theme, ThemeData;
+
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_portal/flutter_portal.dart';
 
 import 'package:jolt/jolt.dart';
-
-export 'package:flutter/material.dart' show MaterialPageRoute;
 
 /// The Jolt app.
 class JoltApp extends StatefulWidget {
@@ -164,19 +165,38 @@ class _JoltAppState extends State<JoltApp> with WidgetsBindingObserver {
       );
     }
 
-    return ValueListenableBuilder<ThemeData>(
+    m.ThemeData materialThemeData(ColorScheme color) {
+      return m.ThemeData(
+        scaffoldBackgroundColor: color.background,
+        colorScheme: m.ColorScheme(
+          brightness: color.brightness,
+          primary: color.primary,
+          onPrimary: color.primary.onTop,
+          secondary: color.secondary,
+          onSecondary: color.secondary.onTop,
+          surface: color.surface,
+          onSurface: color.surface.onTop,
+          background: color.background,
+          onBackground: color.background.onTop,
+          error: color.error,
+          onError: color.error.onTop,
+        ),
+      );
+    }
+
+    return ValueListenableBuilder<JoltAppState>(
       valueListenable: controller,
       child: widget.child,
-      builder: (BuildContext context, ThemeData theme, Widget? child) {
+      builder: (BuildContext context, JoltAppState state, Widget? child) {
         final usesRouter =
             widget.routerDelegate != null || widget.routerConfig != null;
 
         final app = usesRouter
             ? WidgetsApp.router(
-                color: theme.colorScheme.primary,
+                color: state.theme.colorScheme.primary,
                 title: widget.title ?? '',
                 debugShowCheckedModeBanner: widget.debugShowCheckedModeBanner,
-                locale: controller.locale,
+                locale: state.locale,
                 supportedLocales: widget.supportedLocales,
                 localizationsDelegates: _localizationsDelegates,
                 routerConfig: widget.routerConfig,
@@ -187,11 +207,11 @@ class _JoltAppState extends State<JoltApp> with WidgetsBindingObserver {
                 builder: (context, child) => wrapChild(child),
               )
             : WidgetsApp(
-                color: theme.colorScheme.primary,
+                color: state.theme.colorScheme.primary,
                 builder: (context, child) => wrapChild(child),
                 home: child,
                 title: widget.title ?? '',
-                locale: controller.locale,
+                locale: state.locale,
                 supportedLocales: widget.supportedLocales,
                 localizationsDelegates: _localizationsDelegates,
                 debugShowCheckedModeBanner: widget.debugShowCheckedModeBanner,
@@ -200,7 +220,7 @@ class _JoltAppState extends State<JoltApp> with WidgetsBindingObserver {
                   RouteSettings settings,
                   WidgetBuilder builder,
                 ) {
-                  return MaterialPageRoute<T>(
+                  return m.MaterialPageRoute<T>(
                     settings: settings,
                     builder: builder,
                   );
@@ -211,28 +231,31 @@ class _JoltAppState extends State<JoltApp> with WidgetsBindingObserver {
           child: Directionality(
             textDirection: TextDirection.ltr,
             child: Localizations(
-              locale: controller.locale,
+              locale: state.locale,
               delegates: _localizationsDelegates,
               child: Themes(
-                theme: theme,
+                theme: state.theme,
                 widgetTheme: widget.widgetTheme,
                 scaling: ScalingData(
-                  spacingScale: controller.spacingScaleFactorMultiplier,
-                  textScale: controller.textScaleFactorMultiplier,
+                  spacingScale: state.spacingScaleFactorMultiplier,
+                  textScale: state.textScaleFactorMultiplier,
                 ),
-                child: _JoltInherited(
-                  controller: controller,
-                  child: Overlay(
-                    initialEntries: [
-                      OverlayEntry(
-                        builder: (context) {
-                          return OverlayStack(
-                            key: joltOverlayKey,
-                            child: app,
-                          );
-                        },
-                      ),
-                    ],
+                child: m.Theme(
+                  data: materialThemeData(state.theme.color),
+                  child: _JoltInherited(
+                    controller: controller,
+                    child: Overlay(
+                      initialEntries: [
+                        OverlayEntry(
+                          builder: (context) {
+                            return OverlayStack(
+                              key: joltOverlayKey,
+                              child: app,
+                            );
+                          },
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -263,7 +286,7 @@ class _JoltInherited extends InheritedWidget {
 
   @override
   bool updateShouldNotify(covariant InheritedWidget oldWidget) =>
-      controller != (oldWidget as _JoltInherited).controller;
+      controller.value != (oldWidget as _JoltInherited).controller.value;
 }
 
 ///

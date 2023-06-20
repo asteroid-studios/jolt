@@ -4,39 +4,53 @@ import 'package:collection/collection.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 import 'package:jolt/jolt.dart';
-
-/// The Hive key for storing Jolt preferences.
-const joltStorageKey = 'joltPreferences';
-
-// class JoltControllerState {
-//   Locale locale;
-//   ThemeData theme;
-// }
+export 'package:jolt/src/app/models/jolt_app_state.dart';
 
 /// Control the JoltApp
 /// Eg:
 /// - Set the theme
-class JoltAppController extends ValueNotifier<ThemeData> {
+class JoltAppController extends ValueNotifier<JoltAppState> {
   ///
   JoltAppController({
-    required this.themes,
+    required List<ThemeData> themes,
     required PlatformDispatcher platformDispatcher,
-    this.supportedLocales = const <Locale>[Locale('en', 'US')],
+    List<Locale> supportedLocales = const <Locale>[Locale('en', 'US')],
     Locale? locale,
-  }) : super(themes.first) {
+  }) : super(
+          // Init state
+          JoltAppState(
+            themes: themes,
+            supportedLocales: supportedLocales,
+            theme: themes.first,
+            primaryColor: themes.first.color.primary,
+            themeMode: ThemeMode.system,
+            highContrast: themes.first.color.highContrast,
+            locale: locale ?? supportedLocales.first,
+          ),
+        ) {
+    // Init platform brightness
+    _platformBrightness = platformDispatcher.platformBrightness;
+    platformDispatcher.onPlatformBrightnessChanged = () {
+      WidgetsBinding.instance.handlePlatformBrightnessChanged();
+      _platformBrightness = platformDispatcher.platformBrightness;
+      _refreshTheme();
+    };
+    _initFromStorage();
+  }
+
+  void _initFromStorage() {
     // Initialise locale
-    final defaultLocale = locale ?? supportedLocales.first;
     final savedLocale = _joltPrefs
         .get(
           _JoltPreferences.locale.name,
-          defaultValue: defaultLocale.toLanguageTag(),
+          defaultValue: value.locale.toLanguageTag(),
         )
         .toString();
-    this.locale = supportedLocales.firstWhere(
+    final locale = value.supportedLocales.firstWhereOrNull(
       (l) => l.toLanguageTag() == savedLocale,
     );
     // Initialise theme mode
-    themeMode = ThemeMode.values.byName(
+    final themeMode = ThemeMode.values.byName(
       _joltPrefs
           .get(
             _JoltPreferences.themeMode.name,
@@ -45,7 +59,7 @@ class JoltAppController extends ValueNotifier<ThemeData> {
           .toString(),
     );
     // Initialise high contrast
-    highContrast = _joltPrefs.get(
+    final highContrast = _joltPrefs.get(
       _JoltPreferences.highContrast.name,
       defaultValue: false,
     ) as bool;
@@ -53,53 +67,57 @@ class JoltAppController extends ValueNotifier<ThemeData> {
     final primaryColorValue = _joltPrefs.get(
       _JoltPreferences.primaryColor.name,
     ) as int?;
-    primaryColor = primaryColorValue != null ? Color(primaryColorValue) : null;
+    final primaryColor =
+        primaryColorValue != null ? Color(primaryColorValue) : null;
     // Initialise text scale factor
-    textScaleFactorMultiplier = _joltPrefs.get(
+    final textScaleFactorMultiplier = _joltPrefs.get(
       _JoltPreferences.textScale.name,
       defaultValue: 1.0,
     ) as double;
     // Initialise spacing scale factor
-    spacingScaleFactorMultiplier = _joltPrefs.get(
+    final spacingScaleFactorMultiplier = _joltPrefs.get(
       _JoltPreferences.spacingScale.name,
       defaultValue: 1.0,
     ) as double;
-    // Init platform brightness
-    _platformBrightness = platformDispatcher.platformBrightness;
-    platformDispatcher.onPlatformBrightnessChanged = () {
-      WidgetsBinding.instance.handlePlatformBrightnessChanged();
-      _platformBrightness = platformDispatcher.platformBrightness;
-      _refreshTheme();
-    };
+    // Update the app state
+    value = value.copyWith(
+      locale: locale,
+      themeMode: themeMode,
+      highContrast: highContrast,
+      primaryColor: primaryColor,
+      textScaleFactorMultiplier: textScaleFactorMultiplier,
+      spacingScaleFactorMultiplier: spacingScaleFactorMultiplier,
+    );
     _refreshTheme();
   }
 
   void _refreshTheme() {
     // Get the new theme
-    value = themes.firstWhereOrNull(
+    final newTheme = value.themes.firstWhereOrNull(
           (theme) {
             final colorScheme = theme.colorScheme;
             return colorScheme.brightness == _brightnessFromThemeMode() &&
-                colorScheme.highContrast == highContrast &&
-                colorScheme.primary.value == primaryColor?.value;
+                colorScheme.highContrast == value.highContrast &&
+                colorScheme.primary.value == value.primaryColor.value;
           },
         ) ??
-        themes.firstWhereOrNull(
+        value.themes.firstWhereOrNull(
           (theme) {
             final colorScheme = theme.colorScheme;
             return colorScheme.brightness == _brightnessFromThemeMode() &&
-                colorScheme.highContrast == highContrast;
+                colorScheme.highContrast == value.highContrast;
           },
         ) ??
-        themes.firstWhereOrNull(
+        value.themes.firstWhereOrNull(
           (theme) => theme.colorScheme.brightness == _brightnessFromThemeMode(),
         ) ??
-        themes.first;
+        value.themes.first;
+    value = value.copyWith(theme: newTheme);
     notifyListeners();
   }
 
   Brightness _brightnessFromThemeMode() {
-    switch (themeMode) {
+    switch (value.themeMode) {
       case ThemeMode.system:
         return _platformBrightness;
       case ThemeMode.light:
@@ -112,11 +130,11 @@ class JoltAppController extends ValueNotifier<ThemeData> {
   /// Change the locale.
   //  TODO support using device locale
   void setLocale(Locale locale) {
-    if (supportedLocales.firstWhereOrNull(
+    if (value.supportedLocales.firstWhereOrNull(
           (l) => l.toLanguageTag() == locale.toLanguageTag(),
         ) !=
         null) {
-      this.locale = locale;
+      value = value.copyWith(locale: locale);
       _save(_JoltPreferences.locale, locale.toLanguageTag());
       notifyListeners();
     }
@@ -124,64 +142,40 @@ class JoltAppController extends ValueNotifier<ThemeData> {
 
   /// Change the theme.
   void setTheme(ThemeMode mode, {bool? withHighContrast}) {
-    themeMode = mode;
-    _save(_JoltPreferences.themeMode, themeMode.name);
+    value = value.copyWith(themeMode: mode);
+    _save(_JoltPreferences.themeMode, mode.name);
     if (withHighContrast != null) {
-      highContrast = withHighContrast;
-      _save(_JoltPreferences.highContrast, highContrast);
+      value = value.copyWith(highContrast: withHighContrast);
+      _save(_JoltPreferences.highContrast, withHighContrast);
     }
     _refreshTheme();
   }
 
   /// Change the primary color.
   void setPrimaryColor(Color color) {
-    primaryColor = color;
-    _save(_JoltPreferences.primaryColor, primaryColor?.value);
+    value = value.copyWith(primaryColor: color);
+    _save(_JoltPreferences.primaryColor, color.value);
     _refreshTheme();
   }
 
   /// Change the text scale factor multiplier.
-  void setTextScaleFactorMultiplier(double value) {
-    textScaleFactorMultiplier = value;
-    _save(_JoltPreferences.textScale, textScaleFactorMultiplier);
+  void setTextScaleFactorMultiplier(double multiplier) {
+    value = value.copyWith(textScaleFactorMultiplier: multiplier);
+    _save(_JoltPreferences.textScale, multiplier);
     notifyListeners();
   }
 
   /// Change the text scale factor multiplier.
-  void setSpacingScaleFactorMultiplier(double value) {
-    spacingScaleFactorMultiplier = value;
-    _save(_JoltPreferences.spacingScale, spacingScaleFactorMultiplier);
+  void setSpacingScaleFactorMultiplier(double multiplier) {
+    value = value.copyWith(spacingScaleFactorMultiplier: multiplier);
+    _save(_JoltPreferences.spacingScale, multiplier);
     notifyListeners();
   }
-
-  /// The list of themes.
-  final List<ThemeData> themes;
-
-  /// The list of supported locales.
-  final List<Locale> supportedLocales;
-
-  /// The current primary color.
-  Color? primaryColor;
-
-  /// The current locale;
-  late Locale locale;
-
-  /// The current theme mode.
-  late ThemeMode themeMode;
-
-  /// If the user has selected the high contrast theme option
-  late bool highContrast;
 
   // The current platform brightness.
   late Brightness _platformBrightness;
 
-  final _joltPrefs = Hive.box<dynamic>(joltStorageKey);
-
-  /// The text scale factor multiplier.
-  late double textScaleFactorMultiplier;
-
-  /// The spacing scale factor multiplier.
-  late double spacingScaleFactorMultiplier;
+  Box<dynamic> get _joltPrefs => Hive.box<dynamic>(Jolt.storageKey);
 
   // Save preferences to Hive.
   Future<void> _save(_JoltPreferences option, dynamic value) async {
