@@ -24,7 +24,7 @@ class BreakpointsPage extends StatelessWidget {
               style: context.style.display,
             ),
             Text(
-              'Max-width: ${context.view.breakpoint.maxWidth}',
+              'Max-width: ${context.view.breakpoint.maxWidth}px',
             ),
           ],
         ),

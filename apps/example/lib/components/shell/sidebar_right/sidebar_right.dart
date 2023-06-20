@@ -94,11 +94,12 @@ class SideBarRight extends StatelessWidget {
       );
     }
 
-    return Surface(
-      borderColor: Colors.transparent,
-      borderRadius: BorderRadius.zero,
+    return Container(
       padding: EdgeInsets.zero,
-      background: context.color.surface.withOpacity(0.2),
+      decoration: BoxDecoration(
+        color: context.color.background,
+        border: Border(left: BorderSide(color: context.color.surface)),
+      ),
       child: Column(
         children: [
           Expanded(

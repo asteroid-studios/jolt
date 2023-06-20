@@ -55,11 +55,7 @@ class _SideBarLeftState extends State<SideBarLeft> {
       width: 300,
       decoration: BoxDecoration(
         color: context.color.background,
-        border: Border(
-          right: BorderSide(
-            color: context.color.surface.s100,
-          ),
-        ),
+        border: Border(right: BorderSide(color: context.color.surface)),
       ),
       child: SafeArea(
         child: Padding(
