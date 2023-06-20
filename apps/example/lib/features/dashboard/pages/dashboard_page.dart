@@ -36,6 +36,7 @@ class _DashboardPageState extends State<DashboardPage> {
     const begin = 3;
     const end = 8;
     const spacer = Spacing.sm();
+
     return Scaffold(
       title: context.translations.dashboard.title,
       content: Padding(
@@ -107,7 +108,17 @@ class _DashboardPageState extends State<DashboardPage> {
                         children: [
                           Text(
                             context.translations.dashboard.hero,
+                            style: context.style.heroLarge,
+                          ),
+                          spacer,
+                          Text(
+                            context.translations.dashboard.hero,
                             style: context.style.hero,
+                          ),
+                          spacer,
+                          Text(
+                            context.translations.dashboard.hero,
+                            style: context.style.heroSmall,
                           ),
                           spacer,
                           Text(
@@ -153,6 +164,11 @@ class _DashboardPageState extends State<DashboardPage> {
                           Text(
                             'Body small',
                             style: context.style.bodySmall,
+                          ),
+                          spacer,
+                          Text(
+                            'Label Large',
+                            style: context.style.labelLarge,
                           ),
                           spacer,
                           Text(

@@ -7,19 +7,19 @@ const navBarItems = [
     label: 'Dashboard',
     icon: Icons.house,
     selectedIcon: IconsFill.houseLine,
-    route: DashboardTab(),
+    route: DashboardRoute(),
   ),
   NavItem(
     label: 'Widgets',
     icon: Icons.stackSimple,
     selectedIcon: IconsFill.stackSimple,
-    route: WidgetsTab(),
+    route: WidgetsRoute(),
   ),
   NavItem(
     label: 'Theming',
     icon: Icons.paintBrush,
     selectedIcon: IconsFill.paintBrush,
-    route: ThemingTab(),
+    route: ThemingRoute(),
   ),
 ];
 

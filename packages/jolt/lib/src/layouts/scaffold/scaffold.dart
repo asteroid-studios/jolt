@@ -2,9 +2,8 @@ import 'dart:ui';
 
 import 'package:flutter/services.dart';
 
-import 'package:persistent_header_adaptive/adaptive_height_sliver_persistent_header.dart';
-
 import 'package:jolt/jolt.dart';
+import 'package:persistent_header_adaptive/adaptive_height_sliver_persistent_header.dart';
 
 ///
 class Scaffold extends StatefulWidget {
@@ -126,6 +125,7 @@ class _ScaffoldState extends State<Scaffold> {
                 SliverFillRemaining(
                   hasScrollBody: false,
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Expanded(child: widget.content!),
                       if (shell?.footer != null)

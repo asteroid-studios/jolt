@@ -1,7 +1,9 @@
+import 'package:collection/collection.dart';
 import 'package:ui/ui.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'package:example/components/shell/nav_items/nav_items.dart';
+import 'package:example/components/shell/shell.dart';
 import 'package:example/utils/router/router.dart';
 
 ///
@@ -68,12 +70,13 @@ class _SideBarLeftState extends State<SideBarLeft> {
               const Spacing.xs(),
               Column(
                 spacing: context.sizing.sm,
-                children: navBarItems.map((item) {
-                  final itemRoute = item.route;
-                  final itemRouteName =
-                      itemRoute.routeName.replaceAll('Tab', 'Route');
-                  final currentRoute = AppRouter.instance.currentSegments.last;
-                  final selected = currentRoute.name == itemRouteName;
+                children: navBarItems.mapIndexed((index, item) {
+                  final router = AppRouter.instance;
+                  final tabsController =
+                      autoTabsRouterKey.currentState?.controller;
+                  final currentIndex = tabsController?.activeIndex ?? 0;
+                  final currentName = router.currentSegments.last.name;
+                  final selected = currentIndex == index;
                   return Button(
                     background: (selected
                             ? context.color.primary
@@ -86,7 +89,14 @@ class _SideBarLeftState extends State<SideBarLeft> {
                     icon: selected ? item.selectedIcon : item.icon,
                     label: item.label,
                     onTap: () {
-                      AppRouter.instance.navigate(itemRoute);
+                      if (!selected && !Platform.isWeb) {
+                        tabsController?.setActiveIndex(index);
+                      } else if (item.route.routeName != currentName) {
+                        router.navigate(item.route);
+                      } else {
+                        // TODO scroll to top
+                        print('Scroll to top');
+                      }
                       if (widget.isOverlay) JoltOverlay.pop();
                     },
                   );

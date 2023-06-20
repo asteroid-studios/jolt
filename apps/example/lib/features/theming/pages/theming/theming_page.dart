@@ -12,7 +12,15 @@ class ThemingPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       title: 'Theming',
-      content: Placeholder(),
+      content: Column(
+        children: [
+          Button(
+            onTap: () => context.navigateTo(const TypographyRoute()),
+            label: 'Typography',
+            icon: Icons.textAUnderline,
+          ),
+        ],
+      ),
     );
   }
 }
