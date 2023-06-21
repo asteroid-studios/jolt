@@ -1,7 +1,6 @@
 import 'package:flutter_highlight/flutter_highlight.dart';
 import 'package:flutter_highlight/themes/paraiso-dark.dart';
 import 'package:flutter_highlight/themes/paraiso-light.dart';
-import 'package:markdown_widget/markdown_widget.dart';
 import 'package:ui/ui.dart';
 
 ///

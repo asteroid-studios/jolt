@@ -1,6 +1,5 @@
-import 'package:ui/ui.dart';
 import 'package:ui/typography.dart';
-import 'package:ui/themes.dart';
+import 'package:ui/ui.dart';
 
 const _neutralColor = Colors.slate;
 final _colorSchemeLight = ColorScheme.light(

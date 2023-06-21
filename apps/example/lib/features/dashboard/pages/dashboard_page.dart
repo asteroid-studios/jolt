@@ -240,7 +240,7 @@ class _DashboardPageState extends State<DashboardPage> {
                 ),
                 Button(
                   onTap: () async {
-                    await Future.delayed(
+                    await Future<void>.delayed(
                       const Duration(milliseconds: 300),
                     );
                     JoltOverlay.show(
@@ -271,7 +271,7 @@ class _DashboardPageState extends State<DashboardPage> {
                 ),
                 Button(
                   onTap: () async {
-                    await Future.delayed(
+                    await Future<void>.delayed(
                       const Duration(seconds: 4),
                     );
                   },
