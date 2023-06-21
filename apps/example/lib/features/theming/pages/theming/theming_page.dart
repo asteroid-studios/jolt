@@ -10,27 +10,82 @@ class ThemingPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final surface = Colors.slate.toJoltColor(Shade.white);
+    final surfaceDark = Colors.slate.toJoltColor(
+      Shade.s700,
+      foregroundLight: Shade.s400,
+    );
+    final violet = Colors.violet.toJoltColor(Shade.s50);
+    final violetDark = Colors.violet.toJoltColor(
+      Shade.s700,
+      foregroundLight: Shade.s400,
+    );
+    final emerald = Colors.emerald.toJoltColor(Shade.s50);
+    final emeraldDark = Colors.emerald.toJoltColor(
+      Shade.s700,
+      foregroundLight: Shade.s400,
+    );
+
+    Widget cardFromColor(JoltColor color) {
+      return Surface(
+        margin: EdgeInsets.all(context.sizing.xl),
+        padding: EdgeInsets.all(context.sizing.xl),
+        background: color,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Heading',
+              style: context.style.heading,
+              color: color.foreground,
+            ),
+            Text(
+              'SubHeading',
+              // style: context.style.labelLarge,
+              color: color.foregroundLight,
+            ),
+            Spacing.xs(),
+            Text(
+              'Flat cartoony illustrations with vivid unblended colors.',
+              color: color.foreground,
+            ),
+          ],
+        ),
+      );
+    }
+
     return Scaffold(
       title: 'Theming',
       content: Wrap(
         spacing: context.sizing.md,
         children: [
-          Button(
-            onTap: () => context.navigateTo(const BreakpointsRoute()),
-            label: 'Breakpoints',
-            icon: Icons.gridFour,
-            verticalButton: true,
-            padding: EdgeInsets.all(context.sizing.xl),
-            labelStyle: context.style.displaySmall,
-          ),
-          Button(
-            onTap: () => context.navigateTo(const TypographyRoute()),
-            label: 'Typography',
-            icon: Icons.textAUnderline,
-            verticalButton: true,
-            padding: EdgeInsets.all(context.sizing.xl),
-            labelStyle: context.style.displaySmall,
-          ),
+          cardFromColor(surfaceDark),
+          cardFromColor(surface),
+          cardFromColor(violet),
+          cardFromColor(violetDark),
+          cardFromColor(emerald),
+          cardFromColor(emeraldDark),
+          // 'Test'.heroLarge().color(context.color.surface.foregroundLight),
+          // Button(label: 'Test')
+          //     .background(context.color.surface.foreground)
+          //     .color(context.color.surface.foreground)
+          //     .heroLarge(),
+          // Button(
+          //   onTap: () => context.navigateTo(const BreakpointsRoute()),
+          //   label: 'Breakpoints',
+          //   icon: Icons.gridFour,
+          //   verticalButton: true,
+          //   padding: EdgeInsets.all(context.sizing.xl),
+          //   labelStyle: context.style.displaySmall,
+          // ).hero(),
+          // Button(
+          //   onTap: () => context.navigateTo(const TypographyRoute()),
+          //   label: 'Typography',
+          //   icon: Icons.textAUnderline,
+          //   verticalButton: true,
+          //   padding: EdgeInsets.all(context.sizing.xl),
+          //   labelStyle: context.style.displaySmall,
+          // ),
         ],
       ),
     );

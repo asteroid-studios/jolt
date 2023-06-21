@@ -13,7 +13,11 @@ dependencies:
   collection: ^1.17.1
   flutter:
     sdk: flutter
-  flutter_highlight: ^0.7.0
+  # flutter_highlighting: ^0.9.0+11.8.0
+  flutter_highlighting:
+    git:
+      url: https://github.com/asteroid-studios/dart-highlighting.git
+      path: flutter_highlighting
   flutter_jimtl: ^0.0.3
   flutter_native_splash: ^2.3.1
   flutter_web_plugins:

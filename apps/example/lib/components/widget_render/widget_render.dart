@@ -1,6 +1,6 @@
-import 'package:flutter_highlight/flutter_highlight.dart';
-import 'package:flutter_highlight/themes/paraiso-dark.dart';
-import 'package:flutter_highlight/themes/paraiso-light.dart';
+import 'package:flutter_highlighting/flutter_highlighting.dart';
+import 'package:flutter_highlighting/themes/paraiso-dark.dart';
+import 'package:flutter_highlighting/themes/paraiso-light.dart';
 import 'package:ui/ui.dart';
 
 ///
@@ -42,7 +42,7 @@ class WidgetRender extends StatelessWidget {
       textStyle: DefaultTextStyle.of(context).style.copyWith(
             fontFamily: 'FiraCode',
           ),
-      language: 'dart',
+      languageId: 'dart',
       theme: codeTheme,
     );
 

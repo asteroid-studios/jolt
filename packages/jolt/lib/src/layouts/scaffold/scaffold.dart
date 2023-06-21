@@ -2,8 +2,9 @@ import 'dart:ui';
 
 import 'package:flutter/services.dart';
 
-import 'package:jolt/jolt.dart';
 import 'package:persistent_header_adaptive/adaptive_height_sliver_persistent_header.dart';
+
+import 'package:jolt/jolt.dart';
 
 ///
 class Scaffold extends StatefulWidget {
@@ -67,80 +68,82 @@ class _ScaffoldState extends State<Scaffold> {
             : SystemUiOverlayStyle.light,
         child: Stack(
           children: [
-            CustomScrollView(
-              controller: scrollController,
-              slivers: [
-                // If both app bars are floating, group them
-                // TODO issue where the bar is rebuilt after the rest of the page, so there is a gap when using alternative scaling
-                // TO test, set spacing to non medium and reload the app
-                AdaptiveHeightSliverPersistentHeader(
-                  // pinned: true,
-                  floating: true,
-                  // Builder is important or theme changes don't get picked up
-                  child: GestureDetector(
-                    onTap: () {
-                      scrollController.animateTo(
-                        0,
-                        duration: const Duration(milliseconds: 500),
-                        curve: Curves.easeInOut,
-                      );
-                    },
-                    child: Builder(
-                      builder: (context) {
-                        return Hero(
-                          tag: 'shellTopBar',
-                          child: Column(
-                            children: [
-                              if (shell?.topBar != null) shell!.topBar!,
-                              Surface(
-                                borderColor: Colors.transparent,
-                                borderRadius: BorderRadius.zero,
-                                padding: EdgeInsets.only(
-                                  left: context.sizing.lg,
-                                  right: context.sizing.lg,
-                                  bottom: context.sizing.lg,
-                                  top: context.sizing.lg +
-                                      context.mediaQuery.viewPadding.top,
-                                ),
-                                background:
-                                    context.color.surface.withOpacity(0.8),
-                                child: Row(
-                                  children: [
-                                    Expanded(
-                                      child: Text(
-                                        widget.title,
-                                        style: context.style.headingSmall,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
+            SelectionArea(
+              child: CustomScrollView(
+                controller: scrollController,
+                slivers: [
+                  // If both app bars are floating, group them
+                  // TODO issue where the bar is rebuilt after the rest of the page, so there is a gap when using alternative scaling
+                  // TO test, set spacing to non medium and reload the app
+                  AdaptiveHeightSliverPersistentHeader(
+                    // pinned: true,
+                    floating: true,
+                    // Builder is important or theme changes don't get picked up
+                    child: GestureDetector(
+                      onTap: () {
+                        scrollController.animateTo(
+                          0,
+                          duration: const Duration(milliseconds: 500),
+                          curve: Curves.easeInOut,
                         );
                       },
+                      child: Builder(
+                        builder: (context) {
+                          return Hero(
+                            tag: 'shellTopBar',
+                            child: Column(
+                              children: [
+                                if (shell?.topBar != null) shell!.topBar!,
+                                Surface(
+                                  borderColor: Colors.transparent,
+                                  borderRadius: BorderRadius.zero,
+                                  padding: EdgeInsets.only(
+                                    left: context.sizing.lg,
+                                    right: context.sizing.lg,
+                                    bottom: context.sizing.lg,
+                                    top: context.sizing.lg +
+                                        context.mediaQuery.viewPadding.top,
+                                  ),
+                                  background:
+                                      context.color.surface.withOpacity(0.8),
+                                  child: Row(
+                                    children: [
+                                      Expanded(
+                                        child: Text(
+                                          widget.title,
+                                          style: context.style.headingSmall,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          );
+                        },
+                      ),
                     ),
                   ),
-                ),
-                SliverFillRemaining(
-                  hasScrollBody: false,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Expanded(child: widget.content!),
-                      if (shell?.footer != null)
-                        Hero(
-                          tag: 'shellFooter',
-                          child: shell!.footer!,
+                  SliverFillRemaining(
+                    hasScrollBody: false,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Expanded(child: widget.content!),
+                        if (shell?.footer != null)
+                          Hero(
+                            tag: 'shellFooter',
+                            child: shell!.footer!,
+                          ),
+                        SizedBox(
+                          height: shell?.bottomBarHeight ??
+                              context.mediaQuery.viewPadding.bottom,
                         ),
-                      SizedBox(
-                        height: shell?.bottomBarHeight ??
-                            context.mediaQuery.viewPadding.bottom,
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
             if (Platform.isMobile &&
                 context.mediaQuery.orientation == Orientation.portrait)

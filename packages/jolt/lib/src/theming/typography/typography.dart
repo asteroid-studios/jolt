@@ -61,64 +61,70 @@ class Typography {
         _labelSmall =
             labelSmall?.merge(_defaultLabelSmall) ?? _defaultLabelSmall;
 
+  TextStyle _formatStyle(TextStyle style) {
+    // We use the font weight to determine the font variation settings.
+    // This means that for variable fonts its enough to just set the font weight
+    return style.withFontVariationsFromWeight();
+  }
+
   /// Used for large hero text.
-  TextStyle get heroLarge => _heroLarge.withFontVariationsFromWeight();
+  TextStyle get heroLarge => _formatStyle(_heroLarge);
   final TextStyle _heroLarge;
 
   /// Used for hero text.
-  TextStyle get hero => _hero.withFontVariationsFromWeight();
+  TextStyle get hero => _formatStyle(_hero);
   final TextStyle _hero;
 
   /// Used for small hero text.
-  TextStyle get heroSmall => _heroSmall.withFontVariationsFromWeight();
+  TextStyle get heroSmall => _formatStyle(_heroSmall);
   final TextStyle _heroSmall;
 
   /// Used for large display text.
-  TextStyle get displayLarge => _displayLarge.withFontVariationsFromWeight();
+  TextStyle get displayLarge => _formatStyle(_displayLarge);
   final TextStyle _displayLarge;
 
   /// Used for display text.
-  TextStyle get display => _display.withFontVariationsFromWeight();
+  TextStyle get display => _formatStyle(_display);
   final TextStyle _display;
 
   /// Used for small display text.
-  TextStyle get displaySmall => _displaySmall.withFontVariationsFromWeight();
+  TextStyle get displaySmall => _formatStyle(_displaySmall);
   final TextStyle _displaySmall;
 
   /// Used for large heading text.
-  TextStyle get headingLarge => _headingLarge.withFontVariationsFromWeight();
+  TextStyle get headingLarge => _formatStyle(_headingLarge);
   final TextStyle _headingLarge;
 
   /// Used for heading text.
-  TextStyle get heading => _heading.withFontVariationsFromWeight();
+  TextStyle get heading => _formatStyle(_heading);
   final TextStyle _heading;
 
   /// Used for small heading text.
-  TextStyle get headingSmall => _headingSmall.withFontVariationsFromWeight();
+  TextStyle get headingSmall => _formatStyle(_headingSmall);
   final TextStyle _headingSmall;
 
   /// Used for large body text.
-  TextStyle get bodyLarge => _bodyLarge.withFontVariationsFromWeight();
+  TextStyle get bodyLarge => _formatStyle(_bodyLarge);
   final TextStyle _bodyLarge;
 
   /// Used for body text.
-  TextStyle get body => _body.withFontVariationsFromWeight();
+  TextStyle get body => _formatStyle(_body);
   final TextStyle _body;
 
   /// Used for small body text.
-  TextStyle get bodySmall => _bodySmall.withFontVariationsFromWeight();
+  TextStyle get bodySmall => _formatStyle(_bodySmall);
   final TextStyle _bodySmall;
 
   /// Used for large label text.
-  TextStyle get labelLarge => _labelLarge.withFontVariationsFromWeight();
+  TextStyle get labelLarge => _formatStyle(_labelLarge);
   final TextStyle _labelLarge;
 
   /// Used for label text.
-  TextStyle get label => _label.withFontVariationsFromWeight();
+  TextStyle get label => _formatStyle(_label);
   final TextStyle _label;
 
   /// Used for small label text.
-  TextStyle get labelSmall => _labelSmall.withFontVariationsFromWeight();
+  TextStyle get labelSmall => _formatStyle(_labelSmall);
   final TextStyle _labelSmall;
 
   /// Return a copy of Typography with the given parameters replaced

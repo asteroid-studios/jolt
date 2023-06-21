@@ -5,6 +5,8 @@ import 'package:flutter/widgets.dart' as widgets show Text;
 
 import 'package:jolt/jolt.dart';
 
+export 'package:jolt/src/widgets/basics/text/text_extensions.dart';
+
 /// A run of text
 class Text extends StatelessWidget {
   /// Creates a text widget.
@@ -105,10 +107,9 @@ class Text extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final defaultTextStyle = style ?? context.style.body;
+    final defaultTextStyle = style ?? DefaultTextStyle.of(context).style;
     final fontWeight = this.fontWeight ?? defaultTextStyle.fontWeight;
     final defaultColor = context.color.darkWithFallback(colorDark, color);
-
     return widgets.Text(
       data ?? '',
       textAlign: textAlign,
@@ -123,7 +124,10 @@ class Text extends StatelessWidget {
           ...?defaultTextStyle.fontVariations,
           // Support for variable fonts from font weight
           if (fontWeight != null)
-            FontVariation('wght', fontWeight.value.toDouble()),
+            FontVariation(
+              FontVariationAxis.weight,
+              fontWeight.value.toDouble(),
+            ),
         ],
       ),
       // Pass text options
