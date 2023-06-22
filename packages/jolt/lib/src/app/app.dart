@@ -55,7 +55,7 @@ class JoltApp extends StatefulWidget {
   final BreakpointsData? breakpoints;
 
   /// Styling for all Jolt widgets.
-  final WidgetThemeData Function(ThemeData, ScalingData)? widgetTheme;
+  final WidgetTheme Function(ThemeData, ScalingData)? widgetTheme;
 
   /// {@macro flutter.widgets.widgetsApp.debugShowCheckedModeBanner}
   final bool debugShowCheckedModeBanner;

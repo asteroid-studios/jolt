@@ -10,11 +10,11 @@ class TextFieldTheme {
     this.fixedLabelStyle,
     this.floatingLabelStyle,
     this.cursorColor,
-    this.surface,
+    this.surfaceStyle,
   });
 
   ///
-  final SurfaceTheme? surface;
+  final SurfaceStyle? surfaceStyle;
 
   /// When a label is a floating, it will start where the hint would be
   /// and then float up to the top of the TextField when the focused.

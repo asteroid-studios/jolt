@@ -15,6 +15,7 @@ class Surface extends StatelessWidget {
     this.width,
     this.height,
     this.ripple = false,
+    this.fallbackStyle,
     super.key,
   });
 
@@ -51,15 +52,23 @@ class Surface extends StatelessWidget {
   /// Whether to show a ripple effect on tap
   final bool ripple;
 
+  /// Pass a fallback surface style
+  /// which will be used over the default surface style from widget theme.
+  ///
+  /// For example button passes the button style to it's surface.
+  final SurfaceStyle? fallbackStyle;
+
   @override
   Widget build(BuildContext context) {
-    // TODO how to make border surface? or transparent surface?
-    final interaction = context.inherited.interactionState;
     final surfaceStyle = context.inherited.surfaceStyle ??
+        fallbackStyle ??
         context.inherited.widgetTheme.surfaceStyle;
     final style = surfaceStyle.merge(
       SurfaceStyle(
-        background: background,
+        background: context.color.darkWithFallback(
+          backgroundDark,
+          background,
+        ) as JoltColor?,
         borderColor: borderColor,
         borderRadius: borderRadius,
         borderWidth: borderWidth,
@@ -68,14 +77,24 @@ class Surface extends StatelessWidget {
       ),
     );
 
-    // Default background color
-    // final background = context.color.darkWithFallback(
-    //       backgroundDark,
-    //       background,
-    //     ) ??
-    //     theme.background ??
-    //     context.color.surface;
-    final backgroundIsTransparent = background == Colors.transparent;
+    final defaultBackground = style.background ?? context.color.surface;
+    final defaultBorderColor = style.borderColor ?? style.background;
+    final defaultBorderRadius = style.borderRadius ?? context.borderRadius.md;
+    final defaultBorderWidth = style.borderWidth ?? 2;
+    final transparentBackground = defaultBackground.opacity == 0;
+    final interaction = context.inherited.interactionState;
+    final isHovered = interaction?.isHovered ?? false;
+    final isFocused = interaction?.isFocused ?? false;
+    final effectColor = isHovered
+        ? defaultBackground.onHover
+        : isFocused
+            ? defaultBackground.onFocus
+            : null;
+    // TODO how to make border surface? or transparent surface?
+    // final borderColor = style.borderColor ??
+    //     (transparentBackground
+    //         ? context.color.surface
+    //         : backgroundColor.weaken());
 
     // Border
     //  context.borderRadius.md;
@@ -83,43 +102,36 @@ class Surface extends StatelessWidget {
     //     theme.borderColor?.call(background) ??
     //     (backgroundIsTransparent ? context.color.surface : background);
 
-    // Support for interactions
+    // final hoverColor = theme.backgroundOnHover?.call(background) ??
+    //     background.asJoltColor?.onHover ??
+    //     (backgroundIsTransparent
+    //         ? context.color.surface.withOpacity(0.8)
+    //         : background.weaken());
 
-    // Hover state
-    final isHovered = interaction?.isHovered ?? false;
-    final hoverColor = theme.backgroundOnHover?.call(background) ??
-        background.asJoltColor?.onHover ??
-        (backgroundIsTransparent
-            ? context.color.surface.withOpacity(0.8)
-            : background.weaken());
-
-    // Focus state
-    final focusedAfterPressed = interaction?.wasFocusedAfterPress ?? false;
-    final isFocused = interaction?.isFocused ?? false;
-    final focusBorderColor =
-        theme.borderColorOnFocus?.call(background) ?? context.color.primary;
-    final focusColor = theme.backgroundOnFocus?.call(background) ??
-        background.asJoltColor?.onFocus ??
-        (backgroundIsTransparent
-            ? context.color.surface.withOpacity(0.8)
-            : background.weaken());
+    // // Focus state
+    // final focusedAfterPressed = interaction?.wasFocusedAfterPress ?? false;
+    // final isFocused = interaction?.isFocused ?? false;
+    // final focusBorderColor =
+    //     theme.borderColorOnFocus?.call(background) ?? context.color.primary;
+    // final focusColor = theme.backgroundOnFocus?.call(background) ??
+    //     background.asJoltColor?.onFocus ??
+    //     (backgroundIsTransparent
+    //         ? context.color.surface.withOpacity(0.8)
+    //         : background.weaken());
 
     // The end result of the background color and borderColor
-    final foreground = isHovered
-        ? hoverColor
-        : isFocused
-            ? focusColor
-            : null;
 
-    // Wrap the child with the padding
-    final child = Padding(
-      padding: padding ??
-          theme.padding ??
-          EdgeInsets.symmetric(
-            horizontal: context.defaults.horizontalPadding,
-            vertical: context.defaults.verticalPadding,
-          ),
-      child: child,
+    // Wrap the child with the padding and new default surface
+    final childWidget = DefaultSurfaceStyle(
+      style: style,
+      child: Padding(
+        padding: style.padding ??
+            EdgeInsets.symmetric(
+              horizontal: context.sizing.sm,
+              vertical: context.sizing.xs,
+            ),
+        child: child,
+      ),
     );
 
     // Return the surface
@@ -131,30 +143,27 @@ class Surface extends StatelessWidget {
         margin: margin,
         duration: context.durations.mid,
         decoration: BoxDecoration(
-          borderRadius: borderRadius,
+          borderRadius: style.borderRadius,
           border: Border.all(
-            color: (isFocused && !focusedAfterPressed)
-                ? focusBorderColor
-                : borderColor,
-            width: borderWidth,
+            // color: (isFocused && !focusedAfterPressed)
+            //     ? focusBorderColor
+            //     : borderColor,
+            width: style.borderWidth ?? 2,
           ),
           // boxShadow: ,
-          color: foreground != null
-              ? Color.alphaBlend(foreground, background)
-              : backgroundIsTransparent
+          color: effectColor != null
+              ? Color.alphaBlend(effectColor, defaultBackground)
+              : transparentBackground
                   ? null
-                  : background,
+                  : defaultBackground,
         ),
-        child: InheritedSurface(
-          background: background,
-          child: ripple
-              ? TouchRippleEffect(
-                  backgroundColor: background.withOpacity(1),
-                  borderRadius: borderRadius,
-                  child: child,
-                )
-              : child,
-        ),
+        child: ripple
+            ? TouchRippleEffect(
+                backgroundColor: defaultBackground.withOpacity(1),
+                borderRadius: defaultBorderRadius,
+                child: childWidget,
+              )
+            : childWidget,
       ),
     );
   }

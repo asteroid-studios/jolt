@@ -12,7 +12,7 @@ class Themes extends StatelessWidget {
   });
 
   ///
-  final WidgetThemeData Function(ThemeData, ScalingData)? widgetTheme;
+  final WidgetTheme Function(ThemeData, ScalingData)? widgetTheme;
 
   ///
   final ScalingData? scaling;
@@ -47,12 +47,12 @@ class Themes extends StatelessWidget {
               return AnimatedContainer(
                 duration: const Duration(milliseconds: 300),
                 color: theme.colorScheme.background,
-                child: WidgetTheme(
+                child: DefaultWidgetTheme(
                   data: widgetTheme?.call(
                         theme,
                         scaling,
                       ) ??
-                      context.widgetTheme,
+                      context.inherited.widgetTheme,
                   child: SymbolTheme(
                     style: (context) =>
                         context.style.body.copyWith(color: defaultColor),

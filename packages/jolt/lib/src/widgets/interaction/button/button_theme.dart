@@ -4,7 +4,7 @@ import 'package:jolt/jolt.dart';
 class ButtonTheme {
   ///
   const ButtonTheme({
-    this.surface,
+    this.surfaceStyle,
     this.color,
     this.spacing,
     this.labelStyle,
@@ -13,7 +13,7 @@ class ButtonTheme {
   });
 
   /// The theme of the button surface
-  final SurfaceTheme? surface;
+  final SurfaceStyle? surfaceStyle;
 
   /// The spacing between a button icon and label
   final double? spacing;
@@ -32,7 +32,7 @@ class ButtonTheme {
 
   ///
   ButtonTheme copyWith({
-    SurfaceTheme? surface,
+    SurfaceStyle? surfaceStyle,
     double? spacing,
     TextStyle? labelStyle,
     ButtonTheme? smallButtonTheme,
@@ -40,7 +40,7 @@ class ButtonTheme {
     Color Function(Color? background)? color,
   }) {
     return ButtonTheme(
-      surface: surface ?? this.surface,
+      surfaceStyle: surfaceStyle ?? this.surfaceStyle,
       spacing: spacing ?? this.spacing,
       labelStyle: labelStyle ?? this.labelStyle,
       smallButtonTheme: smallButtonTheme ?? this.smallButtonTheme,

@@ -107,7 +107,15 @@ class Text extends StatelessWidget {
   Widget build(BuildContext context) {
     final defaultTextStyle = style ?? DefaultTextStyle.of(context).style;
     final fontWeight = this.fontWeight ?? defaultTextStyle.fontWeight;
-    final defaultColor = context.color.darkWithFallback(colorDark, color);
+    //  Default color should be
+    //  - the color passed to the text
+    //  - then the colorDark passed to the text
+    //  - then the color of the style passed to the text
+    //  - then the color of the surface foreground inherited by the text
+    //  - then the color from the default text style.
+    final defaultColor = context.color.darkWithFallback(colorDark, color) ??
+        style?.color ??
+        context.inherited.surfaceStyle?.background?.foreground;
     return widgets.Text(
       data ?? '',
       textAlign: textAlign,

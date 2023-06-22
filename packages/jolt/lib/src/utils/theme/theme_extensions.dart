@@ -21,7 +21,7 @@ extension JoltThemeExtensions on BuildContext {
   BorderRadiusData get borderRadius => dimensions.borderRadius;
 
   /// Returns the current widget theme data.
-  WidgetThemeData get widgetTheme => WidgetTheme.of(this);
+  WidgetTheme get widgetTheme => DefaultWidgetTheme.of(this);
 }
 
 /// Some theming utility methods on BuildContext

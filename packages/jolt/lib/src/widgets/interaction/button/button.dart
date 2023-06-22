@@ -72,10 +72,10 @@ class Button extends StatefulWidget {
   final bool requestFocusOnPress;
 
   ///
-  final Color? background;
+  final JoltColor? background;
 
   ///
-  final Color? backgroundDark;
+  final JoltColor? backgroundDark;
 
   ///
   final Color? color;
@@ -138,14 +138,6 @@ class _ButtonState extends State<Button> {
         : widget.size == ButtonSize.sm
             ? button.smallButtonTheme ?? smallButton
             : button.largeButtonTheme ?? largeButton;
-
-    // Prepare the surface
-    final surface = context.widgetTheme.surface.merge(button.surface).copyWith(
-          background: context.color.darkWithFallback(
-            widget.backgroundDark,
-            widget.background,
-          ),
-        );
 
     // Prepare the label style
     final noLabel = widget.label == null;
@@ -270,14 +262,15 @@ class _ButtonState extends State<Button> {
         }
 
         return Surface(
+          fallbackStyle: context.inherited.widgetTheme.button.surfaceStyle,
           width: widget.width,
           height: widget.height,
-          theme: surface,
+          background: widget.background,
+          backgroundDark: widget.backgroundDark,
           borderColor: widget.borderColor,
           borderRadius: widget.borderRadius,
           borderWidth: widget.borderWidth,
           padding: padding,
-          interactionState: state,
           ripple: true,
           child: child,
         );
