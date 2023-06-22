@@ -65,7 +65,7 @@ class ThemingPage extends StatelessWidget {
           cardFromColor(violetDark),
           cardFromColor(emerald),
           cardFromColor(emeraldDark),
-          'Test'.heroLarge(),
+          'Test'.textHeroLarge(),
           // TODO need to fix this so button defaults to defaultTextStyle
           // Feels like there is a conflict between the heirarchy
           // for example:
@@ -74,7 +74,7 @@ class ThemingPage extends StatelessWidget {
           // - Passed style or color
 
           //
-          Button(label: 'Test').heroLarge(),
+          Button(label: 'Test').textHeroLarge(),
           //     .background(context.color.surface.foreground)
           //     .color(context.color.surface.foreground)
           // Button(

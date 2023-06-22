@@ -52,6 +52,27 @@ class SurfaceStyle {
     );
   }
 
+  /// Copy with
+  SurfaceStyle copyWith({
+    JoltColor? background,
+    Color? borderColor,
+    BorderRadius? borderRadius,
+    double? borderWidth,
+    EdgeInsetsGeometry? margin,
+    EdgeInsetsGeometry? padding,
+    List<BoxShadow> Function(JoltColor background)? boxShadow,
+  }) {
+    return SurfaceStyle(
+      background: background ?? this.background,
+      borderColor: borderColor ?? this.borderColor,
+      borderRadius: borderRadius ?? this.borderRadius,
+      borderWidth: borderWidth ?? this.borderWidth,
+      margin: margin ?? this.margin,
+      padding: padding ?? this.padding,
+      boxShadow: boxShadow ?? this.boxShadow,
+    );
+  }
+
   /// Equality operator
   @override
   bool operator ==(Object other) {

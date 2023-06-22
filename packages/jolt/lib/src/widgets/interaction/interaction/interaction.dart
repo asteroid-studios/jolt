@@ -384,6 +384,13 @@ class InteractionException {
   String toString() => 'InteractionException: $message.\n$state';
 }
 
+///
+extension InteractionStateX on InteractionState? {
+  ///
+  bool get isDisabled =>
+      (this?.isAwaiting ?? false) || !(this?.hasPressHandler ?? true);
+}
+
 class _InteractionScope extends InheritedWidget {
   const _InteractionScope({
     required super.child,

@@ -375,7 +375,7 @@ class TestDialog extends StatelessWidget {
                       onTap: () {
                         context.overlay.pop();
                       },
-                      background: context.color.surface.s300,
+                      // background: context.color.surface.s300,
                     ),
                     const Spacing.md(),
                     Button(
@@ -426,7 +426,7 @@ class TestPanel extends StatelessWidget {
             Row(
               children: [
                 Button(
-                  background: context.color.surface.s300,
+                  // background: context.color.surface.s300,
                   icon: IconsDuotone.floppyDisk,
                   onTap: () {
                     JoltOverlay.show(child: TestDialog());
@@ -434,7 +434,7 @@ class TestPanel extends StatelessWidget {
                 ),
                 Spacing.md(),
                 Button(
-                  background: context.color.surface.s300,
+                  // background: context.color.surface.s300,
                   icon: Icons.x,
                   onTap: () {
                     context.overlay.pop();

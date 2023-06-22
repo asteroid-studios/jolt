@@ -53,7 +53,7 @@ class BottomBar extends StatelessWidget {
                       context.mediaQuery.viewPadding.bottom,
                     ),
                   ),
-                  background: Colors.transparent,
+                  background: context.color.transparent,
                   borderColor: Colors.transparent,
                   borderRadius: BorderRadius.zero,
                   requestFocusOnPress: false,

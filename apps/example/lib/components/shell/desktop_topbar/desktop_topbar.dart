@@ -11,7 +11,7 @@ class DesktopTopbar extends StatelessWidget {
     return Surface(
       padding: EdgeInsets.zero,
       borderRadius: BorderRadius.zero,
-      background: context.color.primary.s800.withOpacity(0.1),
+      // background: context.color.primary.withOpacity(0.1).s800,
       child: Stack(
         children: [
           Positioned.fill(child: MoveWindow()),

@@ -50,13 +50,11 @@ class JoltColor extends Color {
         _shade950 = shade950;
 
   /// A color which will contrast well on top of the base color.
-  Color get foreground =>
-      (_foreground ?? _defaultForeground).withOpacity(opacity);
+  Color get foreground => _foreground ?? _defaultForeground;
   final Color? _foreground;
 
   /// A softer variation of the foreground color
-  Color get foregroundLight =>
-      (_foregroundLight ?? _defaultForegroundLight).withOpacity(opacity);
+  Color get foregroundLight => _foregroundLight ?? _defaultForegroundLight;
   final Color? _foregroundLight;
 
   /// The color to show when the user hovers over the base color.

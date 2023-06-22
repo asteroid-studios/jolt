@@ -83,6 +83,8 @@ class Surface extends StatelessWidget {
     final defaultBorderWidth = style.borderWidth ?? 2;
     final transparentBackground = defaultBackground.opacity == 0;
     final interaction = context.inherited.interactionState;
+    final isDisabled = (interaction?.isAwaiting ?? false) ||
+        !(interaction?.hasPressHandler ?? true);
     final isHovered = interaction?.isHovered ?? false;
     final isFocused = interaction?.isFocused ?? false;
     final effectColor = isHovered

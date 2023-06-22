@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:jolt/jolt.dart';
-import 'package:jolt/src/utils/theme/defaults.dart';
 
 ///
 class Button extends StatefulWidget {
@@ -149,31 +148,24 @@ class _ButtonState extends State<Button> {
         widget.iconScale *
         context.scaling.textScale;
 
-    // Prepare the foreground color
-    final background = surface.background ?? context.color.surface;
     final color = context.color.darkWithFallback(
       widget.colorDark,
       widget.color,
     );
 
-    final baseColor = color ??
-        button.color?.call(background) ??
-        background.asJoltColor?.foreground ??
-        context.color.surface.foreground;
-
-    // Prepare padding
-    final verticalPadding =
-        surface.padding?.vertical ?? context.defaults.verticalPadding;
-    final horizontalPadding = noLabel
-        // When there is no label, we want a square button so make
-        // the horizontal padding the same as the vertical padding
-        ? verticalPadding
-        : surface.padding?.horizontal ?? context.defaults.horizontalPadding;
-    final padding = widget.padding ??
-        EdgeInsets.symmetric(
-          horizontal: horizontalPadding,
-          vertical: verticalPadding,
-        );
+    // // Prepare padding
+    // final verticalPadding =
+    //     surface.padding?.vertical ?? context.defaults.verticalPadding;
+    // final horizontalPadding = noLabel
+    //     // When there is no label, we want a square button so make
+    //     // the horizontal padding the same as the vertical padding
+    //     ? verticalPadding
+    //     : surface.padding?.horizontal ?? context.defaults.horizontalPadding;
+    // final padding = widget.padding ??
+    //     EdgeInsets.symmetric(
+    //       horizontal: horizontalPadding,
+    //       vertical: verticalPadding,
+    //     );
 
     return Interaction(
       onTap: widget.onTap,
@@ -183,12 +175,6 @@ class _ButtonState extends State<Button> {
       autoFocus: widget.autoFocus,
       requestFocusOnPress: widget.requestFocusOnPress,
       builder: (context, state) {
-        final isDisabled = state.isAwaiting || !state.hasPressHandler;
-
-        final color = isDisabled
-            ? baseColor.withOpacity(isDisabled ? 0.5 : 1)
-            : baseColor;
-
         // Prepare the icon
         final icon = widget.iconWidget ??
             (widget.icon != null
@@ -197,7 +183,7 @@ class _ButtonState extends State<Button> {
 
         // Prepare the progressIndicator
         final progressIndicator = CircularProgressIndicator(
-          color: baseColor,
+          color: color,
           size: iconSize,
         );
 
@@ -270,7 +256,7 @@ class _ButtonState extends State<Button> {
           borderColor: widget.borderColor,
           borderRadius: widget.borderRadius,
           borderWidth: widget.borderWidth,
-          padding: padding,
+          padding: widget.padding,
           ripple: true,
           child: child,
         );

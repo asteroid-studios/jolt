@@ -124,7 +124,9 @@ class Text extends StatelessWidget {
       semanticsLabel: semanticsLabel,
       selectionColor: selectionColor,
       style: defaultTextStyle.copyWith(
-        color: defaultColor,
+        color: context.inherited.interactionState.isDisabled
+            ? defaultColor?.withOpacity(0.5)
+            : defaultColor,
         fontWeight: fontWeight,
         fontVariations: [
           ...?defaultTextStyle.fontVariations,
