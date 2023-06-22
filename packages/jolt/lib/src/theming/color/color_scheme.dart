@@ -187,6 +187,9 @@ class ColorScheme {
     return Object.hashAll(values);
   }
 
+  /// Return a transparent version of the surface color.
+  JoltColor get transparent => surface.withOpacity(0);
+
   ///
   bool get isDark => brightness == Brightness.dark;
 

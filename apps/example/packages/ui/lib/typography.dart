@@ -44,9 +44,9 @@ final typographyLight = Typography(
 
 /// The typography for the app.
 final typographyDark = typographyLight.copyWith(
-  heroLarge: outfitBold,
+  heroLarge: outfitDarkBold,
   hero: outfitDarkBold,
-  heroSmall: outfitBold,
+  heroSmall: outfitDarkBold,
   displayLarge: outfitDarkBold,
   display: outfitDarkBold,
   displaySmall: outfitDarkBold,
@@ -56,7 +56,7 @@ final typographyDark = typographyLight.copyWith(
   bodyLarge: satoshiDark,
   body: satoshiDark,
   bodySmall: satoshiDark,
-  labelLarge: satoshi,
+  labelLarge: satoshiDark,
   label: satoshiDark,
   labelSmall: satoshiDark,
 );

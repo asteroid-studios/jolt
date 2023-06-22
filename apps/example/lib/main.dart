@@ -9,7 +9,7 @@ void main() async {
   final widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   setUrlStrategy(PathUrlStrategy());
-  await Jolt.initJolt();
+  await Jolt.init();
 
   runApp(const App());
 

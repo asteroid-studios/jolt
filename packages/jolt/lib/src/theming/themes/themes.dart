@@ -47,21 +47,19 @@ class Themes extends StatelessWidget {
               return AnimatedContainer(
                 duration: const Duration(milliseconds: 300),
                 color: theme.colorScheme.background,
-                child: InheritedSurface(
-                  background: theme.colorScheme.background,
-                  child: WidgetTheme(
-                    data: widgetTheme?.call(
-                          theme,
-                          scaling,
-                        ) ??
-                        context.widgetTheme,
-                    child: SymbolTheme(
-                      style: context.style.body.copyWith(color: defaultColor),
-                      child: DefaultSelectionStyle(
-                        cursorColor: context.color.primary,
-                        selectionColor: context.color.primary.withOpacity(0.3),
-                        child: child,
-                      ),
+                child: WidgetTheme(
+                  data: widgetTheme?.call(
+                        theme,
+                        scaling,
+                      ) ??
+                      context.widgetTheme,
+                  child: SymbolTheme(
+                    style: (context) =>
+                        context.style.body.copyWith(color: defaultColor),
+                    child: DefaultSelectionStyle(
+                      cursorColor: context.color.primary,
+                      selectionColor: context.color.primary.withOpacity(0.3),
+                      child: child,
                     ),
                   ),
                 ),

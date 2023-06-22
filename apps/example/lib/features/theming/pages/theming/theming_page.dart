@@ -65,11 +65,18 @@ class ThemingPage extends StatelessWidget {
           cardFromColor(violetDark),
           cardFromColor(emerald),
           cardFromColor(emeraldDark),
-          // 'Test'.heroLarge().color(context.color.surface.foregroundLight),
-          // Button(label: 'Test')
+          'Test'.heroLarge(),
+          // TODO need to fix this so button defaults to defaultTextStyle
+          // Feels like there is a conflict between the heirarchy
+          // for example:
+          // - DefaultTextStyle (potentially containing color)
+          // - ButtonTheme from WidgetTheme
+          // - Passed style or color
+
+          //
+          Button(label: 'Test').heroLarge(),
           //     .background(context.color.surface.foreground)
           //     .color(context.color.surface.foreground)
-          //     .heroLarge(),
           // Button(
           //   onTap: () => context.navigateTo(const BreakpointsRoute()),
           //   label: 'Breakpoints',

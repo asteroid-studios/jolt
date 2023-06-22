@@ -16,7 +16,9 @@ dependencies:
   flutter_localizations: 
     sdk: flutter
   flutter_portal: ^1.1.3
+  form_builder_validators: ^9.0.0
   hive_flutter: ^2.0.0-dev
+  # TODO migrate away
   persistent_header_adaptive: ^2.0.0
   # FIX FOR https://github.com/phosphor-icons/flutter/issues/16
   # phosphor_flutter: ^2.0.0

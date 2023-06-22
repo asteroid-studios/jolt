@@ -22,9 +22,6 @@ extension JoltThemeExtensions on BuildContext {
 
   /// Returns the current widget theme data.
   WidgetThemeData get widgetTheme => WidgetTheme.of(this);
-
-  /// The closest surface in the current context
-  InheritedSurface? get inheritedSurface => InheritedSurface.of(this);
 }
 
 /// Some theming utility methods on BuildContext

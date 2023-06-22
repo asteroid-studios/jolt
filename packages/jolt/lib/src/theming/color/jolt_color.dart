@@ -2,8 +2,6 @@ import 'package:collection/collection.dart';
 
 import 'package:jolt/jolt.dart';
 
-export 'package:jolt/src/theming/color/color_extensions.dart';
-
 /// A color that has a small table of related colors called a "swatch"
 class JoltColor extends Color {
   /// Creates a swatch of colors

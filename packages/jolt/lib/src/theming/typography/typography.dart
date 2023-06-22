@@ -1,7 +1,4 @@
-import 'package:flutter/widgets.dart';
-
-import 'package:jolt/src/theming/typography/typography_extensions.dart';
-export 'package:jolt/src/theming/typography/typography_extensions.dart';
+import 'package:jolt/jolt.dart';
 
 const _defaultHeroLarge = TextStyle(fontSize: 128);
 const _defaultHero = TextStyle(fontSize: 96);
