@@ -111,7 +111,7 @@ class _TooltipState extends State<Tooltip> {
             shiftToWithinBound: const AxisFlag(x: true, y: true),
           ),
           portalFollower: Container(
-            padding: EdgeInsets.all(context.sizing.sm),
+            padding: EdgeInsets.all(context.spacing.sm),
             decoration: BoxDecoration(
               // TODO handle shadow dynamically. Add to surface theme
               boxShadow: [
@@ -124,7 +124,7 @@ class _TooltipState extends State<Tooltip> {
             ),
             child: Surface(
               borderRadius: context.borderRadius.md,
-              padding: EdgeInsets.all(context.sizing.xs),
+              padding: EdgeInsets.all(context.spacing.xs),
               child: SelectionArea(
                 focusNode: FocusNode(canRequestFocus: false),
                 child: Text(

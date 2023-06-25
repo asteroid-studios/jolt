@@ -219,7 +219,7 @@ class _ButtonState extends State<Button> {
           );
         } else {
           // Prepare LABEL button
-          final spacing = widget.spacing ?? theme.spacing ?? context.sizing.xs;
+          final spacing = widget.spacing ?? theme.spacing ?? context.spacing.xs;
           final buttonChildren = [
             if (state.isAwaiting) progressIndicator else if (icon != null) icon,
             Text(

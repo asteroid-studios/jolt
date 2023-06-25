@@ -28,8 +28,8 @@ class ThemingPage extends StatelessWidget {
 
     Widget cardFromColor(JoltColor color) {
       return Surface(
-        margin: EdgeInsets.all(context.sizing.xl),
-        padding: EdgeInsets.all(context.sizing.xl),
+        margin: EdgeInsets.all(context.spacing.xl),
+        padding: EdgeInsets.all(context.spacing.xl),
         background: color,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -57,7 +57,7 @@ class ThemingPage extends StatelessWidget {
     return Scaffold(
       title: 'Theming',
       content: Wrap(
-        spacing: context.sizing.md,
+        spacing: context.spacing.md,
         children: [
           cardFromColor(surfaceDark),
           cardFromColor(surface),
@@ -241,7 +241,7 @@ class ThemingPage extends StatelessWidget {
           //   label: 'Breakpoints',
           //   icon: Icons.gridFour,
           //   verticalButton: true,
-          //   padding: EdgeInsets.all(context.sizing.xl),
+          //   padding: EdgeInsets.all(context.spacing.xl),
           //   labelStyle: context.style.displaySmall,
           // ).hero(),
           // Button(
@@ -249,7 +249,7 @@ class ThemingPage extends StatelessWidget {
           //   label: 'Typography',
           //   icon: Icons.textAUnderline,
           //   verticalButton: true,
-          //   padding: EdgeInsets.all(context.sizing.xl),
+          //   padding: EdgeInsets.all(context.spacing.xl),
           //   labelStyle: context.style.displaySmall,
           // ),
         ],

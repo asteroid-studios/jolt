@@ -16,8 +16,8 @@ class TypographyPage extends StatelessWidget {
       title: 'Typography',
       content: Padding(
         padding: EdgeInsets.all(
-          context.responsive<double>(desktop: context.sizing.section) ??
-              context.sizing.md,
+          context.responsive<double>(desktop: context.spacing.section) ??
+              context.spacing.md,
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

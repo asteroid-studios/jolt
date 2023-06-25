@@ -33,7 +33,7 @@ class DefaultScaling extends StatelessWidget {
         // Create a new textScale factor which combines
         // the platform and app values
         data: context.mediaQuery.copyWith(
-          textScaleFactor: view.textScaleFactor * scaling.textScale,
+          textScaleFactor: view.textScaleFactor * scaling.symbolScale,
         ),
         child: child,
       ),

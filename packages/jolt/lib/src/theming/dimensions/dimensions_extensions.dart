@@ -6,7 +6,7 @@ extension DimensionsContextX on BuildContext {
   Dimensions get dimensions => theme.dimensions;
 
   /// Returns the current spacing.
-  Spacing get spacing => dimensions.spacing.scaled(scaling.spacingScale);
+  SpacingSizes get spacing => dimensions.spacing.scaled(scaling.spacingScale);
 
   /// Returns the current border radius values.
   BorderRadii get borderRadius => dimensions.borderRadius;

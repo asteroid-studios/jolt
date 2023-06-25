@@ -98,10 +98,10 @@ class _ScaffoldState extends State<Scaffold> {
                                   borderColor: Colors.transparent,
                                   borderRadius: BorderRadius.zero,
                                   padding: EdgeInsets.only(
-                                    left: context.sizing.lg,
-                                    right: context.sizing.lg,
-                                    bottom: context.sizing.lg,
-                                    top: context.sizing.lg +
+                                    left: context.spacing.lg,
+                                    right: context.spacing.lg,
+                                    bottom: context.spacing.lg,
+                                    top: context.spacing.lg +
                                         context.mediaQuery.viewPadding.top,
                                   ),
                                   background:

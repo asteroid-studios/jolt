@@ -212,7 +212,7 @@ class _JoltAppState extends State<JoltApp> with WidgetsBindingObserver {
                 widgetTheme: widget.widgetTheme,
                 scaling: Scaling(
                   spacingScale: state.spacingScaleFactorMultiplier,
-                  textScale: state.textScaleFactorMultiplier,
+                  symbolScale: state.symbolScaleFactorMultiplier,
                 ),
                 child: _JoltInherited(
                   controller: controller,

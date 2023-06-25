@@ -5,26 +5,6 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:jolt/jolt.dart';
 
 ///
-extension IconExtension on IconData {
-  ///
-  Icon icon({
-    double? size,
-    Color? color,
-    Color? colorDark,
-    bool flipHorizontal = false,
-    bool flipVertical = false,
-  }) =>
-      Icon(
-        this,
-        size: size,
-        color: color,
-        colorDark: colorDark,
-        flipHorizontal: flipHorizontal,
-        flipVertical: flipVertical,
-      );
-}
-
-///
 class Icon extends StatelessWidget {
   ///
   const Icon(
@@ -34,6 +14,8 @@ class Icon extends StatelessWidget {
     this.size,
     this.flipHorizontal = false,
     this.flipVertical = false,
+    this.scale = 1.0,
+    this.ignoreIconScaleFactor = false,
     this.semanticLabel,
     super.key,
   });
@@ -58,6 +40,13 @@ class Icon extends StatelessWidget {
   ///
   final bool flipVertical;
 
+  /// ignoreScaling will ignore the icon scaling factor
+  final bool ignoreIconScaleFactor;
+
+  /// Scale the icon by a factor, useful if using an icon set where the icons
+  /// don't seem to match up exactly
+  final double scale;
+
   // TODO add rotation as well
 
   /// Semantic label for the icon.
@@ -74,11 +63,14 @@ class Icon extends StatelessWidget {
     final iconTheme = IconTheme.of(context);
     final color = context.color.responsive(this.color, colorDark: colorDark) ??
         iconTheme.color;
+    final scale =
+        ignoreIconScaleFactor ? 1.0 : context.mediaQuery.textScaleFactor;
+    final size = (this.size ?? iconTheme.size ?? 16) * scale;
     final defaultColor = context.inherited.interactionState.isDisabled
         ? color?.withOpacity(0.5)
         : color;
 
-    final iconWidget = icon is PhosphorIconData
+    Widget iconWidget = icon is PhosphorIconData
         ? PhosphorIcon(
             icon as PhosphorIconData,
             color: defaultColor,
@@ -91,6 +83,13 @@ class Icon extends StatelessWidget {
             size: size,
             semanticLabel: semanticLabel,
           );
+
+    if (scale != 1.0) {
+      iconWidget = Transform.scale(
+        scale: scale,
+        child: iconWidget,
+      );
+    }
 
     if (!flipHorizontal && !flipVertical) return iconWidget;
 

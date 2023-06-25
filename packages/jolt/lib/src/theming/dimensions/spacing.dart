@@ -1,7 +1,7 @@
 ///
-class Spacing {
+class SpacingSizes {
   ///
-  const Spacing({
+  const SpacingSizes({
     this.xxs = 4,
     this.xs = 8,
     this.sm = 12,
@@ -44,8 +44,8 @@ class Spacing {
   final double section;
 
   ///
-  Spacing scaled(double scaleFactor) {
-    return Spacing(
+  SpacingSizes scaled(double scaleFactor) {
+    return SpacingSizes(
       xxs: xxs * scaleFactor,
       xs: xs * scaleFactor,
       sm: sm * scaleFactor,

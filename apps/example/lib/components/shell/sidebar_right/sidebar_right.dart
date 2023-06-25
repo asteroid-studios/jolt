@@ -47,7 +47,7 @@ class SideBarRight extends StatelessWidget {
       double sizeMultiplier,
       IconData icon,
     ) {
-      final selected = context.scaling.textScale == sizeMultiplier;
+      final selected = context.scaling.symbolScale == sizeMultiplier;
       final defaultIconSize = context.widgetTheme.button.labelStyle?.fontSize ??
           context.style.body.fontSize ??
           16;
@@ -55,7 +55,8 @@ class SideBarRight extends StatelessWidget {
         icon: icon,
         borderColor: selected ? context.color.primary : null,
         iconSize: defaultIconSize * sizeMultiplier,
-        onTap: () => context.jolt.setTextScaleFactorMultiplier(sizeMultiplier),
+        onTap: () =>
+            context.jolt.setSymbolScaleFactorMultiplier(sizeMultiplier),
       );
     }
 
@@ -81,7 +82,7 @@ class SideBarRight extends StatelessWidget {
     ) {
       final selected = context.jolt.value.locale == locale;
       return Button(
-        padding: EdgeInsets.all(context.sizing.xs),
+        padding: EdgeInsets.all(context.spacing.xs),
         icon: Icons.translate,
         iconSize: context.style.body.fontSize,
         label: locale.languageCode.characters.first,
@@ -105,7 +106,7 @@ class SideBarRight extends StatelessWidget {
           Expanded(
             child: Center(
               child: SingleChildScrollView(
-                padding: EdgeInsets.all(context.sizing.md),
+                padding: EdgeInsets.all(context.spacing.md),
                 child: Column(
                   children: [
                     themeButton(

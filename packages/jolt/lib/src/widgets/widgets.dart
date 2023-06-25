@@ -33,6 +33,7 @@ export 'layout/surface/surface_style.dart';
 export 'overlays/overlay_stack/overlay_stack.dart';
 export 'overlays/tooltip/tooltip.dart';
 export 'symbols/icon/icon.dart';
+export 'symbols/icon/icon_extensions.dart';
 export 'symbols/symbol/symbol_extensions.dart';
 export 'symbols/symbol/symbol_style.dart';
 export 'symbols/text/text.dart';

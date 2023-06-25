@@ -23,9 +23,7 @@ class DefaultSymbolStyle extends StatelessWidget {
       child: IconTheme.merge(
         data: IconThemeData(
           color: textStyle.color,
-          size: textStyle.fontSize == null
-              ? null
-              : (textStyle.fontSize! * context.scaling.textScale),
+          size: textStyle.fontSize,
         ),
         child: child,
       ),

@@ -11,17 +11,17 @@ final _colorSchemeDark = ColorScheme.dark(neutral: _neutralColor);
 
 ///
 final themes = [
-  ThemeData(
+  Theme(
     colorScheme: _colorSchemeLight,
     id: 'default_light',
     typography: typography,
   ),
-  ThemeData(
+  Theme(
     colorScheme: _colorSchemeLight.withHighContrast.swapSurfaceWithBackground,
     id: 'default_light_high_contrast',
     typography: typography,
   ),
-  ThemeData(
+  Theme(
     colorScheme: _colorSchemeLight.copyWith(
       primary: Colors.violet,
       secondary: Colors.emerald,
@@ -29,7 +29,7 @@ final themes = [
     id: 'default_light_violet',
     typography: typography,
   ),
-  ThemeData(
+  Theme(
     colorScheme:
         _colorSchemeLight.withHighContrast.swapSurfaceWithBackground.copyWith(
       primary: Colors.violet,
@@ -38,17 +38,17 @@ final themes = [
     id: 'default_light_violet_high_contrast',
     typography: typography,
   ),
-  ThemeData(
+  Theme(
     colorScheme: _colorSchemeDark,
     id: 'default_dark',
     typography: typography,
   ),
-  ThemeData(
+  Theme(
     colorScheme: _colorSchemeDark.withHighContrast,
     id: 'default_dark_high_contrast',
     typography: typography,
   ),
-  ThemeData(
+  Theme(
     colorScheme: _colorSchemeDark.copyWith(
       primary: Colors.violet,
       secondary: Colors.emerald,
@@ -56,7 +56,7 @@ final themes = [
     id: 'default_dark_violet',
     typography: typography,
   ),
-  ThemeData(
+  Theme(
     colorScheme: _colorSchemeDark.withHighContrast.copyWith(
       primary: Colors.violet,
       secondary: Colors.emerald,

@@ -40,13 +40,13 @@ class _DashboardPageState extends State<DashboardPage> {
     return Scaffold(
       title: context.translations.dashboard.title,
       content: Padding(
-        padding: EdgeInsets.all(context.sizing.md),
+        padding: EdgeInsets.all(context.spacing.md),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
               padding: EdgeInsets.symmetric(
-                vertical: context.sizing.section,
+                vertical: context.spacing.section,
               ),
               width: double.infinity,
               child: Center(
@@ -99,10 +99,10 @@ class _DashboardPageState extends State<DashboardPage> {
                     Padding(
                       // padding: EdgeInsetsResponsive(
                       //   context,
-                      //   mobile: context.sizing.md,
-                      //   tablet: context.sizing.xxxl,
+                      //   mobile: context.spacing.md,
+                      //   tablet: context.spacing.xxxl,
                       // ),
-                      padding: EdgeInsets.all(context.sizing.xxxl),
+                      padding: EdgeInsets.all(context.spacing.xxxl),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -194,8 +194,8 @@ class _DashboardPageState extends State<DashboardPage> {
             ),
             const Spacing.lg(),
             Wrap(
-              spacing: context.sizing.md,
-              runSpacing: context.sizing.md,
+              spacing: context.spacing.md,
+              runSpacing: context.spacing.md,
               children: [
                 Surface(
                   child: Column(
@@ -405,11 +405,11 @@ class TestPanel extends StatelessWidget {
       alignment: Alignment.centerRight,
       child: Surface(
         // margin: EdgeInsets.only(
-        //   // right: context.sizing.xxxl * 2,
-        //   top: context.sizing.lg,
-        //   bottom: context.sizing.lg,
+        //   // right: context.spacing.xxxl * 2,
+        //   top: context.spacing.lg,
+        //   bottom: context.spacing.lg,
         // ),
-        padding: EdgeInsets.all(context.sizing.xxl),
+        padding: EdgeInsets.all(context.spacing.xxl),
         borderRadius: context.borderRadius.zero,
         background: context.color.background,
         width: 400,

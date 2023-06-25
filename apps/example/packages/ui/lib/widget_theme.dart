@@ -1,12 +1,9 @@
 import 'package:ui/ui.dart';
 
 /// Return my widget theme
-WidgetTheme widgetTheme(
-  ThemeData theme,
-  ScalingData scaling,
-) {
-  final color = theme.color;
-  final sizing = theme.dimensions.sizing.scaled(scaling.spacingScale);
+WidgetTheme widgetTheme(BuildContext context) {
+  // final color = context.color;
+  // final spacing = context.spacing;
   return WidgetTheme(
       // surface: SurfaceTheme(
       //     // horizontalPadding: sizing.md,

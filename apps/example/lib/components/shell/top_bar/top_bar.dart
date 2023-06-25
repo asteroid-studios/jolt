@@ -14,8 +14,8 @@ class TopBar extends StatelessWidget {
     return Surface(
       borderRadius: BorderRadius.zero,
       padding: EdgeInsets.symmetric(
-        horizontal: context.sizing.md,
-        vertical: context.sizing.sm,
+        horizontal: context.spacing.md,
+        vertical: context.spacing.sm,
       ),
       background: context.color.surface,
       borderWidth: 0,
@@ -55,7 +55,7 @@ class TopBar extends StatelessWidget {
             Button(
               onTap: () {},
               tooltip: 'Hide SideBar',
-              iconWidget: Icons.sidebar.icon(
+              iconWidget: Icons.sidebar.asIcon(
                 size: 20,
                 flipHorizontal: true,
                 color: context.color.surface.foreground,

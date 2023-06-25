@@ -12,7 +12,7 @@ export 'package:jolt/src/app/models/jolt_app_state.dart';
 class JoltAppController extends ValueNotifier<JoltAppState> {
   ///
   JoltAppController({
-    required List<ThemeData> themes,
+    required List<Theme> themes,
     required PlatformDispatcher platformDispatcher,
     List<Locale> supportedLocales = const <Locale>[Locale('en', 'US')],
     BreakpointsData breakpoints = const BreakpointsData(),
@@ -24,9 +24,9 @@ class JoltAppController extends ValueNotifier<JoltAppState> {
             breakpoints: breakpoints,
             supportedLocales: supportedLocales,
             theme: themes.first,
-            primaryColor: themes.first.color.primary,
+            primaryColor: themes.first.colorScheme.primary,
             themeMode: ThemeMode.system,
-            highContrast: themes.first.color.highContrast,
+            highContrast: themes.first.colorScheme.highContrast,
             locale: locale ?? supportedLocales.first,
           ),
         ) {
@@ -72,8 +72,8 @@ class JoltAppController extends ValueNotifier<JoltAppState> {
     final primaryColor =
         primaryColorValue != null ? Color(primaryColorValue) : null;
     // Initialise text scale factor
-    final textScaleFactorMultiplier = _joltPrefs.get(
-      _JoltPreferences.textScale.name,
+    final symbolScaleFactorMultiplier = _joltPrefs.get(
+      _JoltPreferences.symbolScale.name,
       defaultValue: 1.0,
     ) as double;
     // Initialise spacing scale factor
@@ -87,7 +87,7 @@ class JoltAppController extends ValueNotifier<JoltAppState> {
       themeMode: themeMode,
       highContrast: highContrast,
       primaryColor: primaryColor,
-      textScaleFactorMultiplier: textScaleFactorMultiplier,
+      symbolScaleFactorMultiplier: symbolScaleFactorMultiplier,
       spacingScaleFactorMultiplier: spacingScaleFactorMultiplier,
     );
     _refreshTheme();
@@ -161,9 +161,9 @@ class JoltAppController extends ValueNotifier<JoltAppState> {
   }
 
   /// Change the text scale factor multiplier.
-  void setTextScaleFactorMultiplier(double multiplier) {
-    value = value.copyWith(textScaleFactorMultiplier: multiplier);
-    _save(_JoltPreferences.textScale, multiplier);
+  void setSymbolScaleFactorMultiplier(double multiplier) {
+    value = value.copyWith(symbolScaleFactorMultiplier: multiplier);
+    _save(_JoltPreferences.symbolScale, multiplier);
     notifyListeners();
   }
 
@@ -190,6 +190,6 @@ enum _JoltPreferences {
   locale,
   highContrast,
   primaryColor,
-  textScale,
+  symbolScale,
   spacingScale,
 }

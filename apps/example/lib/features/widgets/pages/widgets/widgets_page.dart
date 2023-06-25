@@ -93,7 +93,7 @@ Button(
         return Scaffold(
           title: 'Widgets',
           content: Padding(
-            padding: EdgeInsets.all(context.sizing.md),
+            padding: EdgeInsets.all(context.spacing.md),
             child: context.view.isTabletOrLarger
                 ? Container(
                     height: context.mediaQuery.size.height - 300,
@@ -101,7 +101,7 @@ Button(
 
                     child: GridView.count(
                       crossAxisCount: crossAxisCount,
-                      crossAxisSpacing: context.sizing.md,
+                      crossAxisSpacing: context.spacing.md,
                       childAspectRatio: itemWidth / 300,
                       children: children,
                     ),

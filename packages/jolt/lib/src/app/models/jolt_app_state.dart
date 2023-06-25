@@ -13,7 +13,7 @@ class JoltAppState {
     required this.highContrast,
     required this.primaryColor,
     required this.breakpoints,
-    this.textScaleFactorMultiplier = 1.0,
+    this.symbolScaleFactorMultiplier = 1.0,
     this.spacingScaleFactorMultiplier = 1.0,
   });
 
@@ -42,7 +42,7 @@ class JoltAppState {
   final bool highContrast;
 
   /// The text scale factor multiplier.
-  final double textScaleFactorMultiplier;
+  final double symbolScaleFactorMultiplier;
 
   /// The spacing scale factor multiplier.
   final double spacingScaleFactorMultiplier;
@@ -57,7 +57,7 @@ class JoltAppState {
     Locale? locale,
     ThemeMode? themeMode,
     bool? highContrast,
-    double? textScaleFactorMultiplier,
+    double? symbolScaleFactorMultiplier,
     double? spacingScaleFactorMultiplier,
   }) {
     return JoltAppState(
@@ -69,8 +69,8 @@ class JoltAppState {
       locale: locale ?? this.locale,
       themeMode: themeMode ?? this.themeMode,
       highContrast: highContrast ?? this.highContrast,
-      textScaleFactorMultiplier:
-          textScaleFactorMultiplier ?? this.textScaleFactorMultiplier,
+      symbolScaleFactorMultiplier:
+          symbolScaleFactorMultiplier ?? this.symbolScaleFactorMultiplier,
       spacingScaleFactorMultiplier:
           spacingScaleFactorMultiplier ?? this.spacingScaleFactorMultiplier,
     );
@@ -90,7 +90,7 @@ class JoltAppState {
           locale == other.locale &&
           themeMode == other.themeMode &&
           highContrast == other.highContrast &&
-          textScaleFactorMultiplier == other.textScaleFactorMultiplier &&
+          symbolScaleFactorMultiplier == other.symbolScaleFactorMultiplier &&
           spacingScaleFactorMultiplier == other.spacingScaleFactorMultiplier;
 
   /// Hash code
@@ -104,6 +104,6 @@ class JoltAppState {
       locale.hashCode ^
       themeMode.hashCode ^
       highContrast.hashCode ^
-      textScaleFactorMultiplier.hashCode ^
+      symbolScaleFactorMultiplier.hashCode ^
       spacingScaleFactorMultiplier.hashCode;
 }

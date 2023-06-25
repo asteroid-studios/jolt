@@ -59,13 +59,13 @@ class _SideBarLeftState extends State<SideBarLeft> {
       ),
       child: SafeArea(
         child: Padding(
-          padding: EdgeInsets.all(context.sizing.md),
+          padding: EdgeInsets.all(context.spacing.md),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const Spacing.xs(),
               Column(
-                spacing: context.sizing.sm,
+                spacing: context.spacing.sm,
                 children: navBarItems.mapIndexed((index, item) {
                   final tabsController =
                       autoTabsRouterKey.currentState?.controller;

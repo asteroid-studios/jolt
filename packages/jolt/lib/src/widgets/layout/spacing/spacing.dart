@@ -71,26 +71,26 @@ class _Spacing extends StatelessWidget {
       if (size != null) {
         switch (size!) {
           case _SpacingSize.xxs:
-            return context.sizing.xxs;
+            return context.spacing.xxs;
           case _SpacingSize.xs:
-            return context.sizing.xs;
+            return context.spacing.xs;
           case _SpacingSize.sm:
-            return context.sizing.sm;
+            return context.spacing.sm;
           case _SpacingSize.md:
-            return context.sizing.md;
+            return context.spacing.md;
           case _SpacingSize.lg:
-            return context.sizing.lg;
+            return context.spacing.lg;
           case _SpacingSize.xl:
-            return context.sizing.xl;
+            return context.spacing.xl;
           case _SpacingSize.xxl:
-            return context.sizing.xxl;
+            return context.spacing.xxl;
           case _SpacingSize.xxxl:
-            return context.sizing.xxxl;
+            return context.spacing.xxxl;
           case _SpacingSize.section:
-            return context.sizing.section;
+            return context.spacing.section;
         }
       }
-      return context.sizing.md;
+      return context.spacing.md;
     }
 
     return SizedBox(

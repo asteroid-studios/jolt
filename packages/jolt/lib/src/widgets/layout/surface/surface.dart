@@ -133,8 +133,8 @@ class Surface extends StatelessWidget {
       child: Padding(
         padding: style.padding ??
             EdgeInsets.symmetric(
-              horizontal: context.sizing.sm,
-              vertical: context.sizing.xs,
+              horizontal: context.spacing.sm,
+              vertical: context.spacing.xs,
             ),
         child: child,
       ),

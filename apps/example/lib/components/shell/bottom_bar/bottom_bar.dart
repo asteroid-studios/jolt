@@ -45,11 +45,11 @@ class BottomBar extends StatelessWidget {
                 child: Button(
                   fullWidth: true,
                   padding: EdgeInsets.only(
-                    top: context.sizing.md,
-                    left: context.sizing.md,
-                    right: context.sizing.md,
+                    top: context.spacing.md,
+                    left: context.spacing.md,
+                    right: context.spacing.md,
                     bottom: max(
-                      context.sizing.md,
+                      context.spacing.md,
                       context.mediaQuery.viewPadding.bottom,
                     ),
                   ),

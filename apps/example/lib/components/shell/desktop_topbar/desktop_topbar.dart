@@ -18,8 +18,8 @@ class DesktopTopbar extends StatelessWidget {
           Center(
             child: Padding(
               padding: EdgeInsets.symmetric(
-                horizontal: context.sizing.md,
-                vertical: context.sizing.xs,
+                horizontal: context.spacing.md,
+                vertical: context.spacing.xs,
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,

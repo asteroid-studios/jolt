@@ -29,7 +29,7 @@ class WidgetRender extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final childWidget = Padding(
-      padding: EdgeInsets.all(context.sizing.xl),
+      padding: EdgeInsets.all(context.spacing.xl),
       child: Center(child: child),
     );
 
@@ -48,7 +48,7 @@ class WidgetRender extends StatelessWidget {
 
     return Surface(
       // height: height,
-      margin: EdgeInsets.only(bottom: context.sizing.md),
+      margin: EdgeInsets.only(bottom: context.spacing.md),
       padding: EdgeInsets.zero,
       // background: Colors.transparent,
       child: Column(
@@ -57,8 +57,8 @@ class WidgetRender extends StatelessWidget {
           Surface(
             borderWidth: 0,
             padding: EdgeInsets.symmetric(
-              vertical: context.sizing.xs,
-              horizontal: context.sizing.xl,
+              vertical: context.spacing.xs,
+              horizontal: context.spacing.xl,
             ),
             background: context.color.surface.withOpacity(0.2),
             borderRadius: BorderRadius.only(
@@ -87,7 +87,7 @@ class WidgetRender extends StatelessWidget {
           ),
           Flexible(
             child: Padding(
-              padding: EdgeInsets.all(context.sizing.xl),
+              padding: EdgeInsets.all(context.spacing.xl),
               child: context.view.isMobileOrSmaller
                   ? Column(
                       children: [
