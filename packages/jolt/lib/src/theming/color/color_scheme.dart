@@ -118,6 +118,9 @@ class ColorScheme {
   ///
   final JoltColor success;
 
+  /// Return a fully transparent color.
+  JoltColor get transparent => surface.withOpacity(0);
+
   ///
   ColorScheme copyWith({
     JoltColor? primary,
@@ -187,17 +190,19 @@ class ColorScheme {
     return Object.hashAll(values);
   }
 
-  /// Return a transparent version of the surface color.
-  JoltColor get transparent => surface.withOpacity(0);
-
   ///
   bool get isDark => brightness == Brightness.dark;
 
   ///
   bool get isLight => brightness == Brightness.light;
 
-  /// Return darkColor when dark theme but fallback to the fallback color.
-  Color? darkWithFallback(Color? darkColor, Color? fallback) {
-    return isDark ? (darkColor ?? fallback) : fallback;
+  /// Return [color] or override with [colorDark] for dark themes.
+  ///
+  /// If [colorDark] is null, [color] will be used for dark themes.
+  ///
+  /// Useful when creating reusable widgets that need to adapt to the theme,
+  /// especially if they will only have a different dark color sometimes.
+  Color? responsive(Color? color, {Color? colorDark}) {
+    return isDark ? (colorDark ?? color) : color;
   }
 }

@@ -8,8 +8,8 @@ class JoltColor extends Color {
   ///
   /// - Provide a base [value] for the color.
   /// - [foreground] should contrast well on top of the base color
-  /// - [onHover] is what will be used when the user hovers over the color.
-  /// - [onFocus] is what will be used when the color is focused.
+  /// - [onHovered] is what will be used when the user hovers over the color.
+  /// - [onFocused] is what will be used when the color is focused.
   ///
   const JoltColor(
     super.value, {
@@ -28,13 +28,13 @@ class JoltColor extends Color {
     Color? foregroundLight,
     Color? onDisabled,
     Color? onDragged,
-    Color? onFocus,
-    Color? onHover,
+    Color? onFocused,
+    Color? onHovered,
     this.opacity = 1.0,
   })  : _foreground = foreground,
         _foregroundLight = foregroundLight,
-        _onHover = onHover,
-        _onFocus = onFocus,
+        _onHovered = onHovered,
+        _onFocused = onFocused,
         _onDisabled = onDisabled,
         _onDragged = onDragged,
         _shade50 = shade50,
@@ -58,12 +58,14 @@ class JoltColor extends Color {
   final Color? _foregroundLight;
 
   /// The color to show when the user hovers over the base color.
-  Color get onHover => (_onHover ?? defaultHoverOrFocus).withOpacity(opacity);
-  final Color? _onHover;
+  Color get onHovered =>
+      (_onHovered ?? defaultHoveredOrFocused).withOpacity(opacity);
+  final Color? _onHovered;
 
   /// The color to show when the base color is focused.
-  Color get onFocus => (_onFocus ?? defaultHoverOrFocus).withOpacity(opacity);
-  final Color? _onFocus;
+  Color get onFocused =>
+      (_onFocused ?? defaultHoveredOrFocused).withOpacity(opacity);
+  final Color? _onFocused;
 
   /// The color to show when the base color is disabled.
   Color get onDisabled =>
@@ -76,47 +78,47 @@ class JoltColor extends Color {
   final Color? _onDragged;
 
   /// The lightest shade.
-  Color get s50 => _shade50.withOpacity(opacity);
+  JoltColor get s50 => toJoltColor(Shade.s50).withOpacity(opacity);
   final Color _shade50;
 
   /// The second lightest shade.
-  Color get s100 => _shade100.withOpacity(opacity);
+  JoltColor get s100 => toJoltColor(Shade.s100).withOpacity(opacity);
   final Color _shade100;
 
   /// The third lightest shade.
-  Color get s200 => _shade200.withOpacity(opacity);
+  JoltColor get s200 => toJoltColor(Shade.s200).withOpacity(opacity);
   final Color _shade200;
 
   /// The fourth lightest shade.
-  Color get s300 => _shade300.withOpacity(opacity);
+  JoltColor get s300 => toJoltColor(Shade.s300).withOpacity(opacity);
   final Color _shade300;
 
   /// The fifth lightest shade.
-  Color get s400 => _shade400.withOpacity(opacity);
+  JoltColor get s400 => toJoltColor(Shade.s400).withOpacity(opacity);
   final Color _shade400;
 
   /// The middle shade
-  Color get s500 => _shade500.withOpacity(opacity);
+  JoltColor get s500 => toJoltColor(Shade.s500).withOpacity(opacity);
   final Color _shade500;
 
   /// The fifth darkest shade.
-  Color get s600 => _shade600.withOpacity(opacity);
+  JoltColor get s600 => toJoltColor(Shade.s600).withOpacity(opacity);
   final Color _shade600;
 
   /// The fourth darkest shade.
-  Color get s700 => _shade700.withOpacity(opacity);
+  JoltColor get s700 => toJoltColor(Shade.s700).withOpacity(opacity);
   final Color _shade700;
 
   /// The third darkest shade.
-  Color get s800 => _shade800.withOpacity(opacity);
+  JoltColor get s800 => toJoltColor(Shade.s800).withOpacity(opacity);
   final Color _shade800;
 
   /// The second darkest shade.
-  Color get s900 => _shade900.withOpacity(opacity);
+  JoltColor get s900 => toJoltColor(Shade.s900).withOpacity(opacity);
   final Color _shade900;
 
   /// The darkest shade.
-  Color get s950 => _shade950.withOpacity(opacity);
+  JoltColor get s950 => toJoltColor(Shade.s950).withOpacity(opacity);
   final Color _shade950;
 
   /// The opacity of the color.
@@ -156,8 +158,8 @@ class JoltColor extends Color {
     Color? primary,
     Color? foreground,
     Color? foregroundLight,
-    Color? onHover,
-    Color? onFocus,
+    Color? onHovered,
+    Color? onFocused,
     Color? onDisabled,
     Color? onDragged,
     Color? shade50,
@@ -177,8 +179,8 @@ class JoltColor extends Color {
       primary?.value ?? value,
       foreground: foreground ?? _foreground,
       foregroundLight: foregroundLight ?? _foregroundLight,
-      onHover: onHover ?? _onHover,
-      onFocus: onFocus ?? _onFocus,
+      onHovered: onHovered ?? _onHovered,
+      onFocused: onFocused ?? _onFocused,
       onDisabled: onDisabled ?? _onDisabled,
       onDragged: onDragged ?? _onDragged,
       shade50: shade50 ?? _shade50,
@@ -201,18 +203,20 @@ class JoltColor extends Color {
     Shade value, {
     Shade? foreground,
     Shade? foregroundLight,
-    Shade? onHover,
-    Shade? onFocus,
+    Shade? onHovered,
+    Shade? onFocused,
     Shade? onDisabled,
     Shade? onDragged,
     double opacity = 1.0,
   }) {
+    // Returns a JoltColor rather than using copyWith so that foreground and
+    // interaction state colors will be generated if left out.
     return JoltColor(
       _colorFromShade(value)!.value,
       foreground: _colorFromShade(foreground),
       foregroundLight: _colorFromShade(foregroundLight),
-      onHover: _colorFromShade(onHover),
-      onFocus: _colorFromShade(onFocus),
+      onHovered: _colorFromShade(onHovered),
+      onFocused: _colorFromShade(onFocused),
       onDisabled: _colorFromShade(onDisabled),
       onDragged: _colorFromShade(onDragged),
       shade50: _shade50,
@@ -275,32 +279,44 @@ enum Shade {
 
 extension _DefaultColorExtensions on JoltColor {
   /// Pure white
-  Color get _white => const Color(0xFFFFFFFF).withOpacity(opacity);
+  Color get _white => const Color(0xFFFFFFFF);
 
   /// Pure black
-  Color get _black => const Color(0xFF000000).withOpacity(opacity);
+  Color get _black => const Color(0xFF000000);
 
+  /// Used for shade matching
   List<Color> get fullShades => [
         _white,
-        ...shades,
+        _shade50,
+        _shade100,
+        _shade200,
+        _shade300,
+        _shade400,
+        _shade500,
+        _shade600,
+        _shade700,
+        _shade800,
+        _shade900,
+        _shade950,
         _black,
       ];
 
-  int get shadeIndex => shades.indexWhere((c) => c.value == value);
+  int get shadeIndex => fullShades.indexWhere((c) => c.value == value);
 
   int newShadeIndex(int n) => isLight ? shadeIndex + n : shadeIndex - n;
 
   Color get _defaultForeground {
-    if (isLight) return _black;
-    return _white;
+    if (isLight) return _shade950;
+    return _shade50;
   }
 
   Color get _defaultForegroundLight {
+    // TODO This could clash is the value is 400 or 600
     if (isLight) return _shade400;
     return _shade600;
   }
 
-  Color get defaultHoverOrFocus {
+  Color get defaultHoveredOrFocused {
     // If user has configured color wrong and value is not in shade list
     if (shadeIndex == -1) {
       if (isLight) return _shade600;
@@ -309,10 +325,19 @@ extension _DefaultColorExtensions on JoltColor {
     // Create a new index that is 2 shades lighter or darker
     // Return the first shade that is not null
     // fallbacks are if the current index is out of bounds
-    return fullShades.elementAtOrNull(newShadeIndex(2)) ??
+
+    // General concept -> if shade is closer to ends
+    // make the difference more extreme, middle should be less
+    final middle = fullShades.length / 2;
+    final diff = fullShades.length / 4;
+    final lowerEnd = middle - diff;
+    final higherEnd = middle + diff;
+    final isInMiddle = shadeIndex >= lowerEnd && shadeIndex <= higherEnd;
+    final newIndex = isInMiddle ? 1 : 2;
+
+    return fullShades.elementAtOrNull(newShadeIndex(newIndex)) ??
         fullShades.elementAtOrNull(newShadeIndex(1)) ??
-        fullShades.elementAtOrNull(newShadeIndex(0)) ??
-        _shade500;
+        fullShades[shadeIndex];
   }
 
   Color get defaultDraggedOrDisabled {

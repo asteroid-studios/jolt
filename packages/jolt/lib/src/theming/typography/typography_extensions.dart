@@ -9,7 +9,7 @@ extension TypographyContextX on BuildContext {
 }
 
 ///
-extension TypographyThemeDataX on ThemeData {
+extension TypographyThemeDataX on Theme {
   /// Returns the current typography.
   Typography get style => typography;
 }

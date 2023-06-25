@@ -34,7 +34,7 @@ export 'overlays/overlay_stack/overlay_stack.dart';
 export 'overlays/tooltip/tooltip.dart';
 export 'symbols/icon/icon.dart';
 export 'symbols/symbol/symbol_extensions.dart';
-export 'symbols/symbol/symbol_theme.dart';
+export 'symbols/symbol/symbol_style.dart';
 export 'symbols/text/text.dart';
 export 'symbols/text/text_extensions.dart';
 export 'text_field/text_field.dart';

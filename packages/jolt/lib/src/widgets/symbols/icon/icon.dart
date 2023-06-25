@@ -71,10 +71,12 @@ class Icon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final passedColor = context.color.isDark ? (colorDark ?? color) : color;
+    final iconTheme = IconTheme.of(context);
+    final color = context.color.responsive(this.color, colorDark: colorDark) ??
+        iconTheme.color;
     final defaultColor = context.inherited.interactionState.isDisabled
-        ? passedColor?.withOpacity(0.5)
-        : passedColor;
+        ? color?.withOpacity(0.5)
+        : color;
 
     final iconWidget = icon is PhosphorIconData
         ? PhosphorIcon(

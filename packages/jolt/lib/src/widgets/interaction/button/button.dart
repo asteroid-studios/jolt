@@ -140,17 +140,17 @@ class _ButtonState extends State<Button> {
 
     // Prepare the label style
     final noLabel = widget.label == null;
-    final labelStyle =
-        widget.labelStyle ?? theme.labelStyle ?? context.style.body;
+    // TODO need to not pass this through
+    final labelStyle = widget.labelStyle ?? theme.labelStyle;
 
     // Prepare the icon size
-    final iconSize = (widget.iconSize ?? labelStyle.fontSize ?? 16) *
-        widget.iconScale *
-        context.scaling.textScale;
+    // final iconSize = (widget.iconSize ?? labelStyle.fontSize ?? 16) *
+    //     widget.iconScale *
+    //     context.scaling.textScale;
 
-    final color = context.color.darkWithFallback(
-      widget.colorDark,
+    final color = context.color.responsive(
       widget.color,
+      colorDark: widget.colorDark,
     );
 
     // // Prepare padding
@@ -178,13 +178,17 @@ class _ButtonState extends State<Button> {
         // Prepare the icon
         final icon = widget.iconWidget ??
             (widget.icon != null
-                ? Icon(widget.icon!, size: iconSize, color: color)
+                ? Icon(
+                    widget.icon!,
+                    // size: iconSize,
+                    color: color,
+                  )
                 : null);
 
         // Prepare the progressIndicator
         final progressIndicator = CircularProgressIndicator(
           color: color,
-          size: iconSize,
+          // size: iconSize,
         );
 
         late Widget child;

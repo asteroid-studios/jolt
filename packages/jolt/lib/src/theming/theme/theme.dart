@@ -12,46 +12,11 @@ enum ThemeMode {
   system,
 }
 
-// Define a default backup theme
-final _defaultLightTheme = ThemeData(
-  id: 'default_light',
-  colorScheme: ColorScheme.light(),
-);
-
-/// Wrap a section of the widget tree with a theme which will be inherited by
-/// all children.
-class Theme extends InheritedTheme {
-  /// Wrap a section of the widget tree with a theme which will be inherited by
-  /// all children.
-  const Theme({
-    required this.data,
-    required super.child,
-    super.key,
-  });
-
-  /// The theme data to use for this section of the widget tree.
-  final ThemeData data;
-
-  /// Return the ThemeData from the closest instance of this class that encloses
-  static ThemeData of(BuildContext context) {
-    final theme = context.dependOnInheritedWidgetOfExactType<Theme>();
-    return theme?.data ?? _defaultLightTheme;
-  }
-
-  @override
-  bool updateShouldNotify(Theme oldWidget) => data != oldWidget.data;
-
-  @override
-  Widget wrap(BuildContext context, Widget child) {
-    return Theme(data: data, child: child);
-  }
-}
-
 /// Jolt Theme Data
 @immutable
-class ThemeData {
+class Theme {
   /// Jolt Theme Data
-  ThemeData({
+  Theme({
     required this.id,
     required this.colorScheme,
     Typography? typography,
@@ -70,14 +35,21 @@ class ThemeData {
   /// The typography.
   final Typography typography;
 
+  /// Return the ThemeData from the closest instance of this class that encloses
+  static Theme of(BuildContext context) {
+    final theme = context.dependOnInheritedWidgetOfExactType<DefaultTheme>();
+    // TODO could this be the culprit of flashing white?
+    return theme?.data ?? _defaultLightTheme;
+  }
+
   ///
-  ThemeData copyWith({
+  Theme copyWith({
     ColorScheme? colorScheme,
     String? id,
     Typography? typography,
     Dimensions? dimensions,
   }) {
-    return ThemeData(
+    return Theme(
       colorScheme: colorScheme ?? this.colorScheme,
       id: id ?? this.id,
       typography: typography ?? this.typography,
@@ -90,7 +62,7 @@ class ThemeData {
     if (other.runtimeType != runtimeType) {
       return false;
     }
-    return other is ThemeData &&
+    return other is Theme &&
         other.colorScheme == colorScheme &&
         other.id == id &&
         other.typography == typography &&
@@ -108,3 +80,9 @@ class ThemeData {
     return Object.hashAll(values);
   }
 }
+
+// Define a default backup theme
+final _defaultLightTheme = Theme(
+  id: 'default_light',
+  colorScheme: ColorScheme.light(),
+);

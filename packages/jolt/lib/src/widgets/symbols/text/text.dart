@@ -105,17 +105,21 @@ class Text extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final defaultTextStyle = style ?? DefaultTextStyle.of(context).style;
-    final fontWeight = this.fontWeight ?? defaultTextStyle.fontWeight;
+    final defaultTextStyle = DefaultTextStyle.of(context).style;
+    final textStyle = style ?? defaultTextStyle;
+    final fontWeight = this.fontWeight ?? textStyle.fontWeight;
     //  Default color should be
     //  - the color passed to the text
     //  - then the colorDark passed to the text
     //  - then the color of the style passed to the text
     //  - then the color of the surface foreground inherited by the text
     //  - then the color from the default text style.
-    final defaultColor = context.color.darkWithFallback(colorDark, color) ??
-        style?.color ??
-        context.inherited.surfaceStyle?.background?.foreground;
+    final defaultColor =
+        context.color.responsive(color, colorDark: colorDark) ??
+            style?.color ??
+            context.inherited.surfaceStyle?.background?.foreground ??
+            defaultTextStyle.color;
+
     return widgets.Text(
       data ?? '',
       textAlign: textAlign,
@@ -123,13 +127,13 @@ class Text extends StatelessWidget {
       maxLines: maxLines,
       semanticsLabel: semanticsLabel,
       selectionColor: selectionColor,
-      style: defaultTextStyle.copyWith(
+      style: textStyle.copyWith(
         color: context.inherited.interactionState.isDisabled
             ? defaultColor?.withOpacity(0.5)
             : defaultColor,
         fontWeight: fontWeight,
         fontVariations: [
-          ...?defaultTextStyle.fontVariations,
+          ...?textStyle.fontVariations,
           // Support for variable fonts from font weight
           if (fontWeight != null)
             FontVariation(

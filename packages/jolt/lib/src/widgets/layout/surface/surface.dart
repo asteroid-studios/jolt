@@ -65,9 +65,9 @@ class Surface extends StatelessWidget {
         context.inherited.widgetTheme.surfaceStyle;
     final style = surfaceStyle.merge(
       SurfaceStyle(
-        background: context.color.darkWithFallback(
-          backgroundDark,
+        background: context.color.responsive(
           background,
+          colorDark: backgroundDark,
         ) as JoltColor?,
         borderColor: borderColor,
         borderRadius: borderRadius,
@@ -78,7 +78,7 @@ class Surface extends StatelessWidget {
     );
 
     final defaultBackground = style.background ?? context.color.surface;
-    final defaultBorderColor = style.borderColor ?? style.background;
+    final defaultBorderColor = style.borderColor ?? defaultBackground;
     final defaultBorderRadius = style.borderRadius ?? context.borderRadius.md;
     final defaultBorderWidth = style.borderWidth ?? 2;
     final transparentBackground = defaultBackground.opacity == 0;
@@ -87,11 +87,13 @@ class Surface extends StatelessWidget {
         !(interaction?.hasPressHandler ?? true);
     final isHovered = interaction?.isHovered ?? false;
     final isFocused = interaction?.isFocused ?? false;
+    final wasFocusedAfterPressed = interaction?.wasFocusedAfterPress ?? false;
     final effectColor = isHovered
-        ? defaultBackground.onHover
+        ? defaultBackground.onHovered
         : isFocused
-            ? defaultBackground.onFocus
+            ? defaultBackground.onFocused
             : null;
+
     // TODO how to make border surface? or transparent surface?
     // final borderColor = style.borderColor ??
     //     (transparentBackground
@@ -111,7 +113,6 @@ class Surface extends StatelessWidget {
     //         : background.weaken());
 
     // // Focus state
-    // final focusedAfterPressed = interaction?.wasFocusedAfterPress ?? false;
     // final isFocused = interaction?.isFocused ?? false;
     // final focusBorderColor =
     //     theme.borderColorOnFocus?.call(background) ?? context.color.primary;
@@ -123,9 +124,12 @@ class Surface extends StatelessWidget {
 
     // The end result of the background color and borderColor
 
-    // Wrap the child with the padding and new default surface
-    final childWidget = DefaultSurfaceStyle(
-      style: style,
+    // Wrap the children of the surface with a symbol style so that they use
+    // the foreground color by default.
+    //
+    // Also wrap the children with padding.
+    final childWidget = DefaultSymbolStyle(
+      style: (_) => TextStyle(color: style.background?.foreground),
       child: Padding(
         padding: style.padding ??
             EdgeInsets.symmetric(
@@ -138,26 +142,25 @@ class Surface extends StatelessWidget {
 
     // Return the surface
     return ClipRRect(
-      borderRadius: borderRadius,
+      borderRadius: defaultBorderRadius,
       child: AnimatedContainer(
         width: width,
         height: height,
         margin: margin,
         duration: context.durations.mid,
         decoration: BoxDecoration(
-          borderRadius: style.borderRadius,
+          borderRadius: defaultBorderRadius,
           border: Border.all(
-            // color: (isFocused && !focusedAfterPressed)
-            //     ? focusBorderColor
-            //     : borderColor,
-            width: style.borderWidth ?? 2,
+            color: (isFocused && !wasFocusedAfterPressed)
+                ? context.color.primary
+                : defaultBorderColor,
+            width: defaultBorderWidth,
           ),
+          // TODO implement shadow
           // boxShadow: ,
           color: effectColor != null
               ? Color.alphaBlend(effectColor, defaultBackground)
-              : transparentBackground
-                  ? null
-                  : defaultBackground,
+              : defaultBackground,
         ),
         child: ripple
             ? TouchRippleEffect(

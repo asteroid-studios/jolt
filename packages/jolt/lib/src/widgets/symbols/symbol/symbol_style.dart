@@ -1,9 +1,9 @@
 import 'package:jolt/jolt.dart';
 
 /// Set the default style for all child text and icons
-class SymbolTheme extends StatelessWidget {
+class DefaultSymbolStyle extends StatelessWidget {
   /// Set the default style for all child text and icons
-  const SymbolTheme({
+  const DefaultSymbolStyle({
     required this.child,
     required this.style,
     super.key,

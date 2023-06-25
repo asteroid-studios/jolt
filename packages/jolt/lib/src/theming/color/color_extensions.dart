@@ -1,7 +1,27 @@
 import 'package:jolt/jolt.dart';
 
+///
+extension ColorContextX on BuildContext {
+  /// Returns the current color scheme.
+  ColorScheme get color => theme.colorScheme;
+}
+
+/// Some utility methods on Color
+extension ColorX on Color {
+  /// Return a jolt color if this Color is a JoltColor
+  JoltColor? get maybeAsJoltColor =>
+      this is JoltColor ? this as JoltColor : null;
+
+  /// If the color is dark, make it darker, if light make lighter
+  Color strengthen([int value = 10]) =>
+      isDark ? darken(value) : brighten(value);
+
+  /// If the color is dark, make it light, if light make darker
+  Color weaken([int value = 10]) => isDark ? brighten(value) : darken(value);
+}
+
 /// Some utility methods on JoltColor
-extension JoltColorExtension on JoltColor {
+extension JoltColorX on JoltColor {
   /// Returns a copy of the JoltColor with the shades in reverse order
   /// For example:
   /// - s50 would return the old value for s950
@@ -30,8 +50,8 @@ extension JoltColorExtension on JoltColor {
     return copyWith(
       primary: primary,
       foreground: s900,
-      onHover: s200,
-      onFocus: s200,
+      onHovered: s200,
+      onFocused: s200,
     );
   }
 
@@ -40,8 +60,8 @@ extension JoltColorExtension on JoltColor {
     return copyWith(
       primary: highContrast ? s300 : s200,
       foreground: s950,
-      onHover: highContrast ? s200 : s300,
-      onFocus: highContrast ? s200 : s300,
+      onHovered: highContrast ? s200 : s300,
+      onFocused: highContrast ? s200 : s300,
     );
   }
 }

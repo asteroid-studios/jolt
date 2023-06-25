@@ -4,4 +4,3 @@ export 'icons/icons.dart';
 export 'overlay/overlay.dart';
 export 'platform/platform.dart';
 export 'theme/theme_extensions.dart';
-export 'theme/widget_theme.dart';

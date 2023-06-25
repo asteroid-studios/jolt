@@ -137,7 +137,8 @@ class _TouchRippleEffectState extends State<TouchRippleEffect>
       final background = widget.backgroundColor as JoltColor;
       if (background == context.color.background ||
           background == context.color.surface ||
-          background == context.color.neutral) {
+          background == context.color.neutral ||
+          background == context.color.transparent) {
         rippleColor = context.color.primary;
       } else {
         rippleOpacity = 0.1;
