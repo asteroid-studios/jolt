@@ -125,7 +125,19 @@ class _ButtonState extends State<Button> {
   @override
   Widget build(BuildContext context) {
     // Prepare the button theme
-    final buttonStyle = context.inherited.widgetTheme.buttonStyle;
+    late ButtonType type;
+    final hasIcon = widget.icon != null || widget.iconWidget != null;
+    final hasLabel = widget.label != null;
+    if (hasLabel && hasIcon) {
+      type = ButtonType.iconLabel;
+    } else if (hasLabel) {
+      type = ButtonType.label;
+    } else if (hasIcon) {
+      type = ButtonType.icon;
+    } else {
+      type = ButtonType.empty;
+    }
+    final buttonStyle = context.inherited.widgetTheme.buttonStyle?.call(type);
 
     return Interaction(
       onTap: widget.onTap,
@@ -158,6 +170,7 @@ class _ButtonState extends State<Button> {
         late Widget child;
         // Layout ICON button
         if (widget.label == null) {
+          type = ButtonType.icon;
           child = Column(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -182,9 +195,14 @@ class _ButtonState extends State<Button> {
             ],
           );
         } else {
+          if (icon == null) {
+            type = ButtonType.label;
+          } else {
+            type = ButtonType.iconLabel;
+          }
           // Prepare LABEL button
           final spacing =
-              widget.spacing ?? buttonStyle.spacing ?? context.spacing.xs;
+              widget.spacing ?? buttonStyle?.spacing ?? context.spacing.xs;
           final buttonChildren = [
             if (state.isAwaiting) progressIndicator else if (icon != null) icon,
             Text(
@@ -216,26 +234,42 @@ class _ButtonState extends State<Button> {
           }
         }
 
+        final surface = Surface(
+          fallbackStyle: buttonStyle?.surfaceStyle,
+          width: widget.width,
+          height: widget.height,
+          background: widget.background,
+          backgroundDark: widget.backgroundDark,
+          borderColor: widget.borderColor,
+          borderRadius: widget.borderRadius,
+          borderWidth: widget.borderWidth,
+          padding: widget.padding,
+          ripple: true,
+          child: child,
+        );
+
+        if (buttonStyle?.labelStyle == null) return surface;
+
         return DefaultSymbolStyle(
-          // TODO merge button style label style
-          style: (_) =>
-              buttonStyle.labelStyle ??
-              context.inherited.defaultTextStyle.style,
-          child: Surface(
-            fallbackStyle: buttonStyle.surfaceStyle,
-            width: widget.width,
-            height: widget.height,
-            background: widget.background,
-            backgroundDark: widget.backgroundDark,
-            borderColor: widget.borderColor,
-            borderRadius: widget.borderRadius,
-            borderWidth: widget.borderWidth,
-            padding: widget.padding,
-            ripple: true,
-            child: child,
-          ),
+          style: (_) => buttonStyle!.labelStyle!,
+          child: surface,
         );
       },
     );
   }
+}
+
+/// The type of button
+enum ButtonType {
+  /// An icon only
+  icon,
+
+  /// An label only
+  label,
+
+  /// Both an icon and label
+  iconLabel,
+
+  /// An icon widget
+  empty,
 }

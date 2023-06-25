@@ -1,8 +1,7 @@
 import 'package:flutter/widgets.dart' as widgets show Icon;
 
-import 'package:phosphor_flutter/phosphor_flutter.dart';
-
 import 'package:jolt/jolt.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 ///
 class Icon extends StatelessWidget {
@@ -63,9 +62,9 @@ class Icon extends StatelessWidget {
     final iconTheme = IconTheme.of(context);
     final color = context.color.responsive(this.color, colorDark: colorDark) ??
         iconTheme.color;
-    final scale =
+    final sizeScale =
         ignoreIconScaleFactor ? 1.0 : context.mediaQuery.textScaleFactor;
-    final size = (this.size ?? iconTheme.size ?? 16) * scale;
+    final size = (this.size ?? iconTheme.size ?? 16) * sizeScale;
     final defaultColor = context.inherited.interactionState.isDisabled
         ? color?.withOpacity(0.5)
         : color;

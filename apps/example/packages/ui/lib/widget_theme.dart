@@ -5,20 +5,21 @@ WidgetTheme widgetTheme(BuildContext context) {
   // final color = context.color;
   // final spacing = context.spacing;
   return WidgetTheme(
-    // surfaceStyle: SurfaceStyle(
-    //   // borderRadius: theme.borderRadius.lg,
-    //   padding: EdgeInsets.all(context.spacing.lg),
-    //   borderWidth: 10,
-    // ),
-    buttonStyle: ButtonStyle(
-      labelStyle: context.style.body.copyWith(
+    surfaceStyle: SurfaceStyle(
+        // borderRadius: theme.borderRadius.lg,
+        // padding: EdgeInsets.all(context.spacing.lg),
+        ),
+    buttonStyle: (type) => ButtonStyle(
+      labelStyle: context.style.bodyLarge.copyWith(
         fontWeight: FontWeight.w600,
       ),
       surfaceStyle: SurfaceStyle(
         borderRadius: context.borderRadius.xl,
         padding: EdgeInsets.symmetric(
           vertical: context.spacing.xs,
-          horizontal: context.spacing.lg,
+          horizontal: type == ButtonType.icon || type == ButtonType.empty
+              ? context.spacing.xs
+              : context.spacing.md,
         ),
         // borderWidth: 20,
       ),

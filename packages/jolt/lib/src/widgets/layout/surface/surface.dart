@@ -92,8 +92,13 @@ class Surface extends StatelessWidget {
     final defaultBorderColor = style.borderColor ?? defaultBackground;
     final defaultBorderRadius = style.borderRadius ?? context.borderRadius.md;
     final defaultBorderWidth = style.borderWidth!;
-    final interaction = context.inherited.interactionState;
+    final defaultPadding = style.padding ??
+        EdgeInsets.symmetric(
+          horizontal: context.spacing.sm,
+          vertical: context.spacing.xs,
+        );
 
+    final interaction = context.inherited.interactionState;
     final isHovered = interaction?.isHovered ?? false;
     final isFocused = interaction?.isFocused ?? false;
     final wasFocusedAfterPressed = interaction?.wasFocusedAfterPress ?? false;
@@ -117,11 +122,7 @@ class Surface extends StatelessWidget {
       child: DefaultSymbolStyle(
         style: (_) => TextStyle(color: style.background?.foreground),
         child: Padding(
-          padding: style.padding ??
-              EdgeInsets.symmetric(
-                horizontal: context.spacing.sm,
-                vertical: context.spacing.xs,
-              ),
+          padding: defaultPadding,
           child: child,
         ),
       ),

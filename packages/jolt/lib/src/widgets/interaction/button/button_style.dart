@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_positional_boolean_parameters
+
 import 'package:jolt/jolt.dart';
 
 ///
@@ -5,7 +7,6 @@ class ButtonStyle {
   ///
   const ButtonStyle({
     this.surfaceStyle,
-    this.color,
     this.spacing,
     this.labelStyle,
   });
@@ -19,21 +20,16 @@ class ButtonStyle {
   /// The text style of the button label
   final TextStyle? labelStyle;
 
-  /// override the foreground color of the button
-  final Color Function(Color? background)? color;
-
   ///
   ButtonStyle copyWith({
     SurfaceStyle? surfaceStyle,
     double? spacing,
     TextStyle? labelStyle,
-    Color Function(Color? background)? color,
   }) {
     return ButtonStyle(
       surfaceStyle: surfaceStyle ?? this.surfaceStyle,
       spacing: spacing ?? this.spacing,
       labelStyle: labelStyle ?? this.labelStyle,
-      color: color ?? this.color,
     );
   }
 }

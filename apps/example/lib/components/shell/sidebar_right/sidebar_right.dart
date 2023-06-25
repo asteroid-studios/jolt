@@ -48,14 +48,11 @@ class SideBarRight extends StatelessWidget {
       IconData icon,
     ) {
       final selected = context.scaling.symbolScale == sizeMultiplier;
-      final defaultIconSize =
-          context.inherited.widgetTheme.buttonStyle.labelStyle?.fontSize ??
-              context.style.body.fontSize ??
-              16;
+
       return Button(
         icon: icon,
         borderColor: selected ? context.color.primary : null,
-        iconSize: defaultIconSize * sizeMultiplier,
+        iconScale: sizeMultiplier,
         onTap: () =>
             context.jolt.setSymbolScaleFactorMultiplier(sizeMultiplier),
       );
@@ -66,14 +63,11 @@ class SideBarRight extends StatelessWidget {
       IconData icon,
     ) {
       final selected = context.scaling.spacingScale == sizeMultiplier;
-      final defaultIconSize =
-          context.inherited.widgetTheme.buttonStyle.labelStyle?.fontSize ??
-              context.style.body.fontSize ??
-              16;
+
       return Button(
         icon: icon,
         borderColor: selected ? context.color.primary : null,
-        iconSize: defaultIconSize * sizeMultiplier,
+        iconScale: sizeMultiplier,
         onTap: () =>
             context.jolt.setSpacingScaleFactorMultiplier(sizeMultiplier),
       );
