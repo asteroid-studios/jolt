@@ -50,7 +50,8 @@ class WidgetRender extends StatelessWidget {
       // height: height,
       margin: EdgeInsets.only(bottom: context.spacing.md),
       padding: EdgeInsets.zero,
-      // background: Colors.transparent,
+      background: context.color.transparent,
+      borderColor: context.color.surface,
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [

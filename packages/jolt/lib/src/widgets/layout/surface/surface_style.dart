@@ -89,6 +89,20 @@ class SurfaceStyle {
     return false;
   }
 
+  /// To String Function
+  @override
+  String toString() {
+    return '''SurfaceStyle(
+  background: $background,
+  borderColor: $borderColor,
+  borderRadius: $borderRadius,
+  borderWidth: $borderWidth,
+  margin: $margin,
+  padding: $padding, 
+  boxShadow: $boxShadow
+)''';
+  }
+
   /// HashCode
   @override
   int get hashCode {

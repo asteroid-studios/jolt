@@ -17,7 +17,7 @@ export 'forms/fields/time_picker/time_picker_field_theme.dart';
 export 'forms/form/form.dart';
 export 'forms/validators/form_validator.dart';
 export 'interaction/button/button.dart';
-export 'interaction/button/button_theme.dart';
+export 'interaction/button/button_style.dart';
 export 'interaction/interaction/interaction.dart';
 export 'layout/column/column.dart';
 export 'layout/row/row.dart';

@@ -32,7 +32,6 @@ class Button extends StatefulWidget {
     this.fullWidth = false,
     this.autoFocus = false,
     this.requestFocusOnPress = true,
-    this.size = ButtonSize.md,
     this.mainAxisAlignment = MainAxisAlignment.center,
     this.direction = TextDirection.ltr,
   });
@@ -48,9 +47,6 @@ class Button extends StatefulWidget {
 
   ///
   final Widget? iconWidget;
-
-  ///
-  final ButtonSize size;
 
   ///
   final double iconScale;
@@ -129,19 +125,12 @@ class _ButtonState extends State<Button> {
   @override
   Widget build(BuildContext context) {
     // Prepare the button theme
-    final button = context.widgetTheme.button;
-    final smallButton = button.copyWith(labelStyle: context.style.label);
-    final largeButton = button.copyWith(labelStyle: context.style.heading);
-    final theme = widget.size == ButtonSize.md
-        ? button
-        : widget.size == ButtonSize.sm
-            ? button.smallButtonTheme ?? smallButton
-            : button.largeButtonTheme ?? largeButton;
+    final buttonStyle = context.widgetTheme.buttonStyle;
 
     // Prepare the label style
     final noLabel = widget.label == null;
     // TODO need to not pass this through
-    final labelStyle = widget.labelStyle ?? theme.labelStyle;
+    final labelStyle = widget.labelStyle ?? buttonStyle.labelStyle;
 
     // Prepare the icon size
     // final iconSize = (widget.iconSize ?? labelStyle.fontSize ?? 16) *
@@ -219,7 +208,8 @@ class _ButtonState extends State<Button> {
           );
         } else {
           // Prepare LABEL button
-          final spacing = widget.spacing ?? theme.spacing ?? context.spacing.xs;
+          final spacing =
+              widget.spacing ?? buttonStyle.spacing ?? context.spacing.xs;
           final buttonChildren = [
             if (state.isAwaiting) progressIndicator else if (icon != null) icon,
             Text(
@@ -252,7 +242,7 @@ class _ButtonState extends State<Button> {
         }
 
         return Surface(
-          fallbackStyle: context.inherited.widgetTheme.button.surfaceStyle,
+          fallbackStyle: context.inherited.widgetTheme.buttonStyle.surfaceStyle,
           width: widget.width,
           height: widget.height,
           background: widget.background,
@@ -267,16 +257,4 @@ class _ButtonState extends State<Button> {
       },
     );
   }
-}
-
-/// The size of a button
-enum ButtonSize {
-  /// A small button
-  sm,
-
-  /// A medium button
-  md,
-
-  /// A large button
-  lg,
 }

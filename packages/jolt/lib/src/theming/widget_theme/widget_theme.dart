@@ -5,7 +5,7 @@ class WidgetTheme {
   /// Contains the default styling for all Jolt Widgets.
   const WidgetTheme({
     this.surfaceStyle = const SurfaceStyle(),
-    this.button = const ButtonTheme(),
+    this.buttonStyle = const ButtonStyle(),
     this.textField = const TextFieldTheme(),
     this.progressIndicator = const ProgressIndicatorTheme(),
   });
@@ -14,7 +14,7 @@ class WidgetTheme {
   final SurfaceStyle surfaceStyle;
 
   /// The theme of a button
-  final ButtonTheme button;
+  final ButtonStyle buttonStyle;
 
   /// The theme of a text field
   final TextFieldTheme textField;

@@ -59,23 +59,25 @@ class JoltColor extends Color {
 
   /// The color to show when the user hovers over the base color.
   Color get onHovered =>
-      (_onHovered ?? defaultHoveredOrFocused).withOpacity(opacity);
+      (_onHovered ?? defaultHoveredOrFocused).withOpacity(_effectOpacity);
   final Color? _onHovered;
 
   /// The color to show when the base color is focused.
   Color get onFocused =>
-      (_onFocused ?? defaultHoveredOrFocused).withOpacity(opacity);
+      (_onFocused ?? defaultHoveredOrFocused).withOpacity(_effectOpacity);
   final Color? _onFocused;
 
   /// The color to show when the base color is disabled.
   Color get onDisabled =>
-      (_onDisabled ?? defaultDraggedOrDisabled).withOpacity(opacity);
+      (_onDisabled ?? defaultDraggedOrDisabled).withOpacity(_effectOpacity);
   final Color? _onDisabled;
 
   /// The color to show when the base color is dragged.
   Color get onDragged =>
-      (_onDragged ?? defaultDraggedOrDisabled).withOpacity(opacity);
+      (_onDragged ?? defaultDraggedOrDisabled).withOpacity(_effectOpacity);
   final Color? _onDragged;
+
+  double get _effectOpacity => opacity > 0 ? opacity : 1;
 
   /// The lightest shade.
   JoltColor get s50 => toJoltColor(Shade.s50).withOpacity(opacity);

@@ -26,6 +26,14 @@ class DefaultSurfaceStyle extends InheritedTheme {
   }
 
   /// Return the closest SurfaceStyle from the currentContext
+  static SurfaceStyle of(BuildContext context) {
+    return context
+            .dependOnInheritedWidgetOfExactType<DefaultSurfaceStyle>()
+            ?.style ??
+        context.widgetTheme.surfaceStyle;
+  }
+
+  /// Return the closest SurfaceStyle from the currentContext
   static SurfaceStyle? maybeOf(BuildContext context) {
     return context
         .dependOnInheritedWidgetOfExactType<DefaultSurfaceStyle>()
@@ -40,11 +48,11 @@ class DefaultSurfaceStyle extends InheritedTheme {
   }) {
     return Builder(
       builder: (BuildContext context) {
-        final parent = context.inherited.surfaceStyle;
+        final parent = DefaultSurfaceStyle.maybeOf(context);
         final newStyle = style(context);
         return DefaultSurfaceStyle(
           key: key,
-          style: parent == null ? newStyle : parent.merge(newStyle),
+          style: parent?.merge(newStyle) ?? newStyle,
           child: child,
         );
       },

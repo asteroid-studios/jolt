@@ -14,7 +14,7 @@ class SpacingSizes {
   });
 
   ///
-  static const double zero = 0;
+  double get zero => 0;
 
   ///
   final double xxs;

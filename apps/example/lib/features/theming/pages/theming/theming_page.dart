@@ -34,20 +34,11 @@ class ThemingPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              'Heading',
-              style: context.style.heading,
-              color: color.foreground,
-            ),
-            Text(
-              'SubHeading',
-              // style: context.style.labelLarge,
-              color: color.foregroundLight,
-            ),
-            Spacing.xs(),
-            Text(
+            const Text('Heading').styleHeading(),
+            const Text('SubHeading').colorForegroundLight(),
+            const Spacing.xs(),
+            const Text(
               'Flat cartoony illustrations with vivid unblended colors.',
-              color: color.foreground,
             ),
           ],
         ),
@@ -83,19 +74,47 @@ class ThemingPage extends StatelessWidget {
           Button(
             label: 'Home',
             icon: Icons.house,
-            // background: context.color.transparent,
-            // borderColor: context.color.primary,
-            // background: context.color.surface.withOpacity(0),
             onTap: () {},
+          ).backgroundPrimary(),
+          Button(
+            label: 'House',
+            icon: Icons.house,
+            onTap: () {},
+            background: context.color.primary,
           ),
           Button(
             label: 'Home',
             icon: Icons.house,
-            // background: context.color.transparent,
-            // borderColor: context.color.primary,
-            // background: context.color.surface.withOpacity(0),
             onTap: () {},
-          ).backgroundPrimary(),
+          ).backgroundTertiary(),
+          Button(
+            label: 'Home',
+            icon: Icons.house,
+            onTap: () {},
+            borderColor: context.color.surface.foregroundLight,
+          ).backgroundTransparent(),
+          Button(
+            label: 'Home',
+            icon: Icons.house,
+            onTap: () {},
+          ).backgroundTransparent(),
+          Button(
+            label: 'House',
+            icon: Icons.house,
+            onTap: () {},
+            background: context.color.primary.withOpacity(0.2),
+            color: context.color.primary.s950,
+          ),
+          Button(
+            label: 'Home',
+            icon: Icons.house,
+            onTap: () {},
+          ).styleDisplay().backgroundPrimary(),
+          Button(
+            label: 'Home',
+            icon: Icons.house,
+            onTap: () {},
+          ).backgroundTertiary().styleLabel(),
           // Button(
           //   label: 'Test',
           //   background: context.color.surface.s50,
