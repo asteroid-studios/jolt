@@ -34,11 +34,21 @@ class ThemingPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text('Heading').styleHeading(),
-            const Text('SubHeading').colorForegroundLight(),
+            const Text('Heading').withStyleHeading(),
+            const Text('SubHeading').withColorForegroundLight(),
             const Spacing.xs(),
             const Text(
-              'Flat cartoony illustrations with vivid unblended colors.',
+              'Flat cartoony illustrations with vivid un-blended colors.',
+            ),
+            const Spacing.sm(),
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Button(
+                  onTap: () {},
+                  label: 'Test',
+                ).withBackground(color.s500),
+              ],
             ),
           ],
         ),
@@ -64,18 +74,21 @@ class ThemingPage extends StatelessWidget {
           // - ButtonTheme from WidgetTheme
           // - Passed style or color
           // ResponsiveHeading('Responsive Heading'),
-          // Button(label: 'Test').styleHeading(),
-          // Button(label: 'Test').styleLabel(),
+          // Button(label: 'Test').withStyleHeading(),
+          // Button(label: 'Test').withStyleLabel(),
           // Button(
           //   icon: Icons.airTrafficControl,
           //   label: 'a disabled button',
-          //   // labelStyle: context.style.label,
-          // ).styleHeading().colorPrimary(),
+          //   // labelStyle: context.withStyle.label,
+          // ).withStyleHeading().colorPrimary(),
           Button(
             label: 'Home',
             icon: Icons.house,
             onTap: () {},
-          ).backgroundPrimary(),
+            // labelStyle: context.withStyle.body,
+            background: context.color.primary,
+            // color: context.color.error,
+          ).withColorError(),
           Button(
             label: 'House',
             icon: Icons.house,
@@ -86,18 +99,18 @@ class ThemingPage extends StatelessWidget {
             label: 'Home',
             icon: Icons.house,
             onTap: () {},
-          ).backgroundTertiary(),
+          ).withBackgroundTertiary(),
           Button(
             label: 'Home',
             icon: Icons.house,
             onTap: () {},
             borderColor: context.color.surface.foregroundLight,
-          ).backgroundTransparent(),
+          ).withBackgroundTransparent(),
           Button(
             label: 'Home',
             icon: Icons.house,
             onTap: () {},
-          ).backgroundTransparent(),
+          ).withBackgroundTransparent(),
           Button(
             label: 'House',
             icon: Icons.house,
@@ -109,12 +122,12 @@ class ThemingPage extends StatelessWidget {
             label: 'Home',
             icon: Icons.house,
             onTap: () {},
-          ).styleDisplay().backgroundPrimary(),
+          ).withStyleDisplay().withBackgroundPrimary(),
           Button(
             label: 'Home',
             icon: Icons.house,
             onTap: () {},
-          ).backgroundTertiary().styleLabel(),
+          ).withBackgroundTertiary().withStyleLabel(),
           // Button(
           //   label: 'Test',
           //   background: context.color.surface.s50,
@@ -253,7 +266,7 @@ class ThemingPage extends StatelessWidget {
           //   icon: Icons.airplane,
           //   onTap: () {},
           // ),
-          //     .background(context.color.surface.foreground)
+          //     .withBackground(context.color.surface.foreground)
           //     .color(context.color.surface.foreground)
           // Button(
           //   onTap: () => context.navigateTo(const BreakpointsRoute()),
@@ -261,7 +274,7 @@ class ThemingPage extends StatelessWidget {
           //   icon: Icons.gridFour,
           //   verticalButton: true,
           //   padding: EdgeInsets.all(context.spacing.xl),
-          //   labelStyle: context.style.displaySmall,
+          //   labelStyle: context.withStyle.displaySmall,
           // ).hero(),
           // Button(
           //   onTap: () => context.navigateTo(const TypographyRoute()),
@@ -269,7 +282,7 @@ class ThemingPage extends StatelessWidget {
           //   icon: Icons.textAUnderline,
           //   verticalButton: true,
           //   padding: EdgeInsets.all(context.spacing.xl),
-          //   labelStyle: context.style.displaySmall,
+          //   labelStyle: context.withStyle.displaySmall,
           // ),
         ],
       ),
@@ -277,9 +290,12 @@ class ThemingPage extends StatelessWidget {
   }
 }
 
+///
 class ResponsiveHeading extends StatelessWidget {
+  ///
   const ResponsiveHeading(this.data, {super.key});
 
+  ///
   final String data;
 
   @override

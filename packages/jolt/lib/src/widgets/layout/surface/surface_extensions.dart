@@ -2,8 +2,16 @@ import 'package:jolt/jolt.dart';
 
 ///
 extension SurfaceWidgetX on Widget {
+  /// Make all surfaces in the widget tree have a set background.
+  Widget withBackground(JoltColor background) => DefaultSurfaceStyle.merge(
+        style: (context) => SurfaceStyle(
+          background: background,
+        ),
+        child: this,
+      );
+
   /// Make all surfaces in the widget tree have a transparent background.
-  Widget backgroundTransparent() => DefaultSurfaceStyle.merge(
+  Widget withBackgroundTransparent() => DefaultSurfaceStyle.merge(
         style: (context) => SurfaceStyle(
           background: context.color.transparent,
         ),
@@ -11,7 +19,7 @@ extension SurfaceWidgetX on Widget {
       );
 
   /// Make all surfaces in the widget tree have a background of background.
-  Widget backgroundBackground() => DefaultSurfaceStyle.merge(
+  Widget withBackgroundBackground() => DefaultSurfaceStyle.merge(
         style: (context) => SurfaceStyle(
           background: context.color.background,
         ),
@@ -19,7 +27,7 @@ extension SurfaceWidgetX on Widget {
       );
 
   /// Make all surfaces in the widget tree have a background of surface.
-  Widget backgroundSurface() => DefaultSurfaceStyle.merge(
+  Widget withBackgroundSurface() => DefaultSurfaceStyle.merge(
         style: (context) => SurfaceStyle(
           background: context.color.surface,
         ),
@@ -27,7 +35,7 @@ extension SurfaceWidgetX on Widget {
       );
 
   /// Make all surfaces in the widget tree have a background of primary.
-  Widget backgroundPrimary() => DefaultSurfaceStyle.merge(
+  Widget withBackgroundPrimary() => DefaultSurfaceStyle.merge(
         style: (context) => SurfaceStyle(
           background: context.color.primary,
         ),
@@ -35,7 +43,7 @@ extension SurfaceWidgetX on Widget {
       );
 
   /// Make all surfaces in the widget tree have a background of secondary.
-  Widget backgroundSecondary() => DefaultSurfaceStyle.merge(
+  Widget withBackgroundSecondary() => DefaultSurfaceStyle.merge(
         style: (context) => SurfaceStyle(
           background: context.color.secondary,
         ),
@@ -43,7 +51,7 @@ extension SurfaceWidgetX on Widget {
       );
 
   /// Make all surfaces in the widget tree have a background of tertiary.
-  Widget backgroundTertiary() => DefaultSurfaceStyle.merge(
+  Widget withBackgroundTertiary() => DefaultSurfaceStyle.merge(
         style: (context) => SurfaceStyle(
           background: context.color.tertiary,
         ),
@@ -51,7 +59,7 @@ extension SurfaceWidgetX on Widget {
       );
 
   /// Make all surfaces in the widget tree have a background of success.
-  Widget backgroundSuccess() => DefaultSurfaceStyle.merge(
+  Widget withBackgroundSuccess() => DefaultSurfaceStyle.merge(
         style: (context) => SurfaceStyle(
           background: context.color.success,
         ),
@@ -59,7 +67,7 @@ extension SurfaceWidgetX on Widget {
       );
 
   /// Make all surfaces in the widget tree have a background of warning.
-  Widget backgroundWarning() => DefaultSurfaceStyle.merge(
+  Widget withBackgroundWarning() => DefaultSurfaceStyle.merge(
         style: (context) => SurfaceStyle(
           background: context.color.warning,
         ),
@@ -67,7 +75,7 @@ extension SurfaceWidgetX on Widget {
       );
 
   /// Make all surfaces in the widget tree have a background of error.
-  Widget backgroundError() => DefaultSurfaceStyle.merge(
+  Widget withBackgroundError() => DefaultSurfaceStyle.merge(
         style: (context) => SurfaceStyle(
           background: context.color.error,
         ),
@@ -75,7 +83,7 @@ extension SurfaceWidgetX on Widget {
       );
 
   /// Make all surfaces in the widget tree have a background of info.
-  Widget backgroundInfo() => DefaultSurfaceStyle.merge(
+  Widget withBackgroundInfo() => DefaultSurfaceStyle.merge(
         style: (context) => SurfaceStyle(
           background: context.color.info,
         ),

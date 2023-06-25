@@ -22,44 +22,44 @@ extension IconExtension on IconData {
       );
 
   /// Return a Icon Widget with style of displayLarge.
-  Widget asIconHeroLarge() => Icon(this).styleHeroLarge();
+  Widget asIconHeroLarge() => Icon(this).withStyleHeroLarge();
 
   /// Return a Icon Widget with style of display.
-  Widget asIconHeroSmall() => Icon(this).styleHeroSmall();
+  Widget asIconHeroSmall() => Icon(this).withStyleHeroSmall();
 
   /// Return a Icon Widget with style of displaySmall.
-  Widget asIconDisplayLarge() => Icon(this).styleDisplayLarge();
+  Widget asIconDisplayLarge() => Icon(this).withStyleDisplayLarge();
 
   /// Return a Icon Widget with style of display.
-  Widget asIconDisplay() => Icon(this).styleDisplay();
+  Widget asIconDisplay() => Icon(this).withStyleDisplay();
 
   /// Return a Icon Widget with style of displaySmall.
-  Widget asIconDisplaySmall() => Icon(this).styleDisplaySmall();
+  Widget asIconDisplaySmall() => Icon(this).withStyleDisplaySmall();
 
   /// Return a Icon Widget with style of headingLarge.
-  Widget asIconHeadingLarge() => Icon(this).styleHeadingLarge();
+  Widget asIconHeadingLarge() => Icon(this).withStyleHeadingLarge();
 
   /// Return a Icon Widget with style of heading.
-  Widget asIconHeading() => Icon(this).styleHeading();
+  Widget asIconHeading() => Icon(this).withStyleHeading();
 
   /// Return a Icon Widget with style of headingSmall.
-  Widget asIconHeadingSmall() => Icon(this).styleHeadingSmall();
+  Widget asIconHeadingSmall() => Icon(this).withStyleHeadingSmall();
 
   /// Return a Icon Widget with style of bodyLarge.
-  Widget asIconBodyLarge() => Icon(this).styleBodyLarge();
+  Widget asIconBodyLarge() => Icon(this).withStyleBodyLarge();
 
   /// Return a Icon Widget with style of body.
-  Widget asIconBody() => Icon(this).styleBody();
+  Widget asIconBody() => Icon(this).withStyleBody();
 
   /// Return a Icon Widget with style of bodySmall.
-  Widget asIconBodySmall() => Icon(this).styleBodySmall();
+  Widget asIconBodySmall() => Icon(this).withStyleBodySmall();
 
   /// Return a Icon Widget with style of labelLarge.
-  Widget asIconLabelLarge() => Icon(this).styleLabelLarge();
+  Widget asIconLabelLarge() => Icon(this).withStyleLabelLarge();
 
   /// Return a Icon Widget with style of label.
-  Widget asIconLabel() => Icon(this).styleLabel();
+  Widget asIconLabel() => Icon(this).withStyleLabel();
 
   /// Return a Icon Widget with style of labelSmall.
-  Widget asIconLabelSmall() => Icon(this).styleLabelSmall();
+  Widget asIconLabelSmall() => Icon(this).withStyleLabelSmall();
 }

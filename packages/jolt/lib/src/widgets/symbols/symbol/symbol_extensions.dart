@@ -3,109 +3,109 @@ import 'package:jolt/jolt.dart';
 ///
 extension TypographyWidgetX on Widget {
   /// Wrap the widget with a passed TextStyle.
-  Widget style(TextStyle style) => DefaultSymbolStyle(
+  Widget withStyle(TextStyle style) => DefaultSymbolStyle(
         style: (_) => style,
         child: this,
       );
 
   /// Return a Text Widget with style of heroLarge.
-  Widget styleHeroLarge() => DefaultSymbolStyle(
+  Widget withStyleHeroLarge() => DefaultSymbolStyle(
         style: (context) => context.style.heroLarge,
         child: this,
       );
 
   /// Return a Text Widget with style of hero.
-  Widget styleHero() => DefaultSymbolStyle(
+  Widget withStyleHero() => DefaultSymbolStyle(
         style: (context) => context.style.hero,
         child: this,
       );
 
   /// Return a Text Widget with style of heroSmall.
-  Widget styleHeroSmall() => DefaultSymbolStyle(
+  Widget withStyleHeroSmall() => DefaultSymbolStyle(
         style: (context) => context.style.heroSmall,
         child: this,
       );
 
   /// Return a Text Widget with style of displayLarge.
-  Widget styleDisplayLarge() => DefaultSymbolStyle(
+  Widget withStyleDisplayLarge() => DefaultSymbolStyle(
         style: (context) => context.style.displayLarge,
         child: this,
       );
 
   /// Return a Text Widget with style of display.
-  Widget styleDisplay() => DefaultSymbolStyle(
+  Widget withStyleDisplay() => DefaultSymbolStyle(
         style: (context) => context.style.display,
         child: this,
       );
 
   /// Return a Text Widget with style of displaySmall.
-  Widget styleDisplaySmall() => DefaultSymbolStyle(
+  Widget withStyleDisplaySmall() => DefaultSymbolStyle(
         style: (context) => context.style.displaySmall,
         child: this,
       );
 
   /// Return a Text Widget with style of headingLarge.
-  Widget styleHeadingLarge() => DefaultSymbolStyle(
+  Widget withStyleHeadingLarge() => DefaultSymbolStyle(
         style: (context) => context.style.headingLarge,
         child: this,
       );
 
   /// Return a Text Widget with style of heading.
-  Widget styleHeading() => DefaultSymbolStyle(
+  Widget withStyleHeading() => DefaultSymbolStyle(
         style: (context) => context.style.heading,
         child: this,
       );
 
   /// Return a Text Widget with style of headingSmall.
-  Widget styleHeadingSmall() => DefaultSymbolStyle(
+  Widget withStyleHeadingSmall() => DefaultSymbolStyle(
         style: (context) => context.style.headingSmall,
         child: this,
       );
 
   /// Return a Text Widget with style of bodyLarge.
-  Widget styleBodyLarge() => DefaultSymbolStyle(
+  Widget withStyleBodyLarge() => DefaultSymbolStyle(
         style: (context) => context.style.bodyLarge,
         child: this,
       );
 
   /// Return a Text Widget with style of body.
-  Widget styleBody() => DefaultSymbolStyle(
+  Widget withStyleBody() => DefaultSymbolStyle(
         style: (context) => context.style.body,
         child: this,
       );
 
   /// Return a Text Widget with style of bodySmall.
-  Widget styleBodySmall() => DefaultSymbolStyle(
+  Widget withStyleBodySmall() => DefaultSymbolStyle(
         style: (context) => context.style.bodySmall,
         child: this,
       );
 
   /// Return a Text Widget with style of labelLarge.
-  Widget styleLabelLarge() => DefaultSymbolStyle(
+  Widget withStyleLabelLarge() => DefaultSymbolStyle(
         style: (context) => context.style.labelLarge,
         child: this,
       );
 
   /// Return a Text Widget with style of label.
-  Widget styleLabel() => DefaultSymbolStyle(
+  Widget withStyleLabel() => DefaultSymbolStyle(
         style: (context) => context.style.label,
         child: this,
       );
 
   /// Return a Text Widget with style of labelSmall.
-  Widget styleLabelSmall() => DefaultSymbolStyle(
+  Widget withStyleLabelSmall() => DefaultSymbolStyle(
         style: (context) => context.style.labelSmall,
         child: this,
       );
 
   /// Wrap the widget with a passed foreground color.
-  Widget color(Color color) => DefaultSymbolStyle(
+  Widget withColor(Color color) => DefaultSymbolStyle(
         style: (_) => TextStyle(color: color),
         child: this,
       );
 
   /// Wrap the widget with the foreground color of the inherited surface.
-  Widget colorForeground() => DefaultSymbolStyle(
+  Widget withColorForeground() => DefaultSymbolStyle(
         style: (context) => TextStyle(
           color: context.inherited.surfaceStyle.background?.foreground,
         ),
@@ -113,7 +113,7 @@ extension TypographyWidgetX on Widget {
       );
 
   /// Wrap the widget with the light foreground color of the inherited surface.
-  Widget colorForegroundLight() => DefaultSymbolStyle(
+  Widget withColorForegroundLight() => DefaultSymbolStyle(
         style: (context) => TextStyle(
           color: context.inherited.surfaceStyle.background?.foregroundLight,
         ),
@@ -121,43 +121,43 @@ extension TypographyWidgetX on Widget {
       );
 
   /// Wrap the widget with the primary color.
-  Widget colorPrimary() => DefaultSymbolStyle(
+  Widget withColorPrimary() => DefaultSymbolStyle(
         style: (_) => TextStyle(color: _.color.primary),
         child: this,
       );
 
   /// Wrap the widget with the secondary color.
-  Widget colorSecondary() => DefaultSymbolStyle(
+  Widget withColorSecondary() => DefaultSymbolStyle(
         style: (_) => TextStyle(color: _.color.secondary),
         child: this,
       );
 
   /// Wrap the widget with the tertiary color.
-  Widget colorTertiary() => DefaultSymbolStyle(
+  Widget withColorTertiary() => DefaultSymbolStyle(
         style: (_) => TextStyle(color: _.color.tertiary),
         child: this,
       );
 
   /// Wrap the widget with the success color.
-  Widget colorSuccess() => DefaultSymbolStyle(
+  Widget withColorSuccess() => DefaultSymbolStyle(
         style: (_) => TextStyle(color: _.color.success),
         child: this,
       );
 
   /// Wrap the widget with the warning color.
-  Widget colorWarning() => DefaultSymbolStyle(
+  Widget withColorWarning() => DefaultSymbolStyle(
         style: (_) => TextStyle(color: _.color.warning),
         child: this,
       );
 
   /// Wrap the widget with the error color.
-  Widget colorError() => DefaultSymbolStyle(
+  Widget withColorError() => DefaultSymbolStyle(
         style: (_) => TextStyle(color: _.color.error),
         child: this,
       );
 
   /// Wrap the widget with the info color.
-  Widget colorInfo() => DefaultSymbolStyle(
+  Widget withColorInfo() => DefaultSymbolStyle(
         style: (_) => TextStyle(color: _.color.info),
         child: this,
       );

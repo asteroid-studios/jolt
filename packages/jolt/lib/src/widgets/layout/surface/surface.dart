@@ -60,12 +60,18 @@ class Surface extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final defaultSurfaceStyle = SurfaceStyle(
+      background: context.color.surface,
+      borderWidth: 2,
+    );
     // Hierarchy of applied surface styles in order:
-    // 1. The default surface style from the widget theme.
-    // 2. A fallback style passed from a widget implementing surface (ie button)
-    // 3. A default surface style from somewhere above this widget.
-    // 4. Styles passed directly to surface widget (the last merged)
-    final style = context.inherited.widgetTheme.surfaceStyle
+    // 1. A default surface style
+    // 2. The surface style from the widget theme.
+    // 3. A fallback style passed from a widget implementing surface (ie button)
+    // 4. A DefaultSurfaceStyle supplied style above this widget.
+    // 5. Styles passed directly to surface widget
+    final style = defaultSurfaceStyle
+        .merge(context.inherited.widgetTheme.surfaceStyle)
         .merge(fallbackStyle)
         .merge(DefaultSurfaceStyle.maybeOf(context))
         .merge(
@@ -82,10 +88,10 @@ class Surface extends StatelessWidget {
           ),
         );
 
-    final defaultBackground = style.background ?? context.color.surface;
+    final defaultBackground = style.background!;
     final defaultBorderColor = style.borderColor ?? defaultBackground;
     final defaultBorderRadius = style.borderRadius ?? context.borderRadius.md;
-    final defaultBorderWidth = style.borderWidth ?? 2;
+    final defaultBorderWidth = style.borderWidth!;
     final interaction = context.inherited.interactionState;
 
     final isHovered = interaction?.isHovered ?? false;
@@ -99,13 +105,15 @@ class Surface extends StatelessWidget {
 
     // Wrap with a default surface style so things
     // like foregroundLight will work inside surface
+    // It's important to only pass the background or all surface params
+    // will be applied to everything below, ie button in a card
     //
     // Wrap the children of the surface with a symbol style so that they use
     // the foreground color by default.
     //
     // Also wrap the children with padding.
     final childWidget = DefaultSurfaceStyle(
-      style: style,
+      style: SurfaceStyle(background: style.background),
       child: DefaultSymbolStyle(
         style: (_) => TextStyle(color: style.background?.foreground),
         child: Padding(

@@ -5,15 +5,20 @@ WidgetTheme widgetTheme(BuildContext context) {
   // final color = context.color;
   // final spacing = context.spacing;
   return WidgetTheme(
-    surfaceStyle: SurfaceStyle(
-      // borderRadius: theme.borderRadius.lg,
-      padding: EdgeInsets.all(context.spacing.lg),
-      borderWidth: 0,
-    ),
+    // surfaceStyle: SurfaceStyle(
+    //   // borderRadius: theme.borderRadius.lg,
+    //   padding: EdgeInsets.all(context.spacing.lg),
+    //   borderWidth: 10,
+    // ),
     buttonStyle: ButtonStyle(
+      // labelStyle: context.style.heading,
       surfaceStyle: SurfaceStyle(
-        padding: EdgeInsets.all(context.spacing.zero),
-        borderWidth: 2,
+        borderRadius: context.borderRadius.xl,
+        padding: EdgeInsets.symmetric(
+          vertical: context.spacing.xs,
+          horizontal: context.spacing.lg,
+        ),
+        // borderWidth: 20,
       ),
     ),
     // // TODO popover theme, would be good to make it more contrasting by default
