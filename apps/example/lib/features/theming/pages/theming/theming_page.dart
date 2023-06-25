@@ -74,7 +74,7 @@ class ThemingPage extends StatelessWidget {
             // labelStyle: context.style.label,
             // background: context.color.primary,
             // color: context.color.error,
-          ).withColorError().withStyleLabel(),
+          ),
           Button(
             label: 'House',
             icon: Icons.house,
@@ -96,7 +96,8 @@ class ThemingPage extends StatelessWidget {
             label: 'Home',
             icon: Icons.house,
             onTap: () {},
-          ).withBackgroundTransparent(),
+            background: context.color.surface.withOpacity(0),
+          ),
           Button(
             label: 'House',
             icon: Icons.house,
@@ -108,7 +109,7 @@ class ThemingPage extends StatelessWidget {
             label: 'Home',
             icon: Icons.house,
             onTap: () {},
-          ).withStyleDisplay(),
+          ),
           Button(
             label: 'Home',
             icon: Icons.house,

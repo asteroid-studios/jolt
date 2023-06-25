@@ -82,6 +82,7 @@ class _SideBarLeftState extends State<SideBarLeft> {
                   );
                   if (!selected) return button;
                   return Column(
+                    spacing: context.spacing.sm,
                     children: [
                       button,
                       ...item.children.map(
@@ -103,8 +104,6 @@ class _SideBarLeftState extends State<SideBarLeft> {
               Button(
                 fullWidth: true,
                 mainAxisAlignment: MainAxisAlignment.start,
-                background: context.color.surface.withOpacity(0.2),
-                color: context.color.surface.s500,
                 icon: Icons.code,
                 label: 'Example Code',
                 onTap: () => launchUrl(
@@ -117,8 +116,6 @@ class _SideBarLeftState extends State<SideBarLeft> {
               Button(
                 fullWidth: true,
                 mainAxisAlignment: MainAxisAlignment.start,
-                background: context.color.surface.withOpacity(0.2),
-                color: context.color.surface.s500,
                 icon: Icons.fileDoc,
                 label: 'Docs',
                 onTap: () => launchUrl(
@@ -129,8 +126,6 @@ class _SideBarLeftState extends State<SideBarLeft> {
               Button(
                 fullWidth: true,
                 mainAxisAlignment: MainAxisAlignment.start,
-                background: context.color.surface.withOpacity(0.2),
-                color: context.color.surface.s500,
                 icon: Icons.githubLogo,
                 label: 'GitHub',
                 onTap: () => launchUrl(
@@ -166,6 +161,7 @@ class SideBarButton extends StatelessWidget {
   ///
   final bool selected;
 
+  ///
   final bool topLevel;
 
   ///
@@ -175,41 +171,20 @@ class SideBarButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final router = AppRouter.instance;
     final currentName = router.currentSegments.last.name;
-    final decorationColor = context.color.surface.s200;
 
     return Row(
-      crossAxisAlignment: CrossAxisAlignment.end,
       children: [
-        if (!topLevel)
-          Padding(
-            padding: const EdgeInsets.only(bottom: 20),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                const Spacing.sm(),
-                Container(
-                  width: 2,
-                  height: 35,
-                  color: decorationColor,
-                ),
-                Container(
-                  height: 2,
-                  width: 15,
-                  color: decorationColor,
-                ),
-                const Spacing.sm(),
-              ],
-            ),
-          ),
+        if (!topLevel) const Spacing.lg(),
         Expanded(
           child: Button(
-            background:
-                (selected ? context.color.primary : context.color.surface)
-                    .withOpacity(0.2),
+            background: selected
+                ? context.color.primary
+                : topLevel
+                    ? context.color.surface
+                    : context.color.primary.s200,
             mainAxisAlignment: MainAxisAlignment.start,
             requestFocusOnPress: false,
             fullWidth: true,
-            color: selected ? null : context.color.surface.s500,
             icon: selected ? item.selectedIcon : item.icon,
             label: item.label,
             onTap: () {

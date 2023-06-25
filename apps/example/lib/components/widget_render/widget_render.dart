@@ -47,7 +47,6 @@ class WidgetRender extends StatelessWidget {
     );
 
     return Surface(
-      // height: height,
       margin: EdgeInsets.only(bottom: context.spacing.md),
       padding: EdgeInsets.zero,
       background: context.color.transparent,
@@ -87,22 +86,27 @@ class WidgetRender extends StatelessWidget {
             ),
           ),
           Flexible(
-            child: Padding(
-              padding: EdgeInsets.all(context.spacing.xl),
-              child: context.view.isMobileOrSmaller
-                  ? Column(
-                      children: [
-                        childWidget,
-                        codeWidget,
-                        const Spacing.xl(),
-                      ],
-                    )
-                  : Row(
-                      children: [
-                        Expanded(child: childWidget),
-                        Expanded(flex: 2, child: codeWidget),
-                      ],
-                    ),
+            // TODO this is actually helpful, maybe add to the docs
+            // TODO maybe create a helper called ResetSurfaceStyle
+            child: DefaultSurfaceStyle(
+              style: const SurfaceStyle(),
+              child: Padding(
+                padding: EdgeInsets.all(context.spacing.xl),
+                child: context.view.isMobileOrSmaller
+                    ? Column(
+                        children: [
+                          childWidget,
+                          codeWidget,
+                          const Spacing.xl(),
+                        ],
+                      )
+                    : Row(
+                        children: [
+                          Expanded(child: childWidget),
+                          Expanded(flex: 2, child: codeWidget),
+                        ],
+                      ),
+              ),
             ),
           ),
         ],

@@ -11,7 +11,7 @@ WidgetTheme widgetTheme(BuildContext context) {
     //   borderWidth: 10,
     // ),
     buttonStyle: ButtonStyle(
-      labelStyle: context.style.heading.copyWith(
+      labelStyle: context.style.body.copyWith(
         fontWeight: FontWeight.w600,
       ),
       surfaceStyle: SurfaceStyle(
