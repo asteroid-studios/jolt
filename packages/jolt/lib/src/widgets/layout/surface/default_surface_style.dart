@@ -30,7 +30,7 @@ class DefaultSurfaceStyle extends InheritedTheme {
     return context
             .dependOnInheritedWidgetOfExactType<DefaultSurfaceStyle>()
             ?.style ??
-        context.widgetTheme.surfaceStyle;
+        context.inherited.widgetTheme.surfaceStyle;
   }
 
   /// Return the closest SurfaceStyle from the currentContext

@@ -21,4 +21,7 @@ class ContextInherited {
 
   /// Return the closest InteractionState from the currentContext
   InteractionState? get interactionState => Interaction.maybeOf(_context);
+
+  /// Return the closest DefaultTextStyle from the currentContext
+  DefaultTextStyle get defaultTextStyle => DefaultTextStyle.of(_context);
 }

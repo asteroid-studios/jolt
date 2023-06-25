@@ -66,29 +66,15 @@ class ThemingPage extends StatelessWidget {
           cardFromColor(violetDark),
           cardFromColor(emerald),
           cardFromColor(emeraldDark),
-          // 'Test'.asHeroLarge(),
-          // TODO need to fix this so button defaults to defaultTextStyle
-          // Feels like there is a conflict between the heirarchy
-          // for example:
-          // - DefaultTextStyle (potentially containing color)
-          // - ButtonTheme from WidgetTheme
-          // - Passed style or color
           // ResponsiveHeading('Responsive Heading'),
-          // Button(label: 'Test').withStyleHeading(),
-          // Button(label: 'Test').withStyleLabel(),
-          // Button(
-          //   icon: Icons.airTrafficControl,
-          //   label: 'a disabled button',
-          //   // labelStyle: context.withStyle.label,
-          // ).withStyleHeading().colorPrimary(),
           Button(
             label: 'Home',
             icon: Icons.house,
             onTap: () {},
-            // labelStyle: context.withStyle.body,
-            background: context.color.primary,
+            // labelStyle: context.style.label,
+            // background: context.color.primary,
             // color: context.color.error,
-          ).withColorError(),
+          ).withColorError().withStyleLabel(),
           Button(
             label: 'House',
             icon: Icons.house,
@@ -122,7 +108,7 @@ class ThemingPage extends StatelessWidget {
             label: 'Home',
             icon: Icons.house,
             onTap: () {},
-          ).withStyleDisplay().withBackgroundPrimary(),
+          ).withStyleDisplay(),
           Button(
             label: 'Home',
             icon: Icons.house,

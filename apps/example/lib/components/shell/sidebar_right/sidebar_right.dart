@@ -49,7 +49,7 @@ class SideBarRight extends StatelessWidget {
     ) {
       final selected = context.scaling.symbolScale == sizeMultiplier;
       final defaultIconSize =
-          context.widgetTheme.buttonStyle.labelStyle?.fontSize ??
+          context.inherited.widgetTheme.buttonStyle.labelStyle?.fontSize ??
               context.style.body.fontSize ??
               16;
       return Button(
@@ -67,7 +67,7 @@ class SideBarRight extends StatelessWidget {
     ) {
       final selected = context.scaling.spacingScale == sizeMultiplier;
       final defaultIconSize =
-          context.widgetTheme.buttonStyle.labelStyle?.fontSize ??
+          context.inherited.widgetTheme.buttonStyle.labelStyle?.fontSize ??
               context.style.body.fontSize ??
               16;
       return Button(

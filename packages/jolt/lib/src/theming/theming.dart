@@ -18,4 +18,3 @@ export 'typography/typography.dart';
 export 'typography/typography_extensions.dart';
 export 'widget_theme/default_widget_theme.dart';
 export 'widget_theme/widget_theme.dart';
-export 'widget_theme/widget_theme_extensions.dart';

@@ -125,36 +125,7 @@ class _ButtonState extends State<Button> {
   @override
   Widget build(BuildContext context) {
     // Prepare the button theme
-    final buttonStyle = context.widgetTheme.buttonStyle;
-
-    // Prepare the label style
-    final noLabel = widget.label == null;
-    // TODO need to not pass this through
-    final labelStyle = widget.labelStyle ?? buttonStyle.labelStyle;
-
-    // Prepare the icon size
-    // final iconSize = (widget.iconSize ?? labelStyle.fontSize ?? 16) *
-    //     widget.iconScale *
-    //     context.scaling.textScale;
-
-    final color = context.color.responsive(
-      widget.color,
-      colorDark: widget.colorDark,
-    );
-
-    // // Prepare padding
-    // final verticalPadding =
-    //     surface.padding?.vertical ?? context.defaults.verticalPadding;
-    // final horizontalPadding = noLabel
-    //     // When there is no label, we want a square button so make
-    //     // the horizontal padding the same as the vertical padding
-    //     ? verticalPadding
-    //     : surface.padding?.horizontal ?? context.defaults.horizontalPadding;
-    // final padding = widget.padding ??
-    //     EdgeInsets.symmetric(
-    //       horizontal: horizontalPadding,
-    //       vertical: verticalPadding,
-    //     );
+    final buttonStyle = context.inherited.widgetTheme.buttonStyle;
 
     return Interaction(
       onTap: widget.onTap,
@@ -164,16 +135,20 @@ class _ButtonState extends State<Button> {
       autoFocus: widget.autoFocus,
       requestFocusOnPress: widget.requestFocusOnPress,
       builder: (context, state) {
+        final color = context.color.responsive(
+          widget.color,
+          colorDark: widget.colorDark,
+        );
         // Prepare the icon
         final icon = widget.iconWidget ??
             (widget.icon != null
                 ? Icon(
                     widget.icon!,
-                    // size: iconSize,
+                    size: widget.iconSize ?? widget.labelStyle?.fontSize,
+                    scale: widget.iconScale,
                     color: color,
                   )
                 : null);
-
         // Prepare the progressIndicator
         final progressIndicator = CircularProgressIndicator(
           color: color,
@@ -181,15 +156,15 @@ class _ButtonState extends State<Button> {
         );
 
         late Widget child;
-        if (noLabel) {
-          // Layout ICON button
+        // Layout ICON button
+        if (widget.label == null) {
           child = Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               // Necessary for widths to line up without label
               RotatedBox(
                 quarterTurns: 1,
-                child: Text('', style: labelStyle),
+                child: Text('', style: widget.labelStyle),
               ),
               Row(
                 mainAxisSize:
@@ -201,7 +176,7 @@ class _ButtonState extends State<Button> {
                   else
                     icon ?? const Icon(Icons.dot, color: Colors.transparent),
                   // Necessary for heights to line up without label
-                  Text('', style: labelStyle),
+                  Text('', style: widget.labelStyle),
                 ],
               )
             ],
@@ -214,7 +189,7 @@ class _ButtonState extends State<Button> {
             if (state.isAwaiting) progressIndicator else if (icon != null) icon,
             Text(
               widget.label!,
-              style: labelStyle,
+              style: widget.labelStyle,
               color: color,
             ),
           ];
@@ -241,18 +216,24 @@ class _ButtonState extends State<Button> {
           }
         }
 
-        return Surface(
-          fallbackStyle: context.inherited.widgetTheme.buttonStyle.surfaceStyle,
-          width: widget.width,
-          height: widget.height,
-          background: widget.background,
-          backgroundDark: widget.backgroundDark,
-          borderColor: widget.borderColor,
-          borderRadius: widget.borderRadius,
-          borderWidth: widget.borderWidth,
-          padding: widget.padding,
-          ripple: true,
-          child: child,
+        return DefaultSymbolStyle(
+          // TODO merge button style label style
+          style: (_) =>
+              buttonStyle.labelStyle ??
+              context.inherited.defaultTextStyle.style,
+          child: Surface(
+            fallbackStyle: buttonStyle.surfaceStyle,
+            width: widget.width,
+            height: widget.height,
+            background: widget.background,
+            backgroundDark: widget.backgroundDark,
+            borderColor: widget.borderColor,
+            borderRadius: widget.borderRadius,
+            borderWidth: widget.borderWidth,
+            padding: widget.padding,
+            ripple: true,
+            child: child,
+          ),
         );
       },
     );
