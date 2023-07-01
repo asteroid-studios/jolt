@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { useTheme } from 'next-themes'
+import { useTheme } from 'nextra-theme-docs'
 import React from 'react'
 import Image from 'next/image'
 
