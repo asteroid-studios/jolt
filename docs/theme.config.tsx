@@ -16,7 +16,7 @@ const config: DocsThemeConfig = {
     }
   },
   banner: {
-    key: 'pre-release',
+    key: 'pre-alpha',
     text: (
       <a href="" target="_blank">
         🚧 &nbsp; Jolt is currently pre-alpha. Read more →

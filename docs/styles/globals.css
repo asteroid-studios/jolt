@@ -19,6 +19,10 @@ html.dark footer {
     background-color: #0d0c12 !important;
 }
 
+html.dark .nextra-nav-container {
+    background-color: #1e00a654 !important;
+}
+
 html.dark .nextra-banner-container {
     background: #8a5cf624 !important;
 }
@@ -31,3 +35,12 @@ html.dark .nextra-banner-container {
     color: #ac87ff !important;
 }
 
+
+.nextra-callout {
+    background: #ad87ff1c;
+    color: #8B5CF6;
+    border-color: #ac87ff;
+}
+html.dark .nextra-callout {
+    color: #ac87ff;
+}
