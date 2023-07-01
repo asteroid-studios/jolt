@@ -15,7 +15,7 @@ html.dark .nx-bg-white {
     box-shadow: none !important;
 }
 
-html.dark footer {
+html.dark footer, html.dark .nextra-sidebar-container {
     background-color: #0d0c12 !important;
 }
 
@@ -24,7 +24,7 @@ html.dark .nextra-nav-container {
 }
 
 html.dark .nextra-banner-container {
-    background: #8a5cf624 !important;
+    background: #191424 !important;
 }
 
 .dark .nx-text-primary-800 {
@@ -41,6 +41,7 @@ html.dark .nextra-banner-container {
     color: #8B5CF6;
     border-color: #ac87ff;
 }
+
 html.dark .nextra-callout {
     color: #ac87ff;
 }
