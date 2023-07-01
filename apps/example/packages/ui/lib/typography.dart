@@ -4,7 +4,7 @@ import 'package:ui/ui.dart';
 const satoshi = TextStyle(fontFamily: 'Satoshi', fontWeight: FontWeight.w500);
 
 /// Heading font
-const outfit = TextStyle(fontFamily: 'Outfit', fontWeight: FontWeight.w800);
+const outfit = TextStyle(fontFamily: 'Outfit', fontWeight: FontWeight.w600);
 
 /// The typography for the app.
 final typography = Typography(

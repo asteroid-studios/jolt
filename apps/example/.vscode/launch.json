@@ -15,6 +15,13 @@
             "program": "lib/main.dart",
             "args": ["--web-renderer", "html"]
         },
+        {
+            "name": "Release",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release",
+            "program": "lib/main.dart",
+        },
     ],
     "compounds": []
 }

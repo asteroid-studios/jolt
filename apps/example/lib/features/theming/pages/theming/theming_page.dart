@@ -57,7 +57,10 @@ class ThemingPage extends StatelessWidget {
     return Scaffold(
       title: 'Theming',
       content: Padding(
-        padding: EdgeInsets.all(context.spacing.section),
+        padding: EdgeInsets.all(
+          context.responsive(desktop: context.spacing.section) ??
+              context.spacing.md,
+        ),
         child: Wrap(
           spacing: context.spacing.lg,
           runSpacing: context.spacing.lg,
@@ -70,9 +73,20 @@ class ThemingPage extends StatelessWidget {
             cardFromColor(emeraldDark),
             // ResponsiveHeading('Responsive Heading'),
             Button(
-              label: 'Home',
-              icon: Icons.house,
-              onTap: () {},
+              label: 'Light',
+              icon: IconsBold.sun,
+              onTap: () {
+                context.jolt.setTheme(ThemeMode.light);
+              },
+              background: Colors.white,
+            ),
+            Button(
+              label: 'Dark',
+              icon: IconsBold.moon,
+              onTap: () {
+                context.jolt.setTheme(ThemeMode.dark);
+              },
+              background: Colors.black,
             ),
             Button(
               label: 'Store',
@@ -94,7 +108,7 @@ class ThemingPage extends StatelessWidget {
               label: 'Home',
               icon: Icons.house,
               onTap: () {},
-            ).withBackgroundTransparent(),
+            ).withBackgroundTransparent().withStyleDisplay().withColorError(),
             Button(
               label: 'House',
               icon: Icons.house,

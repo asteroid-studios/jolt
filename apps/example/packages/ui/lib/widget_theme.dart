@@ -10,7 +10,7 @@ WidgetTheme widgetTheme(BuildContext context) {
         // padding: EdgeInsets.all(context.spacing.lg),
         ),
     buttonStyle: (type) => ButtonStyle(
-      labelStyle: context.style.bodyLarge.copyWith(
+      labelStyle: context.style.body.copyWith(
         fontWeight: FontWeight.w600,
       ),
       surfaceStyle: SurfaceStyle(

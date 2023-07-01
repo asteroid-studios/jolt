@@ -36,7 +36,7 @@ class AppShell extends StatelessWidget {
               : const SizedBox.shrink(),
           laptop: const SizedBox.shrink(),
         ),
-        topBar: const TopBar(),
+        // topBar: const TopBar(),
         footer: const Footer(),
         child: SizedBox(
           key: const GlobalObjectKey('app-shell'),

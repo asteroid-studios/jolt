@@ -71,6 +71,7 @@ class _SideBarLeftState extends State<SideBarLeft> {
                       autoTabsRouterKey.currentState?.controller;
                   final router = AppRouter.instance;
                   final currentName = router.currentSegments.last.name;
+                  // TODO no tabsController on web so selected doesn't work
                   final currentIndex = tabsController?.activeIndex ?? 0;
                   final selected = currentIndex == index;
                   final button = SideBarButton(
