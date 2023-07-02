@@ -1,7 +1,13 @@
 {
   "index": "Introduction",
-  "another": "Another Page",
-  "advanced": "Advanced (A Folder)",
+  "getting-started": "Getting Started",
+  "theming": "Theming",
+  "layout": "Layout",
+  "widgets": "Widgets",
+  "developer-experience": "Developer Experience",
+  "widget-catalogue": {
+    "display": "hidden"
+  },
   "about": {
     "title": "About",
     "type": "page"
@@ -9,7 +15,7 @@
   "contact": {
     "title": "Contact ↗",
     "type": "page",
-    "href": "https://twitter.com/shuding_",
+    "href": "https://twitter.com/kane_wickman",
     "newWindow": true
   }
 }

@@ -36,12 +36,12 @@ html.dark .nextra-banner-container {
 }
 
 
-.nextra-callout {
+.nextra-callout:not(.nx-text-yellow-900, .nx-text-orange-800, .nx-text-red-900, .nx-text-blue-900) {
     background: #ad87ff1c;
     color: #8B5CF6;
     border-color: #ac87ff;
 }
 
-html.dark .nextra-callout {
+html.dark .nextra-callout:not(.nx-text-yellow-900, .nx-text-orange-800, .nx-text-red-900, .nx-text-blue-900) {
     color: #ac87ff;
 }

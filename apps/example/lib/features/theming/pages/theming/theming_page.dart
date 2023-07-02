@@ -71,12 +71,14 @@ class ThemingPage extends StatelessWidget {
             cardFromColor(violetDark),
             cardFromColor(emerald),
             cardFromColor(emeraldDark),
+            'Test'.asBody(),
+            Icons.playPause.asIconDisplay(),
             // ResponsiveHeading('Responsive Heading'),
             Button(
               label: 'Light',
-              icon: IconsBold.sun,
+              icon: IconsBold.gear,
               onTap: () {
-                context.jolt.setTheme(ThemeMode.light);
+                context.jolt.setTheme(ThemeMode.system);
               },
               background: Colors.white,
             ),

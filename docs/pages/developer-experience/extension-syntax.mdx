@@ -1,0 +1,88 @@
+# Extension Syntax
+
+## Accessing the theme
+
+All theming related properties are accessable through the context, using sensible naming conventions.
+
+``` dart filename="Context Extensions"
+
+  // Color examples
+  context.color.primary;
+  context.color.surface;
+  context.color.surface.foreground;
+
+  // Styling examples
+  context.style.hero;
+  context.style.heading;
+  context.style.body;
+  context.style.label;
+
+  // Dimensions examples
+  context.spacing.md;
+  context.borderRadius.md;
+
+  // With responsive helper
+  context.responsive(desktop: context.borderRadius.lg) ?? context.borderRadius.md;
+
+```
+
+## Widget Modifiers
+
+You can always apply styling directly to widgets using parameters like background and style directly. However for some some properties you can use extensions on the widget.
+
+Right now this is limited to:
+- Setting the background color for surfaces inside widgets
+- Setting the foreground color inside widgets
+- Setting the text/icon style inside widgets
+
+There are two reasons you might use this syntax:
+- You like how it looks and reads
+- You want to apply styles to all children of a layout widget such as a Row
+
+Under the hood, these modifiers work by using a DefaultSurfaceStyle or DefaultSymbolStyle widget, which is why you can use them to style all children of the applied widget.
+
+``` dart filename="Widget Extensions"
+
+  // Heading with primary color
+  Text('A heading').withStyleHeading().withColorPrimary(),
+
+  // Create a button with a primary background and a text/icon style of heading
+  Button(
+    onTap: () => print('Submit something'),
+    label: 'Submit',
+  ).withBackgroundPrimary().withStyleHeading(),
+
+  // Makes every button within the row have a primary background and a text/icon style of heading
+  Row(
+    children: [
+      Button(
+        onTap: () => print('Submit something'),
+        label: 'Submit',
+      ),
+      Button(
+        onTap: () => print('Cancel something'),
+        label: 'Cancel',
+      ),
+    ],
+  ).withBackgroundPrimary().withStyleHeading(),,
+
+```
+
+## Widget Creation
+
+In the case of the Strings and IconData types, you can use extensions to create a Text and Icon widget respectively.
+
+This provides little benefit besides subjective readablility but it is still an option.
+
+``` dart filename="Widget Creation"
+
+  // Create a Text widget with a heading style
+  'A heading'.asHeading(),
+
+  // Create an Icon widget with a display size
+  Icons.globe.asIconDisplay(),
+
+  // Once the Icon or Text widget has been created, you can style it further as needed.
+  Icons.playPause.asIconLabel().withColorPrimary(),
+
+```

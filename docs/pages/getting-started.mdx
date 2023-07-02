@@ -1,0 +1,61 @@
+import {  Steps } from 'nextra-theme-docs'
+
+# Getting Started
+
+## Quickstart
+
+If you are starting a new project it is recommended that you use the [Quickstart](./developer-experience/quickstart) which uses [BrickHub](https://docs.brickhub.dev/).
+
+If you don't want to use BrickHub you could always pull down the [example](https://github.com/asteroid-studios/jolt/tree/master/apps/example) and use that as a starting point.
+
+
+## Manual Installation
+
+<Steps>
+
+### Add the dependency
+
+``` sh filename="Terminal"
+flutter pub add jolt
+```
+
+> or
+
+``` yaml filename="lib/pubspec.yaml" {8}
+environment:
+  sdk: ">=3.0.0 <4.0.0"
+  flutter: ">=3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  jolt: ^0.0.1
+```
+
+### Initialise JoltApp
+
+``` dart filename="lib/main.dart" {3}
+void main() async {
+
+  await Jolt.initFlutter(); // Make sure to initialise Jolt
+
+  runApp(
+    JoltApp.router(
+      themes: themes,
+      widgetTheme: widgetTheme,
+      routerConfig: _appRouter.config(),
+    );
+  );
+  
+  // Alternatively, you can also use the default constructor and pass a home widget
+  // runApp(
+  //   JoltApp(
+  //     themes: themes,
+  //     widgetTheme: widgetTheme,
+  //     home: const HomeScreen(),
+  //   );
+  // );
+}
+```
+
+</Steps>

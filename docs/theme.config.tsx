@@ -18,17 +18,17 @@ const config: DocsThemeConfig = {
   banner: {
     key: 'pre-alpha',
     text: (
-      <a href="" target="_blank">
+      <a href="./about">
         🚧 &nbsp; Jolt is currently pre-alpha. Read more →
       </a>
     )
   },
   primaryHue: {dark:  270, light: 270},
   project: {
-    link: 'https://github.com/shuding/nextra-docs-template',
+    link: 'https://github.com/asteroid-studios/jolt',
   },
   chat: {
-    link: 'https://discord.com',
+    link: 'https://discord.gg/PqKeQD5S',
   },
   docsRepositoryBase: 'https://github.com/shuding/nextra-docs-template',
   footer: {
