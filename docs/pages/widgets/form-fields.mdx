@@ -1,0 +1,55 @@
+import { Callout } from 'nextra-theme-docs'
+
+# Form Fields
+
+All of the provided form fields are composed using the base FormField widget, in combination with widgets like Interaction and Surface.
+
+<Callout emoji="📦" type="jolt">
+You can use **FormField** to make your own custom form fields.
+</Callout>
+
+## Creating a custom form field
+
+Let's make a form field which lets a user pick a shade of a color from a row of buttons.
+
+```dart filename="custom_color_field.dart"
+class MyColorPicker extends StatelessWidget {
+  const MyColorPicker({
+    super.key,
+    required this.name,
+    required this.colors,
+    this.initialValue,
+    this.validator,
+  });
+
+  final String name;
+  final List<Color> colors;
+  final Color? initialValue;
+  final String? Function(dynamic)? validator;
+
+  @override
+  Widget build(BuildContext context) {
+    return FormField<Color>(
+      name: name,
+      validator: validator,
+      initialValue: initialValue,
+      builder: (field) {
+        return Row(
+          children: colors.map(
+            (Color color) {
+              return Button(
+                background: color,
+                onTap: () {
+                  field.didChange(color);
+                },
+              );
+            },
+          ).toList(),
+        );
+      },
+    );
+  }
+}
+```
+
+Now we have a custom form field which we can use in our forms.

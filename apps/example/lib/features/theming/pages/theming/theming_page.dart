@@ -195,6 +195,25 @@ class ThemingPage extends StatelessWidget {
               icon: Icons.userCircle,
               onTap: () {},
             ),
+            Form(
+              builder: (context, state) {
+                return Column(
+                  children: [
+                    Button(
+                      label: 'Submit',
+                      onTap: () {
+                        final valid = state.save();
+                        state.validate().then();
+                        if (valid) {
+                          print(state
+                              .value); // returns {'firstName' : value of firstNames}
+                        }
+                      },
+                    ),
+                  ],
+                );
+              },
+            ),
           ],
         ),
       ),
