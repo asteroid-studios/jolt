@@ -1,4 +1,5 @@
 import {  Steps } from 'nextra-theme-docs'
+import {dartVersion, flutterVersion, joltVersion} from "components/versions";
 
 # Getting Started
 
@@ -21,16 +22,56 @@ flutter pub add jolt
 
 > or
 
+import { useEffect, useRef } from 'react'
+
+export function CurrentVersion({ children }) {
+  const ref = useRef()
+  // Find the corresponding token from the DOM
+  useEffect(() => {
+    if (ref.current) {
+      // Jolt Version
+      const joltVersionEl = [...ref.current.querySelectorAll('code > span > span')]
+              .find(el => el.innerText === 'joltVersion');
+      if (joltVersionEl) {
+        joltVersionEl.innerText = `^${joltVersion}`;
+      }
+      // SDK Version
+      const sdkVersionEl = [...ref.current.querySelectorAll('code > span > span')]
+              .find(el => el.innerText === 'sdkVersion');
+      if (sdkVersionEl) {
+        sdkVersionEl.innerText = `"${dartVersion}"`;
+      }
+      // Flutter Version
+      const flutterVersionEl = [...ref.current.querySelectorAll('code > span > span')]
+              .find(el => el.innerText === 'flutterVersion');
+      if (flutterVersionEl) {
+        flutterVersionEl.innerText = `"${flutterVersion}"`;
+      }
+    }
+  }, [])
+  return (
+    <>
+      <div ref={ref} style={{ marginTop: '1.5rem' }}>
+        {children}
+      </div>
+    </>
+  )
+}
+
+<CurrentVersion>
 ``` yaml filename="lib/pubspec.yaml" {8}
 environment:
-  sdk: ">=3.0.0 <4.0.0"
-  flutter: ">=3.0.0"
+  sdk: sdkVersion
+  flutter: flutterVersion
 
 dependencies:
   flutter:
     sdk: flutter
-  jolt: ^0.0.1
+  jolt: joltVersion
 ```
+</CurrentVersion>
+
+
 
 ### Initialise JoltApp
 
