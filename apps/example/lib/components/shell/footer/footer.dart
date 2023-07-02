@@ -8,7 +8,7 @@ class Footer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(context.sizing.md),
+      padding: EdgeInsets.all(context.spacing.md),
       decoration: BoxDecoration(
         border: Border(
           top: BorderSide(

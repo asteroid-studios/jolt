@@ -1,11 +1,14 @@
 import 'package:ui/ui.dart';
 
 import 'package:example/components/shell/bottom_bar/bottom_bar.dart';
+import 'package:example/components/shell/footer/footer.dart';
 import 'package:example/components/shell/nav_items/nav_items.dart';
 import 'package:example/components/shell/sidebar_left/sidebar_left.dart';
 import 'package:example/components/shell/sidebar_right/sidebar_right.dart';
 import 'package:example/components/shell/top_bar/top_bar.dart';
 import 'package:example/utils/router/router.dart';
+
+final autoTabsRouterKey = GlobalKey<AutoTabsRouterState>();
 
 ///
 @RoutePage()
@@ -16,27 +19,27 @@ class AppShell extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Widget shell(Widget child, TabsRouter? tabsRouter) {
-      return Themes(
-        // TODO see if I still need Themes with AutoRoute
-        child: Shell(
-          // options: ShellOptions(),
-          // desktopTopBar: const DesktopTopBar(),
-          sideBarLeft: context.responsive(
-            mobile: null,
-            tabletLandscape: const SideBarLeft(),
-          ),
-          sideBarRight: context.responsive(
-            mobile: null,
-            tabletLandscape: const SideBarRight(),
-          ),
-          bottomBar: context.responsive(
-            mobile: !Platform.isWeb && tabsRouter != null
-                ? BottomBar(tabsRouter)
-                : const SizedBox.shrink(),
-            tabletLandscape: const SizedBox.shrink(),
-          ),
-          topBar: const TopBar(),
-          // footer: const Footer(),
+      return Shell(
+        // options: ShellOptions(),
+        // desktopTopBar: const DesktopTopBar(),
+        sideBarLeft: context.responsive(
+          mobile: null,
+          laptop: const SideBarLeft(),
+        ),
+        sideBarRight: context.responsive(
+          mobile: null,
+          laptop: const SideBarRight(),
+        ),
+        bottomBar: context.responsive(
+          mobile: !Platform.isWeb && tabsRouter != null
+              ? BottomBar(tabsRouter)
+              : const SizedBox.shrink(),
+          laptop: const SizedBox.shrink(),
+        ),
+        // topBar: const TopBar(),
+        footer: const Footer(),
+        child: SizedBox(
+          key: const GlobalObjectKey('app-shell'),
           child: child,
         ),
       );
@@ -62,6 +65,7 @@ class AppShell extends StatelessWidget {
     }
 
     return AutoTabsRouter(
+      key: autoTabsRouterKey,
       routes: navRoutes,
       duration: Duration.zero,
       lazyLoad: false,
@@ -76,5 +80,5 @@ class AppShell extends StatelessWidget {
 const navRoutes = [
   DashboardRoute(),
   WidgetsRoute(),
-  ThemingTab(),
+  ThemingRoute(),
 ];

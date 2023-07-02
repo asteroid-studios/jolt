@@ -16,8 +16,7 @@ class WidgetsPage extends StatelessWidget {
 Button(
   onTap: () {},
   label: 'Label',
-),
-''';
+),''';
       return WidgetRender(
         title: 'Button with label',
         code: code,
@@ -33,8 +32,7 @@ Button(
 Button(
   onTap: () {},
   icon: Icons.house,
-),
-''';
+),''';
       return WidgetRender(
         title: 'Button with icon',
         code: code,
@@ -51,8 +49,7 @@ Button(
   onTap: () {},
   label: 'Home',
   icon: Icons.house,
-),
-''';
+),''';
       return WidgetRender(
         title: 'Button with icon',
         code: code,
@@ -70,10 +67,10 @@ Button(
   onTap: null,
   label: 'Home',
   icon: Icons.house,
-),
-''';
-      return const WidgetRender(
+),''';
+      return WidgetRender(
         title: 'Button disabled',
+        height: context.responsive(desktop: 300) ?? 500,
         code: code,
         child: Button(
           label: 'Home',
@@ -82,30 +79,34 @@ Button(
       );
     }
 
+    final children = [
+      labelButton(),
+      iconButton(),
+      comboButton(),
+      disabledButton(),
+    ];
+
     return LayoutBuilder(
       builder: (context, constraints) {
-        final crossAxisCount =
-            context.responsive<int>(mobile: 1, desktop: 2, tv: 3);
+        final crossAxisCount = context.responsive<int>(desktop: 2) ?? 1;
         final itemWidth = constraints.maxWidth / crossAxisCount;
         return Scaffold(
           title: 'Widgets',
           content: Padding(
-            padding: EdgeInsets.all(context.sizing.md),
-            child: Container(
-              height: context.mediaQuery.size.height - 300,
-              // TODO convert to a sliverList
-              child: GridView.count(
-                crossAxisCount: crossAxisCount,
-                crossAxisSpacing: context.sizing.md,
-                childAspectRatio: itemWidth / 300,
-                children: [
-                  labelButton(),
-                  iconButton(),
-                  comboButton(),
-                  disabledButton(),
-                ],
-              ),
-            ),
+            padding: EdgeInsets.all(context.spacing.md),
+            child: context.view.isTabletOrLarger
+                ? Container(
+                    height: context.mediaQuery.size.height - 300,
+                    // TODO convert to a sliverList
+
+                    child: GridView.count(
+                      crossAxisCount: crossAxisCount,
+                      crossAxisSpacing: context.spacing.md,
+                      childAspectRatio: itemWidth / 300,
+                      children: children,
+                    ),
+                  )
+                : Column(children: children),
           ),
         );
       },

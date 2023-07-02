@@ -3,7 +3,6 @@ import 'package:ui/ui.dart';
 import 'package:example/components/shell/sidebar_left/sidebar_left.dart';
 import 'package:example/utils/assets/assets.dart';
 import 'package:example/utils/router/router.dart';
-import 'package:example/utils/translation/app_translations.dart';
 
 ///
 class TopBar extends StatelessWidget {
@@ -15,38 +14,51 @@ class TopBar extends StatelessWidget {
     return Surface(
       borderRadius: BorderRadius.zero,
       padding: EdgeInsets.symmetric(
-        horizontal: context.sizing.md,
-        vertical: context.sizing.sm,
+        horizontal: context.spacing.md,
+        vertical: context.spacing.sm,
       ),
       background: context.color.surface,
-      backgroundDark: context.color.background,
+      borderWidth: 0,
       child: SafeArea(
         bottom: false,
         left: false,
         right: false,
         child: Row(
           children: [
-            Image.asset(
-              context.color.isDark
-                  ? Assets.iconsLogoDarkPng
-                  : Assets.iconsLogoLightPng,
-              height: 35,
+            Interaction(
+              onTap: () {
+                context.navigateTo(const DashboardRoute());
+              },
+              builder: (context, state) {
+                return AnimatedScale(
+                  duration: context.durations.short,
+                  scale: state.isHovered ? 1.05 : 1,
+                  child: Image.asset(
+                    context.color.isDark
+                        ? Assets.iconsLogoDarkPng
+                        : Assets.iconsLogoLightPng,
+                    height: 35,
+                  ),
+                );
+              },
             ),
             const Expanded(child: SizedBox()),
             Button(
               onTap: () {
                 showSideBar();
               },
-              tooltip: 'Hide Menu',
+              tooltip: 'Show Mobile Menu',
               icon: Icons.sidebar,
+              iconSize: 20,
             ),
             const Spacing.sm(),
             Button(
               onTap: () {},
               tooltip: 'Hide SideBar',
-              iconWidget: Icons.sidebar.icon(
+              iconWidget: Icons.sidebar.asIcon(
+                size: 20,
                 flipHorizontal: true,
-                color: context.color.surface.onTop,
+                color: context.color.surface.foreground,
               ),
             ),
           ],

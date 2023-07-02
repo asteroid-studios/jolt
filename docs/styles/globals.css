@@ -1,0 +1,47 @@
+@import url('https://fonts.cdnfonts.com/css/satoshi');
+@import url('https://fonts.cdnfonts.com/css/outfit');
+
+html {
+    font-weight: 500;
+    font-family: 'Satoshi', 'Arial',  'Apple Color Emoji', 'Noto Color Emoji' !important;
+    
+}
+
+html.dark body {
+    background-color: #0d0c12 !important;
+}
+html.dark .nx-bg-white {
+    background-color: #0d0c12 !important;
+    box-shadow: none !important;
+}
+
+html.dark footer, html.dark .nextra-sidebar-container {
+    background-color: #0d0c12 !important;
+}
+
+html.dark .nextra-nav-container {
+    background-color: #1e00a654 !important;
+}
+
+html.dark .nextra-banner-container {
+    background: #191424 !important;
+}
+
+.dark .nx-text-primary-800 {
+    color: #8B5CF6 !important;
+}
+
+.nx-text-primary-600{
+    color: #ac87ff !important;
+}
+
+
+.nextra-callout:not(.nx-text-yellow-900, .nx-text-orange-800, .nx-text-red-900, .nx-text-blue-900) {
+    background: #ad87ff1c;
+    color: #8B5CF6;
+    border-color: #ac87ff;
+}
+
+html.dark .nextra-callout:not(.nx-text-yellow-900, .nx-text-orange-800, .nx-text-red-900, .nx-text-blue-900) {
+    color: #ac87ff;
+}

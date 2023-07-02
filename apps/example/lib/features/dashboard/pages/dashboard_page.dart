@@ -36,17 +36,17 @@ class _DashboardPageState extends State<DashboardPage> {
     const begin = 3;
     const end = 8;
     const spacer = Spacing.sm();
-    print(context.translations.dashboard.title);
+
     return Scaffold(
       title: context.translations.dashboard.title,
       content: Padding(
-        padding: EdgeInsets.all(context.sizing.md),
+        padding: EdgeInsets.all(context.spacing.md),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
               padding: EdgeInsets.symmetric(
-                vertical: context.sizing.section,
+                vertical: context.spacing.section,
               ),
               width: double.infinity,
               child: Center(
@@ -99,16 +99,26 @@ class _DashboardPageState extends State<DashboardPage> {
                     Padding(
                       // padding: EdgeInsetsResponsive(
                       //   context,
-                      //   mobile: context.sizing.md,
-                      //   tablet: context.sizing.xxxl,
+                      //   mobile: context.spacing.md,
+                      //   tablet: context.spacing.xxxl,
                       // ),
-                      padding: EdgeInsets.all(context.sizing.xxxl),
+                      padding: EdgeInsets.all(context.spacing.xxxl),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
                             context.translations.dashboard.hero,
+                            style: context.style.heroLarge,
+                          ),
+                          spacer,
+                          Text(
+                            context.translations.dashboard.hero,
                             style: context.style.hero,
+                          ),
+                          spacer,
+                          Text(
+                            context.translations.dashboard.hero,
+                            style: context.style.heroSmall,
                           ),
                           spacer,
                           Text(
@@ -157,6 +167,11 @@ class _DashboardPageState extends State<DashboardPage> {
                           ),
                           spacer,
                           Text(
+                            'Label Large',
+                            style: context.style.labelLarge,
+                          ),
+                          spacer,
+                          Text(
                             'Label',
                             style: context.style.label,
                           ),
@@ -179,8 +194,8 @@ class _DashboardPageState extends State<DashboardPage> {
             ),
             const Spacing.lg(),
             Wrap(
-              spacing: context.sizing.md,
-              runSpacing: context.sizing.md,
+              spacing: context.spacing.md,
+              runSpacing: context.spacing.md,
               children: [
                 Surface(
                   child: Column(
@@ -225,7 +240,7 @@ class _DashboardPageState extends State<DashboardPage> {
                 ),
                 Button(
                   onTap: () async {
-                    await Future.delayed(
+                    await Future<void>.delayed(
                       const Duration(milliseconds: 300),
                     );
                     JoltOverlay.show(
@@ -256,7 +271,7 @@ class _DashboardPageState extends State<DashboardPage> {
                 ),
                 Button(
                   onTap: () async {
-                    await Future.delayed(
+                    await Future<void>.delayed(
                       const Duration(seconds: 4),
                     );
                   },
@@ -360,7 +375,7 @@ class TestDialog extends StatelessWidget {
                       onTap: () {
                         context.overlay.pop();
                       },
-                      background: context.color.surface.s300,
+                      // background: context.color.surface.s300,
                     ),
                     const Spacing.md(),
                     Button(
@@ -390,11 +405,11 @@ class TestPanel extends StatelessWidget {
       alignment: Alignment.centerRight,
       child: Surface(
         // margin: EdgeInsets.only(
-        //   // right: context.sizing.xxxl * 2,
-        //   top: context.sizing.lg,
-        //   bottom: context.sizing.lg,
+        //   // right: context.spacing.xxxl * 2,
+        //   top: context.spacing.lg,
+        //   bottom: context.spacing.lg,
         // ),
-        padding: EdgeInsets.all(context.sizing.xxl),
+        padding: EdgeInsets.all(context.spacing.xxl),
         borderRadius: context.borderRadius.zero,
         background: context.color.background,
         width: 400,
@@ -411,7 +426,7 @@ class TestPanel extends StatelessWidget {
             Row(
               children: [
                 Button(
-                  background: context.color.surface.s300,
+                  // background: context.color.surface.s300,
                   icon: IconsDuotone.floppyDisk,
                   onTap: () {
                     JoltOverlay.show(child: TestDialog());
@@ -419,7 +434,7 @@ class TestPanel extends StatelessWidget {
                 ),
                 Spacing.md(),
                 Button(
-                  background: context.color.surface.s300,
+                  // background: context.color.surface.s300,
                   icon: Icons.x,
                   onTap: () {
                     context.overlay.pop();

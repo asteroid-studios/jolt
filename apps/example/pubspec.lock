@@ -265,6 +265,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.3.0"
+  equatable:
+    dependency: transitive
+    description:
+      name: equatable
+      sha256: c2b87cb7756efdf69892005af546c56c0b5037f54d2a88269b4f347a505e3ca2
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.5"
   fake_async:
     dependency: transitive
     description:
@@ -310,14 +318,15 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.1.1+1"
-  flutter_highlight:
+  flutter_highlighting:
     dependency: "direct main"
     description:
-      name: flutter_highlight
-      sha256: "7b96333867aa07e122e245c033b8ad622e4e3a42a1a2372cbb098a2541d8782c"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.7.0"
+      path: flutter_highlighting
+      ref: HEAD
+      resolved-ref: d2ddcfb41107c3c43040b4c5145c9839274b97d6
+      url: "https://github.com/asteroid-studios/dart-highlighting.git"
+    source: git
+    version: "0.9.1+11.8.0"
   flutter_jimtl:
     dependency: "direct main"
     description:
@@ -357,6 +366,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  form_builder_validators:
+    dependency: transitive
+    description:
+      name: form_builder_validators
+      sha256: e04998b1597d76a51da7f009ed3b2f12d4173f13e146e8744fd2453e8595a2c9
+      url: "https://pub.dev"
+    source: hosted
+    version: "9.0.0"
   frontend_server_client:
     dependency: transitive
     description:
@@ -381,14 +398,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.2.0"
-  highlight:
+  highlighting:
     dependency: transitive
     description:
-      name: highlight
-      sha256: "5353a83ffe3e3eca7df0abfb72dcf3fa66cc56b953728e7113ad4ad88497cf21"
+      name: highlighting
+      sha256: "196005ed9c98ee559939fcecd466fa941b9e99b3a93394691b86780ad4da50f3"
       url: "https://pub.dev"
     source: hosted
-    version: "0.7.0"
+    version: "0.9.0+11.8.0"
   hive:
     dependency: transitive
     description:
@@ -508,22 +525,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.1.1"
-  markdown:
-    dependency: transitive
-    description:
-      name: markdown
-      sha256: "8e332924094383133cee218b676871f42db2514f1f6ac617b6cf6152a7faab8e"
-      url: "https://pub.dev"
-    source: hosted
-    version: "7.1.0"
-  markdown_widget:
-    dependency: "direct main"
-    description:
-      name: markdown_widget
-      sha256: "088feae6be2dd527c7dd54e06ad104a3e70505aff2ce14a3b464482551a0e273"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.2.0"
   matcher:
     dependency: transitive
     description:
@@ -709,14 +710,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.2.2"
-  scroll_to_index:
-    dependency: transitive
-    description:
-      name: scroll_to_index
-      sha256: b707546e7500d9f070d63e5acf74fd437ec7eeeb68d3412ef7b0afada0b4f176
-      url: "https://pub.dev"
-    source: hosted
-    version: "3.0.1"
   shelf:
     dependency: transitive
     description:
@@ -826,6 +819,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.0.1"
+  tuple:
+    dependency: transitive
+    description:
+      name: tuple
+      sha256: a97ce2013f240b2f3807bcbaf218765b6f301c3eff91092bcfa23a039e7dd151
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.2"
   typed_data:
     dependency: transitive
     description:
@@ -929,14 +930,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.0.0+1"
-  visibility_detector:
-    dependency: transitive
-    description:
-      name: visibility_detector
-      sha256: dd5cc11e13494f432d15939c3aa8ae76844c42b723398643ce9addb88a5ed420
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.4.0+2"
   watcher:
     dependency: transitive
     description:
@@ -987,4 +980,4 @@ packages:
     version: "3.1.2"
 sdks:
   dart: ">=3.0.3 <4.0.0"
-  flutter: ">=3.3.0"
+  flutter: ">=3.10.0"

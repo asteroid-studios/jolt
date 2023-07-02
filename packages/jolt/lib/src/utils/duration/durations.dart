@@ -3,11 +3,11 @@ import 'package:jolt/jolt.dart';
 /// A mapping of durations to use in animations.
 extension DurationExtension on BuildContext {
   ///
-  DurationMapping get durations => DurationMapping();
+  Durations get durations => Durations();
 }
 
 ///
-class DurationMapping {
+class Durations {
   ///
   Duration zero = Duration.zero;
 

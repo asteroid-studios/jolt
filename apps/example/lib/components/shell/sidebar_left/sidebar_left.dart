@@ -1,7 +1,9 @@
+import 'package:collection/collection.dart';
 import 'package:ui/ui.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'package:example/components/shell/nav_items/nav_items.dart';
+import 'package:example/components/shell/shell.dart';
 import 'package:example/utils/router/router.dart';
 
 ///
@@ -53,42 +55,47 @@ class _SideBarLeftState extends State<SideBarLeft> {
       width: 300,
       decoration: BoxDecoration(
         color: context.color.background,
-        border: Border(
-          right: BorderSide(
-            color: context.color.surface.s100,
-          ),
-        ),
+        border: Border(right: BorderSide(color: context.color.surface)),
       ),
       child: SafeArea(
         child: Padding(
-          padding: EdgeInsets.all(context.sizing.md),
+          padding: EdgeInsets.all(context.spacing.md),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const Spacing.xs(),
               Column(
-                spacing: context.sizing.sm,
-                children: navBarItems.map((item) {
-                  final itemRoute = item.route;
-                  final itemRouteName =
-                      itemRoute.routeName.replaceAll('Tab', 'Route');
-                  final currentRoute = AppRouter.instance.currentSegments.last;
-                  final selected = currentRoute.name == itemRouteName;
-                  return Button(
-                    background: (selected
-                            ? context.color.primary
-                            : context.color.surface)
-                        .withOpacity(0.2),
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    requestFocusOnPress: false,
-                    fullWidth: true,
-                    color: selected ? null : context.color.surface.s500,
-                    icon: selected ? item.selectedIcon : item.icon,
-                    label: item.label,
-                    onTap: () {
-                      AppRouter.instance.navigate(itemRoute);
-                      if (widget.isOverlay) JoltOverlay.pop();
-                    },
+                spacing: context.spacing.sm,
+                children: navBarItems.mapIndexed((index, item) {
+                  final tabsController =
+                      autoTabsRouterKey.currentState?.controller;
+                  final router = AppRouter.instance;
+                  final currentName = router.currentSegments.last.name;
+                  // TODO no tabsController on web so selected doesn't work
+                  final currentIndex = tabsController?.activeIndex ?? 0;
+                  final selected = currentIndex == index;
+                  final button = SideBarButton(
+                    item: item,
+                    selected: selected,
+                    topLevel: true,
+                    index: index,
+                    isOverlay: widget.isOverlay,
+                  );
+                  if (!selected) return button;
+                  return Column(
+                    spacing: context.spacing.sm,
+                    children: [
+                      button,
+                      ...item.children.map(
+                        (i) => SideBarButton(
+                          item: i,
+                          selected: i.route.routeName == currentName,
+                          topLevel: false,
+                          index: index,
+                          isOverlay: widget.isOverlay,
+                        ),
+                      ),
+                    ],
                   );
                 }).toList(),
               ),
@@ -98,8 +105,6 @@ class _SideBarLeftState extends State<SideBarLeft> {
               Button(
                 fullWidth: true,
                 mainAxisAlignment: MainAxisAlignment.start,
-                background: context.color.surface.withOpacity(0.2),
-                color: context.color.surface.s500,
                 icon: Icons.code,
                 label: 'Example Code',
                 onTap: () => launchUrl(
@@ -112,8 +117,6 @@ class _SideBarLeftState extends State<SideBarLeft> {
               Button(
                 fullWidth: true,
                 mainAxisAlignment: MainAxisAlignment.start,
-                background: context.color.surface.withOpacity(0.2),
-                color: context.color.surface.s500,
                 icon: Icons.fileDoc,
                 label: 'Docs',
                 onTap: () => launchUrl(
@@ -124,8 +127,6 @@ class _SideBarLeftState extends State<SideBarLeft> {
               Button(
                 fullWidth: true,
                 mainAxisAlignment: MainAxisAlignment.start,
-                background: context.color.surface.withOpacity(0.2),
-                color: context.color.surface.s500,
                 icon: Icons.githubLogo,
                 label: 'GitHub',
                 onTap: () => launchUrl(
@@ -136,6 +137,72 @@ class _SideBarLeftState extends State<SideBarLeft> {
           ),
         ),
       ),
+    );
+  }
+}
+
+///
+class SideBarButton extends StatelessWidget {
+  ///
+  const SideBarButton({
+    required this.item,
+    required this.selected,
+    required this.index,
+    required this.isOverlay,
+    required this.topLevel,
+    super.key,
+  });
+
+  ///
+  final NavItem item;
+
+  ///
+  final int index;
+
+  ///
+  final bool selected;
+
+  ///
+  final bool topLevel;
+
+  ///
+  final bool isOverlay;
+
+  @override
+  Widget build(BuildContext context) {
+    final router = AppRouter.instance;
+    final currentName = router.currentSegments.last.name;
+
+    return Row(
+      children: [
+        if (!topLevel) const Spacing.lg(),
+        Expanded(
+          child: Button(
+            background: selected
+                ? context.color.primary
+                : topLevel
+                    ? context.color.surface
+                    : context.color.primary.s200,
+            mainAxisAlignment: MainAxisAlignment.start,
+            requestFocusOnPress: false,
+            fullWidth: true,
+            icon: selected ? item.selectedIcon : item.icon,
+            label: item.label,
+            onTap: () {
+              if (!selected && !Platform.isWeb && topLevel) {
+                autoTabsRouterKey.currentState?.controller
+                    ?.setActiveIndex(index);
+              } else if (item.route.routeName != currentName) {
+                router.navigate(item.route);
+              } else {
+                // TODO scroll to top
+                print('Scroll to top');
+              }
+              if (isOverlay) JoltOverlay.pop();
+            },
+          ),
+        ),
+      ],
     );
   }
 }

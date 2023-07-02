@@ -1,0 +1,71 @@
+
+# Theming
+
+Themes have been simplifed to only include the following:
+- A color scheme
+- Dimensions (Spacing, border radius, etc)
+- Typography
+
+The reason for this is that in most use cases, the only things that change between themes are these properties.
+
+Jolt still allows you to define base styles for all your widgets, but this is done in the [WidgetTheme](./theming/widget-theme).
+
+## Setting up themes
+
+```dart
+final app = JoltApp(
+  themes: themes, // Pass your themes to the Jolt App
+  widgetTheme: widgetTheme, 
+  routerConfig: _appRouter.config(),
+);
+
+final themes = [
+  Theme(
+    id: 'default_light',
+    colorScheme: ColorScheme.light(),
+    typography: typography,
+    // Dimensions come with sensible defaults so you probably don't need to change them
+    // dimensions: Dimensions(),
+  ),
+  Theme(
+    id: 'default_dark',
+    colorScheme: ColorScheme.dark(),
+    typography: typography,
+  ),
+];
+```
+
+## Theme management
+
+Theme management is provided out of the box, using Hive to persist the theme between sessions.
+
+Setting a theme is broken up into two possible choices:
+- Changing the primary color.
+- Changing the theme mode (light/dark/system).
+
+The reason this was done was to support the use case where you want to change the primary color of your app, but keep the theme mode the same.
+
+When you change from light to dark mode, Jolt will find the dark theme with the same primary color as the light theme you were using.
+
+```dart
+// Switch between light dark and system themes
+Button(
+  icon: Icons.sun,
+  onTap: () => context.jolt.setTheme(ThemeMode.light),
+),
+Button(
+  icon: Icons.moon,
+  onTap: () => context.jolt.setTheme(ThemeMode.dark),
+),
+Button(
+  icon: Icons.gear,
+  onTap: () => context.jolt.setTheme(ThemeMode.system),
+),
+
+// Change the primary color
+Button(
+  background: Colors.violet,
+  onTap: ()=> context.jolt.setPrimaryColor(Colors.violet),
+),
+```
+

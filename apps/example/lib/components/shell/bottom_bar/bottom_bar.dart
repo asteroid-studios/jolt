@@ -31,7 +31,7 @@ class BottomBar extends StatelessWidget {
         filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
         child: Container(
           decoration: BoxDecoration(
-            color: context.color.background.withOpacity(0.85),
+            color: context.color.background.withOpacity(0.9),
             border: Border(
               top: BorderSide(
                 color: context.color.surface.withOpacity(0.3),
@@ -45,24 +45,23 @@ class BottomBar extends StatelessWidget {
                 child: Button(
                   fullWidth: true,
                   padding: EdgeInsets.only(
-                    top: context.sizing.md,
-                    left: context.sizing.md,
-                    right: context.sizing.md,
+                    top: context.spacing.md,
+                    left: context.spacing.md,
+                    right: context.spacing.md,
                     bottom: max(
-                      context.sizing.md,
+                      context.spacing.md,
                       context.mediaQuery.viewPadding.bottom,
                     ),
                   ),
-                  background: Colors.transparent,
+                  background: context.color.transparent,
                   borderColor: Colors.transparent,
                   borderRadius: BorderRadius.zero,
                   requestFocusOnPress: false,
-                  color: (context.color.isDark
-                          ? context.color.primary.s300
-                          : context.color.primary.s950)
-                      .withOpacity(selected ? 1.0 : 0.7),
+                  // color: (context.color.isDark
+                  //     ? context.color.primary.s300
+                  //     : context.color.primary.s950),
                   icon: selected ? item.selectedIcon : item.icon,
-                  iconSize: 20,
+                  iconSize: 24,
                   // label: item.label,
                   // labelStyle: context.style.labelSmall,
                   // verticalButton: true,

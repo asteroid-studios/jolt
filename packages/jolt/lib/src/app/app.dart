@@ -19,6 +19,7 @@ class JoltApp extends StatefulWidget {
     this.localizationsDelegates,
     this.themes,
     this.widgetTheme,
+    this.breakpoints,
     this.builder,
     super.key,
   })  : routeInformationProvider = null,
@@ -41,6 +42,7 @@ class JoltApp extends StatefulWidget {
     this.backButtonDispatcher,
     this.themes,
     this.widgetTheme,
+    this.breakpoints,
     this.builder,
     super.key,
   })  : child = null,
@@ -49,8 +51,11 @@ class JoltApp extends StatefulWidget {
   /// {@macro flutter.widgets.widgetsApp.title}
   final String? title;
 
+  /// Define the breakpoints for the app
+  final BreakpointsData? breakpoints;
+
   /// Styling for all Jolt widgets.
-  final WidgetThemeData Function(ThemeData, ScalingData)? widgetTheme;
+  final WidgetTheme Function(BuildContext)? widgetTheme;
 
   /// {@macro flutter.widgets.widgetsApp.debugShowCheckedModeBanner}
   final bool debugShowCheckedModeBanner;
@@ -77,7 +82,7 @@ class JoltApp extends StatefulWidget {
   final Widget? child;
 
   /// The themes to use for the app
-  final List<ThemeData>? themes;
+  final List<Theme>? themes;
 
   /// {@macro flutter.widgets.widgetsApp.locale}
   final Locale? locale;
@@ -101,20 +106,11 @@ class _JoltAppState extends State<JoltApp> with WidgetsBindingObserver {
   @override
   void initState() {
     controller = JoltAppController(
+      breakpoints: widget.breakpoints ?? const BreakpointsData(),
       locale: widget.locale,
       supportedLocales: widget.supportedLocales,
       platformDispatcher: WidgetsBinding.instance.platformDispatcher,
-      themes: widget.themes ??
-          [
-            ThemeData(
-              id: 'default_light',
-              colorScheme: ColorScheme.light(),
-            ),
-            ThemeData(
-              id: 'default_dark',
-              colorScheme: ColorScheme.dark(),
-            ),
-          ],
+      themes: widget.themes ?? _defaultThemes,
     );
     super.initState();
   }
@@ -154,33 +150,11 @@ class _JoltAppState extends State<JoltApp> with WidgetsBindingObserver {
   @override
   Widget build(BuildContext context) {
     Widget wrapChild(Widget? child) {
-      return SelectionArea(
-        focusNode: FocusNode(canRequestFocus: false),
-        child: GestureDetector(
-          onTap: popFocus,
-          child: widget.builder?.call(context, child) ??
-              child ??
-              const SizedBox.shrink(),
-        ),
-      );
-    }
-
-    m.ThemeData materialThemeData(ColorScheme color) {
-      return m.ThemeData(
-        scaffoldBackgroundColor: color.background,
-        colorScheme: m.ColorScheme(
-          brightness: color.brightness,
-          primary: color.primary,
-          onPrimary: color.primary.onTop,
-          secondary: color.secondary,
-          onSecondary: color.secondary.onTop,
-          surface: color.surface,
-          onSurface: color.surface.onTop,
-          background: color.background,
-          onBackground: color.background.onTop,
-          error: color.error,
-          onError: color.error.onTop,
-        ),
+      return GestureDetector(
+        onTap: popFocus,
+        child: widget.builder?.call(context, child) ??
+            child ??
+            const SizedBox.shrink(),
       );
     }
 
@@ -233,29 +207,26 @@ class _JoltAppState extends State<JoltApp> with WidgetsBindingObserver {
             child: Localizations(
               locale: state.locale,
               delegates: _localizationsDelegates,
-              child: Themes(
+              child: _DefaultStyles(
                 theme: state.theme,
                 widgetTheme: widget.widgetTheme,
-                scaling: ScalingData(
+                scaling: Scaling(
                   spacingScale: state.spacingScaleFactorMultiplier,
-                  textScale: state.textScaleFactorMultiplier,
+                  symbolScale: state.symbolScaleFactorMultiplier,
                 ),
-                child: m.Theme(
-                  data: materialThemeData(state.theme.color),
-                  child: _JoltInherited(
-                    controller: controller,
-                    child: Overlay(
-                      initialEntries: [
-                        OverlayEntry(
-                          builder: (context) {
-                            return OverlayStack(
-                              key: joltOverlayKey,
-                              child: app,
-                            );
-                          },
-                        ),
-                      ],
-                    ),
+                child: _JoltInherited(
+                  controller: controller,
+                  child: Overlay(
+                    initialEntries: [
+                      OverlayEntry(
+                        builder: (context) {
+                          return OverlayStack(
+                            key: joltOverlayKey,
+                            child: app,
+                          );
+                        },
+                      ),
+                    ],
                   ),
                 ),
               ),
@@ -294,3 +265,98 @@ extension JoltControllerExtension on BuildContext {
   /// The JoltAppController.
   JoltAppController get jolt => _JoltInherited.of(this).controller;
 }
+
+///
+class _DefaultStyles extends StatelessWidget {
+  ///
+  const _DefaultStyles({
+    required this.child,
+    required this.theme,
+    required this.scaling,
+    this.widgetTheme,
+  });
+
+  ///
+  final WidgetTheme Function(BuildContext)? widgetTheme;
+
+  ///
+  final Scaling scaling;
+
+  ///
+  final Theme theme;
+
+  ///
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    m.ThemeData materialThemeData(ColorScheme color) {
+      return m.ThemeData(
+        scaffoldBackgroundColor: color.background,
+        colorScheme: m.ColorScheme(
+          brightness: color.brightness,
+          primary: color.primary,
+          onPrimary: color.primary.foreground,
+          secondary: color.secondary,
+          onSecondary: color.secondary.foreground,
+          surface: color.surface,
+          onSurface: color.surface.foreground,
+          background: color.background,
+          onBackground: color.background.foreground,
+          error: color.error,
+          onError: color.error.foreground,
+        ),
+      );
+    }
+
+    return DefaultScaling(
+      scaling: scaling,
+      child: DefaultTheme(
+        data: theme,
+        // After setting the theme, use a builder
+        // to make the theme available below
+        child: Builder(
+          builder: (context) {
+            // Set a material theme for very basic material cupport
+            return m.Theme(
+              data: materialThemeData(context.color),
+              // Set the default Widget theme
+              child: AnimatedContainer(
+                duration: const Duration(milliseconds: 300),
+                color: context.color.background,
+                // Set the default Widget theme
+                child: DefaultWidgetTheme(
+                  data: widgetTheme?.call(context) ??
+                      context.inherited.widgetTheme,
+                  // Set the default symbol style (Text and Icons)
+                  child: DefaultSymbolStyle(
+                    style: (context) => context.style.body.copyWith(
+                      color: context.color.surface.foreground,
+                    ),
+                    // Set the default selection style
+                    child: DefaultSelectionStyle(
+                      cursorColor: context.color.primary,
+                      selectionColor: context.color.primary.withOpacity(0.3),
+                      child: child,
+                    ),
+                  ),
+                ),
+              ),
+            );
+          },
+        ),
+      ),
+    );
+  }
+}
+
+final _defaultThemes = [
+  Theme(
+    id: 'default_light',
+    colorScheme: ColorScheme.light(),
+  ),
+  Theme(
+    id: 'default_dark',
+    colorScheme: ColorScheme.dark(),
+  ),
+];

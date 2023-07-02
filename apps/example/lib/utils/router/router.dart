@@ -47,6 +47,14 @@ class AppRouter extends $AppRouter {
               path: 'theming',
               children: [
                 AutoRoute(page: ThemingRoute.page, path: ''),
+                AutoRoute(
+                  page: BreakpointsRoute.page,
+                  path: 'breakpoints',
+                ),
+                AutoRoute(
+                  page: TypographyRoute.page,
+                  path: 'typography',
+                ),
               ],
             ),
           ],
