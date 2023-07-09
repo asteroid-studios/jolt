@@ -39,9 +39,7 @@ class WidgetRender extends StatelessWidget {
     codeTheme['root'] = TextStyle(backgroundColor: context.color.background);
     final codeWidget = HighlightView(
       code,
-      textStyle: DefaultTextStyle.of(context).style.copyWith(
-            fontFamily: 'FiraCode',
-          ),
+      textStyle: context.style.code,
       languageId: 'dart',
       theme: codeTheme,
     );

@@ -38,303 +38,308 @@ class _DashboardPageState extends State<DashboardPage> {
     const spacer = Spacing.sm();
 
     return Scaffold(
-      title: context.translations.dashboard.title,
-      content: Padding(
-        padding: EdgeInsets.all(context.spacing.md),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              padding: EdgeInsets.symmetric(
-                vertical: context.spacing.section,
-              ),
-              width: double.infinity,
-              child: Center(
-                child: Stack(
-                  children: [
-                    Positioned.fill(
-                      child: AnimatedSwitcher(
-                        duration: const Duration(milliseconds: 500),
-                        child: loaded
-                            ? Container(
-                                decoration: BoxDecoration(
-                                  gradient: LinearGradient(
-                                    begin: Alignment.bottomLeft,
-                                    end: Alignment.topRight,
-                                    colors: [
-                                      ...Colors.violet.shades
-                                          .getRange(begin, end),
-                                      ...Colors.red.shades.getRange(begin, end),
-                                      ...Colors.violet.shades
-                                          .getRange(begin, end),
-                                      ...Colors.sky.shades.getRange(begin, end),
-                                      ...Colors.violet.shades
-                                          .getRange(begin, end),
-                                      ...Colors.red.shades.getRange(begin, end),
-                                    ],
+      windowTitle: context.translations.dashboard.title,
+      content: [
+        Padding(
+          padding: EdgeInsets.all(context.spacing.md),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                padding: EdgeInsets.symmetric(
+                  vertical: context.spacing.section,
+                ),
+                width: double.infinity,
+                child: Center(
+                  child: Stack(
+                    children: [
+                      Positioned.fill(
+                        child: AnimatedSwitcher(
+                          duration: const Duration(milliseconds: 500),
+                          child: loaded
+                              ? Container(
+                                  decoration: BoxDecoration(
+                                    gradient: LinearGradient(
+                                      begin: Alignment.bottomLeft,
+                                      end: Alignment.topRight,
+                                      colors: [
+                                        ...Colors.violet.shades
+                                            .getRange(begin, end),
+                                        ...Colors.red.shades
+                                            .getRange(begin, end),
+                                        ...Colors.violet.shades
+                                            .getRange(begin, end),
+                                        ...Colors.sky.shades
+                                            .getRange(begin, end),
+                                        ...Colors.violet.shades
+                                            .getRange(begin, end),
+                                        ...Colors.red.shades
+                                            .getRange(begin, end),
+                                      ],
+                                    ),
                                   ),
-                                ),
-                              )
-                            : const SizedBox.shrink(),
-                      ),
-                    ),
-                    Positioned.fill(
-                      child: BackdropFilter(
-                        filter: ImageFilter.blur(
-                          sigmaX: blur,
-                          sigmaY: blur,
+                                )
+                              : const SizedBox.shrink(),
                         ),
-                        child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: context.borderRadius.xl,
-                            color: context.color.background.withOpacity(
-                              context.color.brightness == Brightness.dark
-                                  ? 0.8
-                                  : 0.6,
+                      ),
+                      Positioned.fill(
+                        child: BackdropFilter(
+                          filter: ImageFilter.blur(
+                            sigmaX: blur,
+                            sigmaY: blur,
+                          ),
+                          child: Container(
+                            decoration: BoxDecoration(
+                              borderRadius: context.borderRadius.xl,
+                              color: context.color.background.withOpacity(
+                                context.color.brightness == Brightness.dark
+                                    ? 0.8
+                                    : 0.6,
+                              ),
                             ),
                           ),
                         ),
                       ),
-                    ),
-                    Padding(
-                      // padding: EdgeInsetsResponsive(
-                      //   context,
-                      //   mobile: context.spacing.md,
-                      //   tablet: context.spacing.xxxl,
-                      // ),
-                      padding: EdgeInsets.all(context.spacing.xxxl),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            context.translations.dashboard.hero,
-                            style: context.style.heroLarge,
-                          ),
-                          spacer,
-                          Text(
-                            context.translations.dashboard.hero,
-                            style: context.style.hero,
-                          ),
-                          spacer,
-                          Text(
-                            context.translations.dashboard.hero,
-                            style: context.style.heroSmall,
-                          ),
-                          spacer,
-                          Text(
-                            'Display large',
-                            style: context.style.displayLarge,
-                          ),
-                          spacer,
-                          Text(
-                            'Display',
-                            style: context.style.display,
-                          ),
-                          spacer,
-                          Text(
-                            'Display small',
-                            style: context.style.displaySmall,
-                          ),
-                          spacer,
-                          Text(
-                            'Heading large',
-                            style: context.style.headingLarge,
-                          ),
-                          spacer,
-                          Text(
-                            'Heading',
-                            style: context.style.heading,
-                          ),
-                          spacer,
-                          Text(
-                            'Heading small',
-                            style: context.style.headingSmall,
-                          ),
-                          spacer,
-                          Text(
-                            'Body large',
-                            style: context.style.bodyLarge,
-                          ),
-                          spacer,
-                          Text(
-                            'Body',
-                            style: context.style.body,
-                          ),
-                          spacer,
-                          Text(
-                            'Body small',
-                            style: context.style.bodySmall,
-                          ),
-                          spacer,
-                          Text(
-                            'Label Large',
-                            style: context.style.labelLarge,
-                          ),
-                          spacer,
-                          Text(
-                            'Label',
-                            style: context.style.label,
-                          ),
-                          spacer,
-                          Text(
-                            'Label small',
-                            style: context.style.labelSmall,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            const Spacing.section(),
-            Text(
-              'Widgets',
-              style: context.style.heading,
-            ),
-            const Spacing.lg(),
-            Wrap(
-              spacing: context.spacing.md,
-              runSpacing: context.spacing.md,
-              children: [
-                Surface(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Card title',
-                        style: context.style.headingSmall,
-                      ),
-                      Text(
-                        'Card body',
+                      Padding(
+                        // padding: EdgeInsetsResponsive(
+                        //   context,
+                        //   mobile: context.spacing.md,
+                        //   tablet: context.spacing.xxxl,
+                        // ),
+                        padding: EdgeInsets.all(context.spacing.xxxl),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              context.translations.dashboard.hero,
+                              style: context.style.heroLarge,
+                            ),
+                            spacer,
+                            Text(
+                              context.translations.dashboard.hero,
+                              style: context.style.hero,
+                            ),
+                            spacer,
+                            Text(
+                              context.translations.dashboard.hero,
+                              style: context.style.heroSmall,
+                            ),
+                            spacer,
+                            Text(
+                              'Display large',
+                              style: context.style.displayLarge,
+                            ),
+                            spacer,
+                            Text(
+                              'Display',
+                              style: context.style.display,
+                            ),
+                            spacer,
+                            Text(
+                              'Display small',
+                              style: context.style.displaySmall,
+                            ),
+                            spacer,
+                            Text(
+                              'Heading large',
+                              style: context.style.headingLarge,
+                            ),
+                            spacer,
+                            Text(
+                              'Heading',
+                              style: context.style.heading,
+                            ),
+                            spacer,
+                            Text(
+                              'Heading small',
+                              style: context.style.headingSmall,
+                            ),
+                            spacer,
+                            Text(
+                              'Body large',
+                              style: context.style.bodyLarge,
+                            ),
+                            spacer,
+                            Text(
+                              'Body',
+                              style: context.style.body,
+                            ),
+                            spacer,
+                            Text(
+                              'Body small',
+                              style: context.style.bodySmall,
+                            ),
+                            spacer,
+                            Text(
+                              'Label Large',
+                              style: context.style.labelLarge,
+                            ),
+                            spacer,
+                            Text(
+                              'Label',
+                              style: context.style.label,
+                            ),
+                            spacer,
+                            Text(
+                              'Label small',
+                              style: context.style.labelSmall,
+                            ),
+                          ],
+                        ),
                       ),
                     ],
                   ),
                 ),
-                Button(
-                  onTap: () async {
-                    final result = await JoltOverlay.show(
-                      position: Alignment.topCenter,
-                      child: Button(
-                        onTap: () async {
-                          final result = await JoltOverlay.show(
-                            // zindex: -1,
-                            position: Alignment.bottomCenter,
-                            child: Button(
-                              onTap: () async {
-                                JoltOverlay.pop('Test');
-                              },
-                              label: 'Nested Button',
-                            ),
-                          );
-                          JoltOverlay.pop(result);
-                        },
-                        label: 'Test',
-                      ),
-                    );
-                    print(result);
-                    // final test = [].elementAt(10);
-                  },
-                  icon: Icons.gear,
-                  label: 'Button',
-                ),
-                Button(
-                  onTap: () async {
-                    await Future<void>.delayed(
-                      const Duration(milliseconds: 300),
-                    );
-                    JoltOverlay.show(
-                      // barrierOpacity: 0.5,
-                      // barrierColor: context.color.primary,
-                      child: TestDialog(),
-                    );
-                  },
-                  onLongPressed: () {
-                    print('long pressed from dashboard');
-                  },
-                  tooltip: 'Open Settings',
-                  icon: Icons.gear,
-                ),
-                Button(
-                  onTap: () {
-                    context.overlay.show(
-                      useRootOverlayStack: false,
-                      // barrierDisabled: true,
-                      child: TestPanel(),
-                    );
-                  },
-                  label: 'Align',
-                ),
-                Button(
-                  icon: Icons.gear,
-                  label: 'Button Disabled',
-                ),
-                Button(
-                  onTap: () async {
-                    await Future<void>.delayed(
-                      const Duration(seconds: 4),
-                    );
-                  },
-                  label: 'Button Primary',
-                  icon: Icons.gear,
-                  background: context.color.primary,
-                ),
-              ],
-            ),
-            const Spacing.section(),
-            Text(
-              'Theme',
-              style: context.style.heading,
-            ),
-            const Spacing.lg(),
-            const Spacing.lg(),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                GestureDetector(
-                  onTap: () {
-                    context.jolt.setPrimaryColor(Colors.emerald);
-                  },
-                  child: Surface(
-                    borderRadius: context.borderRadius.lg,
-                    background: Colors.emerald,
-                    padding: EdgeInsets.zero,
-                    child: const Spacing.xl(),
+              ),
+              const Spacing.section(),
+              Text(
+                'Widgets',
+                style: context.style.heading,
+              ),
+              const Spacing.lg(),
+              Wrap(
+                spacing: context.spacing.md,
+                runSpacing: context.spacing.md,
+                children: [
+                  Surface(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Card title',
+                          style: context.style.headingSmall,
+                        ),
+                        Text(
+                          'Card body',
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-                spacer,
-                GestureDetector(
-                  onTap: () {
-                    context.jolt.setPrimaryColor(Colors.violet);
-                  },
-                  child: Surface(
-                    borderRadius: context.borderRadius.lg,
-                    background: Colors.violet,
-                    padding: EdgeInsets.zero,
-                    child: const Spacing.xl(),
+                  Button(
+                    onTap: () async {
+                      final result = await JoltOverlay.show(
+                        position: Alignment.topCenter,
+                        child: Button(
+                          onTap: () async {
+                            final result = await JoltOverlay.show(
+                              // zindex: -1,
+                              position: Alignment.bottomCenter,
+                              child: Button(
+                                onTap: () async {
+                                  JoltOverlay.pop('Test');
+                                },
+                                label: 'Nested Button',
+                              ),
+                            );
+                            JoltOverlay.pop(result);
+                          },
+                          label: 'Test',
+                        ),
+                      );
+                      print(result);
+                      // final test = [].elementAt(10);
+                    },
+                    icon: Icons.gear,
+                    label: 'Button',
                   ),
-                ),
-              ],
-            ),
-            const Spacing.section(),
-            Text(
-              'Translation',
-              style: context.style.heading,
-            ),
-            Wrap(
-              children: [
-                Button(
-                  onTap: () {
-                    context.jolt.setLocale(Locales.fr);
-                  },
-                  label: 'English',
-                ),
-              ],
-            ),
-            const Spacing.section(),
-          ],
+                  Button(
+                    onTap: () async {
+                      await Future<void>.delayed(
+                        const Duration(milliseconds: 300),
+                      );
+                      JoltOverlay.show(
+                        // barrierOpacity: 0.5,
+                        // barrierColor: context.color.primary,
+                        child: TestDialog(),
+                      );
+                    },
+                    onLongPressed: () {
+                      print('long pressed from dashboard');
+                    },
+                    tooltip: 'Open Settings',
+                    icon: Icons.gear,
+                  ),
+                  Button(
+                    onTap: () {
+                      context.overlay.show(
+                        useRootOverlayStack: false,
+                        // barrierDisabled: true,
+                        child: TestPanel(),
+                      );
+                    },
+                    label: 'Align',
+                  ),
+                  Button(
+                    icon: Icons.gear,
+                    label: 'Button Disabled',
+                  ),
+                  Button(
+                    onTap: () async {
+                      await Future<void>.delayed(
+                        const Duration(seconds: 4),
+                      );
+                    },
+                    label: 'Button Primary',
+                    icon: Icons.gear,
+                    background: context.color.primary,
+                  ),
+                ],
+              ),
+              const Spacing.section(),
+              Text(
+                'Theme',
+                style: context.style.heading,
+              ),
+              const Spacing.lg(),
+              const Spacing.lg(),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      context.jolt.setPrimaryColor(Colors.emerald);
+                    },
+                    child: Surface(
+                      borderRadius: context.borderRadius.lg,
+                      background: Colors.emerald,
+                      padding: EdgeInsets.zero,
+                      child: const Spacing.xl(),
+                    ),
+                  ),
+                  spacer,
+                  GestureDetector(
+                    onTap: () {
+                      context.jolt.setPrimaryColor(Colors.violet);
+                    },
+                    child: Surface(
+                      borderRadius: context.borderRadius.lg,
+                      background: Colors.violet,
+                      padding: EdgeInsets.zero,
+                      child: const Spacing.xl(),
+                    ),
+                  ),
+                ],
+              ),
+              const Spacing.section(),
+              Text(
+                'Translation',
+                style: context.style.heading,
+              ),
+              Wrap(
+                children: [
+                  Button(
+                    onTap: () {
+                      context.jolt.setLocale(Locales.fr);
+                    },
+                    label: 'English',
+                  ),
+                ],
+              ),
+              const Spacing.section(),
+            ],
+          ),
         ),
-      ),
+      ],
     );
   }
 }

@@ -111,8 +111,7 @@ class Text extends StatelessWidget {
 
     final defaultColor =
         context.color.responsive(color, colorDark: colorDark) ??
-            style?.color ??
-            defaultTextStyle.color;
+            textStyle.color;
 
     return widgets.Text(
       data ?? '',

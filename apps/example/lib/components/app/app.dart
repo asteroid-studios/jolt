@@ -19,6 +19,10 @@ class App extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       routerConfig: AppRouter.instance.config(),
       locale: Locales.en,
+      // Example of changing breakpoint values
+      // breakpoints: const Breakpoints(
+      //   tabletLandscape: TabletLandscape(maxWidth: 1150),
+      // ),
       supportedLocales: supportedLocales,
       localizationsDelegates: [
         ...translationDelegates,

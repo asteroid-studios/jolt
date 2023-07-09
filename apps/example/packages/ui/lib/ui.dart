@@ -3,10 +3,13 @@ export 'package:jolt/jolt.dart';
 
 /// My custom text styles.
 extension CustomTypography on Typography {
-  /// Text style for button
+  /// Text style for buttons
   TextStyle get button => body.copyWith(
-      // fontWeight: FontWeight.w400,
+      // fontWeight: FontWeight.w500,
       );
+
+  /// Text style for code
+  TextStyle get code => body.copyWith(fontFamily: 'FiraCode');
 }
 
 extension CustomColors on ColorScheme {

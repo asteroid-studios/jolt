@@ -40,6 +40,10 @@ class AppRouter extends $AppRouter {
               path: 'widgets',
               children: [
                 AutoRoute(page: WidgetsRoute.page, path: ''),
+                AutoRoute(
+                  page: LayoutsRoute.page,
+                  path: 'layouts',
+                ),
               ],
             ),
             AutoRoute(

@@ -1,4 +1,4 @@
-import { Callout } from 'nextra-theme-docs'
+import { Callout, Steps } from 'nextra-theme-docs'
 
 # Layouts
 
@@ -6,3 +6,25 @@ import { Callout } from 'nextra-theme-docs'
 This page is a stub. Help us expand it by contributing!
 </Callout>
 
+
+## Heirarchy
+
+A typical app layout composed using Jolt would look like this:
+
+<Steps>
+### JoltApp
+The root component of your app. It is responsible for setting up the router and providing the styling to all the child components.
+
+### Shell
+
+The [Shell](./layouts/shell) widget
+
+### Scaffold
+
+The [Scaffold](./layouts/scaffold) widget is used to layout a single page.
+
+### Section
+
+The [Section](./layouts/section) widget
+
+</Steps>

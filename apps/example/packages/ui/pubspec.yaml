@@ -21,3 +21,15 @@ dev_dependencies:
 # The following section is specific to Flutter packages.
 flutter:
   uses-material-design: false
+  fonts:
+    - family: FiraCode
+      fonts: 
+        - asset: fonts/FiraCode-Variable.ttf
+    - family: Outfit
+      fonts: 
+        - asset: fonts/Outfit-Variable.ttf
+    - family: Satoshi
+      fonts: 
+        - asset: fonts/Satoshi-Variable.ttf
+        - asset: fonts/Satoshi-VariableItalic.ttf
+          style: italic

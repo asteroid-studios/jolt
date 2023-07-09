@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:collection/collection.dart';
+
 import 'package:jolt/jolt.dart';
 
 ///
@@ -12,7 +13,7 @@ extension BreakpointsContextX on BuildContext {
   ViewData get view => ViewData(this);
 
   /// Returns the current breakpoints data.
-  BreakpointsData get breakpoints => jolt.value.breakpoints;
+  Breakpoints get breakpoints => jolt.value.breakpoints;
 
   ///
   Rect? get globalPaintBounds {
@@ -31,23 +32,32 @@ extension BreakpointsContextX on BuildContext {
     T? wearable,
     T? mobile,
     T? tablet,
+    T? tabletLandscape,
     T? laptop,
     T? desktop,
     T? tv,
   }) {
+    final mobileBreakpoint = mobile ?? wearable;
+    final tabletBreakpoint = tablet ?? mobileBreakpoint;
+    final tabletLandscapeBreakpoint = tabletLandscape ?? tabletBreakpoint;
+    final laptopBreakpoint = laptop ?? tabletLandscapeBreakpoint;
+    final desktopBreakpoint = desktop ?? laptopBreakpoint;
+    final tvBreakpoint = tv ?? desktopBreakpoint;
     switch (view.breakpoint) {
       case Wearable():
         return wearable;
       case Mobile():
-        return mobile ?? wearable;
+        return mobileBreakpoint;
       case Tablet():
-        return tablet ?? mobile ?? wearable;
+        return tabletBreakpoint;
+      case TabletLandscape():
+        return tabletLandscapeBreakpoint;
       case Laptop():
-        return laptop ?? tablet ?? mobile ?? wearable;
+        return laptopBreakpoint;
       case Desktop():
-        return desktop ?? laptop ?? tablet ?? mobile ?? wearable;
+        return desktopBreakpoint;
       case Tv():
-        return tv ?? desktop ?? laptop ?? tablet ?? mobile ?? wearable;
+        return tvBreakpoint;
     }
   }
 }

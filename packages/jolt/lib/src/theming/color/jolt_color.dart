@@ -128,7 +128,7 @@ class JoltColor extends Color {
   final double opacity;
 
   /// Get a list of all the shades in the swatch.
-  List<Color> get shades => [
+  List<JoltColor> get shades => [
         s50,
         s100,
         s200,

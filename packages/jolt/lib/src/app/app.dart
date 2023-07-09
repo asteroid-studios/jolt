@@ -52,7 +52,7 @@ class JoltApp extends StatefulWidget {
   final String? title;
 
   /// Define the breakpoints for the app
-  final BreakpointsData? breakpoints;
+  final Breakpoints? breakpoints;
 
   /// Styling for all Jolt widgets.
   final WidgetTheme Function(BuildContext)? widgetTheme;
@@ -106,7 +106,7 @@ class _JoltAppState extends State<JoltApp> with WidgetsBindingObserver {
   @override
   void initState() {
     controller = JoltAppController(
-      breakpoints: widget.breakpoints ?? const BreakpointsData(),
+      breakpoints: widget.breakpoints ?? const Breakpoints(),
       locale: widget.locale,
       supportedLocales: widget.supportedLocales,
       platformDispatcher: WidgetsBinding.instance.platformDispatcher,

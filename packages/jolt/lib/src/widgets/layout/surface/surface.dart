@@ -15,6 +15,7 @@ class Surface extends StatelessWidget {
     this.width,
     this.height,
     this.ripple = false,
+    this.setDefaultStyleForChildren = true,
     this.fallbackStyle,
     super.key,
   });
@@ -51,6 +52,9 @@ class Surface extends StatelessWidget {
 
   /// Whether to show a ripple effect on tap
   final bool ripple;
+
+  /// Whether to set the default style for children
+  final bool setDefaultStyleForChildren;
 
   /// Pass a fallback surface style
   /// which will be used over the default surface style from widget theme.
@@ -117,16 +121,20 @@ class Surface extends StatelessWidget {
     // the foreground color by default.
     //
     // Also wrap the children with padding.
-    final childWidget = DefaultSurfaceStyle(
-      style: SurfaceStyle(background: style.background),
-      child: DefaultSymbolStyle(
-        style: (_) => TextStyle(color: style.background?.foreground),
-        child: Padding(
-          padding: defaultPadding,
-          child: child,
-        ),
+    Widget childWidget = DefaultSymbolStyle(
+      style: (_) => TextStyle(color: style.background?.foreground),
+      child: Padding(
+        padding: defaultPadding,
+        child: child,
       ),
     );
+
+    if (setDefaultStyleForChildren) {
+      childWidget = DefaultSurfaceStyle(
+        style: SurfaceStyle(background: style.background),
+        child: childWidget,
+      );
+    }
 
     // Return the surface
     return ClipRRect(

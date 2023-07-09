@@ -21,7 +21,7 @@ class JoltAppState {
   final Theme theme;
 
   /// The breakpoints for the app
-  final BreakpointsData breakpoints;
+  final Breakpoints breakpoints;
 
   /// The list of themes.
   final List<Theme> themes;
@@ -51,7 +51,7 @@ class JoltAppState {
   JoltAppState copyWith({
     Theme? theme,
     List<Theme>? themes,
-    BreakpointsData? breakpoints,
+    Breakpoints? breakpoints,
     List<Locale>? supportedLocales,
     Color? primaryColor,
     Locale? locale,
