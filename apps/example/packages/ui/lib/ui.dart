@@ -5,7 +5,7 @@ export 'package:jolt/jolt.dart';
 extension CustomTypography on Typography {
   /// Text style for buttons
   TextStyle get button => body.copyWith(
-      // fontWeight: FontWeight.w500,
+        fontWeight: FontWeight.w500,
       );
 
   /// Text style for code

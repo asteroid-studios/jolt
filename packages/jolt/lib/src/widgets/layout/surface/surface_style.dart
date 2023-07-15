@@ -6,25 +6,21 @@ class SurfaceStyle {
   /// Defines the style of a surface
   const SurfaceStyle({
     this.background,
-    this.borderColor,
+    this.border,
     this.borderRadius,
-    this.borderWidth,
     this.margin,
     this.padding,
     this.boxShadow,
   });
 
   /// The background of the surface
-  final JoltColor? background;
+  final Color? background;
 
-  /// The border color of the surface
-  final Color? borderColor;
+  /// The border of the surface
+  final BoxBorder? border;
 
   /// The border radius of the surface.
   final BorderRadius? borderRadius;
-
-  /// The border width of the surface.
-  final double? borderWidth;
 
   /// The margin of the surface
   final EdgeInsetsGeometry? margin;
@@ -35,7 +31,7 @@ class SurfaceStyle {
   /// The box shadow of the surface
   ///
   /// You have access to the background of the surface to calculate the shadow
-  final List<BoxShadow> Function(JoltColor background)? boxShadow;
+  final List<BoxShadow>? boxShadow;
 
   /// Merge two surface styles together.
   SurfaceStyle merge(SurfaceStyle? style) {
@@ -43,9 +39,8 @@ class SurfaceStyle {
     if (style == null) return this;
     return SurfaceStyle(
       background: style.background ?? background,
-      borderColor: style.borderColor ?? borderColor,
+      border: style.border ?? border,
       borderRadius: style.borderRadius ?? borderRadius,
-      borderWidth: style.borderWidth ?? borderWidth,
       margin: style.margin ?? margin,
       padding: style.padding ?? padding,
       boxShadow: style.boxShadow ?? boxShadow,
@@ -55,18 +50,16 @@ class SurfaceStyle {
   /// Copy with
   SurfaceStyle copyWith({
     JoltColor? background,
-    Color? borderColor,
+    BoxBorder? border,
     BorderRadius? borderRadius,
-    double? borderWidth,
     EdgeInsetsGeometry? margin,
     EdgeInsetsGeometry? padding,
-    List<BoxShadow> Function(JoltColor background)? boxShadow,
+    List<BoxShadow>? boxShadow,
   }) {
     return SurfaceStyle(
       background: background ?? this.background,
-      borderColor: borderColor ?? this.borderColor,
+      border: border ?? this.border,
       borderRadius: borderRadius ?? this.borderRadius,
-      borderWidth: borderWidth ?? this.borderWidth,
       margin: margin ?? this.margin,
       padding: padding ?? this.padding,
       boxShadow: boxShadow ?? this.boxShadow,
@@ -79,9 +72,8 @@ class SurfaceStyle {
     if (identical(this, other)) return true;
     if (other is SurfaceStyle) {
       return other.background == background &&
-          other.borderColor == borderColor &&
+          other.border == border &&
           other.borderRadius == borderRadius &&
-          other.borderWidth == borderWidth &&
           other.margin == margin &&
           other.padding == padding &&
           other.boxShadow == boxShadow;
@@ -92,11 +84,11 @@ class SurfaceStyle {
   /// To String Function
   @override
   String toString() {
-    return '''SurfaceStyle(
+    return '''
+SurfaceStyle(
   background: $background,
-  borderColor: $borderColor,
+  border: $border,
   borderRadius: $borderRadius,
-  borderWidth: $borderWidth,
   margin: $margin,
   padding: $padding, 
   boxShadow: $boxShadow
@@ -108,9 +100,8 @@ class SurfaceStyle {
   int get hashCode {
     return Object.hash(
       background,
-      borderColor,
+      border,
       borderRadius,
-      borderWidth,
       margin,
       padding,
       boxShadow,
@@ -127,10 +118,22 @@ class SurfaceColor {
     this.foregroundLight,
     this.border,
     this.shadow,
-  });
+  }) : backgroundGradient = null;
 
   ///
-  final Color background;
+  const SurfaceColor.gradient({
+    required this.backgroundGradient,
+    this.foreground,
+    this.foregroundLight,
+    this.border,
+    this.shadow,
+  }) : background = null;
+
+  ///
+  final Color? background;
+
+  ///
+  final Gradient? backgroundGradient;
 
   ///
   final Color? foreground;
@@ -143,4 +146,26 @@ class SurfaceColor {
 
   ///
   final Color? shadow;
+
+  /// Merge
+  SurfaceColor merge(SurfaceColor? style) {
+    // ignore: avoid_returning_this
+    if (style == null) return this;
+    if (style.backgroundGradient != null) {
+      return SurfaceColor.gradient(
+        backgroundGradient: style.backgroundGradient ?? backgroundGradient,
+        foreground: style.foreground ?? foreground,
+        foregroundLight: style.foregroundLight ?? foregroundLight,
+        border: style.border ?? border,
+        shadow: style.shadow ?? shadow,
+      );
+    }
+    return SurfaceColor(
+      background: style.background ?? background,
+      foreground: style.foreground ?? foreground,
+      foregroundLight: style.foregroundLight ?? foregroundLight,
+      border: style.border ?? border,
+      shadow: style.shadow ?? shadow,
+    );
+  }
 }

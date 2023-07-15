@@ -90,26 +90,34 @@ Button(
       builder: (context, constraints) {
         final crossAxisCount = context.responsive<int>(desktop: 2) ?? 1;
         final itemWidth = constraints.maxWidth / crossAxisCount;
-        return Scaffold(
-          windowTitle: 'Widgets',
-          content: [
-            Padding(
-              padding: EdgeInsets.all(context.spacing.md),
-              child: context.view.isTabletOrLarger
-                  ? Container(
-                      height: context.mediaQuery.size.height - 300,
-                      // TODO convert to a sliverList
+        return SafeArea(
+          child: Scaffold(
+            windowTitle: 'Widgets',
+            content: [
+              Button(
+                label: 'Layouts',
+                onTap: () {
+                  context.navigateTo(LayoutsRoute());
+                },
+              ),
+              Padding(
+                padding: EdgeInsets.all(context.spacing.md),
+                child: context.view.isTabletOrLarger
+                    ? Container(
+                        height: context.mediaQuery.size.height - 300,
+                        // TODO convert to a sliverList
 
-                      child: GridView.count(
-                        crossAxisCount: crossAxisCount,
-                        crossAxisSpacing: context.spacing.md,
-                        childAspectRatio: itemWidth / 300,
-                        children: children,
-                      ),
-                    )
-                  : Column(children: children),
-            ),
-          ],
+                        child: GridView.count(
+                          crossAxisCount: crossAxisCount,
+                          crossAxisSpacing: context.spacing.md,
+                          childAspectRatio: itemWidth / 300,
+                          children: children,
+                        ),
+                      )
+                    : Column(children: children),
+              ),
+            ],
+          ),
         );
       },
     );

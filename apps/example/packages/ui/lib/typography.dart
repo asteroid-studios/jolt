@@ -3,11 +3,13 @@ import 'package:ui/ui.dart';
 /// Body Font
 const satoshi = TextStyle(
   fontFamily: 'Satoshi',
-  fontWeight: FontWeight.w500,
+  fontWeight: FontWeight.w400,
 );
 
 /// Heading font
-const outfit = satoshi;
+final outfit = satoshi.copyWith(
+  fontWeight: FontWeight.w600,
+);
 // const outfit = TextStyle(
 // fontFamily: 'Outfit',
 // fontWeight: FontWeight.w600,

@@ -2,15 +2,18 @@ import 'package:collection/collection.dart';
 
 import 'package:jolt/jolt.dart';
 
+/// A function which returns a SurfaceColor from a Jolt Color
+/// and some InteractionState
+typedef SurfaceAdapter = SurfaceColor Function(
+  JoltColor color,
+  InteractionState? state,
+);
+
 /// A color that has a small table of related colors called a "swatch"
 class JoltColor extends Color {
   /// Creates a swatch of colors
   ///
   /// - Provide a base [value] for the color.
-  /// - [foreground] should contrast well on top of the base color
-  /// - [onHovered] is what will be used when the user hovers over the color.
-  /// - [onFocused] is what will be used when the color is focused.
-  ///
   const JoltColor(
     super.value, {
     required Color shade50,
@@ -24,19 +27,9 @@ class JoltColor extends Color {
     required Color shade800,
     required Color shade900,
     required Color shade950,
-    Color? foreground,
-    Color? foregroundLight,
-    Color? onDisabled,
-    Color? onDragged,
-    Color? onFocused,
-    Color? onHovered,
+    SurfaceAdapter? surfaceAdapter,
     this.opacity = 1.0,
-  })  : _foreground = foreground,
-        _foregroundLight = foregroundLight,
-        _onHovered = onHovered,
-        _onFocused = onFocused,
-        _onDisabled = onDisabled,
-        _onDragged = onDragged,
+  })  : _surfaceAdapter = surfaceAdapter,
         _shade50 = shade50,
         _shade100 = shade100,
         _shade200 = shade200,
@@ -49,79 +42,54 @@ class JoltColor extends Color {
         _shade900 = shade900,
         _shade950 = shade950;
 
-  /// A color which will contrast well on top of the base color.
-  Color get foreground => _foreground ?? _defaultForeground;
-  final Color? _foreground;
-
-  /// A softer variation of the foreground color
-  Color get foregroundLight => _foregroundLight ?? _defaultForegroundLight;
-  final Color? _foregroundLight;
-
-  /// The color to show when the user hovers over the base color.
-  Color get onHovered =>
-      (_onHovered ?? defaultHoveredOrFocused).withOpacity(_effectOpacity);
-  final Color? _onHovered;
-
-  /// The color to show when the base color is focused.
-  Color get onFocused =>
-      (_onFocused ?? defaultHoveredOrFocused).withOpacity(_effectOpacity);
-  final Color? _onFocused;
-
-  /// The color to show when the base color is disabled.
-  Color get onDisabled =>
-      (_onDisabled ?? defaultDraggedOrDisabled).withOpacity(_effectOpacity);
-  final Color? _onDisabled;
-
-  /// The color to show when the base color is dragged.
-  Color get onDragged =>
-      (_onDragged ?? defaultDraggedOrDisabled).withOpacity(_effectOpacity);
-  final Color? _onDragged;
-
-  double get _effectOpacity => opacity > 0 ? opacity : 1;
-
   /// The lightest shade.
-  JoltColor get s50 => toJoltColor(Shade.s50).withOpacity(opacity);
+  JoltColor get s50 => toJoltColor(_shade50).withOpacity(opacity);
   final Color _shade50;
 
   /// The second lightest shade.
-  JoltColor get s100 => toJoltColor(Shade.s100).withOpacity(opacity);
+  JoltColor get s100 => toJoltColor(_shade100).withOpacity(opacity);
   final Color _shade100;
 
   /// The third lightest shade.
-  JoltColor get s200 => toJoltColor(Shade.s200).withOpacity(opacity);
+  JoltColor get s200 => toJoltColor(_shade200).withOpacity(opacity);
   final Color _shade200;
 
   /// The fourth lightest shade.
-  JoltColor get s300 => toJoltColor(Shade.s300).withOpacity(opacity);
+  JoltColor get s300 => toJoltColor(_shade300).withOpacity(opacity);
   final Color _shade300;
 
   /// The fifth lightest shade.
-  JoltColor get s400 => toJoltColor(Shade.s400).withOpacity(opacity);
+  JoltColor get s400 => toJoltColor(_shade400).withOpacity(opacity);
   final Color _shade400;
 
   /// The middle shade
-  JoltColor get s500 => toJoltColor(Shade.s500).withOpacity(opacity);
+  JoltColor get s500 => toJoltColor(_shade500).withOpacity(opacity);
   final Color _shade500;
 
   /// The fifth darkest shade.
-  JoltColor get s600 => toJoltColor(Shade.s600).withOpacity(opacity);
+  JoltColor get s600 => toJoltColor(_shade600).withOpacity(opacity);
   final Color _shade600;
 
   /// The fourth darkest shade.
-  JoltColor get s700 => toJoltColor(Shade.s700).withOpacity(opacity);
+  JoltColor get s700 => toJoltColor(_shade700).withOpacity(opacity);
   final Color _shade700;
 
   /// The third darkest shade.
-  JoltColor get s800 => toJoltColor(Shade.s800).withOpacity(opacity);
+  JoltColor get s800 => toJoltColor(_shade800).withOpacity(opacity);
   final Color _shade800;
 
   /// The second darkest shade.
-  JoltColor get s900 => toJoltColor(Shade.s900).withOpacity(opacity);
+  JoltColor get s900 => toJoltColor(_shade900).withOpacity(opacity);
   final Color _shade900;
 
   /// The darkest shade.
-  JoltColor get s950 => toJoltColor(Shade.s950).withOpacity(opacity);
+  JoltColor get s950 => toJoltColor(_shade950).withOpacity(opacity);
   final Color _shade950;
+
+  // The user passed function to turn this color
+  // into a SurfaceColor from interaction state
+  final SurfaceColor Function(JoltColor color, InteractionState? state)?
+      _surfaceAdapter;
 
   /// The opacity of the color.
   @override
@@ -151,19 +119,13 @@ class JoltColor extends Color {
     final newValue = super.withOpacity(opacity);
     return copyWith(
       opacity: opacity,
-      primary: newValue,
+      value: newValue,
     );
   }
 
   /// Copy with new values.
   JoltColor copyWith({
-    Color? primary,
-    Color? foreground,
-    Color? foregroundLight,
-    Color? onHovered,
-    Color? onFocused,
-    Color? onDisabled,
-    Color? onDragged,
+    Color? value,
     Color? shade50,
     Color? shade100,
     Color? shade200,
@@ -176,15 +138,10 @@ class JoltColor extends Color {
     Color? shade900,
     Color? shade950,
     double? opacity,
+    SurfaceAdapter? surfaceAdapter,
   }) {
     return JoltColor(
-      primary?.value ?? value,
-      foreground: foreground ?? _foreground,
-      foregroundLight: foregroundLight ?? _foregroundLight,
-      onHovered: onHovered ?? _onHovered,
-      onFocused: onFocused ?? _onFocused,
-      onDisabled: onDisabled ?? _onDisabled,
-      onDragged: onDragged ?? _onDragged,
+      value?.value ?? this.value,
       shade50: shade50 ?? _shade50,
       shade100: shade100 ?? _shade100,
       shade200: shade200 ?? _shade200,
@@ -197,30 +154,19 @@ class JoltColor extends Color {
       shade900: shade900 ?? _shade900,
       shade950: shade950 ?? _shade950,
       opacity: opacity ?? this.opacity,
+      surfaceAdapter: surfaceAdapter ?? _surfaceAdapter,
     );
   }
 
   /// Create a new [JoltColor] from a [JoltColor].
   JoltColor toJoltColor(
-    Shade value, {
-    Shade? foreground,
-    Shade? foregroundLight,
-    Shade? onHovered,
-    Shade? onFocused,
-    Shade? onDisabled,
-    Shade? onDragged,
+    Color value, {
     double opacity = 1.0,
   }) {
-    // Returns a JoltColor rather than using copyWith so that foreground and
-    // interaction state colors will be generated if left out.
+    // Returns a JoltColor rather than using copyWith
+    // so that surfaceAdapter will be generated
     return JoltColor(
-      _colorFromShade(value)!.value,
-      foreground: _colorFromShade(foreground),
-      foregroundLight: _colorFromShade(foregroundLight),
-      onHovered: _colorFromShade(onHovered),
-      onFocused: _colorFromShade(onFocused),
-      onDisabled: _colorFromShade(onDisabled),
-      onDragged: _colorFromShade(onDragged),
+      value.value,
       shade50: _shade50,
       shade100: _shade100,
       shade200: _shade200,
@@ -235,51 +181,38 @@ class JoltColor extends Color {
       opacity: opacity,
     );
   }
-}
 
-/// The shades available in a [JoltColor].
-enum Shade {
-  /// Pure white
-  white,
-
-  /// The lightest shade.
-  s50,
-
-  /// The second lightest shade.
-  s100,
-
-  /// The third lightest shade.
-  s200,
-
-  /// The fourth lightest shade.
-  s300,
-
-  /// The fifth lightest shade.
-  s400,
-
-  /// The middle shade
-  s500,
-
-  /// The fifth darkest shade.
-  s600,
-
-  /// The fourth darkest shade.
-  s700,
-
-  /// The third darkest shade.
-  s800,
-
-  /// The second darkest shade.
-  s900,
-
-  /// The darkest shade.
-  s950,
-
-  /// Pure black
-  black,
+  /// Convert this color into a SurfaceColor from InteractionState
+  SurfaceColor surface({InteractionState? state}) {
+    return defaultSurfaceAdapter(state).merge(
+      _surfaceAdapter?.call(this, state),
+    );
+  }
 }
 
 extension _DefaultColorExtensions on JoltColor {
+  SurfaceColor defaultSurfaceAdapter(InteractionState? state) {
+    // TODO implement the default surface adapter.
+    Color background = this;
+    var foregroundColor = _defaultForeground;
+    var foregroundLightColor = _defaultForegroundLight;
+    if (state.isDisabled) {
+      foregroundColor = foregroundColor.withOpacity(0.5);
+      foregroundLightColor = foregroundLightColor.withOpacity(0.8);
+    }
+    if (state.isHovered) {
+      background = defaultHoveredOrFocused;
+    }
+    if (state.isFocused) {
+      background = defaultHoveredOrFocused;
+    }
+    return SurfaceColor(
+      background: background,
+      foreground: foregroundColor,
+      foregroundLight: foregroundLightColor,
+    );
+  }
+
   /// Pure white
   Color get _white => const Color(0xFFFFFFFF);
 
@@ -355,37 +288,5 @@ extension _DefaultColorExtensions on JoltColor {
         fullShades.elementAtOrNull(newShadeIndex(-1)) ??
         fullShades.elementAtOrNull(newShadeIndex(0)) ??
         _shade500;
-  }
-
-  Color? _colorFromShade(Shade? shade) {
-    if (shade == null) return null;
-    switch (shade) {
-      case Shade.white:
-        return _white;
-      case Shade.s50:
-        return _shade50;
-      case Shade.s100:
-        return _shade100;
-      case Shade.s200:
-        return _shade200;
-      case Shade.s300:
-        return _shade300;
-      case Shade.s400:
-        return _shade400;
-      case Shade.s500:
-        return _shade500;
-      case Shade.s600:
-        return _shade600;
-      case Shade.s700:
-        return _shade700;
-      case Shade.s800:
-        return _shade800;
-      case Shade.s900:
-        return _shade900;
-      case Shade.s950:
-        return _shade950;
-      case Shade.black:
-        return _black;
-    }
   }
 }

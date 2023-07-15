@@ -346,40 +346,6 @@ class InteractionState extends State<Interaction> {
   }
 }
 
-/// An InteractionType is a property describes the current state
-/// of an interaction widget, ie it is Disabled, Hovered, Selected etc.
-@immutable
-sealed class InteractionType {
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is InteractionType && runtimeType == other.runtimeType;
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-}
-
-/// The widget is currently disabled.
-class Disabled extends InteractionType {}
-
-/// The widget is currently hovered.
-class Hovered extends InteractionType {}
-
-/// The widget is currently focused.
-class Focused extends InteractionType {}
-
-/// The widget is currently pressed.
-class Pressed extends InteractionType {}
-
-/// The widget is currently dragged.
-class Dragged extends InteractionType {}
-
-/// The widget is currently selected.
-class Selected extends InteractionType {}
-
-/// The widget is currently waiting.
-class Waiting extends InteractionType {}
-
 /// An exception that occurs during an interaction.
 class InteractionException {
   /// An exception that occurs during an interaction.
@@ -418,4 +384,56 @@ class _InteractionScope extends InheritedWidget {
 extension InteractionStateX on InteractionState? {
   ///
   bool get isDisabled => this?.isDisabled ?? false;
+
+  ///
+  bool get isHovered => this?.isHovered ?? false;
+
+  ///
+  bool get isFocused => this?.isFocused ?? false;
+
+  ///
+  bool get isPressed => this?.isPressed ?? false;
+
+  ///
+  bool get isDragged => this?.isDragged ?? false;
+
+  ///
+  bool get isSelected => this?.isSelected ?? false;
+
+  ///
+  bool get isWaiting => this?.isWaiting ?? false;
 }
+
+/// An InteractionType is a property describes the current state
+/// of an interaction widget, ie it is Disabled, Hovered, Selected etc.
+@immutable
+sealed class InteractionType {
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is InteractionType && runtimeType == other.runtimeType;
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+}
+
+/// The widget is currently disabled.
+class Disabled extends InteractionType {}
+
+/// The widget is currently hovered.
+class Hovered extends InteractionType {}
+
+/// The widget is currently focused.
+class Focused extends InteractionType {}
+
+/// The widget is currently pressed.
+class Pressed extends InteractionType {}
+
+/// The widget is currently dragged.
+class Dragged extends InteractionType {}
+
+/// The widget is currently selected.
+class Selected extends InteractionType {}
+
+/// The widget is currently waiting.
+class Waiting extends InteractionType {}

@@ -1,4 +1,5 @@
 import 'package:faker/faker.dart';
+import 'package:flutter_native_splash/cli_commands.dart';
 import 'package:ui/ui.dart';
 
 import 'package:example/utils/router/router.dart';
@@ -14,37 +15,79 @@ class LayoutsPage extends StatelessWidget {
     return Scaffold(
       windowTitle: 'Layouts',
       content: [
+        Center(
+          child: Button(
+            background: Colors.violet,
+            // onTap: () {},
+          ),
+        ),
+        Center(
+          child: Button(
+            background: Colors.violet,
+            borderColor: Colors.amber,
+            onTap: () {},
+          ),
+        ),
         Section(
           blurredBackground: true,
           pinned: true,
           verticalPadding: context.spacing.sm,
-          background: context.color.primary.s950.withOpacity(0.9),
+          background: context.color.primary.s950.withOpacity(0.8),
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text('Title').withStyleHeading(),
+              Expanded(
+                child: 'Layouts'.asHeading(),
+              ),
               Button(
-                icon: Icons.plus,
+                padding: switch (context.mediaQuery.size.width) {
+                  < 600 => EdgeInsets.zero,
+                  _ => EdgeInsets.symmetric(
+                      horizontal: context.spacing.md,
+                      vertical: context.spacing.sm,
+                    ),
+                },
+                label: context.responsive(
+                  mobile: 'Hello',
+                  tablet: 'Table',
+                ),
+                icon: Icons.user,
                 onTap: () {},
                 borderColor: context.color.primary.s500,
+                tooltip: 'User profile',
+              ),
+              const Spacing.sm(),
+              Button(
+                icon: Icons.chat,
+                onTap: () {},
+                borderColor: context.color.primary.s500,
+                tooltip: 'Chat',
               ),
             ],
           ),
+        ),
+        Section(
+          height: 200,
+          background: context.color.secondary,
+          child: 'Test'.asHeading(),
         ),
         Section(
           verticalPadding: context.spacing.section,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              'Heading'.asHeading(),
+              Faker().lorem.word().capitalize().asDisplay(),
               const Spacing.md(),
-              ...Faker().lorem.sentences(20).map((s) => s.asText()),
+              ...Faker().lorem.sentences(10).map(
+                    (s) => s.asText().withColorForegroundLight(),
+                  ),
             ],
           ),
         ),
         Section(
-          verticalPadding: context.spacing.xxl,
-          background: context.color.primary,
+          pinned: true,
+          blurredBackground: true,
+          fullWidth: true,
+          background: context.color.primary.withOpacity(0.8),
           child: Wrap(
             spacing: context.spacing.md,
             runSpacing: context.spacing.md,
@@ -58,6 +101,52 @@ class LayoutsPage extends StatelessWidget {
                   onTap: () {},
                 ),
               ),
+            ],
+          ),
+        ),
+        Section(
+          verticalPadding: context.spacing.section,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Faker().lorem.word().capitalize().asDisplay(),
+              const Spacing.md(),
+              ...Faker().lorem.sentences(60).map(
+                    (s) => s.asText().withColorForegroundLight(),
+                  ),
+            ],
+          ),
+        ),
+        Section(
+          pinned: true,
+          blurredBackground: true,
+          background: context.color.primary.withOpacity(0.8),
+          child: Wrap(
+            spacing: context.spacing.md,
+            runSpacing: context.spacing.md,
+            children: [
+              ...context.color.primary.shades.map(
+                (c) => Button(
+                  background: c,
+                  label: 'Login',
+                  icon: Icons.signIn,
+                  borderColor: c.weaken(),
+                  onTap: () {},
+                ),
+              ),
+            ],
+          ),
+        ),
+        Section(
+          verticalPadding: context.spacing.section,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Faker().lorem.word().capitalize().asDisplay(),
+              const Spacing.md(),
+              ...Faker().lorem.sentences(60).map(
+                    (s) => s.asText().withColorForegroundLight(),
+                  ),
             ],
           ),
         ),
