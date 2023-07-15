@@ -1,7 +1,8 @@
 import 'package:flutter/widgets.dart' as widgets show Icon;
 
-import 'package:jolt/jolt.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
+
+import 'package:jolt/jolt.dart';
 
 ///
 class Icon extends StatelessWidget {

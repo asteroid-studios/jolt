@@ -1,8 +1,7 @@
 import 'dart:ui';
 
-import 'package:persistent_header_adaptive/adaptive_height_sliver_persistent_header.dart';
-
 import 'package:jolt/jolt.dart';
+import 'package:persistent_header_adaptive/adaptive_height_sliver_persistent_header.dart';
 
 ///
 class Section extends StatelessWidget {
@@ -15,6 +14,7 @@ class Section extends StatelessWidget {
     this.blurredBackground = false,
     this.background,
     this.verticalPadding,
+    this.height,
     super.key,
   });
 
@@ -36,6 +36,9 @@ class Section extends StatelessWidget {
   /// Set the vertical padding for the section
   final double? verticalPadding;
 
+  /// Set the height of the section
+  final double? height;
+
   /// Provide
   // final String? id;
 
@@ -50,6 +53,7 @@ class Section extends StatelessWidget {
     Widget section = Surface(
       setDefaultStyleForChildren: background != null,
       background: background,
+      height: height,
       fallbackStyle: SurfaceStyle(
         background: context.color.background,
         borderRadius: BorderRadius.zero,

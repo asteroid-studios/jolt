@@ -184,7 +184,7 @@ class _ButtonState extends State<Button> {
                     widget.fullWidth ? MainAxisSize.max : MainAxisSize.min,
                 mainAxisAlignment: widget.mainAxisAlignment,
                 children: [
-                  if (state.isAwaiting)
+                  if (state.isWaiting)
                     progressIndicator
                   else
                     icon ?? const Icon(Icons.dot, color: Colors.transparent),
@@ -204,7 +204,7 @@ class _ButtonState extends State<Button> {
           final spacing =
               widget.spacing ?? buttonStyle?.spacing ?? context.spacing.xs;
           final buttonChildren = [
-            if (state.isAwaiting) progressIndicator else if (icon != null) icon,
+            if (state.isWaiting) progressIndicator else if (icon != null) icon,
             Text(
               widget.label!,
               style: widget.labelStyle,

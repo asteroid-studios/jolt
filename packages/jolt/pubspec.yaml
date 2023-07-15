@@ -25,6 +25,7 @@ dependencies:
   phosphor_flutter:
     git:
       url: https://github.com/phosphor-icons/flutter.git
+  pull_to_refresh: ^2.0.0
   sliver_tools: ^0.2.10
   tinycolor2: ^3.0.1
 

@@ -23,24 +23,20 @@ class Interaction extends StatefulWidget {
     this.onFocusChanged,
     this.semanticLabel,
     this.cursor,
-    this.tooltip,
     this.actions,
     this.shortcuts,
     this.hitTestBehavior,
     this.focusNode,
-    this.focusNodeListenOnly,
+    this.tooltip,
     this.disablePressWhenAwaiting = true,
     this.descendantsAreFocusable = true,
     this.descendantsAreTraversable = true,
     this.shakeOnError = true,
     this.requestFocusOnPress = true,
     this.autoFocus = false,
-    this.disableTextSelection = true,
-    this.supportedInteractions = const [
-      InteractionType.focus,
-      InteractionType.hover,
-      InteractionType.press,
-    ],
+    this.disableFocus = false,
+    this.disableHover = false,
+    this.enableSelection = false,
     super.key,
   });
 
@@ -73,9 +69,6 @@ class Interaction extends StatefulWidget {
 
   /// Add a semantic label to the widget.
   final String? semanticLabel;
-
-  /// Define the interactions supported by this widget. Defaults to all.
-  final List<InteractionType> supportedInteractions;
 
   /// Whether this control should request focus when it is pressed.
   final bool requestFocusOnPress;
@@ -110,17 +103,20 @@ class Interaction extends StatefulWidget {
   /// Whether the widget should shake when an error occurs.
   final bool shakeOnError;
 
-  /// Whether to disable text selection inside the widget.
-  final bool disableTextSelection;
+  /// Enabled selection inside the interaction, defaults to false.
+  final bool enableSelection;
 
-  /// The tooltip for the widget
-  final String? tooltip;
+  /// Disable focusing the interaction, defaults to false.
+  final bool disableFocus;
 
-  /// Provide a focus node for the widget
+  /// Disable hovering the interaction, defaults to false.
+  final bool disableHover;
+
+  /// Override the focus node for the widget
   final FocusNode? focusNode;
 
-  /// A focus node that should only be listened to
-  final FocusNode? focusNodeListenOnly;
+  /// Add a tooltip for the widget
+  final String? tooltip;
 
   @override
   State<Interaction> createState() => InteractionState();
@@ -128,61 +124,67 @@ class Interaction extends StatefulWidget {
 
 /// The state of an [Interaction] widget.
 class InteractionState extends State<Interaction> {
-  /// The interactions supported by this widget.
-  late List<InteractionType> supportedInteractions;
+  /// The current interaction types active in the widget
+  final Set<InteractionType> _interactions = {};
 
-  /// Whether the widget is focusable.
-  bool get canBeFocused =>
-      supportedInteractions.contains(InteractionType.focus);
+  /// The widget is currently hovered
+  bool get isHovered => _interactions.contains(Hovered());
 
-  /// Whether the widget can be pressed
-  bool get canBePressed =>
-      supportedInteractions.contains(InteractionType.press);
+  /// The widget is currently focused
+  bool get isFocused => _interactions.contains(Focused());
 
-  /// Whether the widget can be hovered
-  bool get canBeHovered =>
-      supportedInteractions.contains(InteractionType.hover);
+  // TODO Implement pressed
+  /// The widget is currently pressed
+  bool get isPressed => _interactions.contains(Pressed());
+
+  // TODO Implement dragged
+  /// The widget is currently being dragged
+  bool get isDragged => _interactions.contains(Dragged());
+
+  // TODO Implement selected
+  /// The widget is currently selected
+  bool get isSelected => _interactions.contains(Selected());
+
+  /// The widget is currently waiting (ie for the onTap handler to complete)
+  bool get isWaiting => _interactions.contains(Waiting());
+
+  /// The widget is currently disabled
+  bool get isDisabled => _interactions.contains(Disabled());
 
   /// The focus node for this widget.
   FocusNode? get focusNode => _focusNode;
   FocusNode? _focusNode;
 
-  /// Whether the widget is hovered.
-  bool get isHovered => _isHovered;
-  bool _isHovered = false;
-
-  /// Whether the widget is focused.
-  bool get isFocused => _isFocused;
-  bool _isFocused = false;
-
-  /// True if the widget was focused after pressing
-  bool get wasFocusedAfterPress => _wasFocusedAfterPress;
-  bool _wasFocusedAfterPress = false;
-
   /// Whether the widget has a press handler.
-  bool get hasPressHandler =>
+  bool get _hasPressHandler =>
       widget.onTap != null || widget.onLongPressed != null;
-
-  /// Whether the widget is awaiting the result of a press handler.
-  bool get isAwaiting => _isAwaiting;
-  bool _isAwaiting = false;
 
   AnimationController? _controller;
 
   @override
   void initState() {
-    supportedInteractions = widget.supportedInteractions;
-    _focusNode = canBeFocused && widget.focusNodeListenOnly == null
-        ? (widget.focusNode ?? FocusNode())
-        : null;
-    if (widget.focusNodeListenOnly != null) {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        widget.focusNodeListenOnly!.addListener(() {
-          _handleFocusChanged(widget.focusNodeListenOnly!.hasFocus);
-        });
+    // Set the interaction as disabled if it has no press handler
+    if (_hasPressHandler == false) _interactions.add(Disabled());
+    // Create the focus node unless focus is disabled
+    _focusNode = widget.disableFocus ? null : (widget.focusNode ?? FocusNode());
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      // Listen to focus changes
+      _focusNode?.addListener(() {
+        _handleFocusChanged(_focusNode!.hasFocus);
       });
-    }
+    });
     super.initState();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    // If the widget is disabled, add the disabled interaction type.
+    if (widget.onTap == null && widget.onLongPressed == null) {
+      _interactions.add(Disabled());
+    } else {
+      _interactions.remove(Disabled());
+    }
   }
 
   @override
@@ -191,16 +193,21 @@ class InteractionState extends State<Interaction> {
     super.dispose();
   }
 
-  void _handleHoverChanged(bool v) {
-    setState(() => _isHovered = v);
+  void _handleHoverChanged(bool hovered) {
+    if (hovered) {
+      setState(() => _interactions.add(Hovered()));
+    } else {
+      setState(() => _interactions.remove(Hovered()));
+    }
     widget.onHoverChanged?.call(context, this);
   }
 
-  void _handleFocusChanged(bool v) {
-    if (!v && _wasFocusedAfterPress) {
-      setState(() => _wasFocusedAfterPress = false);
+  void _handleFocusChanged(bool focused) {
+    if (focused) {
+      setState(() => _interactions.add(Focused()));
+    } else {
+      setState(() => _interactions.remove(Focused()));
     }
-    setState(() => _isFocused = v);
     widget.onFocusChanged?.call(context, this);
   }
 
@@ -224,12 +231,11 @@ class InteractionState extends State<Interaction> {
     }
     if (widget.disablePressWhenAwaiting) {
       // If processing or no handler, do nothing.
-      if (_isAwaiting) return;
+      if (isWaiting) return;
       // Set is awaiting to true, and rebuild.
-      setState(() => _isAwaiting = true);
+      setState(() => _interactions.add(Waiting()));
     }
     if (widget.requestFocusOnPress && !Platform.isMobile) {
-      setState(() => _wasFocusedAfterPress = true);
       _focusNode?.requestFocus();
     }
     try {
@@ -246,7 +252,7 @@ class InteractionState extends State<Interaction> {
       );
       await _shake();
     }
-    setState(() => _isAwaiting = false);
+    setState(() => _interactions.remove(Waiting()));
   }
 
   // By default, will bind the [ActivateIntent] from the flutter SDK to the onTap callback.
@@ -254,7 +260,7 @@ class InteractionState extends State<Interaction> {
   /// Also accepts additional actions provided externally.
   Map<Type, Action<Intent>> _getKeyboardActions() {
     return {
-      if (canBePressed && hasPressHandler) ...{
+      if (!isDisabled) ...{
         ActivateIntent: CallbackAction<Intent>(
           onInvoke: (_) => _handlePressed(widget.onTap ?? widget.onLongPressed),
         ),
@@ -265,9 +271,8 @@ class InteractionState extends State<Interaction> {
 
   @override
   Widget build(BuildContext context) {
-    final pressEnabled = canBePressed && hasPressHandler;
     final defaultCursor =
-        pressEnabled ? SystemMouseCursors.click : MouseCursor.defer;
+        isDisabled ? MouseCursor.defer : SystemMouseCursors.click;
     final cursor = widget.cursor ?? defaultCursor;
 
     late Widget interaction;
@@ -275,22 +280,21 @@ class InteractionState extends State<Interaction> {
       state: this,
       child: widget.builder(context, this),
     );
-    if (canBeFocused && _focusNode != null) {
+    if (!widget.disableFocus) {
       interaction = FocusableActionDetector(
-        enabled: pressEnabled,
         focusNode: _focusNode,
         autofocus: widget.autoFocus,
         descendantsAreFocusable: widget.descendantsAreFocusable,
         descendantsAreTraversable: widget.descendantsAreTraversable,
         onFocusChange: _handleFocusChanged,
         onShowFocusHighlight: _handleFocusChanged,
-        onShowHoverHighlight: canBeHovered ? _handleHoverChanged : null,
+        onShowHoverHighlight: !widget.disableHover ? _handleHoverChanged : null,
         shortcuts: widget.shortcuts,
         mouseCursor: cursor,
         actions: _getKeyboardActions(),
         child: builder,
       );
-    } else if (canBeHovered) {
+    } else if (!widget.disableHover) {
       interaction = MouseRegion(
         cursor: cursor,
         onEnter: (_) => _handleHoverChanged(true),
@@ -313,7 +317,7 @@ class InteractionState extends State<Interaction> {
         child: interaction,
       );
     }
-    if (widget.disableTextSelection) {
+    if (widget.enableSelection == false) {
       interaction = SelectionContainer.disabled(
         child: interaction,
       );
@@ -321,7 +325,7 @@ class InteractionState extends State<Interaction> {
     if (widget.tooltip != null) {
       interaction = Tooltip(
         tooltip: widget.tooltip!,
-        hasFocus: isFocused && !wasFocusedAfterPress,
+        focusNode: _focusNode,
         child: interaction,
       );
     }
@@ -329,38 +333,52 @@ class InteractionState extends State<Interaction> {
     // Return the interaction
     return Semantics(
       label: widget.semanticLabel,
-      button: pressEnabled,
-      focused: isFocused,
-      focusable: canBeFocused,
-      child: canBePressed
-          ? GestureDetector(
-              behavior: widget.hitTestBehavior,
-              onTap: () => _handlePressed(widget.onTap),
-              onLongPress: () => _handlePressed(
-                widget.onLongPressed,
-                longPress: true,
-              ),
-              child: interaction,
-            )
-          : interaction,
+      child: GestureDetector(
+        behavior: widget.hitTestBehavior,
+        onTap: () => _handlePressed(widget.onTap),
+        onLongPress: () => _handlePressed(
+          widget.onLongPressed,
+          longPress: true,
+        ),
+        child: interaction,
+      ),
     );
   }
 }
 
-/// The different types of interactions and Interaction widget can have.
-enum InteractionType {
-  /// The widget can be hovered over.
-  hover,
+/// An InteractionType is a property describes the current state
+/// of an interaction widget, ie it is Disabled, Hovered, Selected etc.
+@immutable
+sealed class InteractionType {
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is InteractionType && runtimeType == other.runtimeType;
 
-  /// The widget can be focused.
-  focus,
-
-  /// The widget can be pressed.
-  press,
-
-  /// The widget can be dragged.
-  // drag,
+  @override
+  int get hashCode => runtimeType.hashCode;
 }
+
+/// The widget is currently disabled.
+class Disabled extends InteractionType {}
+
+/// The widget is currently hovered.
+class Hovered extends InteractionType {}
+
+/// The widget is currently focused.
+class Focused extends InteractionType {}
+
+/// The widget is currently pressed.
+class Pressed extends InteractionType {}
+
+/// The widget is currently dragged.
+class Dragged extends InteractionType {}
+
+/// The widget is currently selected.
+class Selected extends InteractionType {}
+
+/// The widget is currently waiting.
+class Waiting extends InteractionType {}
 
 /// An exception that occurs during an interaction.
 class InteractionException {
@@ -384,13 +402,6 @@ class InteractionException {
   String toString() => 'InteractionException: $message.\n$state';
 }
 
-///
-extension InteractionStateX on InteractionState? {
-  ///
-  bool get isDisabled =>
-      (this?.isAwaiting ?? false) || !(this?.hasPressHandler ?? true);
-}
-
 class _InteractionScope extends InheritedWidget {
   const _InteractionScope({
     required super.child,
@@ -401,4 +412,10 @@ class _InteractionScope extends InheritedWidget {
 
   @override
   bool updateShouldNotify(_InteractionScope old) => _state != old._state;
+}
+
+///
+extension InteractionStateX on InteractionState? {
+  ///
+  bool get isDisabled => this?.isDisabled ?? false;
 }

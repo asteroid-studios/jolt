@@ -117,3 +117,30 @@ class SurfaceStyle {
     );
   }
 }
+
+///
+class SurfaceColor {
+  ///
+  const SurfaceColor({
+    required this.background,
+    this.foreground,
+    this.foregroundLight,
+    this.border,
+    this.shadow,
+  });
+
+  ///
+  final Color background;
+
+  ///
+  final Color? foreground;
+
+  ///
+  final Color? foregroundLight;
+
+  ///
+  final Color? border;
+
+  ///
+  final Color? shadow;
+}

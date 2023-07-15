@@ -3,6 +3,7 @@ import 'package:flutter/material.dart' as m
 
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_portal/flutter_portal.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 import 'package:jolt/jolt.dart';
 
@@ -139,8 +140,7 @@ class _JoltAppState extends State<JoltApp> with WidgetsBindingObserver {
   List<LocalizationsDelegate<dynamic>> get _localizationsDelegates {
     return <LocalizationsDelegate<dynamic>>[
       ...?widget.localizationsDelegates,
-      // DefaultMaterialLocalizations.delegate,
-      // DefaultCupertinoLocalizations.delegate,
+      RefreshLocalizations.delegate,
       GlobalMaterialLocalizations.delegate,
       GlobalWidgetsLocalizations.delegate,
       GlobalCupertinoLocalizations.delegate,

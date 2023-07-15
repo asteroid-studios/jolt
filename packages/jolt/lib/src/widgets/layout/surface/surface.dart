@@ -105,7 +105,6 @@ class Surface extends StatelessWidget {
     final interaction = context.inherited.interactionState;
     final isHovered = interaction?.isHovered ?? false;
     final isFocused = interaction?.isFocused ?? false;
-    final wasFocusedAfterPressed = interaction?.wasFocusedAfterPress ?? false;
     final effectColor = isHovered
         ? defaultBackground.onHovered
         : isFocused
@@ -147,9 +146,7 @@ class Surface extends StatelessWidget {
         decoration: BoxDecoration(
           borderRadius: defaultBorderRadius,
           border: Border.all(
-            color: (isFocused && !wasFocusedAfterPressed)
-                ? context.color.primary
-                : defaultBorderColor,
+            color: isFocused ? context.color.primary : defaultBorderColor,
             width: defaultBorderWidth,
           ),
           // TODO implement shadow
