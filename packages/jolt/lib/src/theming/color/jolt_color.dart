@@ -190,12 +190,25 @@ class JoltColor extends Color {
   }
 }
 
+extension JoltColorX on JoltColor {
+  Color get defaultForeground {
+    if (isLight) return _shade950;
+    return _shade50;
+  }
+
+  Color get defaultForegroundLight {
+    // TODO This could clash is the value is 400 or 600
+    if (isLight) return _shade400;
+    return _shade600;
+  }
+}
+
 extension _DefaultColorExtensions on JoltColor {
   SurfaceColor defaultSurfaceAdapter(InteractionState? state) {
     // TODO implement the default surface adapter.
     Color background = this;
-    var foregroundColor = _defaultForeground;
-    var foregroundLightColor = _defaultForegroundLight;
+    var foregroundColor = defaultForeground;
+    var foregroundLightColor = defaultForegroundLight;
     if (state.isDisabled) {
       foregroundColor = foregroundColor.withOpacity(0.5);
       foregroundLightColor = foregroundLightColor.withOpacity(0.8);
@@ -239,17 +252,6 @@ extension _DefaultColorExtensions on JoltColor {
   int get shadeIndex => fullShades.indexWhere((c) => c.value == value);
 
   int newShadeIndex(int n) => isLight ? shadeIndex + n : shadeIndex - n;
-
-  Color get _defaultForeground {
-    if (isLight) return _shade950;
-    return _shade50;
-  }
-
-  Color get _defaultForegroundLight {
-    // TODO This could clash is the value is 400 or 600
-    if (isLight) return _shade400;
-    return _shade600;
-  }
 
   Color get defaultHoveredOrFocused {
     // If user has configured color wrong and value is not in shade list

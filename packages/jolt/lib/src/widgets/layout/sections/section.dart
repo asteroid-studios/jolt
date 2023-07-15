@@ -1,7 +1,8 @@
 import 'dart:ui';
 
-import 'package:jolt/jolt.dart';
 import 'package:persistent_header_adaptive/adaptive_height_sliver_persistent_header.dart';
+
+import 'package:jolt/jolt.dart';
 
 ///
 class Section extends StatelessWidget {
@@ -57,7 +58,7 @@ class Section extends StatelessWidget {
       fallbackStyle: SurfaceStyle(
         background: context.color.background,
         borderRadius: BorderRadius.zero,
-        borderWidth: 0,
+        border: Border.all(width: 0),
         padding: EdgeInsets.symmetric(
           vertical: verticalPadding ?? context.spacing.lg,
           horizontal: context.spacing.lg,

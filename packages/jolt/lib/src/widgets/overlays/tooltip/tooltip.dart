@@ -144,7 +144,6 @@ class _TooltipState extends State<Tooltip> {
                 child: Text(
                   widget.tooltip,
                   style: context.style.bodySmall,
-                  color: context.color.surface.foreground,
                 ),
               ),
             ),

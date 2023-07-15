@@ -6,6 +6,7 @@ import 'package:flutter_portal/flutter_portal.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 import 'package:jolt/jolt.dart';
+import 'package:jolt/src/theming/color/jolt_color.dart';
 
 /// The Jolt app.
 class JoltApp extends StatefulWidget {
@@ -290,21 +291,25 @@ class _DefaultStyles extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Color foreground(JoltColor color) {
+      return color.surface().foreground ?? color.defaultForeground;
+    }
+
     m.ThemeData materialThemeData(ColorScheme color) {
       return m.ThemeData(
         scaffoldBackgroundColor: color.background,
         colorScheme: m.ColorScheme(
           brightness: color.brightness,
           primary: color.primary,
-          onPrimary: color.primary.foreground,
+          onPrimary: foreground(color.primary),
           secondary: color.secondary,
-          onSecondary: color.secondary.foreground,
+          onSecondary: foreground(color.secondary),
           surface: color.surface,
-          onSurface: color.surface.foreground,
+          onSurface: foreground(color.surface),
           background: color.background,
-          onBackground: color.background.foreground,
+          onBackground: foreground(color.background),
           error: color.error,
-          onError: color.error.foreground,
+          onError: foreground(color.error),
         ),
       );
     }
@@ -331,7 +336,7 @@ class _DefaultStyles extends StatelessWidget {
                   // Set the default symbol style (Text and Icons)
                   child: DefaultSymbolStyle(
                     style: (context) => context.style.body.copyWith(
-                      color: context.color.surface.foreground,
+                      color: foreground(context.color.surface),
                     ),
                     // Set the default selection style
                     child: DefaultSelectionStyle(
