@@ -54,9 +54,9 @@ class ThemingPage extends StatelessWidget {
       );
     }
 
-    return Scaffold(
+    return Scaffold.scrollView(
       windowTitle: 'Theming',
-      content: [
+      children: [
         Padding(
           padding: EdgeInsets.all(
             context.responsive(desktop: context.spacing.section) ??

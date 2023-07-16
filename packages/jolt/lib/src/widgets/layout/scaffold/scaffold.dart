@@ -6,13 +6,23 @@ import 'package:jolt/jolt.dart';
 class Scaffold extends StatefulWidget {
   ///
   const Scaffold({
-    required this.content,
+    required this.child,
     this.windowTitle,
     this.sidebarLeft,
     this.sidebarRight,
     this.bottomBar,
     super.key,
-  });
+  }) : children = null;
+
+  ///
+  const Scaffold.scrollView({
+    required this.children,
+    this.windowTitle,
+    this.sidebarLeft,
+    this.sidebarRight,
+    this.bottomBar,
+    super.key,
+  }) : child = null;
 
   // TODO add onRefresh and onLoading
 
@@ -24,7 +34,10 @@ class Scaffold extends StatefulWidget {
   /// Provide a list of widgets to be displayed in the main content area.
   ///
   /// It is recommended to use **Section** widgets to help with layout.
-  final List<Widget> content;
+  final List<Widget>? children;
+
+  /// Provide a widget to be displayed in the main content area.
+  final Widget? child;
 
   /// Provide a widget to be displayed on the left side of the page.
   final Widget? sidebarLeft;
@@ -40,7 +53,6 @@ class Scaffold extends StatefulWidget {
 }
 
 class _ScaffoldState extends State<Scaffold> {
-  final scrollController = ScrollController();
   final refreshController = RefreshController();
 
   @override
@@ -50,12 +62,16 @@ class _ScaffoldState extends State<Scaffold> {
 
   @override
   void dispose() {
-    scrollController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    // TODO set this up properly
+    if (widget.child != null) {
+      return widget.child!;
+    }
+
     final shell = Shell.of(context);
 
     // TODO what if the scaffold creates the whole scroll view?
@@ -124,7 +140,7 @@ class _ScaffoldState extends State<Scaffold> {
                 refreshController.loadComplete();
               },
               child: JoltScrollView(
-                controller: scrollController,
+                primary: true,
                 slivers: [
                   // ...widget.content.map((c) => null),
                   // If both app bars are floating, group them
@@ -179,7 +195,7 @@ class _ScaffoldState extends State<Scaffold> {
                   //     ),
                   //   ),
                   // ),
-                  ...widget.content,
+                  ...widget.children!,
                   SliverToBoxAdapter(
                     child: SizedBox(
                       height: shell?.bottomBarHeight ??

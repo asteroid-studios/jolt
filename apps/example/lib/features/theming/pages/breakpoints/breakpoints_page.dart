@@ -10,9 +10,9 @@ class BreakpointsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return Scaffold.scrollView(
       windowTitle: 'Breakpoints',
-      content: [
+      children: [
         Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,

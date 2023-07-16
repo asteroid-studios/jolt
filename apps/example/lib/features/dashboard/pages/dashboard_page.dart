@@ -37,9 +37,9 @@ class _DashboardPageState extends State<DashboardPage> {
     const end = 8;
     const spacer = Spacing.sm();
 
-    return Scaffold(
+    return Scaffold.scrollView(
       windowTitle: context.translations.dashboard.title,
-      content: [
+      children: [
         Padding(
           padding: EdgeInsets.all(context.spacing.md),
           child: Column(

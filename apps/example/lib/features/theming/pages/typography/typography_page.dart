@@ -12,9 +12,9 @@ class TypographyPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const spacer = Spacing.sm();
-    return Scaffold(
+    return Scaffold.scrollView(
       windowTitle: 'Typography',
-      content: [
+      children: [
         Padding(
           padding: EdgeInsets.all(
             context.responsive<double>(desktop: context.spacing.section) ??

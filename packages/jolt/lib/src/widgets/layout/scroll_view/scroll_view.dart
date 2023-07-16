@@ -13,6 +13,18 @@ class JoltScrollView extends CustomScrollView {
     super.controller,
     super.scrollDirection,
     super.physics,
+    super.primary,
+    super.anchor,
+    super.cacheExtent,
+    super.center,
+    super.clipBehavior,
+    super.dragStartBehavior,
+    super.keyboardDismissBehavior,
+    super.restorationId,
+    super.reverse,
+    super.scrollBehavior,
+    super.semanticChildCount,
+    super.shrinkWrap,
   });
 
   @override

@@ -12,9 +12,9 @@ class LayoutsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return Scaffold.scrollView(
       windowTitle: 'Layouts',
-      content: [
+      children: [
         Center(
           child: Button(
             background: Colors.violet,

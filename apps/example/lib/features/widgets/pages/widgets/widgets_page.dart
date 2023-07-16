@@ -91,9 +91,9 @@ Button(
         final crossAxisCount = context.responsive<int>(desktop: 2) ?? 1;
         final itemWidth = constraints.maxWidth / crossAxisCount;
         return SafeArea(
-          child: Scaffold(
+          child: Scaffold.scrollView(
             windowTitle: 'Widgets',
-            content: [
+            children: [
               Button(
                 label: 'Layouts',
                 onTap: () {
