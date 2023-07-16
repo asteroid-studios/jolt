@@ -44,9 +44,8 @@ class TypographyPage extends StatelessWidget {
               Text(
                 'Hero ',
                 style: context.style.hero,
-                color: context.color.surface.foregroundLight,
                 overflow: TextOverflow.ellipsis,
-              ),
+              ).withColorForegroundLight(),
               spacer,
               Text(
                 'Hero small',
@@ -64,8 +63,7 @@ class TypographyPage extends StatelessWidget {
                 'Display',
                 style: context.style.display,
                 overflow: TextOverflow.ellipsis,
-                color: context.color.surface.foregroundLight,
-              ),
+              ).withColorForegroundLight(),
               spacer,
               Text(
                 'Display small',
@@ -83,8 +81,7 @@ class TypographyPage extends StatelessWidget {
                 'Heading',
                 style: context.style.heading,
                 overflow: TextOverflow.ellipsis,
-                color: context.color.surface.foregroundLight,
-              ),
+              ).withColorForegroundLight(),
               spacer,
               Text(
                 'Heading small',
@@ -102,8 +99,7 @@ class TypographyPage extends StatelessWidget {
                 'Body',
                 style: context.style.body,
                 overflow: TextOverflow.ellipsis,
-                color: context.color.surface.foregroundLight,
-              ),
+              ).withColorForegroundLight(),
               spacer,
               Text(
                 'Body small',
@@ -121,8 +117,7 @@ class TypographyPage extends StatelessWidget {
                 'Label',
                 style: context.style.label,
                 overflow: TextOverflow.ellipsis,
-                color: context.color.surface.foregroundLight,
-              ),
+              ).withColorForegroundLight(),
               spacer,
               Text(
                 'Label small',

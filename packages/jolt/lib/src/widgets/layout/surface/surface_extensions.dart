@@ -3,7 +3,7 @@ import 'package:jolt/jolt.dart';
 ///
 extension SurfaceWidgetX on Widget {
   /// Make all surfaces in the widget tree have a set background.
-  Widget withBackground(JoltColor background) => DefaultSurfaceStyle.merge(
+  Widget withBackground(Color background) => DefaultSurfaceStyle.merge(
         style: (context) => SurfaceStyle(
           background: background,
         ),

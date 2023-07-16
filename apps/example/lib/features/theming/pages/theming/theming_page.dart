@@ -10,21 +10,21 @@ class ThemingPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final surface = Colors.slate.toJoltColor(Shade.white);
-    final surfaceDark = Colors.slate.toJoltColor(
-      Shade.s700,
-      foregroundLight: Shade.s400,
-    );
-    final violet = Colors.violet.toJoltColor(Shade.s50);
-    final violetDark = Colors.violet.toJoltColor(
-      Shade.s700,
-      foregroundLight: Shade.s400,
-    );
-    final emerald = Colors.emerald.toJoltColor(Shade.s50);
-    final emeraldDark = Colors.emerald.toJoltColor(
-      Shade.s700,
-      foregroundLight: Shade.s400,
-    );
+    // final surface = Colors.slate.toJoltColor(Shade.white);
+    // final surfaceDark = Colors.slate.toJoltColor(
+    //   Shade.s700,
+    //   foregroundLight: Shade.s400,
+    // );
+    // final violet = Colors.violet.toJoltColor(Shade.s50);
+    // final violetDark = Colors.violet.toJoltColor(
+    //   Shade.s700,
+    //   foregroundLight: Shade.s400,
+    // );
+    // final emerald = Colors.emerald.toJoltColor(Shade.s50);
+    // final emeraldDark = Colors.emerald.toJoltColor(
+    //   Shade.s700,
+    //   foregroundLight: Shade.s400,
+    // );
 
     Widget cardFromColor(JoltColor color) {
       return Surface(
@@ -66,12 +66,12 @@ class ThemingPage extends StatelessWidget {
             spacing: context.spacing.lg,
             runSpacing: context.spacing.lg,
             children: [
-              cardFromColor(surfaceDark),
-              cardFromColor(surface),
-              cardFromColor(violet),
-              cardFromColor(violetDark),
-              cardFromColor(emerald),
-              cardFromColor(emeraldDark),
+              // cardFromColor(surfaceDark),
+              // cardFromColor(surface),
+              // cardFromColor(violet),
+              // cardFromColor(violetDark),
+              // cardFromColor(emerald),
+              // cardFromColor(emeraldDark),
               'Test'.asDisplay(),
               Icons.hourglassMedium.asIconDisplay(),
               // ResponsiveHeading('Responsive Heading'),
@@ -105,7 +105,9 @@ class ThemingPage extends StatelessWidget {
                 label: 'Home',
                 icon: Icons.house,
                 onTap: () {},
-                borderColor: context.color.surface.foregroundLight,
+                border: BorderColor(
+                  context.color.surface.surface().foregroundLight,
+                ),
               ).withBackgroundTransparent(),
               Button(
                 label: 'Home',
@@ -118,7 +120,6 @@ class ThemingPage extends StatelessWidget {
                 onTap: () {},
                 background: context.color.primary.withOpacity(0.2),
                 color: context.color.primary.s950,
-                colorDark: context.color.primary.s200,
               ),
               Button(
                 label: 'Save',

@@ -12,13 +12,13 @@ class TopBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Surface(
+      border: Border.all(width: 0),
       borderRadius: BorderRadius.zero,
+      background: context.color.surface,
       padding: EdgeInsets.symmetric(
         horizontal: context.spacing.md,
         vertical: context.spacing.sm,
       ),
-      background: context.color.surface,
-      borderWidth: 0,
       child: SafeArea(
         bottom: false,
         left: false,
@@ -58,7 +58,7 @@ class TopBar extends StatelessWidget {
               iconWidget: Icons.sidebar.asIcon(
                 size: 20,
                 flipHorizontal: true,
-                color: context.color.surface.foreground,
+                // color: context.color.surface.foreground,
               ),
             ),
           ],

@@ -5,6 +5,7 @@ class TouchRippleEffect extends StatefulWidget {
   ///
   const TouchRippleEffect({
     required this.backgroundColor,
+    required this.foregroundColor,
     required this.borderRadius,
     this.child,
     this.width,
@@ -18,6 +19,9 @@ class TouchRippleEffect extends StatefulWidget {
 
   /// The background color behind the RippleEffect
   final Color backgroundColor;
+
+  /// The foreground color of the RippleEffect
+  final Color foregroundColor;
 
   /// if you have border of child widget then you should apply [borderRadius]
   final BorderRadius borderRadius;
@@ -130,23 +134,8 @@ class _TouchRippleEffectState extends State<TouchRippleEffect>
 
   @override
   Widget build(BuildContext context) {
-    late Color rippleColor;
-    var rippleOpacity = 0.07;
-
-    if (widget.backgroundColor is JoltColor) {
-      final background = widget.backgroundColor as JoltColor;
-      if (background == context.color.background ||
-          background == context.color.surface ||
-          background == context.color.neutral ||
-          background == context.color.transparent) {
-        rippleColor = context.color.primary;
-      } else {
-        rippleOpacity = 0.1;
-        rippleColor = background.foreground;
-      }
-    } else {
-      rippleColor = context.color.primary;
-    }
+    final rippleColor = widget.foregroundColor;
+    final rippleOpacity = 0.07;
 
     return Listener(
       onPointerUp: (event) {

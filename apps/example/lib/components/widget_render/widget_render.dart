@@ -48,12 +48,12 @@ class WidgetRender extends StatelessWidget {
       margin: EdgeInsets.only(bottom: context.spacing.md),
       padding: EdgeInsets.zero,
       background: context.color.transparent,
-      borderColor: context.color.surface,
+      border: BorderColor(context.color.surface),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           Surface(
-            borderWidth: 0,
+            border: const Border(),
             padding: EdgeInsets.symmetric(
               vertical: context.spacing.xs,
               horizontal: context.spacing.xl,
@@ -68,8 +68,7 @@ class WidgetRender extends StatelessWidget {
                 Expanded(
                   child: Text(
                     title,
-                    color: context.color.neutral.s500,
-                  ),
+                  ).withColor(context.color.neutral.s500),
                 ),
                 Button(
                   requestFocusOnPress: false,

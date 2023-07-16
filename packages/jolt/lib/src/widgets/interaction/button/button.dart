@@ -1,27 +1,24 @@
 import 'dart:async';
 
 import 'package:jolt/jolt.dart';
+import 'package:jolt/src/widgets/layout/spacing/spacing_extensions.dart';
 
 ///
 class Button extends StatefulWidget {
   ///
   const Button({
-    super.key,
+    this.onTap,
+    this.onLongPressed,
     this.label,
-    this.tooltip,
     this.icon,
+    this.tooltip,
+    this.background,
+    this.color,
     this.iconSize,
     this.iconScale = 1.0,
     this.iconWidget,
-    this.onTap,
-    this.onLongPressed,
     this.errorHandler,
-    this.background,
-    this.backgroundDark,
-    this.color,
-    this.colorDark,
-    this.borderColor,
-    this.borderWidth,
+    this.border,
     this.borderRadius,
     this.labelStyle,
     this.spacing,
@@ -34,6 +31,7 @@ class Button extends StatefulWidget {
     this.requestFocusOnPress = true,
     this.mainAxisAlignment = MainAxisAlignment.center,
     this.direction = TextDirection.ltr,
+    super.key,
   });
 
   ///
@@ -67,22 +65,13 @@ class Button extends StatefulWidget {
   final bool requestFocusOnPress;
 
   ///
-  final JoltColor? background;
-
-  ///
-  final JoltColor? backgroundDark;
+  final Color? background;
 
   ///
   final Color? color;
 
   ///
-  final Color? colorDark;
-
-  ///
-  final Color? borderColor;
-
-  ///
-  final double? borderWidth;
+  final Border? border;
 
   ///
   final double? spacing;
@@ -147,10 +136,7 @@ class _ButtonState extends State<Button> {
       autoFocus: widget.autoFocus,
       requestFocusOnPress: widget.requestFocusOnPress,
       builder: (context, state) {
-        final color = context.color.responsive(
-          widget.color,
-          colorDark: widget.colorDark,
-        );
+        final color = widget.color;
         // Prepare the icon
         final icon = widget.iconWidget ??
             (widget.icon != null
@@ -207,8 +193,7 @@ class _ButtonState extends State<Button> {
             if (state.isWaiting) progressIndicator else if (icon != null) icon,
             Text(
               widget.label!,
-              style: widget.labelStyle,
-              color: color,
+              style: (widget.labelStyle ?? const TextStyle()).withColor(color),
             ),
           ];
           if (widget.verticalButton) {
@@ -218,8 +203,9 @@ class _ButtonState extends State<Button> {
                   ? VerticalDirection.down
                   : VerticalDirection.up,
               mainAxisSize: MainAxisSize.min,
-              spacing: spacing,
-              children: buttonChildren,
+              children: spacing > 0
+                  ? buttonChildren.withSpacing(spacing, axis: Axis.vertical)
+                  : buttonChildren,
             );
           } else {
             // Layout HORIZONTAL button
@@ -228,8 +214,9 @@ class _ButtonState extends State<Button> {
               mainAxisSize:
                   widget.fullWidth ? MainAxisSize.max : MainAxisSize.min,
               mainAxisAlignment: widget.mainAxisAlignment,
-              spacing: spacing,
-              children: buttonChildren,
+              children: spacing > 0
+                  ? buttonChildren.withSpacing(spacing, axis: Axis.horizontal)
+                  : buttonChildren,
             );
           }
         }
@@ -239,10 +226,8 @@ class _ButtonState extends State<Button> {
           width: widget.width,
           height: widget.height,
           background: widget.background,
-          backgroundDark: widget.backgroundDark,
-          borderColor: widget.borderColor,
+          border: widget.border,
           borderRadius: widget.borderRadius,
-          borderWidth: widget.borderWidth,
           padding: widget.padding,
           ripple: true,
           child: child,

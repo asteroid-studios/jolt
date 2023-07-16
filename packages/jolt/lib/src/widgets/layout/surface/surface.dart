@@ -6,7 +6,6 @@ class Surface extends StatelessWidget {
   const Surface({
     required this.child,
     this.background,
-    this.backgroundDark,
     this.border,
     this.borderRadius,
     this.padding,
@@ -26,10 +25,7 @@ class Surface extends StatelessWidget {
   final Color? background;
 
   ///
-  final Color? backgroundDark;
-
-  ///
-  final BoxBorder? border;
+  final Border? border;
 
   ///
   final BorderRadius? borderRadius;
@@ -69,7 +65,7 @@ class Surface extends StatelessWidget {
     // Hierarchy of applied surface styles in order:
     // 1. A default surface style
     // 2. The surface style from the widget theme.
-    // 3. A fallback style passed from a widget implementing surface (ie button)
+    // 3. A fallback style passed from a widget utilizing surface (ie button)
     // 4. A DefaultSurfaceStyle supplied style above this widget.
     // 5. Styles passed directly to surface widget
     final style = defaultSurfaceStyle
@@ -82,8 +78,7 @@ class Surface extends StatelessWidget {
             borderRadius: borderRadius,
             padding: padding,
             margin: margin,
-            background:
-                context.color.responsive(background, colorDark: backgroundDark),
+            background: background,
           ),
         );
 
@@ -99,9 +94,6 @@ class Surface extends StatelessWidget {
           horizontal: context.spacing.sm,
           vertical: context.spacing.xs,
         );
-    // final defaultBorder = style.border?.isUniform ?
-    // final defaultBorderColor = style.borderColor ?? defaultBackground;
-    // final defaultBorderWidth = style.borderWidth!;
 
     // Wrap with a default surface style so things
     // like foregroundLight will work inside surface
@@ -139,23 +131,21 @@ class Surface extends StatelessWidget {
           borderRadius: defaultBorderRadius,
           color: surfaceColor.background,
           gradient: surfaceColor.backgroundGradient,
-          // border: style.border?. Border.all(
-          //   color: surfaceColor.border ??
-          //       (isFocused
-          //           ? context.color.primary
-          //           : (surfaceColor.background ?? Colors.transparent)),
-          //   width: style.border?. ?? 0,
-          // ),
+          border: style.border?.copyWithColor(
+            surfaceColor.border ??
+                (interaction.isFocused
+                    ? context.color.primary
+                    : (surfaceColor.background ?? Colors.transparent)),
+          ),
           // TODO implement shadow
           // boxShadow: ,
-          // color: effectColor != null
-          //     ? Color.alphaBlend(effectColor, defaultBackground)
-          //     : defaultBackground,
         ),
         child: ripple
             ? TouchRippleEffect(
                 backgroundColor: effectiveBackgroundColor.withOpacity(1),
                 borderRadius: defaultBorderRadius,
+                foregroundColor:
+                    surfaceColor.foreground ?? context.color.primary,
                 child: childWidget,
               )
             : childWidget,

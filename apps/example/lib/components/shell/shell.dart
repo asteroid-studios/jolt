@@ -5,7 +5,6 @@ import 'package:example/components/shell/footer/footer.dart';
 import 'package:example/components/shell/nav_items/nav_items.dart';
 import 'package:example/components/shell/sidebar_left/sidebar_left.dart';
 import 'package:example/components/shell/sidebar_right/sidebar_right.dart';
-import 'package:example/components/shell/top_bar/top_bar.dart';
 import 'package:example/utils/router/router.dart';
 
 final autoTabsRouterKey = GlobalKey<AutoTabsRouterState>();

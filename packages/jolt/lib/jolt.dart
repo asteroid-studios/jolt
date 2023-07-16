@@ -20,16 +20,7 @@ export 'src/utils/utils.dart';
 // Flutter exports
 export 'package:flutter/material.dart' show Scrollbar, SelectionArea;
 export 'package:flutter/widgets.dart'
-    hide
-        Column,
-        Form,
-        FormField,
-        FormFieldBuilder,
-        FormFieldState,
-        FormState,
-        Icon,
-        Row,
-        Text;
+    hide Form, FormField, FormFieldBuilder, FormFieldState, FormState, Icon;
 
 ///
 class Jolt {

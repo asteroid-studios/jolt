@@ -38,3 +38,16 @@ extension LayoutWidgetX on Widget {
     return SelectionArea(child: this);
   }
 }
+
+/// Convenient extensions to help with layout of multiple widgets.
+extension LayoutWidgetsX on List<Widget> {
+  /// Adds the separator between all widgets in the list
+  List<Widget> withSeparator(Widget Function(int index) separator) {
+    if (length > 1) {
+      for (var i = length - 1; i > 0; i--) {
+        insert(i, separator(i));
+      }
+    }
+    return this;
+  }
+}

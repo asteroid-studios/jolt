@@ -41,10 +41,12 @@ class ColorScheme {
         secondary = secondary ?? Colors.violet,
         tertiary = tertiary ?? Colors.black,
         neutral = neutral ?? Colors.slate,
-        background = background ??
-            (neutral ?? Colors.slate).asBackground(highContrast: highContrast),
-        surface = surface ??
-            (neutral ?? Colors.slate).asSurface(highContrast: highContrast),
+        background = background ?? Colors.white.s100,
+        surface = surface ?? Colors.white,
+        // background = background ??
+        //     (neutral ?? Colors.slate).asBackground(highContrast: highContrast),
+        // surface = surface ??
+        //     (neutral ?? Colors.slate).asSurface(highContrast: highContrast),
         error = error ?? Colors.red,
         warning = warning ?? Colors.amber,
         info = info ?? Colors.sky,
@@ -69,14 +71,16 @@ class ColorScheme {
         secondary = secondary ?? Colors.violet,
         tertiary = tertiary ?? Colors.white,
         neutral = neutral ?? Colors.slate,
-        background = background ??
-            (neutral ?? Colors.slate)
-                .reversed
-                .asBackground(highContrast: highContrast),
-        surface = surface ??
-            (neutral ?? Colors.slate)
-                .reversed
-                .asSurface(highContrast: highContrast),
+        background = background ?? Colors.black.s100,
+        surface = surface ?? Colors.black,
+        // background = background ??
+        //     (neutral ?? Colors.slate)
+        //         .reversed
+        //         .asBackground(highContrast: highContrast),
+        // surface = surface ??
+        //     (neutral ?? Colors.slate)
+        //         .reversed
+        //         .asSurface(highContrast: highContrast),
         error = error ?? Colors.red,
         warning = warning ?? Colors.amber,
         info = info ?? Colors.sky,
@@ -196,13 +200,10 @@ class ColorScheme {
   ///
   bool get isLight => brightness == Brightness.light;
 
-  /// Return [color] or override with [colorDark] for dark themes.
+  /// Return ***color*** or override with ***colorDark*** for dark color schemes.
   ///
-  /// If [colorDark] is null, [color] will be used for dark themes.
-  ///
-  /// Useful when creating reusable widgets that need to adapt to the theme,
-  /// especially if they will only have a different dark color sometimes.
-  Color? responsive(Color? color, {Color? colorDark}) {
-    return isDark ? (colorDark ?? color) : color;
+  /// If ***colorDark*** is null, **color** will be used for dark color schemes.
+  Color? adaptive(Color? color, {Color? dark}) {
+    return isDark ? (dark ?? color) : color;
   }
 }

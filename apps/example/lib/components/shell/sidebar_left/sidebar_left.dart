@@ -65,39 +65,41 @@ class _SideBarLeftState extends State<SideBarLeft> {
             children: [
               const Spacing.xs(),
               Column(
-                spacing: context.spacing.sm,
-                children: navBarItems.mapIndexed((index, item) {
-                  final tabsController =
-                      autoTabsRouterKey.currentState?.controller;
-                  final router = AppRouter.instance;
-                  final currentName = router.currentSegments.last.name;
-                  // TODO no tabsController on web so selected doesn't work
-                  final currentIndex = tabsController?.activeIndex ?? 0;
-                  final selected = currentIndex == index;
-                  final button = SideBarButton(
-                    item: item,
-                    selected: selected,
-                    topLevel: true,
-                    index: index,
-                    isOverlay: widget.isOverlay,
-                  );
-                  if (!selected) return button;
-                  return Column(
-                    spacing: context.spacing.sm,
-                    children: [
-                      button,
-                      ...item.children.map(
-                        (i) => SideBarButton(
-                          item: i,
-                          selected: i.route.routeName == currentName,
-                          topLevel: false,
-                          index: index,
-                          isOverlay: widget.isOverlay,
-                        ),
-                      ),
-                    ],
-                  );
-                }).toList(),
+                children: [
+                  ...navBarItems.mapIndexed(
+                    (index, item) {
+                      final tabsController =
+                          autoTabsRouterKey.currentState?.controller;
+                      final router = AppRouter.instance;
+                      final currentName = router.currentSegments.last.name;
+                      // TODO no tabsController on web so selected doesn't work
+                      final currentIndex = tabsController?.activeIndex ?? 0;
+                      final selected = currentIndex == index;
+                      final button = SideBarButton(
+                        item: item,
+                        selected: selected,
+                        topLevel: true,
+                        index: index,
+                        isOverlay: widget.isOverlay,
+                      );
+                      if (!selected) return button;
+                      return Column(
+                        children: [
+                          button,
+                          ...item.children.map<Widget>(
+                            (i) => SideBarButton(
+                              item: i,
+                              selected: i.route.routeName == currentName,
+                              topLevel: false,
+                              index: index,
+                              isOverlay: widget.isOverlay,
+                            ),
+                          ),
+                        ].withSpacingSm(),
+                      );
+                    },
+                  )
+                ].withSpacingSm(),
               ),
               const Expanded(
                 child: SizedBox(),

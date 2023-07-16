@@ -19,7 +19,7 @@ class SideBarRight extends StatelessWidget {
       return Button(
         icon: icon,
         tooltip: tooltip,
-        borderColor: selected ? context.color.primary : null,
+        border: BorderColor(selected ? context.color.primary : null),
         onTap: () => context.jolt.setTheme(
           mode,
           withHighContrast: withHighContrast,
@@ -37,7 +37,7 @@ class SideBarRight extends StatelessWidget {
           : null;
       return Button(
         background: color,
-        borderColor: borderColor,
+        border: BorderColor(borderColor),
         borderRadius: context.borderRadius.xl,
         onTap: () => context.jolt.setPrimaryColor(color),
       );
@@ -51,7 +51,7 @@ class SideBarRight extends StatelessWidget {
 
       return Button(
         icon: icon,
-        borderColor: selected ? context.color.primary : null,
+        border: BorderColor(selected ? context.color.primary : null),
         iconScale: sizeMultiplier,
         onTap: () =>
             context.jolt.setSymbolScaleFactorMultiplier(sizeMultiplier),
@@ -66,7 +66,7 @@ class SideBarRight extends StatelessWidget {
 
       return Button(
         icon: icon,
-        borderColor: selected ? context.color.primary : null,
+        border: BorderColor(selected ? context.color.primary : null),
         iconScale: sizeMultiplier,
         onTap: () =>
             context.jolt.setSpacingScaleFactorMultiplier(sizeMultiplier),

@@ -17,7 +17,7 @@ class SurfaceStyle {
   final Color? background;
 
   /// The border of the surface
-  final BoxBorder? border;
+  final Border? border;
 
   /// The border radius of the surface.
   final BorderRadius? borderRadius;
@@ -37,9 +37,14 @@ class SurfaceStyle {
   SurfaceStyle merge(SurfaceStyle? style) {
     // ignore: avoid_returning_this
     if (style == null) return this;
+
+    var newBorder = style.border ?? border;
+    if (newBorder != null && newBorder is BorderColor) {
+      newBorder = (border ?? Border.all()).copyWithColor(newBorder.color);
+    }
     return SurfaceStyle(
       background: style.background ?? background,
-      border: style.border ?? border,
+      border: newBorder,
       borderRadius: style.borderRadius ?? borderRadius,
       margin: style.margin ?? margin,
       padding: style.padding ?? padding,
@@ -49,8 +54,8 @@ class SurfaceStyle {
 
   /// Copy with
   SurfaceStyle copyWith({
-    JoltColor? background,
-    BoxBorder? border,
+    Color? background,
+    Border? border,
     BorderRadius? borderRadius,
     EdgeInsetsGeometry? margin,
     EdgeInsetsGeometry? padding,
@@ -147,6 +152,10 @@ class SurfaceColor {
   ///
   final Color? shadow;
 
+  // SurfaceColor fromColor(Color color, InteractionState? state ) {
+
+  // }
+
   /// Merge
   SurfaceColor merge(SurfaceColor? style) {
     // ignore: avoid_returning_this
@@ -168,4 +177,19 @@ class SurfaceColor {
       shadow: style.shadow ?? shadow,
     );
   }
+}
+
+/// A class that defines a border color only
+class BorderColor extends Border {
+  /// Pass a BorderColor instead of a Border, to only override the color
+  ///
+  /// This is useful when you want to override the color of a border,
+  /// but not the width or style
+  ///
+  /// This will only work when passing to widgets that use a Surface
+  /// to define the border
+  const BorderColor(this.color);
+
+  /// The color of a border
+  final Color? color;
 }

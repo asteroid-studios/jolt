@@ -190,12 +190,15 @@ class JoltColor extends Color {
   }
 }
 
+///
 extension JoltColorX on JoltColor {
+  ///
   Color get defaultForeground {
     if (isLight) return _shade950;
     return _shade50;
   }
 
+  ///
   Color get defaultForegroundLight {
     // TODO This could clash is the value is 400 or 600
     if (isLight) return _shade400;
