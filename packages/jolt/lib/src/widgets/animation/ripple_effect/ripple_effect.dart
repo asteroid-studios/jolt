@@ -6,7 +6,7 @@ class TouchRippleEffect extends StatefulWidget {
   const TouchRippleEffect({
     required this.backgroundColor,
     required this.foregroundColor,
-    required this.borderRadius,
+    this.borderRadius,
     this.child,
     this.width,
     this.height,
@@ -24,7 +24,7 @@ class TouchRippleEffect extends StatefulWidget {
   final Color foregroundColor;
 
   /// if you have border of child widget then you should apply [borderRadius]
-  final BorderRadius borderRadius;
+  final BorderRadius? borderRadius;
 
   /// animation duration of touch effect. [rippleDuration]
   final Duration? rippleDuration;

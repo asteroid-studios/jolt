@@ -71,7 +71,7 @@ class ColorScheme {
         secondary = secondary ?? Colors.violet,
         tertiary = tertiary ?? Colors.white,
         neutral = neutral ?? Colors.slate,
-        background = background ?? Colors.black.s100,
+        background = background ?? Colors.black.s900,
         surface = surface ?? Colors.black,
         // background = background ??
         //     (neutral ?? Colors.slate)

@@ -222,6 +222,8 @@ extension _DefaultColorExtensions on JoltColor {
     if (state.isFocused) {
       background = defaultHoveredOrFocused;
     }
+    // It's important not to pass a default border color
+    // Because that will be primary in case of being focused.
     return SurfaceColor(
       background: background,
       foreground: foregroundColor,

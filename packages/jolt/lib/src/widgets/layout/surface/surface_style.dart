@@ -38,10 +38,12 @@ class SurfaceStyle {
     // ignore: avoid_returning_this
     if (style == null) return this;
 
+    // If passing borderColor only, preserve the previous border
     var newBorder = style.border ?? border;
     if (newBorder != null && newBorder is BorderColor) {
       newBorder = (border ?? Border.all()).copyWithColor(newBorder.color);
     }
+
     return SurfaceStyle(
       background: style.background ?? background,
       border: newBorder,
@@ -192,4 +194,15 @@ class BorderColor extends Border {
 
   /// The color of a border
   final Color? color;
+}
+
+///
+extension BorderX on Border? {
+  /// Checks if the border is a BorderColor
+  bool get isBorderColor => this is BorderColor && this != null;
+
+  /// Return a Color? if Border is a BorderColor
+  Color? get toBorderColor => (this != null && this is BorderColor)
+      ? (this! as BorderColor).color
+      : null;
 }

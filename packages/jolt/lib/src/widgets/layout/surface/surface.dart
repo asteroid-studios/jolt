@@ -60,6 +60,7 @@ class Surface extends StatelessWidget {
     final defaultBackground = context.color.surface;
     final defaultSurfaceStyle = SurfaceStyle(
       background: defaultBackground,
+      borderRadius: context.borderRadius.md,
       border: Border.all(width: 2),
     );
     // Hierarchy of applied surface styles in order:
@@ -82,10 +83,13 @@ class Surface extends StatelessWidget {
           ),
         );
 
-    final defaultBorderRadius = style.borderRadius ?? context.borderRadius.md;
-    final surfaceColor = style.background!.asJoltColor.surface(
-      state: interaction,
-    );
+    final surfaceColor =
+        style.background!.asJoltColor.surface(state: interaction);
+    var borderColor =
+        border.toBorderColor ?? surfaceColor.border ?? style.background;
+    if (interaction.isFocused) {
+      borderColor = surfaceColor.border ?? context.color.primary;
+    }
     final effectiveBackgroundColor = surfaceColor.background ??
         surfaceColor.backgroundGradient?.colors.firstOrNull ??
         defaultBackground;
@@ -120,30 +124,26 @@ class Surface extends StatelessWidget {
     }
 
     // Return the surface
+    // TODO should i apply clip to container instead?
     return ClipRRect(
-      borderRadius: defaultBorderRadius,
+      borderRadius: style.borderRadius,
       child: AnimatedContainer(
         width: width,
         height: height,
         margin: margin,
         duration: context.durations.mid,
         decoration: BoxDecoration(
-          borderRadius: defaultBorderRadius,
+          borderRadius: style.borderRadius,
           color: surfaceColor.background,
           gradient: surfaceColor.backgroundGradient,
-          border: style.border?.copyWithColor(
-            surfaceColor.border ??
-                (interaction.isFocused
-                    ? context.color.primary
-                    : (surfaceColor.background ?? Colors.transparent)),
-          ),
+          border: style.border?.copyWithColor(borderColor),
           // TODO implement shadow
           // boxShadow: ,
         ),
         child: ripple
             ? TouchRippleEffect(
                 backgroundColor: effectiveBackgroundColor.withOpacity(1),
-                borderRadius: defaultBorderRadius,
+                borderRadius: style.borderRadius,
                 foregroundColor:
                     surfaceColor.foreground ?? context.color.primary,
                 child: childWidget,
