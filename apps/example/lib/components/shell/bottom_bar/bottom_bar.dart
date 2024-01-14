@@ -57,6 +57,7 @@ class BottomBar extends StatelessWidget {
                   border: const BorderColor(Colors.transparent),
                   borderRadius: BorderRadius.zero,
                   requestFocusOnPress: false,
+                  color: context.color.surface.as.foreground(context),
                   // color: (context.color.isDark
                   //     ? context.color.primary.s300
                   //     : context.color.primary.s950),

@@ -108,7 +108,8 @@ extension TypographyWidgetX on Widget {
   Widget withColorForeground() => DefaultSymbolStyle.important(
         style: (context) {
           return TextStyle(
-            color: context.inherited.surfaceColor.foreground,
+            color: context.inherited.surfaceStyle.background?.asJoltColor.as
+                .foreground(context),
           );
         },
         child: this,
@@ -116,9 +117,12 @@ extension TypographyWidgetX on Widget {
 
   /// Wrap the widget with the light foreground color of the inherited surface.
   Widget withColorForegroundLight() => DefaultSymbolStyle.important(
-        style: (context) => TextStyle(
-          color: context.inherited.surfaceColor.foregroundLight,
-        ),
+        style: (context) {
+          return TextStyle(
+            color: context.inherited.surfaceStyle.background?.asJoltColor.as
+                .foreground(context),
+          );
+        },
         child: this,
       );
 

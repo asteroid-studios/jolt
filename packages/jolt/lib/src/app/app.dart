@@ -292,7 +292,7 @@ class _DefaultStyles extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Color foreground(JoltColor color) {
-      return color.surface().foreground ?? color.defaultForeground;
+      return color.as.foreground(context);
     }
 
     m.ThemeData materialThemeData(ColorScheme color) {

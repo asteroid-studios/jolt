@@ -1,13 +1,5 @@
-import 'package:collection/collection.dart';
-
 import 'package:jolt/jolt.dart';
-
-/// A function which returns a SurfaceColor from a Jolt Color
-/// and some InteractionState
-typedef SurfaceAdapter = SurfaceColor Function(
-  JoltColor color,
-  InteractionState? state,
-);
+import 'package:jolt/src/theming/color/color_resolvers.dart';
 
 /// A color that has a small table of related colors called a "swatch"
 class JoltColor extends Color {
@@ -27,9 +19,9 @@ class JoltColor extends Color {
     required Color shade800,
     required Color shade900,
     required Color shade950,
-    SurfaceAdapter? surfaceAdapter,
+    ColorResolvers? colorResolvers,
     this.opacity = 1.0,
-  })  : _surfaceAdapter = surfaceAdapter,
+  })  : _colorResolvers = colorResolvers ?? const ColorResolvers(),
         _shade50 = shade50,
         _shade100 = shade100,
         _shade200 = shade200,
@@ -43,53 +35,54 @@ class JoltColor extends Color {
         _shade950 = shade950;
 
   /// The lightest shade.
-  JoltColor get s50 => toJoltColor(_shade50).withOpacity(opacity);
+  JoltColor get s50 => _shiftPrimary(_shade50).withOpacity(opacity);
   final Color _shade50;
 
   /// The second lightest shade.
-  JoltColor get s100 => toJoltColor(_shade100).withOpacity(opacity);
+  JoltColor get s100 => _shiftPrimary(_shade100).withOpacity(opacity);
   final Color _shade100;
 
   /// The third lightest shade.
-  JoltColor get s200 => toJoltColor(_shade200).withOpacity(opacity);
+  JoltColor get s200 => _shiftPrimary(_shade200).withOpacity(opacity);
   final Color _shade200;
 
   /// The fourth lightest shade.
-  JoltColor get s300 => toJoltColor(_shade300).withOpacity(opacity);
+  JoltColor get s300 => _shiftPrimary(_shade300).withOpacity(opacity);
   final Color _shade300;
 
   /// The fifth lightest shade.
-  JoltColor get s400 => toJoltColor(_shade400).withOpacity(opacity);
+  JoltColor get s400 => _shiftPrimary(_shade400).withOpacity(opacity);
   final Color _shade400;
 
   /// The middle shade
-  JoltColor get s500 => toJoltColor(_shade500).withOpacity(opacity);
+  JoltColor get s500 => _shiftPrimary(_shade500).withOpacity(opacity);
   final Color _shade500;
 
   /// The fifth darkest shade.
-  JoltColor get s600 => toJoltColor(_shade600).withOpacity(opacity);
+  JoltColor get s600 => _shiftPrimary(_shade600).withOpacity(opacity);
   final Color _shade600;
 
   /// The fourth darkest shade.
-  JoltColor get s700 => toJoltColor(_shade700).withOpacity(opacity);
+  JoltColor get s700 => _shiftPrimary(_shade700).withOpacity(opacity);
   final Color _shade700;
 
   /// The third darkest shade.
-  JoltColor get s800 => toJoltColor(_shade800).withOpacity(opacity);
+  JoltColor get s800 => _shiftPrimary(_shade800).withOpacity(opacity);
   final Color _shade800;
 
   /// The second darkest shade.
-  JoltColor get s900 => toJoltColor(_shade900).withOpacity(opacity);
+  JoltColor get s900 => _shiftPrimary(_shade900).withOpacity(opacity);
   final Color _shade900;
 
   /// The darkest shade.
-  JoltColor get s950 => toJoltColor(_shade950).withOpacity(opacity);
+  JoltColor get s950 => _shiftPrimary(_shade950).withOpacity(opacity);
   final Color _shade950;
 
-  // The user passed function to turn this color
-  // into a SurfaceColor from interaction state
-  final SurfaceColor Function(JoltColor color, InteractionState? state)?
-      _surfaceAdapter;
+  /// Override the default color resolvers
+  ///
+  /// These are used to determine what colors to show on hover or focus
+  /// for example
+  final ColorResolvers _colorResolvers;
 
   /// The opacity of the color.
   @override
@@ -108,6 +101,28 @@ class JoltColor extends Color {
         s800,
         s900,
         s950,
+      ];
+
+  /// This index of this shade relative to the others.
+  int get shadeIndex => shadesFull.indexWhere((c) => c.value == value);
+
+  /// Used for default Color resolvers
+  ///
+  /// Returns Color instead of JoltColor
+  List<Color> get shadesFull => [
+        const Color(0xFFFFFFFF),
+        _shade50,
+        _shade100,
+        _shade200,
+        _shade300,
+        _shade400,
+        _shade500,
+        _shade600,
+        _shade700,
+        _shade800,
+        _shade900,
+        _shade950,
+        const Color(0xFF000000),
       ];
 
   @override
@@ -138,7 +153,7 @@ class JoltColor extends Color {
     Color? shade900,
     Color? shade950,
     double? opacity,
-    SurfaceAdapter? surfaceAdapter,
+    ColorResolvers? colorResolvers,
   }) {
     return JoltColor(
       value?.value ?? this.value,
@@ -153,18 +168,18 @@ class JoltColor extends Color {
       shade800: shade800 ?? _shade800,
       shade900: shade900 ?? _shade900,
       shade950: shade950 ?? _shade950,
+      colorResolvers: colorResolvers ?? _colorResolvers,
       opacity: opacity ?? this.opacity,
-      surfaceAdapter: surfaceAdapter ?? _surfaceAdapter,
     );
   }
 
   /// Create a new [JoltColor] from a [JoltColor].
-  JoltColor toJoltColor(
+  JoltColor _shiftPrimary(
     Color value, {
     double opacity = 1.0,
   }) {
     // Returns a JoltColor rather than using copyWith
-    // so that surfaceAdapter will be generated
+    // so that default color resolvers can be used.
     return JoltColor(
       value.value,
       shade50: _shade50,
@@ -181,119 +196,57 @@ class JoltColor extends Color {
       opacity: opacity,
     );
   }
-
-  /// Convert this color into a SurfaceColor from InteractionState
-  SurfaceColor surface({InteractionState? state}) {
-    return defaultSurfaceAdapter(state).merge(
-      _surfaceAdapter?.call(this, state),
-    );
-  }
 }
 
 ///
 extension JoltColorX on JoltColor {
   ///
-  Color get defaultForeground {
-    if (isLight) return _shade950;
-    return _shade50;
-  }
-
-  ///
-  Color get defaultForegroundLight {
-    // TODO This could clash is the value is 400 or 600
-    if (isLight) return _shade400;
-    return _shade600;
-  }
+  ColorAs get as => ColorAs(color: this);
 }
 
-extension _DefaultColorExtensions on JoltColor {
-  SurfaceColor defaultSurfaceAdapter(InteractionState? state) {
-    // TODO implement the default surface adapter.
-    Color background = this;
-    var foregroundColor = defaultForeground;
-    var foregroundLightColor = defaultForegroundLight;
-    if (state.isDisabled) {
-      foregroundColor = foregroundColor.withOpacity(0.5);
-      foregroundLightColor = foregroundLightColor.withOpacity(0.8);
-    }
-    if (state.isHovered) {
-      background = defaultHoveredOrFocused;
-    }
-    if (state.isFocused) {
-      background = defaultHoveredOrFocused;
-    }
-    // It's important not to pass a default border color
-    // Because that will be primary in case of being focused.
-    return SurfaceColor(
-      background: background,
-      foreground: foregroundColor,
-      foregroundLight: foregroundLightColor,
-    );
-  }
+///
+class ColorAs {
+  ///
+  const ColorAs({
+    required JoltColor color,
+  }) : _color = color;
 
-  /// Pure white
-  Color get _white => const Color(0xFFFFFFFF);
+  final JoltColor _color;
 
-  /// Pure black
-  Color get _black => const Color(0xFF000000);
+  /// Resolve the background color from context.
+  Color background(BuildContext context) =>
+      _color._colorResolvers.backgroundColorResolver.call(_color, context);
 
-  /// Used for shade matching
-  List<Color> get fullShades => [
-        _white,
-        _shade50,
-        _shade100,
-        _shade200,
-        _shade300,
-        _shade400,
-        _shade500,
-        _shade600,
-        _shade700,
-        _shade800,
-        _shade900,
-        _shade950,
-        _black,
-      ];
+  /// Resolve the border color from context.
+  Color border(BuildContext context) =>
+      _color._colorResolvers.borderColorResolver.call(_color, context);
 
-  int get shadeIndex => fullShades.indexWhere((c) => c.value == value);
+  /// Resolve the foreground color from context.
+  Color foreground(BuildContext context) =>
+      _color._colorResolvers.foregroundColorResolver.call(_color, context);
+}
 
-  int newShadeIndex(int n) => isLight ? shadeIndex + n : shadeIndex - n;
+///
+class ColorResolversFromColorWithContext {
+  ///
+  const ColorResolversFromColorWithContext({
+    required JoltColor color,
+    required BuildContext context,
+  })  : _color = color,
+        _context = context;
 
-  Color get defaultHoveredOrFocused {
-    // If user has configured color wrong and value is not in shade list
-    if (shadeIndex == -1) {
-      if (isLight) return _shade600;
-      return _shade400;
-    }
-    // Create a new index that is 2 shades lighter or darker
-    // Return the first shade that is not null
-    // fallbacks are if the current index is out of bounds
+  final JoltColor _color;
+  final BuildContext _context;
 
-    // General concept -> if shade is closer to ends
-    // make the difference more extreme, middle should be less
-    final middle = fullShades.length / 2;
-    final diff = fullShades.length / 4;
-    final lowerEnd = middle - diff;
-    final higherEnd = middle + diff;
-    final isInMiddle = shadeIndex >= lowerEnd && shadeIndex <= higherEnd;
-    final newIndex = isInMiddle ? 1 : 2;
+  /// Resolve the background color from context.
+  Color get background =>
+      _color._colorResolvers.backgroundColorResolver.call(_color, _context);
 
-    return fullShades.elementAtOrNull(newShadeIndex(newIndex)) ??
-        fullShades.elementAtOrNull(newShadeIndex(1)) ??
-        fullShades[shadeIndex];
-  }
+  /// Resolve the border color from context.
+  Color get border =>
+      _color._colorResolvers.borderColorResolver.call(_color, _context);
 
-  Color get defaultDraggedOrDisabled {
-    // If user has configured color wrong and value is not in shade list
-    if (shadeIndex == -1) {
-      if (isLight) return _shade400;
-      return _shade600;
-    }
-    // Create a new index that is 2 shades lighter or darker
-    // Return the first shade that is not null
-    // fallbacks are if the current index is out of bounds
-    return fullShades.elementAtOrNull(newShadeIndex(-2)) ??
-        fullShades.elementAtOrNull(newShadeIndex(-1)) ??
-        fullShades.elementAtOrNull(newShadeIndex(0)) ??
-        _shade500;
-  }
+  /// Resolve the foreground color from context.
+  Color get foreground =>
+      _color._colorResolvers.foregroundColorResolver.call(_color, _context);
 }

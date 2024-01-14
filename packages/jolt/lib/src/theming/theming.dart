@@ -11,6 +11,7 @@ export 'dimensions/spacing.dart';
 export 'scaling/default_scaling.dart';
 export 'scaling/scaling.dart';
 export 'scaling/scaling_extensions.dart';
+export 'style/style.dart';
 export 'theme/default_theme.dart';
 export 'theme/theme.dart';
 export 'theme/theme_extensions.dart';

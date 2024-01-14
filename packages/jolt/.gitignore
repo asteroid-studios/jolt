@@ -28,3 +28,7 @@ migrate_working_dir/
 .dart_tool/
 .packages
 build/
+
+# Ignore generated files in lib
+*.g.dart
+*.fr.dart

@@ -78,10 +78,13 @@ class ThemingPage extends StatelessWidget {
               Button(
                 label: 'Light',
                 icon: IconsBold.gear,
-                onTap: () {
+                onTap: () async {
+                  await Future<void>.delayed(context.durations.long);
                   context.jolt.setTheme(ThemeMode.system);
+                  await Future<void>.delayed(context.durations.long);
                 },
                 background: Colors.white,
+                color: Colors.black,
               ),
               Button(
                 label: 'Dark',
@@ -106,7 +109,7 @@ class ThemingPage extends StatelessWidget {
                 icon: Icons.house,
                 onTap: () {},
                 border: BorderColor(
-                  context.color.surface.surface().foregroundLight,
+                  context.color.surface.as.foreground(context),
                 ),
               ).withBackgroundTransparent(),
               Button(
@@ -119,11 +122,12 @@ class ThemingPage extends StatelessWidget {
                 icon: Icons.house,
                 onTap: () {},
                 background: context.color.primary.withOpacity(0.2),
-                color: context.color.primary.s950,
+                // color: context.color.primary.s950,
               ),
               Button(
                 label: 'Save',
-                icon: Icons.checkCircle,
+                // icon: Icons.checkCircle,
+                icon: IconsDuotone.checkCircle,
                 onTap: () {},
               ).withBackgroundSuccess(),
               Button(

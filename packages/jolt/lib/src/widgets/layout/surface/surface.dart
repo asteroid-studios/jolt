@@ -57,9 +57,8 @@ class Surface extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final interaction = context.inherited.interactionState;
-    final defaultBackground = context.color.surface;
     final defaultSurfaceStyle = SurfaceStyle(
-      background: defaultBackground,
+      background: context.color.surface,
       borderRadius: context.borderRadius.md,
       border: Border.all(width: 2),
     );
@@ -83,16 +82,10 @@ class Surface extends StatelessWidget {
           ),
         );
 
-    final surfaceColor =
-        style.background!.asJoltColor.surface(state: interaction);
-    var borderColor =
-        border.toBorderColor ?? surfaceColor.border ?? style.background;
-    if (interaction.isFocused) {
-      borderColor = surfaceColor.border ?? context.color.primary;
-    }
-    final effectiveBackgroundColor = surfaceColor.background ??
-        surfaceColor.backgroundGradient?.colors.firstOrNull ??
-        defaultBackground;
+    final surfaceColor = style.background!.asJoltColor;
+    final borderColor = border.toBorderColor ?? surfaceColor.as.border(context);
+    final backgroundColor = surfaceColor.as.background(context);
+    final foregroundColor = surfaceColor.as.foreground(context);
     final defaultPadding = style.padding ??
         EdgeInsets.symmetric(
           horizontal: context.spacing.sm,
@@ -109,7 +102,7 @@ class Surface extends StatelessWidget {
     //
     // Also wrap the children with padding.
     Widget childWidget = DefaultSymbolStyle(
-      style: (_) => TextStyle(color: surfaceColor.foreground),
+      style: (_) => TextStyle(color: foregroundColor),
       child: Padding(
         padding: defaultPadding,
         child: child,
@@ -126,7 +119,7 @@ class Surface extends StatelessWidget {
     // Return the surface
     // TODO should i apply clip to container instead?
     return ClipRRect(
-      borderRadius: style.borderRadius,
+      borderRadius: style.borderRadius ?? BorderRadius.zero,
       child: AnimatedContainer(
         width: width,
         height: height,
@@ -134,18 +127,17 @@ class Surface extends StatelessWidget {
         duration: context.durations.mid,
         decoration: BoxDecoration(
           borderRadius: style.borderRadius,
-          color: surfaceColor.background,
-          gradient: surfaceColor.backgroundGradient,
+          color: backgroundColor,
+          // gradient: surfaceColor.backgroundGradient,
           border: style.border?.copyWithColor(borderColor),
           // TODO implement shadow
           // boxShadow: ,
         ),
         child: ripple
             ? TouchRippleEffect(
-                backgroundColor: effectiveBackgroundColor.withOpacity(1),
+                backgroundColor: backgroundColor.withOpacity(1),
                 borderRadius: style.borderRadius,
-                foregroundColor:
-                    surfaceColor.foreground ?? context.color.primary,
+                foregroundColor: foregroundColor,
                 child: childWidget,
               )
             : childWidget,

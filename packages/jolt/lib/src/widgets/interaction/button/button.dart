@@ -34,7 +34,7 @@ class Button extends StatefulWidget {
     super.key,
   });
 
-  ///
+  //
   final String? label;
 
   ///

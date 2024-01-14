@@ -15,11 +15,39 @@ extension ColorX on Color {
   /// If the color is dark, make it light, if light make darker
   Color weaken([int value = 10]) => isDark ? brighten(value) : darken(value);
 
+  /// Convert a [Color] into a [JoltColor]
   ///
+  /// Returns the [JoltColor] if it already is one
   JoltColor get asJoltColor {
     if (this is JoltColor) return this as JoltColor;
-    // TODO implement conversion for normal Color to JoltColor
-    throw Exception('Color is not a JoltColor');
+
+    return JoltColor(
+      value,
+      shade50: darken(50),
+      shade100: darken(30),
+      shade200: darken(20),
+      shade300: darken(),
+      shade400: darken(5),
+      shade500: this,
+      shade600: lighten(5),
+      shade700: lighten(),
+      shade800: lighten(20),
+      shade900: lighten(30),
+      shade950: lighten(50),
+    );
+  }
+}
+
+///
+extension ColorBorderX on Border {
+  ///
+  Border copyWithColor(Color? color) {
+    return Border(
+      top: top.copyWith(color: color),
+      bottom: bottom.copyWith(color: color),
+      left: left.copyWith(color: color),
+      right: right.copyWith(color: color),
+    );
   }
 }
 
@@ -69,15 +97,4 @@ extension ColorX on Color {
 // }
 // }
 
-///
-extension ColorBorderX on Border {
-  ///
-  Border copyWithColor(Color? color) {
-    return Border(
-      top: top.copyWith(color: color),
-      bottom: bottom.copyWith(color: color),
-      left: left.copyWith(color: color),
-      right: right.copyWith(color: color),
-    );
-  }
-}
+

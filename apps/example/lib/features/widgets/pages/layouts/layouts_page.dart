@@ -1,5 +1,4 @@
 import 'package:faker/faker.dart';
-import 'package:flutter_native_splash/cli_commands.dart';
 import 'package:ui/ui.dart';
 
 import 'package:example/utils/router/router.dart';
@@ -152,5 +151,11 @@ class LayoutsPage extends StatelessWidget {
         ),
       ],
     );
+  }
+}
+
+extension StringX on String {
+  String capitalize() {
+    return '${this[0].toUpperCase()}${substring(1)}';
   }
 }
