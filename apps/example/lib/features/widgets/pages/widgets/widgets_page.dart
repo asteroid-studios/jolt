@@ -1,6 +1,5 @@
 import 'package:ui/ui.dart';
 
-import 'package:example/components/widget_render/widget_render.dart';
 import 'package:example/utils/router/router.dart';
 
 ///
@@ -14,14 +13,14 @@ class WidgetsPage extends StatelessWidget {
     Widget labelButton() {
       const code = '''
 Button(
-  onTap: () {},
+  onPressed: () {},
   label: 'Label',
 ),''';
       return WidgetRender(
         title: 'Button with label',
         code: code,
         child: Button(
-          onTap: () {},
+          onPressed: () {},
           label: 'Label',
         ),
       );
@@ -30,14 +29,14 @@ Button(
     Widget iconButton() {
       const code = '''
 Button(
-  onTap: () {},
+  onPressed: () {},
   icon: Icons.house,
 ),''';
       return WidgetRender(
         title: 'Button with icon',
         code: code,
         child: Button(
-          onTap: () {},
+          onPressed: () {},
           icon: Icons.house,
         ),
       );
@@ -46,7 +45,7 @@ Button(
     Widget comboButton() {
       const code = '''
 Button(
-  onTap: () {},
+  onPressed: () {},
   label: 'Home',
   icon: Icons.house,
 ),''';
@@ -54,7 +53,7 @@ Button(
         title: 'Button with icon',
         code: code,
         child: Button(
-          onTap: () {},
+          onPressed: () {},
           label: 'Home',
           icon: Icons.house,
         ),
@@ -64,7 +63,7 @@ Button(
     Widget disabledButton() {
       const code = '''
 Button(
-  onTap: null,
+  onPressed: null,
   label: 'Home',
   icon: Icons.house,
 ),''';
@@ -96,7 +95,7 @@ Button(
             children: [
               Button(
                 label: 'Layouts',
-                onTap: () {
+                onPressed: () {
                   context.navigateTo(LayoutsRoute());
                 },
               ),

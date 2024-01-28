@@ -45,23 +45,27 @@ class WidgetRender extends StatelessWidget {
     );
 
     return Surface(
-      margin: EdgeInsets.only(bottom: context.spacing.md),
-      padding: EdgeInsets.zero,
-      background: context.color.transparent,
-      border: BorderColor(context.color.surface),
+      style: SurfaceStyle(
+        margin: EdgeInsets.only(bottom: context.spacing.md),
+        borderColor: context.color.surface,
+        padding: EdgeInsets.zero,
+        color: context.color.transparent,
+      ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           Surface(
-            border: const Border(),
-            padding: EdgeInsets.symmetric(
-              vertical: context.spacing.xs,
-              horizontal: context.spacing.xl,
-            ),
-            background: context.color.surface.withOpacity(0.2),
-            borderRadius: BorderRadius.only(
-              topLeft: context.borderRadius.sm.topLeft,
-              topRight: context.borderRadius.sm.topLeft,
+            style: SurfaceStyle(
+              border: const Border(),
+              padding: EdgeInsets.symmetric(
+                vertical: context.spacing.xs,
+                horizontal: context.spacing.xl,
+              ),
+              color: context.color.surface.withOpacity(0.2),
+              borderRadius: BorderRadius.only(
+                topLeft: context.borderRadius.sm.topLeft,
+                topRight: context.borderRadius.sm.topLeft,
+              ),
             ),
             child: Row(
               children: [
@@ -73,7 +77,7 @@ class WidgetRender extends StatelessWidget {
                 Button(
                   requestFocusOnPress: false,
                   background: context.color.background,
-                  onTap: () {
+                  onPressed: () {
                     // TODO Copy widget code to clipboard
                     // TODO Show toast
                   },
@@ -85,7 +89,8 @@ class WidgetRender extends StatelessWidget {
           Flexible(
             // TODO this is actually helpful, maybe add to the docs
             // TODO maybe create a helper called ResetSurfaceStyle
-            child: DefaultSurfaceStyle(
+            // TODO Don't think this really works anymore
+            child: DefaultStyle(
               style: const SurfaceStyle(),
               child: Padding(
                 padding: EdgeInsets.all(context.spacing.xl),

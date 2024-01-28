@@ -12,12 +12,14 @@ class TopBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Surface(
-      border: Border.all(width: 0),
-      borderRadius: BorderRadius.zero,
-      background: context.color.surface,
-      padding: EdgeInsets.symmetric(
-        horizontal: context.spacing.md,
-        vertical: context.spacing.sm,
+      style: SurfaceStyle(
+        border: Border.all(width: 0),
+        borderRadius: BorderRadius.zero,
+        color: context.color.surface,
+        padding: EdgeInsets.symmetric(
+          horizontal: context.spacing.md,
+          vertical: context.spacing.sm,
+        ),
       ),
       child: SafeArea(
         bottom: false,
@@ -26,7 +28,7 @@ class TopBar extends StatelessWidget {
         child: Row(
           children: [
             Interaction(
-              onTap: () {
+              onPressed: () {
                 context.navigateTo(const DashboardRoute());
               },
               builder: (context, state) {
@@ -44,7 +46,7 @@ class TopBar extends StatelessWidget {
             ),
             const Expanded(child: SizedBox()),
             Button(
-              onTap: () {
+              onPressed: () {
                 showSideBar();
               },
               tooltip: 'Show Mobile Menu',
@@ -53,7 +55,7 @@ class TopBar extends StatelessWidget {
             ),
             const Spacing.sm(),
             Button(
-              onTap: () {},
+              onPressed: () {},
               tooltip: 'Hide SideBar',
               iconWidget: Icons.sidebar.asIcon(
                 size: 20,

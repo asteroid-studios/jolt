@@ -18,7 +18,7 @@ ButtonStyle buttonStyle(BuildContext context) {
 ButtonStyle outlineButton(BuildContext context) {
   return ButtonStyle(
     surfaceStyle: SurfaceStyle(
-      background: context.color.transparent,
+      // background: context.color.transparent,
       borderRadius: context.borderRadius.xl,
       padding: EdgeInsets.symmetric(
         vertical: context.spacing.xs,

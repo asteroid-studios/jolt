@@ -50,12 +50,40 @@ Replace widget appropriately with the name of your widget.
 
 ### Implement the style file
 
-Always use [freezed](https://pub.dev/packages/freezed) when making a new Style class. You also need to implement the Style class.
+Always use [freezed](https://pub.dev/packages/freezed) when making a new style. It will give you a copyWith method, as well as equality.
 
-Freezed will give you a copyWith method, as well as equality. You will need to implement the merge method yourself.
+You will need to create the merge method yourself, when you implement the Style class.
 
-``` dart filename="widget_style.dart"
+``` dart filename="my_widget_style.dart"
+import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:jolt/jolt.dart';
 
+part 'my_widget_style.freezed.dart';
+
+///
+@freezed
+class MyWidgetStyle with _$MyWidgetStyle implements Style<MyWidgetStyle> {
+  /// Defines the style of a [Widget] widget
+  const factory MyWidgetStyle({
+    /// Make sure to document
+    EdgeInsetsGeometry? padding,
+    /// Each available property
+    Color? color,
+    /// In your style class
+    bool? someOption,
+  }) = _MyWidgetStyle;
+
+  const MyWidgetStyle._();
+
+  @override
+  MyWidgetStyle merge(WidgetStyle? style) {
+    return copyWith(
+      padding: padding ?? style?.padding,
+      color: color ?? style?.color,
+      someOption: someOption ?? style?.someOption,
+    );
+  }
+}
 ```
 
 ### Semantics

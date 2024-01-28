@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:flutter/services.dart';
 
 import 'package:flutter_animate/flutter_animate.dart';
-
 import 'package:jolt/jolt.dart';
 
 /// A widget to handle user interaction.
@@ -278,7 +277,9 @@ class InteractionState extends State<Interaction> {
     late Widget interaction;
     final builder = _InteractionScope(
       state: this,
-      child: widget.builder(context, this),
+      child: Builder(
+        builder: (context) => widget.builder(context, this),
+      ),
     );
     if (!widget.disableFocus) {
       interaction = FocusableActionDetector(

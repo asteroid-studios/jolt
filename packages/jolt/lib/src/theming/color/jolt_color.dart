@@ -1,6 +1,9 @@
 import 'package:jolt/jolt.dart';
 import 'package:jolt/src/theming/color/color_resolvers.dart';
 
+const _pureWhite = const Color(0xFFFFFFFF);
+const _pureBlack = const Color(0xFF000000);
+
 /// A color that has a small table of related colors called a "swatch"
 class JoltColor extends Color {
   /// Creates a swatch of colors
@@ -104,13 +107,18 @@ class JoltColor extends Color {
       ];
 
   /// This index of this shade relative to the others.
-  int get shadeIndex => shadesFull.indexWhere((c) => c.value == value);
+  int get shadeIndex {
+    final index = shadesFull
+        .indexWhere((c) => c.withOpacity(1).value == withOpacity(1).value);
+    if (index == -1) return 0;
+    return index;
+  }
 
   /// Used for default Color resolvers
   ///
   /// Returns Color instead of JoltColor
   List<Color> get shadesFull => [
-        const Color(0xFFFFFFFF),
+        if (_shade50 != _pureWhite) _pureWhite,
         _shade50,
         _shade100,
         _shade200,
@@ -122,7 +130,7 @@ class JoltColor extends Color {
         _shade800,
         _shade900,
         _shade950,
-        const Color(0xFF000000),
+        if (_shade950 != _pureBlack) _pureBlack,
       ];
 
   @override

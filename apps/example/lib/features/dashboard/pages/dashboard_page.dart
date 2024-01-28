@@ -216,16 +216,16 @@ class _DashboardPageState extends State<DashboardPage> {
                     ),
                   ),
                   Button(
-                    onTap: () async {
+                    onPressed: () async {
                       final result = await JoltOverlay.show(
                         position: Alignment.topCenter,
                         child: Button(
-                          onTap: () async {
+                          onPressed: () async {
                             final result = await JoltOverlay.show(
                               // zindex: -1,
                               position: Alignment.bottomCenter,
                               child: Button(
-                                onTap: () async {
+                                onPressed: () async {
                                   JoltOverlay.pop('Test');
                                 },
                                 label: 'Nested Button',
@@ -243,7 +243,7 @@ class _DashboardPageState extends State<DashboardPage> {
                     label: 'Button',
                   ),
                   Button(
-                    onTap: () async {
+                    onPressed: () async {
                       await Future<void>.delayed(
                         const Duration(milliseconds: 300),
                       );
@@ -260,7 +260,7 @@ class _DashboardPageState extends State<DashboardPage> {
                     icon: Icons.gear,
                   ),
                   Button(
-                    onTap: () {
+                    onPressed: () {
                       context.overlay.show(
                         useRootOverlayStack: false,
                         // barrierDisabled: true,
@@ -274,7 +274,7 @@ class _DashboardPageState extends State<DashboardPage> {
                     label: 'Button Disabled',
                   ),
                   Button(
-                    onTap: () async {
+                    onPressed: () async {
                       await Future<void>.delayed(
                         const Duration(seconds: 4),
                       );
@@ -296,25 +296,29 @@ class _DashboardPageState extends State<DashboardPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   GestureDetector(
-                    onTap: () {
+                    onPressed: () {
                       context.jolt.setPrimaryColor(Colors.emerald);
                     },
                     child: Surface(
-                      borderRadius: context.borderRadius.lg,
-                      background: Colors.emerald,
-                      padding: EdgeInsets.zero,
+                      style: SurfaceStyle(
+                        borderRadius: context.borderRadius.lg,
+                        color: Colors.emerald,
+                        padding: EdgeInsets.zero,
+                      ),
                       child: const Spacing.xl(),
                     ),
                   ),
                   spacer,
                   GestureDetector(
-                    onTap: () {
+                    onPressed: () {
                       context.jolt.setPrimaryColor(Colors.violet);
                     },
                     child: Surface(
-                      borderRadius: context.borderRadius.lg,
-                      background: Colors.violet,
-                      padding: EdgeInsets.zero,
+                      style: SurfaceStyle(
+                        borderRadius: context.borderRadius.lg,
+                        color: Colors.violet,
+                        padding: EdgeInsets.zero,
+                      ),
                       child: const Spacing.xl(),
                     ),
                   ),
@@ -328,7 +332,7 @@ class _DashboardPageState extends State<DashboardPage> {
               Wrap(
                 children: [
                   Button(
-                    onTap: () {
+                    onPressed: () {
                       context.jolt.setLocale(Locales.fr);
                     },
                     label: 'English',
@@ -377,7 +381,7 @@ class TestDialog extends StatelessWidget {
                   children: [
                     Button(
                       label: 'Cancel',
-                      onTap: () {
+                      onPressed: () {
                         context.overlay.pop();
                       },
                       // background: context.color.surface.s300,
@@ -386,7 +390,7 @@ class TestDialog extends StatelessWidget {
                     Button(
                       label: 'Ok',
                       background: context.color.primary,
-                      onTap: () {
+                      onPressed: () {
                         context.overlay.pop();
                       },
                     ),
@@ -414,10 +418,12 @@ class TestPanel extends StatelessWidget {
         //   top: context.spacing.lg,
         //   bottom: context.spacing.lg,
         // ),
-        padding: EdgeInsets.all(context.spacing.xxl),
-        borderRadius: context.borderRadius.zero,
-        background: context.color.background,
-        width: 400,
+        style: SurfaceStyle(
+          padding: EdgeInsets.all(context.spacing.xxl),
+          borderRadius: context.borderRadius.zero,
+          color: context.color.background,
+          width: 400,
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -433,7 +439,7 @@ class TestPanel extends StatelessWidget {
                 Button(
                   // background: context.color.surface.s300,
                   icon: IconsDuotone.floppyDisk,
-                  onTap: () {
+                  onPressed: () {
                     JoltOverlay.show(child: TestDialog());
                   },
                 ),
@@ -441,7 +447,7 @@ class TestPanel extends StatelessWidget {
                 Button(
                   // background: context.color.surface.s300,
                   icon: Icons.x,
-                  onTap: () {
+                  onPressed: () {
                     context.overlay.pop();
                   },
                 ),

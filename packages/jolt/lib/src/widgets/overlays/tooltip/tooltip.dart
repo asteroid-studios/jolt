@@ -137,8 +137,10 @@ class _TooltipState extends State<Tooltip> {
               ],
             ),
             child: Surface(
-              borderRadius: context.borderRadius.md,
-              padding: EdgeInsets.all(context.spacing.xs),
+              style: (context) => SurfaceStyle(
+                borderRadius: context.borderRadius.md,
+                padding: EdgeInsets.all(context.spacing.xs),
+              ),
               child: SelectionArea(
                 focusNode: FocusNode(canRequestFocus: false),
                 child: Text(

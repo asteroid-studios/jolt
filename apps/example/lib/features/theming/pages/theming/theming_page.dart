@@ -28,8 +28,10 @@ class ThemingPage extends StatelessWidget {
 
     Widget cardFromColor(JoltColor color) {
       return Surface(
-        padding: EdgeInsets.all(context.spacing.xl),
-        background: color,
+        style: SurfaceStyle(
+          padding: EdgeInsets.all(context.spacing.xl),
+          color: color,
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -44,7 +46,7 @@ class ThemingPage extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Button(
-                  onTap: () {},
+                  onPressed: () {},
                   label: 'Test',
                 ).withBackground(color.s500),
               ],
@@ -72,24 +74,20 @@ class ThemingPage extends StatelessWidget {
               // cardFromColor(violetDark),
               // cardFromColor(emerald),
               // cardFromColor(emeraldDark),
-              'Test'.asDisplay(),
-              Icons.hourglassMedium.asIconDisplay(),
+              // 'Test'.asDisplay(),
+              // Icons.hourglassMedium.asIconDisplay(),
               // ResponsiveHeading('Responsive Heading'),
               Button(
                 label: 'Light',
-                icon: IconsBold.gear,
-                onTap: () async {
-                  await Future<void>.delayed(context.durations.long);
-                  context.jolt.setTheme(ThemeMode.system);
-                  await Future<void>.delayed(context.durations.long);
-                },
+                icon: IconsBold.sun,
+                onPressed: () => context.jolt.setTheme(ThemeMode.light),
                 background: Colors.white,
                 color: Colors.black,
               ),
               Button(
                 label: 'Dark',
                 icon: IconsBold.moon,
-                onTap: () {
+                onPressed: () {
                   context.jolt.setTheme(ThemeMode.dark);
                 },
                 background: Colors.black,
@@ -97,117 +95,169 @@ class ThemingPage extends StatelessWidget {
               Button(
                 label: 'Store',
                 icon: Icons.appStoreLogo,
-                onTap: () {},
+                onPressed: () {},
               ).withBackgroundPrimary(),
               Button(
                 label: 'Save to clipboard',
-                icon: Icons.copy,
-                onTap: () {},
+                icon: IconsBold.copy,
+                onPressed: () {},
               ).withBackgroundTertiary(),
               Button(
                 label: 'Home',
                 icon: Icons.house,
-                onTap: () {},
-                border: BorderColor(
-                  context.color.surface.as.foreground(context),
-                ),
+                onPressed: () {},
+                // border: BorderColor(
+                //   context.color.surface.as.foreground(context),
+                // ),
               ).withBackgroundTransparent(),
               Button(
                 label: 'Home',
                 icon: Icons.house,
-                onTap: () {},
+                onPressed: () {},
               ).withBackgroundTransparent().withStyleDisplay().withColorError(),
               Button(
                 label: 'House',
                 icon: Icons.house,
-                onTap: () {},
-                background: context.color.primary.withOpacity(0.2),
+                onPressed: () {},
+                background: context.color.primary.withOpacity(0.3),
                 // color: context.color.primary.s950,
               ),
               Button(
                 label: 'Save',
+                // background: Colors.transparent(context),
+                background: context.color.surface,
                 // icon: Icons.checkCircle,
                 icon: IconsDuotone.checkCircle,
-                onTap: () {},
+                onPressed: () {},
               ).withBackgroundSuccess(),
               Button(
                 label: 'Delete',
                 icon: Icons.trash,
-                onTap: () {},
+                onPressed: () {},
               ).withBackgroundError(),
               Button(
                 label: 'User',
                 background: context.color.primary.s50,
                 icon: Icons.userCircle,
-                onTap: () {},
+                onPressed: () {},
               ),
               Button(
                 label: 'User',
                 background: context.color.primary.s100,
                 icon: Icons.userCircle,
-                onTap: () {},
+                onPressed: () {},
               ),
               Button(
                 label: 'User',
                 background: context.color.primary.s200,
                 icon: Icons.userCircle,
-                onTap: () {},
+                onPressed: () {},
               ),
               Button(
                 label: 'User',
                 background: context.color.primary.s300,
                 icon: Icons.userCircle,
-                onTap: () {},
+                onPressed: () {},
               ),
               Button(
                 label: 'User',
                 background: context.color.primary.s400,
                 icon: Icons.userCircle,
-                onTap: () {},
+                onPressed: () {},
               ),
               Button(
                 label: 'User',
                 background: context.color.primary.s500,
                 icon: Icons.userCircle,
-                onTap: () {},
+                onPressed: () {},
               ),
               Button(
                 label: 'User',
                 background: context.color.primary.s600,
                 icon: Icons.userCircle,
-                onTap: () {},
+                onPressed: () {},
               ),
               Button(
                 label: 'User',
                 background: context.color.primary.s700,
                 icon: Icons.userCircle,
-                onTap: () {},
+                onPressed: () {},
               ),
               Button(
                 label: 'User',
                 background: context.color.primary.s800,
                 icon: Icons.userCircle,
-                onTap: () {},
+                onPressed: () {},
               ),
               Button(
                 label: 'User',
                 background: context.color.primary.s900,
                 icon: Icons.userCircle,
-                onTap: () {},
+                onPressed: () {},
               ),
               Button(
                 label: 'User',
                 background: context.color.primary.s950,
                 icon: Icons.userCircle,
-                onTap: () {},
+                onPressed: () {},
               ),
+              Button(
+                label: 'User',
+                background: Colors.violet,
+                icon: Icons.userCircle,
+                onPressed: () {},
+              ),
+              Button(
+                label: 'User',
+                background: Colors.violet,
+                icon: Icons.userCircle,
+                onPressed: () {},
+              ),
+              Wrap(
+                children: Colors.violet.shades
+                    .map(
+                      (s) => Button(
+                        background: s,
+                        label: 'Test',
+                        onPressed: () {},
+                      ),
+                    )
+                    .toList(),
+              ),
+              Button(
+                label: 'User',
+                background: Color(0xFF8b5cf6),
+                icon: Icons.userCircle,
+                onPressed: () {},
+              ),
+              Wrap(
+                children: Color(0xFF8b5cf6)
+                    .asJoltColor
+                    .shades
+                    .map(
+                      (s) => Button(
+                        background: s,
+                        label: 'Test',
+                        onPressed: () {},
+                      ),
+                    )
+                    .toList(),
+              ),
+              Surface(
+                // style: SurfaceStyle(
+                //   width: 400,
+                //   height: 150,
+                // ),
+                child: Text('Test'),
+              ),
+
               // Form(
               //   builder: (context, state) {
               //     return Column(
               //       children: [
               //         Button(
               //           label: 'Submit',
-              //           onTap: () {
+              //           onPressed: () {
               //             final valid = state.save();
               //             state.validate().then();
               //             if (valid) {

@@ -181,7 +181,7 @@ class _TouchRippleEffectState extends State<TouchRippleEffect>
         decoration: BoxDecoration(
           // when color == null then color will be transparent
           // otherwise color will be backgroundColor
-          color: Colors.transparent,
+          color: context.color.transparent,
 
           // borderRadius of container if user passed
           borderRadius: widget.borderRadius,

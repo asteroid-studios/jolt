@@ -44,17 +44,22 @@ class BottomBar extends StatelessWidget {
               return Expanded(
                 child: Button(
                   fullWidth: true,
-                  padding: EdgeInsets.only(
-                    top: context.spacing.md,
-                    left: context.spacing.md,
-                    right: context.spacing.md,
-                    bottom: max(
-                      context.spacing.md,
-                      context.mediaQuery.viewPadding.bottom,
+                  style: (context) => ButtonStyle(
+                    surfaceStyle: SurfaceStyle(
+                      color: context.color.transparent,
+                      padding: EdgeInsets.only(
+                        top: context.spacing.md,
+                        left: context.spacing.md,
+                        right: context.spacing.md,
+                        bottom: max(
+                          context.spacing.md,
+                          context.mediaQuery.viewPadding.bottom,
+                        ),
+                      ),
                     ),
                   ),
-                  background: context.color.transparent,
-                  border: const BorderColor(Colors.transparent),
+                  // TODO revisit
+                  // border: BorderColor(Colors.transparent),
                   borderRadius: BorderRadius.zero,
                   requestFocusOnPress: false,
                   color: context.color.surface.as.foreground(context),
@@ -66,7 +71,7 @@ class BottomBar extends StatelessWidget {
                   // label: item.label,
                   // labelStyle: context.style.labelSmall,
                   // verticalButton: true,
-                  onTap: () {
+                  onPressed: () {
                     if (selected) {
                       if (currentTab.path ==
                           tabsRouter.currentPath.replaceAll('/', '')) {

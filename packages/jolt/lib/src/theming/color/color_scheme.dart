@@ -2,8 +2,6 @@ import 'package:jolt/jolt.dart';
 
 export 'dart:ui' show Brightness;
 
-// TODO handle shadow color as well, unless it's just part of SurfaceData
-
 /// The color scheme for the app.
 @immutable
 class ColorScheme {
@@ -123,7 +121,7 @@ class ColorScheme {
   final JoltColor success;
 
   /// Return a fully transparent color.
-  JoltColor get transparent => surface.withOpacity(0);
+  JoltColor get transparent => Colors.transparent.asJoltColor;
 
   ///
   ColorScheme copyWith({

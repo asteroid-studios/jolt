@@ -1,5 +1,4 @@
 import 'package:flutter/widgets.dart';
-import 'package:jolt/src/widgets/layout/surface/surface_style_new.dart';
 
 /// All Widget Styles in Jolt should implement this class
 ///
@@ -10,39 +9,36 @@ abstract class Style<T extends Style<T>> {
   T merge(T? style);
 
   /// Resolve a final style based on the style hierarchy
-  static T? resolveAll<T extends Style<T>>(
+  static T resolveAll<T extends Style<T>>(
     BuildContext context, {
     required T widgetStyle,
     T? style,
   }) {
     // TODO replace with widget theme style.
-    final widgetThemeStyle = DefaultStyle.of<T>(context).style;
-    final defaultStyle = DefaultStyle.of<T>(context).style;
-    return widgetStyle.merge(widgetThemeStyle).merge(defaultStyle).merge(style);
+    final widgetThemeStyle = DefaultStyle.maybeOf<T>(context)?.style;
+    final fallbackStyle = FallbackStyle.maybeOf<T>(context)?.style;
+    final defaultStyle = DefaultStyle.maybeOf<T>(context)?.style;
+    return widgetStyle
+        .merge(widgetThemeStyle)
+        .merge(fallbackStyle)
+        .merge(defaultStyle)
+        .merge(style);
   }
+}
+
+///
+extension StyleWidgetX on Widget {
+  ///
+  DefaultStyle<T> withStyle<T>(T style) => DefaultStyle<T>(
+        style: style,
+        child: this,
+      );
 }
 
 /// A function that resolves a style from a [BuildContext]
 typedef StyleResolver<T extends Style<T>> = T Function(BuildContext context);
 
-class MyTest extends StatelessWidget {
-  const MyTest({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return DefaultStyle(
-      style: SurfaceStyle(),
-      child: Builder(
-        builder: (context) {
-          // TODO test
-          final style = DefaultStyle.of<SurfaceStyle>(context).style;
-          return const Placeholder();
-        },
-      ),
-    );
-  }
-}
-
+///
 class DefaultStyle<Style> extends InheritedWidget {
   ///
   const DefaultStyle({
@@ -55,14 +51,8 @@ class DefaultStyle<Style> extends InheritedWidget {
   final Style style;
 
   /// Helper method to access the nearest DefaultStyle in the widget tree
-  static DefaultStyle<T> of<T>(BuildContext context) {
-    final inheritedWidget =
-        context.dependOnInheritedWidgetOfExactType<DefaultStyle<T>>();
-    if (inheritedWidget == null) {
-      throw FlutterError(
-          'StyleInheritedWidget.of() called with a context that does not contain an StyleInheritedWidget<$T>.');
-    }
-    return inheritedWidget;
+  static DefaultStyle<T>? maybeOf<T>(BuildContext context) {
+    return context.dependOnInheritedWidgetOfExactType<DefaultStyle<T>>();
   }
 
   @override
@@ -71,9 +61,25 @@ class DefaultStyle<Style> extends InheritedWidget {
   }
 }
 
-/// A function that builds a style from a [BuildContext]
-typedef StyleBuilder<T extends Style<T>> = T Function(BuildContext context);
+///
+class FallbackStyle<Style> extends InheritedWidget {
+  ///
+  const FallbackStyle({
+    required this.style,
+    required super.child,
+    super.key,
+  });
 
-// TODO Better DefaultStyle widget, allow with FallbackStyle widget for use in widgets like Surface
+  ///
+  final Style? style;
 
-// TODO also consider allowing a list of styles, rather than a single one.
+  /// Helper method to access the nearest DefaultStyle in the widget tree
+  static FallbackStyle<T>? maybeOf<T>(BuildContext context) {
+    return context.dependOnInheritedWidgetOfExactType<FallbackStyle<T>>();
+  }
+
+  @override
+  bool updateShouldNotify(covariant InheritedWidget oldWidget) {
+    return true;
+  }
+}

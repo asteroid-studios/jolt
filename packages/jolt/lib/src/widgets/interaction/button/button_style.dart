@@ -3,9 +3,9 @@
 import 'package:jolt/jolt.dart';
 
 ///
-class ButtonStyle {
+class ButtonStyleOld {
   ///
-  const ButtonStyle({
+  const ButtonStyleOld({
     this.surfaceStyle,
     this.spacing,
     this.labelStyle,
@@ -21,24 +21,15 @@ class ButtonStyle {
   final TextStyle? labelStyle;
 
   ///
-  ButtonStyle copyWith({
+  ButtonStyleOld copyWith({
     SurfaceStyle? surfaceStyle,
     double? spacing,
     TextStyle? labelStyle,
   }) {
-    return ButtonStyle(
+    return ButtonStyleOld(
       surfaceStyle: surfaceStyle ?? this.surfaceStyle,
       spacing: spacing ?? this.spacing,
       labelStyle: labelStyle ?? this.labelStyle,
     );
-  }
-}
-
-class CustomButton extends StatelessWidget {
-  const CustomButton({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Button();
   }
 }

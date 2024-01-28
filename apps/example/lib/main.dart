@@ -14,11 +14,11 @@ void main() async {
   runApp(const App());
 
   if (Platform.isDesktop) {
-    doWhenWindowReady(() {
-      appWindow.minSize = const Size(400, 800);
-      // appWindow.alignment = Alignment.center;
-      appWindow.show();
-    });
+    appWindow.show();
+    // doWhenWindowReady(() {
+    // appWindow.minSize = const Size(400, 800);
+    // appWindow.alignment = Alignment.center;
+    // });
   }
 
   FlutterNativeSplash.remove();

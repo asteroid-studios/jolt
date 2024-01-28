@@ -9,8 +9,10 @@ class DesktopTopbar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Surface(
-      padding: EdgeInsets.zero,
-      borderRadius: BorderRadius.zero,
+      style: const SurfaceStyle(
+        padding: EdgeInsets.zero,
+        borderRadius: BorderRadius.zero,
+      ),
       // background: context.color.primary.withOpacity(0.1).s800,
       child: Stack(
         children: [
@@ -25,14 +27,14 @@ class DesktopTopbar extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   Button(
-                    onTap: () {},
+                    onPressed: () {},
                     tooltip: 'Cast',
                     background: context.color.primary.withOpacity(0.05),
                     icon: IconsDuotone.screencast,
                   ),
                   const Spacing.md(),
                   Button(
-                    onTap: () {},
+                    onPressed: () {},
                     background: context.color.primary.withOpacity(0.05),
                     icon: IconsDuotone.camera,
                   ),

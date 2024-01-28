@@ -15,6 +15,15 @@ extension ColorX on Color {
   /// If the color is dark, make it light, if light make darker
   Color weaken([int value = 10]) => isDark ? brighten(value) : darken(value);
 
+  /// Return HSL color
+  HSLColor get _asHSLColor {
+    return HSLColor.fromColor(this);
+  }
+
+  /// Return a copy of the color with the lightness changed
+  Color withLightness(double lightness) =>
+      _asHSLColor.withLightness(lightness).toColor();
+
   /// Convert a [Color] into a [JoltColor]
   ///
   /// Returns the [JoltColor] if it already is one
@@ -23,17 +32,17 @@ extension ColorX on Color {
 
     return JoltColor(
       value,
-      shade50: darken(50),
-      shade100: darken(30),
-      shade200: darken(20),
-      shade300: darken(),
-      shade400: darken(5),
-      shade500: this,
-      shade600: lighten(5),
-      shade700: lighten(),
-      shade800: lighten(20),
-      shade900: lighten(30),
-      shade950: lighten(50),
+      shade50: withLightness(0.98),
+      shade100: withLightness(0.95),
+      shade200: withLightness(0.93),
+      shade300: withLightness(0.85),
+      shade400: withLightness(0.78),
+      shade500: withLightness(0.66),
+      shade600: withLightness(0.6),
+      shade700: withLightness(0.4),
+      shade800: withLightness(0.32),
+      shade900: withLightness(0.25),
+      shade950: withLightness(0.2),
     );
   }
 }

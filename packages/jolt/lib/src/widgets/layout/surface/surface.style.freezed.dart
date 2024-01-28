@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'surface_style_new.dart';
+part of 'surface.style.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -16,20 +16,34 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$SurfaceStyle {
+  /// The width of the surface
   double? get width => throw _privateConstructorUsedError;
+
+  /// The height of the surface
   double? get height => throw _privateConstructorUsedError;
   BoxConstraints? get constraints => throw _privateConstructorUsedError;
   EdgeInsetsGeometry? get margin => throw _privateConstructorUsedError;
   EdgeInsetsGeometry? get padding => throw _privateConstructorUsedError;
   Clip? get clipBehavior => throw _privateConstructorUsedError;
   Color? get color => throw _privateConstructorUsedError;
+  Color? get borderColor => throw _privateConstructorUsedError;
   DecorationImage? get image => throw _privateConstructorUsedError;
-  BoxBorder? get border => throw _privateConstructorUsedError;
+  Border? get border => throw _privateConstructorUsedError;
   BorderRadiusGeometry? get borderRadius => throw _privateConstructorUsedError;
   List<BoxShadow>? get boxShadow => throw _privateConstructorUsedError;
   Gradient? get gradient => throw _privateConstructorUsedError;
   BlendMode? get backgroundBlendMode => throw _privateConstructorUsedError;
   BoxShape? get shape => throw _privateConstructorUsedError;
+  Duration? get animationDuration => throw _privateConstructorUsedError;
+
+  /// Whether the surface should have a splash effect, defaults to false
+  bool? get splash => throw _privateConstructorUsedError;
+
+  /// Whether the surface should resolve the background color
+  /// defaults to true
+  ///
+  /// For example you might want a transparent surface with no hover effect.
+  bool? get resolveBackgroundColor => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $SurfaceStyleCopyWith<SurfaceStyle> get copyWith =>
@@ -50,13 +64,17 @@ abstract class $SurfaceStyleCopyWith<$Res> {
       EdgeInsetsGeometry? padding,
       Clip? clipBehavior,
       Color? color,
+      Color? borderColor,
       DecorationImage? image,
-      BoxBorder? border,
+      Border? border,
       BorderRadiusGeometry? borderRadius,
       List<BoxShadow>? boxShadow,
       Gradient? gradient,
       BlendMode? backgroundBlendMode,
-      BoxShape? shape});
+      BoxShape? shape,
+      Duration? animationDuration,
+      bool? splash,
+      bool? resolveBackgroundColor});
 }
 
 /// @nodoc
@@ -79,6 +97,7 @@ class _$SurfaceStyleCopyWithImpl<$Res, $Val extends SurfaceStyle>
     Object? padding = freezed,
     Object? clipBehavior = freezed,
     Object? color = freezed,
+    Object? borderColor = freezed,
     Object? image = freezed,
     Object? border = freezed,
     Object? borderRadius = freezed,
@@ -86,6 +105,9 @@ class _$SurfaceStyleCopyWithImpl<$Res, $Val extends SurfaceStyle>
     Object? gradient = freezed,
     Object? backgroundBlendMode = freezed,
     Object? shape = freezed,
+    Object? animationDuration = freezed,
+    Object? splash = freezed,
+    Object? resolveBackgroundColor = freezed,
   }) {
     return _then(_value.copyWith(
       width: freezed == width
@@ -116,6 +138,10 @@ class _$SurfaceStyleCopyWithImpl<$Res, $Val extends SurfaceStyle>
           ? _value.color
           : color // ignore: cast_nullable_to_non_nullable
               as Color?,
+      borderColor: freezed == borderColor
+          ? _value.borderColor
+          : borderColor // ignore: cast_nullable_to_non_nullable
+              as Color?,
       image: freezed == image
           ? _value.image
           : image // ignore: cast_nullable_to_non_nullable
@@ -123,7 +149,7 @@ class _$SurfaceStyleCopyWithImpl<$Res, $Val extends SurfaceStyle>
       border: freezed == border
           ? _value.border
           : border // ignore: cast_nullable_to_non_nullable
-              as BoxBorder?,
+              as Border?,
       borderRadius: freezed == borderRadius
           ? _value.borderRadius
           : borderRadius // ignore: cast_nullable_to_non_nullable
@@ -144,6 +170,18 @@ class _$SurfaceStyleCopyWithImpl<$Res, $Val extends SurfaceStyle>
           ? _value.shape
           : shape // ignore: cast_nullable_to_non_nullable
               as BoxShape?,
+      animationDuration: freezed == animationDuration
+          ? _value.animationDuration
+          : animationDuration // ignore: cast_nullable_to_non_nullable
+              as Duration?,
+      splash: freezed == splash
+          ? _value.splash
+          : splash // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      resolveBackgroundColor: freezed == resolveBackgroundColor
+          ? _value.resolveBackgroundColor
+          : resolveBackgroundColor // ignore: cast_nullable_to_non_nullable
+              as bool?,
     ) as $Val);
   }
 }
@@ -164,13 +202,17 @@ abstract class _$$SurfaceStyleImplCopyWith<$Res>
       EdgeInsetsGeometry? padding,
       Clip? clipBehavior,
       Color? color,
+      Color? borderColor,
       DecorationImage? image,
-      BoxBorder? border,
+      Border? border,
       BorderRadiusGeometry? borderRadius,
       List<BoxShadow>? boxShadow,
       Gradient? gradient,
       BlendMode? backgroundBlendMode,
-      BoxShape? shape});
+      BoxShape? shape,
+      Duration? animationDuration,
+      bool? splash,
+      bool? resolveBackgroundColor});
 }
 
 /// @nodoc
@@ -191,6 +233,7 @@ class __$$SurfaceStyleImplCopyWithImpl<$Res>
     Object? padding = freezed,
     Object? clipBehavior = freezed,
     Object? color = freezed,
+    Object? borderColor = freezed,
     Object? image = freezed,
     Object? border = freezed,
     Object? borderRadius = freezed,
@@ -198,6 +241,9 @@ class __$$SurfaceStyleImplCopyWithImpl<$Res>
     Object? gradient = freezed,
     Object? backgroundBlendMode = freezed,
     Object? shape = freezed,
+    Object? animationDuration = freezed,
+    Object? splash = freezed,
+    Object? resolveBackgroundColor = freezed,
   }) {
     return _then(_$SurfaceStyleImpl(
       width: freezed == width
@@ -228,6 +274,10 @@ class __$$SurfaceStyleImplCopyWithImpl<$Res>
           ? _value.color
           : color // ignore: cast_nullable_to_non_nullable
               as Color?,
+      borderColor: freezed == borderColor
+          ? _value.borderColor
+          : borderColor // ignore: cast_nullable_to_non_nullable
+              as Color?,
       image: freezed == image
           ? _value.image
           : image // ignore: cast_nullable_to_non_nullable
@@ -235,7 +285,7 @@ class __$$SurfaceStyleImplCopyWithImpl<$Res>
       border: freezed == border
           ? _value.border
           : border // ignore: cast_nullable_to_non_nullable
-              as BoxBorder?,
+              as Border?,
       borderRadius: freezed == borderRadius
           ? _value.borderRadius
           : borderRadius // ignore: cast_nullable_to_non_nullable
@@ -256,6 +306,18 @@ class __$$SurfaceStyleImplCopyWithImpl<$Res>
           ? _value.shape
           : shape // ignore: cast_nullable_to_non_nullable
               as BoxShape?,
+      animationDuration: freezed == animationDuration
+          ? _value.animationDuration
+          : animationDuration // ignore: cast_nullable_to_non_nullable
+              as Duration?,
+      splash: freezed == splash
+          ? _value.splash
+          : splash // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      resolveBackgroundColor: freezed == resolveBackgroundColor
+          ? _value.resolveBackgroundColor
+          : resolveBackgroundColor // ignore: cast_nullable_to_non_nullable
+              as bool?,
     ));
   }
 }
@@ -271,18 +333,25 @@ class _$SurfaceStyleImpl extends _SurfaceStyle {
       this.padding,
       this.clipBehavior,
       this.color,
+      this.borderColor,
       this.image,
       this.border,
       this.borderRadius,
       final List<BoxShadow>? boxShadow,
       this.gradient,
       this.backgroundBlendMode,
-      this.shape})
+      this.shape,
+      this.animationDuration,
+      this.splash,
+      this.resolveBackgroundColor})
       : _boxShadow = boxShadow,
         super._();
 
+  /// The width of the surface
   @override
   final double? width;
+
+  /// The height of the surface
   @override
   final double? height;
   @override
@@ -296,9 +365,11 @@ class _$SurfaceStyleImpl extends _SurfaceStyle {
   @override
   final Color? color;
   @override
+  final Color? borderColor;
+  @override
   final DecorationImage? image;
   @override
-  final BoxBorder? border;
+  final Border? border;
   @override
   final BorderRadiusGeometry? borderRadius;
   final List<BoxShadow>? _boxShadow;
@@ -317,10 +388,23 @@ class _$SurfaceStyleImpl extends _SurfaceStyle {
   final BlendMode? backgroundBlendMode;
   @override
   final BoxShape? shape;
+  @override
+  final Duration? animationDuration;
+
+  /// Whether the surface should have a splash effect, defaults to false
+  @override
+  final bool? splash;
+
+  /// Whether the surface should resolve the background color
+  /// defaults to true
+  ///
+  /// For example you might want a transparent surface with no hover effect.
+  @override
+  final bool? resolveBackgroundColor;
 
   @override
   String toString() {
-    return 'SurfaceStyle(width: $width, height: $height, constraints: $constraints, margin: $margin, padding: $padding, clipBehavior: $clipBehavior, color: $color, image: $image, border: $border, borderRadius: $borderRadius, boxShadow: $boxShadow, gradient: $gradient, backgroundBlendMode: $backgroundBlendMode, shape: $shape)';
+    return 'SurfaceStyle(width: $width, height: $height, constraints: $constraints, margin: $margin, padding: $padding, clipBehavior: $clipBehavior, color: $color, borderColor: $borderColor, image: $image, border: $border, borderRadius: $borderRadius, boxShadow: $boxShadow, gradient: $gradient, backgroundBlendMode: $backgroundBlendMode, shape: $shape, animationDuration: $animationDuration, splash: $splash, resolveBackgroundColor: $resolveBackgroundColor)';
   }
 
   @override
@@ -337,6 +421,8 @@ class _$SurfaceStyleImpl extends _SurfaceStyle {
             (identical(other.clipBehavior, clipBehavior) ||
                 other.clipBehavior == clipBehavior) &&
             (identical(other.color, color) || other.color == color) &&
+            (identical(other.borderColor, borderColor) ||
+                other.borderColor == borderColor) &&
             (identical(other.image, image) || other.image == image) &&
             (identical(other.border, border) || other.border == border) &&
             (identical(other.borderRadius, borderRadius) ||
@@ -347,7 +433,12 @@ class _$SurfaceStyleImpl extends _SurfaceStyle {
                 other.gradient == gradient) &&
             (identical(other.backgroundBlendMode, backgroundBlendMode) ||
                 other.backgroundBlendMode == backgroundBlendMode) &&
-            (identical(other.shape, shape) || other.shape == shape));
+            (identical(other.shape, shape) || other.shape == shape) &&
+            (identical(other.animationDuration, animationDuration) ||
+                other.animationDuration == animationDuration) &&
+            (identical(other.splash, splash) || other.splash == splash) &&
+            (identical(other.resolveBackgroundColor, resolveBackgroundColor) ||
+                other.resolveBackgroundColor == resolveBackgroundColor));
   }
 
   @override
@@ -360,13 +451,17 @@ class _$SurfaceStyleImpl extends _SurfaceStyle {
       padding,
       clipBehavior,
       color,
+      borderColor,
       image,
       border,
       borderRadius,
       const DeepCollectionEquality().hash(_boxShadow),
       gradient,
       backgroundBlendMode,
-      shape);
+      shape,
+      animationDuration,
+      splash,
+      resolveBackgroundColor);
 
   @JsonKey(ignore: true)
   @override
@@ -384,18 +479,26 @@ abstract class _SurfaceStyle extends SurfaceStyle {
       final EdgeInsetsGeometry? padding,
       final Clip? clipBehavior,
       final Color? color,
+      final Color? borderColor,
       final DecorationImage? image,
-      final BoxBorder? border,
+      final Border? border,
       final BorderRadiusGeometry? borderRadius,
       final List<BoxShadow>? boxShadow,
       final Gradient? gradient,
       final BlendMode? backgroundBlendMode,
-      final BoxShape? shape}) = _$SurfaceStyleImpl;
+      final BoxShape? shape,
+      final Duration? animationDuration,
+      final bool? splash,
+      final bool? resolveBackgroundColor}) = _$SurfaceStyleImpl;
   const _SurfaceStyle._() : super._();
 
   @override
+
+  /// The width of the surface
   double? get width;
   @override
+
+  /// The height of the surface
   double? get height;
   @override
   BoxConstraints? get constraints;
@@ -408,9 +511,11 @@ abstract class _SurfaceStyle extends SurfaceStyle {
   @override
   Color? get color;
   @override
+  Color? get borderColor;
+  @override
   DecorationImage? get image;
   @override
-  BoxBorder? get border;
+  Border? get border;
   @override
   BorderRadiusGeometry? get borderRadius;
   @override
@@ -421,6 +526,19 @@ abstract class _SurfaceStyle extends SurfaceStyle {
   BlendMode? get backgroundBlendMode;
   @override
   BoxShape? get shape;
+  @override
+  Duration? get animationDuration;
+  @override
+
+  /// Whether the surface should have a splash effect, defaults to false
+  bool? get splash;
+  @override
+
+  /// Whether the surface should resolve the background color
+  /// defaults to true
+  ///
+  /// For example you might want a transparent surface with no hover effect.
+  bool? get resolveBackgroundColor;
   @override
   @JsonKey(ignore: true)
   _$$SurfaceStyleImplCopyWith<_$SurfaceStyleImpl> get copyWith =>

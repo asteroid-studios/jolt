@@ -51,18 +51,19 @@ class Section extends StatelessWidget {
   Widget build(BuildContext context) {
     // TODO account for if section is flush with top of screen, account for safe area.
     Widget section = Surface(
-      setDefaultStyleForChildren: background != null,
-      background: background,
-      height: height,
-      fallbackStyle: SurfaceStyle(
-        background: context.color.background,
-        borderRadius: BorderRadius.zero,
-        border: Border.all(width: 0),
-        padding: EdgeInsets.symmetric(
-          vertical: verticalPadding ?? context.spacing.lg,
-          horizontal: context.spacing.lg,
-        ),
-      ),
+      // TODO revisit
+      // setDefaultStyleForChildren: background != null,
+      // background: background,
+      // height: height,
+      // fallbackStyle: SurfaceStyle(
+      //   background: context.color.background,
+      //   borderRadius: BorderRadius.zero,
+      //   border: Border.all(width: 0),
+      //   padding: EdgeInsets.symmetric(
+      //     vertical: verticalPadding ?? context.spacing.lg,
+      //     horizontal: context.spacing.lg,
+      //   ),
+      // ),
       child: Center(
         child: Container(
           width: double.infinity,

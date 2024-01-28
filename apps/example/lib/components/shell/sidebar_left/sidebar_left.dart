@@ -109,7 +109,7 @@ class _SideBarLeftState extends State<SideBarLeft> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 icon: Icons.code,
                 label: 'Example Code',
-                onTap: () => launchUrl(
+                onPressed: () => launchUrl(
                   Uri.parse(
                     'https://github.com/asteroid-studios/jolt/tree/master/apps/example',
                   ),
@@ -121,7 +121,7 @@ class _SideBarLeftState extends State<SideBarLeft> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 icon: Icons.fileDoc,
                 label: 'Docs',
-                onTap: () => launchUrl(
+                onPressed: () => launchUrl(
                   Uri.parse('https://flutterjolt.dev'),
                 ),
               ),
@@ -131,7 +131,7 @@ class _SideBarLeftState extends State<SideBarLeft> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 icon: Icons.githubLogo,
                 label: 'GitHub',
-                onTap: () => launchUrl(
+                onPressed: () => launchUrl(
                   Uri.parse('https://github.com/asteroid-studios/jolt'),
                 ),
               ),
@@ -190,7 +190,7 @@ class SideBarButton extends StatelessWidget {
             fullWidth: true,
             icon: selected ? item.selectedIcon : item.icon,
             label: item.label,
-            onTap: () {
+            onPressed: () {
               if (!selected && !Platform.isWeb && topLevel) {
                 autoTabsRouterKey.currentState?.controller
                     ?.setActiveIndex(index);
