@@ -232,6 +232,13 @@ class JoltColorAs {
         .call(joltColor, context);
   }
 
+  /// Resolve the foregroundLight color from context.
+  Color foregroundLight(BuildContext context) {
+    final joltColor = _color.as.joltColor();
+    return joltColor._colorResolvers.foregroundLightColorResolver
+        .call(joltColor, context);
+  }
+
   /// Convert a [Color] into a [JoltColor]
   ///
   /// Returns the [JoltColor] if it already is one

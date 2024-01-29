@@ -306,7 +306,13 @@ class ThemingPage extends StatelessWidget {
                 ),
                 child: Text('Test'),
               ),
-
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  'Test'.asDisplay().withColorForeground(),
+                  ' Test'.asHeadingSmall().withColorForegroundLight(),
+                ],
+              ),
               // Form(
               //   builder: (context, state) {
               //     return Column(

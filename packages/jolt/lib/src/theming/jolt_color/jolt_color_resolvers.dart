@@ -14,9 +14,7 @@ Color defaultBackgroundResolver(JoltColor color, BuildContext context) {
   // If hovered or focused, tweak the color slightly
   if (interaction.isHovered || interaction.isFocused) {
     // If the color is partly transparent, show a darker version
-    final opacity = color.opacity;
-    if (opacity > 0 && opacity < 0.5) return color.withOpacity(0.7);
-
+    if (color.opacity > 0 && color.opacity < 0.5) return color.withOpacity(0.7);
     return color.newShade(context).withOpacity(1);
   }
   // Otherwise show as normal
@@ -29,7 +27,6 @@ Color defaultBorderResolver(JoltColor color, BuildContext context) {
   // TODO if user has defined their own color resolver, get from context and use that instead
   final interaction = context.inherited.interactionState;
   if (interaction.isDisabled || interaction.isDragged) {
-    // TODO does this make sense if transparent? maybe should be math.min
     return color.withOpacity(0.2);
   }
   if (interaction.isFocused) {
@@ -50,24 +47,32 @@ Color defaultBorderResolver(JoltColor color, BuildContext context) {
 Color defaultForegroundResolver(JoltColor color, BuildContext context) {
   // TODO if user has defined their own color resolver, get from context and use that instead
   final interaction = context.inherited.interactionState;
-  late Color foregroundColor;
-  if (color.opacity == 0) {
-    foregroundColor = context.color.background.as.foreground(context);
-  } else if (color.opacity < 0.5 &&
-      !interaction.isHovered &&
-      !interaction.isFocused) {
-    foregroundColor = color.withOpacity(1);
+  late Color foreground;
+  if (color.opacity < 0.5 && !interaction.isHovered && !interaction.isFocused) {
+    foreground = context.color.isLight
+        ? color.s700.withOpacity(1)
+        : color.s300.withOpacity(1);
   } else {
-    foregroundColor =
+    foreground =
         color.isLight ? color.s950.withOpacity(1) : color.s50.withOpacity(1);
   }
-  // TODO if is foreground light, then return the light color
-  // return color.isLight ? color.s400 : color.s600;
-  // return color.s500;
   if (interaction.isDisabled || interaction.isDragged) {
-    return foregroundColor.withOpacity(0.5);
+    return foreground.withOpacity(0.5);
   }
-  return foregroundColor;
+  return foreground;
+}
+
+/// Return the appropriate shade of the color
+/// based on the current interaction state
+Color defaultForegroundLightResolver(JoltColor color, BuildContext context) {
+  // TODO if user has defined their own color resolver, get from context and use that instead
+  final interaction = context.inherited.interactionState;
+  final foreground =
+      color.isLight ? color.s400.withOpacity(1) : color.s500.withOpacity(1);
+  if (interaction.isDisabled || interaction.isDragged) {
+    return foreground.withOpacity(0.5);
+  }
+  return foreground;
 }
 
 /// A function which returns a Color from a Jolt Color
@@ -108,11 +113,13 @@ class JoltColorResolvers {
   const JoltColorResolvers({
     ColorResolver? background,
     ColorResolver? foreground,
+    ColorResolver? foregroundLight,
     ColorResolver? border,
     // ColorResolver? shadowColorResolver,
     // ignore: avoid_field_initializers_in_const_classes
   })  : _backgroundColorResolver = background,
         _foregroundColorResolver = foreground,
+        _foregroundLightColorResolver = foregroundLight,
         _borderColorResolver = border;
   // _shadowColorResolver = shadowColorResolver;
 
@@ -127,6 +134,12 @@ class JoltColorResolvers {
   ColorResolver get foregroundColorResolver =>
       _foregroundColorResolver ?? defaultForegroundResolver;
   final ColorResolver? _foregroundColorResolver;
+
+  /// Resolve the foregroundLight color from
+  /// the available shades and current context
+  ColorResolver get foregroundLightColorResolver =>
+      _foregroundLightColorResolver ?? defaultForegroundLightResolver;
+  final ColorResolver? _foregroundLightColorResolver;
 
   /// Resolve the border color from
   /// the available shades and current context
