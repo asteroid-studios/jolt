@@ -1,7 +1,6 @@
 export 'animation/progress_indicator/circular_progress_indicator.dart';
 export 'animation/progress_indicator/linear_progress_indicator.dart';
 export 'animation/progress_indicator/progress_indicator_theme.dart';
-export 'animation/ripple_effect/ripple_effect.dart';
 export 'animation/splash/splash.dart';
 export 'animation/splash/splash.style.dart';
 export 'animation/splash/splash_factories/splash_hold_factory.dart';

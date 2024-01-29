@@ -28,7 +28,7 @@ class ThemingPage extends StatelessWidget {
 
     Widget cardFromColor(JoltColor color) {
       return Surface(
-        style: SurfaceStyle(
+        style: (context) => SurfaceStyle(
           padding: EdgeInsets.all(context.spacing.xl),
           color: color,
         ),
@@ -65,7 +65,7 @@ class ThemingPage extends StatelessWidget {
                 context.spacing.md,
           ),
           child: Wrap(
-            spacing: context.spacing.lg,
+            spacing: context.spacing.sm,
             runSpacing: context.spacing.lg,
             children: [
               // cardFromColor(surfaceDark),
@@ -81,8 +81,8 @@ class ThemingPage extends StatelessWidget {
                 label: 'Light',
                 icon: IconsBold.sun,
                 onPressed: () => context.jolt.setTheme(ThemeMode.light),
-                background: Colors.white,
-                color: Colors.black,
+                color: Colors.white,
+                // color: Colors.black,
               ),
               Button(
                 label: 'Dark',
@@ -90,7 +90,7 @@ class ThemingPage extends StatelessWidget {
                 onPressed: () {
                   context.jolt.setTheme(ThemeMode.dark);
                 },
-                background: Colors.black,
+                color: Colors.black,
               ),
               Button(
                 label: 'Store',
@@ -114,18 +114,18 @@ class ThemingPage extends StatelessWidget {
                 label: 'Home',
                 icon: Icons.house,
                 onPressed: () {},
-              ).withBackgroundTransparent().withStyleDisplay().withColorError(),
+              ).withBackgroundTransparent().withStyleDisplay(),
               Button(
                 label: 'House',
                 icon: Icons.house,
                 onPressed: () {},
-                background: context.color.primary.withOpacity(0.3),
+                color: context.color.primary.withOpacity(0.3),
                 // color: context.color.primary.s950,
               ),
               Button(
                 label: 'Save',
                 // background: Colors.transparent(context),
-                background: context.color.surface,
+                color: context.color.surface,
                 // icon: Icons.checkCircle,
                 icon: IconsDuotone.checkCircle,
                 onPressed: () {},
@@ -137,87 +137,116 @@ class ThemingPage extends StatelessWidget {
               ).withBackgroundError(),
               Button(
                 label: 'User',
-                background: context.color.primary.s50,
+                color: context.color.primary.s50,
                 icon: Icons.userCircle,
                 onPressed: () {},
               ),
               Button(
                 label: 'User',
-                background: context.color.primary.s100,
+                color: context.color.primary.s100,
                 icon: Icons.userCircle,
                 onPressed: () {},
               ),
               Button(
                 label: 'User',
-                background: context.color.primary.s200,
+                color: context.color.primary.s200,
                 icon: Icons.userCircle,
                 onPressed: () {},
               ),
               Button(
                 label: 'User',
-                background: context.color.primary.s300,
+                color: context.color.primary.s300,
                 icon: Icons.userCircle,
                 onPressed: () {},
               ),
               Button(
                 label: 'User',
-                background: context.color.primary.s400,
+                color: context.color.primary.s400,
                 icon: Icons.userCircle,
                 onPressed: () {},
               ),
               Button(
                 label: 'User',
-                background: context.color.primary.s500,
+                color: context.color.primary.s500,
                 icon: Icons.userCircle,
                 onPressed: () {},
               ),
               Button(
                 label: 'User',
-                background: context.color.primary.s600,
+                color: context.color.primary.s600,
                 icon: Icons.userCircle,
                 onPressed: () {},
               ),
               Button(
                 label: 'User',
-                background: context.color.primary.s700,
+                color: context.color.primary.s700,
                 icon: Icons.userCircle,
                 onPressed: () {},
               ),
               Button(
                 label: 'User',
-                background: context.color.primary.s800,
+                color: context.color.primary.s800,
                 icon: Icons.userCircle,
                 onPressed: () {},
               ),
               Button(
                 label: 'User',
-                background: context.color.primary.s900,
+                color: context.color.primary.s900,
                 icon: Icons.userCircle,
                 onPressed: () {},
               ),
               Button(
                 label: 'User',
-                background: context.color.primary.s950,
+                color: context.color.primary.s950,
                 icon: Icons.userCircle,
                 onPressed: () {},
               ),
               Button(
                 label: 'User',
-                background: Colors.violet,
+                color: Colors.violet,
                 icon: Icons.userCircle,
                 onPressed: () {},
               ),
               Button(
                 label: 'User',
-                background: Colors.violet,
+                color: Colors.violet,
                 icon: Icons.userCircle,
+                onPressed: () {},
+              ),
+              Button(
+                icon: Icons.userCircle,
+                color: Colors.violet,
+                onPressed: () {},
+              ),
+              Button(
+                icon: Icons.airplane,
+                // label: 'C',
+                color: Colors.violet,
+                onPressed: () {},
+              ),
+              Button(
+                color: Colors.amber,
+                onPressed: () {},
+              ),
+              Button(
+                icon: Icons.userCircle,
+                axis: Axis.vertical,
+                // label: 'User',
+                color: Colors.violet,
+                onPressed: () {},
+              ),
+              Button(
+                icon: Icons.userCircle,
+                axis: Axis.vertical,
+                label: 'User',
+                color: Colors.violet,
                 onPressed: () {},
               ),
               Wrap(
                 children: Colors.violet.shades
                     .map(
                       (s) => Button(
-                        background: s,
+                        color: s,
                         label: 'Test',
                         onPressed: () {},
                       ),
@@ -226,28 +255,55 @@ class ThemingPage extends StatelessWidget {
               ),
               Button(
                 label: 'User',
-                background: Color(0xFF8b5cf6),
+                color: Color.fromARGB(255, 147, 145, 154).as.joltColor().s900,
+                icon: Icons.userCircle,
+                onPressed: () {},
+              ),
+              Button(
+                label: 'User',
+                color: Color(0xFF8b5cf6),
                 icon: Icons.userCircle,
                 onPressed: () {},
               ),
               Wrap(
-                children: Color(0xFF8b5cf6)
-                    .asJoltColor
+                children: Color(0xFFf43f5e)
+                    .as
+                    .joltColor()
                     .shades
                     .map(
                       (s) => Button(
-                        background: s,
+                        color: s,
                         label: 'Test',
                         onPressed: () {},
                       ),
                     )
                     .toList(),
               ),
+
+              Button(
+                label: 'Test',
+                icon: IconsDuotone.checkCircle,
+
+                // TODO issue, widget doesn't update style when onpressed changes ie enable/disable
+                onPressed: () {},
+              ).withBackgroundSurface(),
+              Button(
+                label: 'Test',
+                onPressed: () {},
+                icon: IconsDuotone.checkCircle,
+              ).withBackgroundSurfaceInverse(),
+              Container(
+                color: Colors.white,
+                width: 100,
+                height: 200,
+              ),
               Surface(
-                // style: SurfaceStyle(
-                //   width: 400,
-                //   height: 150,
-                // ),
+                style: (context) => SurfaceStyle(
+                  // width: 400,
+                  // height: 150,
+                  // color: Colors.amber,
+                  color: Colors.white,
+                ),
                 child: Text('Test'),
               ),
 

@@ -7,20 +7,19 @@ Color defaultBackgroundResolver(JoltColor color, BuildContext context) {
 
   final interaction = context.inherited.interactionState;
 
+  // If disabled or dragged, show a faded version
   if (interaction.isDisabled || interaction.isDragged) {
-    // TODO does this make sense if transparent? maybe should be math.min
     return color.withOpacity(0.2);
   }
+  // If hovered or focused, tweak the color slightly
   if (interaction.isHovered || interaction.isFocused) {
-    if (color.opacity == 0) {
-      // TODO test
-      return context.color.surface;
-    }
-
-    if (color.opacity > 0 && color.opacity < 0.5) return color.withOpacity(0.7);
+    // If the color is partly transparent, show a darker version
+    final opacity = color.opacity;
+    if (opacity > 0 && opacity < 0.5) return color.withOpacity(0.7);
 
     return color.newShade(context).withOpacity(1);
   }
+  // Otherwise show as normal
   return color;
 }
 
@@ -28,15 +27,16 @@ Color defaultBackgroundResolver(JoltColor color, BuildContext context) {
 /// based on the current interaction state
 Color defaultBorderResolver(JoltColor color, BuildContext context) {
   // TODO if user has defined their own color resolver, get from context and use that instead
-
   final interaction = context.inherited.interactionState;
   if (interaction.isDisabled || interaction.isDragged) {
     // TODO does this make sense if transparent? maybe should be math.min
     return color.withOpacity(0.2);
   }
   if (interaction.isFocused) {
-    // TODO if a colorful color, return white or black instead
-    return context.color.primary;
+    // if (color is tooSimilar to foreground) {
+    //   return context.color.primary;
+    // }
+    return context.color.background.as.foreground(context);
   }
   if (interaction.isHovered) {
     if (color.opacity > 0 && color.opacity < 0.5) return color.withOpacity(0.7);
@@ -49,7 +49,6 @@ Color defaultBorderResolver(JoltColor color, BuildContext context) {
 /// based on the current interaction state
 Color defaultForegroundResolver(JoltColor color, BuildContext context) {
   // TODO if user has defined their own color resolver, get from context and use that instead
-
   final interaction = context.inherited.interactionState;
   late Color foregroundColor;
   if (color.opacity == 0) {
@@ -104,9 +103,9 @@ extension _DefaultColorExtensions on JoltColor {
 }
 
 ///
-class ColorResolvers {
+class JoltColorResolvers {
   ///
-  const ColorResolvers({
+  const JoltColorResolvers({
     ColorResolver? background,
     ColorResolver? foreground,
     ColorResolver? border,

@@ -9,7 +9,7 @@ class DesktopTopbar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Surface(
-      style: const SurfaceStyle(
+      style: (context) => const SurfaceStyle(
         padding: EdgeInsets.zero,
         borderRadius: BorderRadius.zero,
       ),
@@ -29,13 +29,13 @@ class DesktopTopbar extends StatelessWidget {
                   Button(
                     onPressed: () {},
                     tooltip: 'Cast',
-                    background: context.color.primary.withOpacity(0.05),
+                    color: context.color.primary.withOpacity(0.05),
                     icon: IconsDuotone.screencast,
                   ),
                   const Spacing.md(),
                   Button(
                     onPressed: () {},
-                    background: context.color.primary.withOpacity(0.05),
+                    color: context.color.primary.withOpacity(0.05),
                     icon: IconsDuotone.camera,
                   ),
                 ],

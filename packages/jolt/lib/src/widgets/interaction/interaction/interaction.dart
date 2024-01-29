@@ -31,7 +31,7 @@ class Interaction extends StatefulWidget {
     this.descendantsAreFocusable = true,
     this.descendantsAreTraversable = true,
     this.shakeOnError = true,
-    this.requestFocusOnPress = true,
+    this.requestFocusOnPress = false,
     this.autoFocus = false,
     this.disableFocus = false,
     this.disableHover = false,

@@ -1,6 +1,8 @@
 import 'package:jolt/jolt.dart';
 
-/// Some pre-made colors for Jolt.
+/// Some pre-configured colors for Jolt.
+///
+/// Colors are based on the [TailwindCSS](https://tailwindcss.com/docs/customizing-colors) color palette.
 class Colors {
   // This class is not meant to be instantiated or extended; this constructor
   // prevents instantiation and extension.
@@ -12,51 +14,41 @@ class Colors {
   static const transparent = Color(0x00000000);
 
   /// Pure white
-  static const white = JoltColor(
-    0xffffffff,
-    shade50: Color(0xfffafafa),
-    shade100: Color(0xfff5f5f5),
-    shade200: Color(0xffe5e5e5),
-    shade300: Color(0xffd4d4d4),
-    shade400: Color(0xffa3a3a3),
-    shade500: Color(0xff737373),
-    shade600: Color(0xff525252),
-    shade700: Color(0xff404040),
-    shade800: Color(0xff262626),
-    shade900: Color(0xff171717),
-    shade950: Color(0xff0a0a0a),
-  );
+  static const white = Color(0xffffffff);
 
   /// Pure black
-  static const black = JoltColor(
-    0xff000000,
-    shade50: Color(0xfffafafa),
-    shade100: Color(0xfff5f5f5),
-    shade200: Color(0xffe5e5e5),
-    shade300: Color(0xffd4d4d4),
-    shade400: Color(0xffa3a3a3),
-    shade500: Color(0xff737373),
-    shade600: Color(0xff525252),
-    shade700: Color(0xff404040),
-    shade800: Color(0xff262626),
-    shade900: Color(0xff171717),
-    shade950: Color(0xff0a0a0a),
-  );
+  static const black = Color(0xff000000);
 
   /// A neutral color with a blueish tint
   static const slate = JoltColor(
-    0xff475569,
-    shade50: Color(0xfff8fafc),
-    shade100: Color(0xfff1f5f9),
-    shade200: Color(0xffe2e8f0),
-    shade300: Color(0xffcbd5e1),
-    shade400: Color(0xff94a3b8),
+    0xFF475569,
+    shade50: Color(0xFFf8fafc),
+    shade100: Color(0xFFf1f5f9),
+    shade200: Color(0xFFe2e8f0),
+    shade300: Color(0xFFcbd5e1),
+    shade400: Color(0xFF94a3b8),
     shade500: Color(0xFF64748b),
-    shade600: Color(0xff475569),
-    shade700: Color(0xff334155),
-    shade800: Color(0xff1e293b),
-    shade900: Color(0xff0f172a),
-    shade950: Color(0xff020617),
+    shade600: Color(0xFF475569),
+    shade700: Color(0xFF334155),
+    shade800: Color(0xFF1e293b),
+    shade900: Color(0xFF0f172a),
+    shade950: Color(0xFF020617),
+  );
+
+  ///
+  static const grey = JoltColor(
+    0xFF4b5563,
+    shade50: Color(0xFFf9fafb),
+    shade100: Color(0xFFf3f4f6),
+    shade200: Color(0xFFe5e7eb),
+    shade300: Color(0xFFd1d5db),
+    shade400: Color(0xFF9ca3af),
+    shade500: Color(0xFF6b7280),
+    shade600: Color(0xFF4b5563),
+    shade700: Color(0xFF374151),
+    shade800: Color(0xFF1f2937),
+    shade900: Color(0xFF111827),
+    shade950: Color(0xFF030712),
   );
 
   /// A neutral color
@@ -153,5 +145,21 @@ class Colors {
     shade800: Color(0xff075985),
     shade900: Color(0xff0c4a6e),
     shade950: Color(0xff082f49),
+  );
+
+  /// Rose
+  static const rose = JoltColor(
+    0xFFe11d48,
+    shade50: Color(0xFFfff1f2),
+    shade100: Color(0xFFffe4e6),
+    shade200: Color(0xFFfecdd3),
+    shade300: Color(0xFFfda4af),
+    shade400: Color(0xFFfb7185),
+    shade500: Color(0xFFf43f5e),
+    shade600: Color(0xFFe11d48),
+    shade700: Color(0xFFbe123c),
+    shade800: Color(0xFF9f1239),
+    shade900: Color(0xFF881337),
+    shade950: Color(0xFF4c0519),
   );
 }

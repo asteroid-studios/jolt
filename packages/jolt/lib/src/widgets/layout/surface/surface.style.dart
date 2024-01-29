@@ -43,25 +43,25 @@ class SurfaceStyle with _$SurfaceStyle implements Style<SurfaceStyle> {
   @override
   SurfaceStyle merge(SurfaceStyle? style) {
     return copyWith(
-      padding: padding ?? style?.padding,
-      margin: margin ?? style?.margin,
-      width: width ?? style?.width,
-      height: height ?? style?.height,
-      constraints: constraints ?? style?.constraints,
-      clipBehavior: clipBehavior ?? style?.clipBehavior,
-      color: color ?? style?.color,
-      borderColor: borderColor ?? style?.borderColor,
-      image: image ?? style?.image,
-      border: border ?? style?.border,
-      splash: splash ?? style?.splash,
-      borderRadius: borderRadius ?? style?.borderRadius,
-      boxShadow: boxShadow ?? style?.boxShadow,
-      gradient: gradient ?? style?.gradient,
-      backgroundBlendMode: backgroundBlendMode ?? style?.backgroundBlendMode,
-      shape: shape ?? style?.shape,
-      animationDuration: animationDuration ?? style?.animationDuration,
+      padding: style?.padding ?? padding,
+      margin: style?.margin ?? margin,
+      width: style?.width ?? width,
+      height: style?.height ?? height,
+      constraints: style?.constraints ?? constraints,
+      clipBehavior: style?.clipBehavior ?? clipBehavior,
+      color: style?.color ?? color,
+      borderColor: style?.borderColor ?? borderColor,
+      image: style?.image ?? image,
+      border: style?.border ?? border,
+      splash: style?.splash ?? splash,
+      borderRadius: style?.borderRadius ?? borderRadius,
+      boxShadow: style?.boxShadow ?? boxShadow,
+      gradient: style?.gradient ?? gradient,
+      backgroundBlendMode: style?.backgroundBlendMode ?? backgroundBlendMode,
+      shape: style?.shape ?? shape,
+      animationDuration: style?.animationDuration ?? animationDuration,
       resolveBackgroundColor:
-          resolveBackgroundColor ?? style?.resolveBackgroundColor,
+          style?.resolveBackgroundColor ?? resolveBackgroundColor,
     );
   }
 }
@@ -92,6 +92,14 @@ extension SurfaceWidgetX on Widget {
   Widget withBackgroundSurface() => Builder(
         builder: (context) => DefaultStyle<SurfaceStyle>(
           style: SurfaceStyle(color: context.color.surface),
+          child: this,
+        ),
+      );
+
+  /// Make all surfaces in the widget tree have a background of surface.
+  Widget withBackgroundSurfaceInverse() => Builder(
+        builder: (context) => DefaultStyle<SurfaceStyle>(
+          style: SurfaceStyle(color: context.color.surfaceInverse),
           child: this,
         ),
       );

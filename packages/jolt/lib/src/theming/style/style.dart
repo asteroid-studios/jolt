@@ -15,11 +15,12 @@ abstract class Style<T extends Style<T>> {
     T? style,
   }) {
     // TODO replace with widget theme style.
-    final widgetThemeStyle = DefaultStyle.maybeOf<T>(context)?.style;
+    // final widgetThemeStyle = DefaultStyle.maybeOf<T>(context)?.style;
     final fallbackStyle = FallbackStyle.maybeOf<T>(context)?.style;
     final defaultStyle = DefaultStyle.maybeOf<T>(context)?.style;
+
     return widgetStyle
-        .merge(widgetThemeStyle)
+        // .merge(widgetThemeStyle)
         .merge(fallbackStyle)
         .merge(defaultStyle)
         .merge(style);

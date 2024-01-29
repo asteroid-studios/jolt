@@ -4,7 +4,7 @@ import 'package:jolt/jolt.dart';
 
 ButtonStyle buttonStyle(BuildContext context) {
   return ButtonStyle(
-    labelStyle: context.style.body,
+    // textStyle: context.style.body,
     surfaceStyle: SurfaceStyle(
       borderRadius: context.borderRadius.xl,
       padding: EdgeInsets.symmetric(

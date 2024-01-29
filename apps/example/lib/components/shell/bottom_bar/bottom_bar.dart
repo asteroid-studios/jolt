@@ -46,7 +46,8 @@ class BottomBar extends StatelessWidget {
                   fullWidth: true,
                   style: (context) => ButtonStyle(
                     surfaceStyle: SurfaceStyle(
-                      color: context.color.transparent,
+                      borderRadius: BorderRadius.zero,
+                      color: Colors.transparent,
                       padding: EdgeInsets.only(
                         top: context.spacing.md,
                         left: context.spacing.md,
@@ -60,14 +61,14 @@ class BottomBar extends StatelessWidget {
                   ),
                   // TODO revisit
                   // border: BorderColor(Colors.transparent),
-                  borderRadius: BorderRadius.zero,
-                  requestFocusOnPress: false,
+                  // TODO revisit
+                  // requestFocusOnPress: false,
                   color: context.color.surface.as.foreground(context),
                   // color: (context.color.isDark
                   //     ? context.color.primary.s300
                   //     : context.color.primary.s950),
                   icon: selected ? item.selectedIcon : item.icon,
-                  iconSize: 24,
+                  // iconSize: 24,
                   // label: item.label,
                   // labelStyle: context.style.labelSmall,
                   // verticalButton: true,

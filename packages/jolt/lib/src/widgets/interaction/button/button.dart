@@ -79,17 +79,17 @@ class Button extends StatelessWidget {
       onLongPressed: onLongPressed,
       tooltip: tooltip,
       builder: (BuildContext context, InteractionState state) {
-        final spacing = style.spacing ?? context.spacing.xs;
+        final spacing = style.spacing ?? context.spacing.xxxs;
         final indicator = style.indicator ?? const CircularProgressIndicator();
         final buttonChildren = [
-          if (state.isWaiting)
-            indicator
-          else if (icon != null)
-            icon!.asIcon(size: style.textStyle?.fontSize),
-          if (label == null)
-            _EmptyButtonSize(style.textStyle)
-          else
-            label!.asText(style.textStyle),
+          if (icon != null || label == null)
+            _ButtonIconSlot(
+              textStyle: style.textStyle,
+              child: state.isWaiting
+                  ? indicator
+                  : icon?.asIcon(size: style.textStyle?.fontSize),
+            ),
+          if (label != null) label!.asText(style.textStyle),
         ];
 
         late Widget child;
@@ -118,7 +118,10 @@ class Button extends StatelessWidget {
 
         return FallbackStyle(
           style: style.surfaceStyle,
-          child: Surface(child: child),
+          child: Surface(
+            child: child,
+            style: (context) => style.surfaceStyle!,
+          ),
         );
       },
     );
@@ -127,9 +130,13 @@ class Button extends StatelessWidget {
 
 /// This widget is used simply to ensure icon only buttons have the same
 /// height as icon + label buttons.
-class _EmptyButtonSize extends StatelessWidget {
-  const _EmptyButtonSize(this.textStyle);
+class _ButtonIconSlot extends StatelessWidget {
+  const _ButtonIconSlot({
+    required this.textStyle,
+    required this.child,
+  });
 
+  final Widget? child;
   final TextStyle? textStyle;
 
   @override
@@ -140,7 +147,13 @@ class _EmptyButtonSize extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         RotatedBox(quarterTurns: 1, child: emptyCharBlock),
-        emptyCharBlock,
+        Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            if (child != null) child!,
+            emptyCharBlock,
+          ],
+        ),
       ],
     );
   }

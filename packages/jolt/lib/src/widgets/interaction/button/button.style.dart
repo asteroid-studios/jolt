@@ -23,15 +23,20 @@ class ButtonStyle with _$ButtonStyle implements Style<ButtonStyle> {
     Widget? indicator,
   }) = _ButtonStyle;
 
+  // TODO add indicator none
+
+  // TODO add interaction style. for example request focus on press default.
+
   const ButtonStyle._();
 
   @override
   ButtonStyle merge(ButtonStyle? style) {
     return copyWith(
-      surfaceStyle: surfaceStyle?.merge(style?.surfaceStyle),
+      surfaceStyle:
+          surfaceStyle?.merge(style?.surfaceStyle) ?? style?.surfaceStyle,
       textStyle: style?.textStyle ?? textStyle,
       spacing: style?.spacing ?? spacing,
-      indicator: indicator,
+      indicator: style?.indicator ?? indicator,
     );
   }
 }

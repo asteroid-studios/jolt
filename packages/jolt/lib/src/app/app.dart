@@ -6,7 +6,6 @@ import 'package:flutter_portal/flutter_portal.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 import 'package:jolt/jolt.dart';
-import 'package:jolt/src/theming/color/jolt_color.dart';
 
 /// The Jolt app.
 class JoltApp extends StatefulWidget {
@@ -291,11 +290,11 @@ class _DefaultStyles extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Color foreground(JoltColor color) {
+    Color foreground(Color color) {
       return color.as.foreground(context);
     }
 
-    m.ThemeData materialThemeData(ColorScheme color) {
+    m.ThemeData materialThemeData(JoltColorScheme color) {
       return m.ThemeData(
         scaffoldBackgroundColor: color.background,
         colorScheme: m.ColorScheme(

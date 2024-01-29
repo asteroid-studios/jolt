@@ -106,26 +106,16 @@ extension TypographyWidgetX on Widget {
 
   /// Wrap the widget with the foreground color of the inherited surface.
   Widget withColorForeground() => DefaultSymbolStyle.important(
-        style: (context) {
-          final surfaceColor =
-              context.inherited.surfaceStyle?.color ?? context.color.surface;
-          return TextStyle(
-            color: surfaceColor.asJoltColor.as.foreground(context),
-          );
-        },
+        style: (context) =>
+            TextStyle(color: SurfaceColor.of(context).as.foreground(context)),
         child: this,
       );
 
   /// Wrap the widget with the light foreground color of the inherited surface.
   Widget withColorForegroundLight() => DefaultSymbolStyle.important(
-        style: (context) {
-          final surfaceColor =
-              context.inherited.surfaceStyle?.color ?? context.color.surface;
-          return TextStyle(
-            // TODO foreground light
-            color: surfaceColor.asJoltColor.as.foreground(context),
-          );
-        },
+        // TODO foreground light
+        style: (context) =>
+            TextStyle(color: SurfaceColor.of(context).as.foreground(context)),
         child: this,
       );
 

@@ -36,9 +36,9 @@ class SideBarRight extends StatelessWidget {
               : color.darken()
           : null;
       return Button(
-        background: color,
+        color: color,
         // border: BorderColor(borderColor),
-        borderRadius: context.borderRadius.xl,
+        // borderRadius: context.borderRadius.xl,
         onPressed: () => context.jolt.setPrimaryColor(color),
       );
     }
@@ -52,7 +52,7 @@ class SideBarRight extends StatelessWidget {
       return Button(
         icon: icon,
         // border: BorderColor(selected ? context.color.primary : null),
-        iconScale: sizeMultiplier,
+        // iconScale: sizeMultiplier,
         onPressed: () =>
             context.jolt.setSymbolScaleFactorMultiplier(sizeMultiplier),
       );
@@ -67,7 +67,7 @@ class SideBarRight extends StatelessWidget {
       return Button(
         icon: icon,
         // border: BorderColor(selected ? context.color.primary : null),
-        iconScale: sizeMultiplier,
+        // iconScale: sizeMultiplier,
         onPressed: () =>
             context.jolt.setSpacingScaleFactorMultiplier(sizeMultiplier),
       );
@@ -78,15 +78,19 @@ class SideBarRight extends StatelessWidget {
     ) {
       final selected = context.jolt.value.locale == locale;
       return Button(
-        padding: EdgeInsets.all(context.spacing.xs),
+        style: (context) => ButtonStyle(
+          surfaceStyle: SurfaceStyle(
+            padding: EdgeInsets.all(context.spacing.xs),
+          ),
+        ),
         icon: Icons.translate,
-        iconSize: context.style.body.fontSize,
+        // iconSize: context.style.body.fontSize,
         label: locale.languageCode.characters.first,
-        labelStyle: context.style.button.copyWith(
+        textStyle: context.style.button.copyWith(
           fontSize: context.style.label.fontSize,
         ),
-        verticalButton: true,
-        background: selected ? context.color.primary : null,
+        axis: Axis.vertical,
+        color: selected ? context.color.primary : null,
         onPressed: () => context.jolt.setLocale(locale),
       );
     }

@@ -180,13 +180,13 @@ class SideBarButton extends StatelessWidget {
         if (!topLevel) const Spacing.lg(),
         Expanded(
           child: Button(
-            background: selected
+            color: selected
                 ? context.color.primary
                 : topLevel
                     ? context.color.surface
                     : context.color.primary.s200,
             mainAxisAlignment: MainAxisAlignment.start,
-            requestFocusOnPress: false,
+            // requestFocusOnPress: false,
             fullWidth: true,
             icon: selected ? item.selectedIcon : item.icon,
             label: item.label,

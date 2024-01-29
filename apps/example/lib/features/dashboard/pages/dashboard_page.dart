@@ -281,7 +281,7 @@ class _DashboardPageState extends State<DashboardPage> {
                     },
                     label: 'Button Primary',
                     icon: Icons.gear,
-                    background: context.color.primary,
+                    color: context.color.primary,
                   ),
                 ],
               ),
@@ -296,11 +296,11 @@ class _DashboardPageState extends State<DashboardPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   GestureDetector(
-                    onPressed: () {
+                    onTap: () {
                       context.jolt.setPrimaryColor(Colors.emerald);
                     },
                     child: Surface(
-                      style: SurfaceStyle(
+                      style: (context) => SurfaceStyle(
                         borderRadius: context.borderRadius.lg,
                         color: Colors.emerald,
                         padding: EdgeInsets.zero,
@@ -310,11 +310,11 @@ class _DashboardPageState extends State<DashboardPage> {
                   ),
                   spacer,
                   GestureDetector(
-                    onPressed: () {
+                    onTap: () {
                       context.jolt.setPrimaryColor(Colors.violet);
                     },
                     child: Surface(
-                      style: SurfaceStyle(
+                      style: (context) => SurfaceStyle(
                         borderRadius: context.borderRadius.lg,
                         color: Colors.violet,
                         padding: EdgeInsets.zero,
@@ -389,7 +389,7 @@ class TestDialog extends StatelessWidget {
                     const Spacing.md(),
                     Button(
                       label: 'Ok',
-                      background: context.color.primary,
+                      color: context.color.primary,
                       onPressed: () {
                         context.overlay.pop();
                       },
@@ -418,7 +418,7 @@ class TestPanel extends StatelessWidget {
         //   top: context.spacing.lg,
         //   bottom: context.spacing.lg,
         // ),
-        style: SurfaceStyle(
+        style: (context) => SurfaceStyle(
           padding: EdgeInsets.all(context.spacing.xxl),
           borderRadius: context.borderRadius.zero,
           color: context.color.background,

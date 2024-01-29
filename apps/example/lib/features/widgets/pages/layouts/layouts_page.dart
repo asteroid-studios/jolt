@@ -16,13 +16,13 @@ class LayoutsPage extends StatelessWidget {
       children: [
         Center(
           child: Button(
-            background: Colors.violet,
+            color: Colors.violet,
             // onPressed: () {},
           ),
         ),
         Center(
           child: Button(
-            background: Colors.violet,
+            color: Colors.violet,
             // border: BorderColor(Colors.amber),
             onPressed: () {},
           ),
@@ -38,13 +38,13 @@ class LayoutsPage extends StatelessWidget {
                 child: 'Layouts'.asHeading(),
               ),
               Button(
-                padding: switch (context.mediaQuery.size.width) {
-                  < 600 => EdgeInsets.zero,
-                  _ => EdgeInsets.symmetric(
-                      horizontal: context.spacing.md,
-                      vertical: context.spacing.sm,
-                    ),
-                },
+                // padding: switch (context.mediaQuery.size.width) {
+                //   < 600 => EdgeInsets.zero,
+                //   _ => EdgeInsets.symmetric(
+                //       horizontal: context.spacing.md,
+                //       vertical: context.spacing.sm,
+                //     ),
+                // },
                 label: context.responsive(
                   mobile: 'Hello',
                   tablet: 'Table',
@@ -93,7 +93,7 @@ class LayoutsPage extends StatelessWidget {
             children: [
               ...context.color.primary.shades.map(
                 (c) => Button(
-                  background: c,
+                  color: c,
                   label: 'Login',
                   icon: Icons.signIn,
                   // border: BorderColor(c.weaken()),
@@ -126,7 +126,7 @@ class LayoutsPage extends StatelessWidget {
             children: [
               ...context.color.primary.shades.map(
                 (c) => Button(
-                  background: c,
+                  color: c,
                   label: 'Login',
                   icon: Icons.signIn,
                   // border: BorderColor(c.weaken()),

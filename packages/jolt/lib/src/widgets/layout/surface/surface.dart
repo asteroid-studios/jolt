@@ -23,7 +23,7 @@ class Surface extends StatelessWidget {
       border: Border.all(width: 1.5),
       borderRadius: context.dimensions.borderRadius.md,
       padding: EdgeInsets.symmetric(
-        horizontal: context.spacing.sm,
+        horizontal: context.spacing.xs,
         vertical: context.spacing.xs,
       ),
     );
@@ -35,24 +35,30 @@ class Surface extends StatelessWidget {
       style: this.style?.call(context),
     );
 
-    final childWithPadding = Padding(
-      padding: style.padding ?? EdgeInsets.zero,
-      child: child,
+    final color = style.color == Colors.transparent
+        ? SurfaceColor.of(context)
+        : style.color!;
+
+    final childWithPadding = SurfaceColor(
+      color: color,
+      child: Padding(
+        padding: style.padding ?? EdgeInsets.zero,
+        child: child,
+      ),
     );
 
     return DefaultSymbolStyle(
-      style: (context) =>
-          TextStyle(color: style.color?.asJoltColor.as.foreground(context)),
+      style: (context) => TextStyle(color: color.as.foreground(context)),
       child: SizedBox(
         width: style.width,
         height: style.height,
         child: AnimatedContainer(
           clipBehavior: style.clipBehavior ?? Clip.antiAlias,
           decoration: BoxDecoration(
-            color: style.color?.asJoltColor.as.background(context),
+            color: color.as.background(context),
             image: style.image,
             border: style.border?.copyWithColor(
-              style.borderColor ?? style.color?.asJoltColor.as.border(context),
+              style.borderColor ?? color.as.border(context),
             ),
             borderRadius: style.borderRadius,
             boxShadow: style.boxShadow,
@@ -67,5 +73,29 @@ class Surface extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+///
+class SurfaceColor extends InheritedWidget {
+  ///
+  const SurfaceColor({
+    required this.color,
+    required super.child,
+    super.key,
+  });
+
+  ///
+  final Color color;
+
+  /// Helper method to access the nearest InheritedSurface in the widget tree
+  static Color of(BuildContext context) {
+    return context.dependOnInheritedWidgetOfExactType<SurfaceColor>()?.color ??
+        context.color.background;
+  }
+
+  @override
+  bool updateShouldNotify(covariant InheritedWidget oldWidget) {
+    return true;
   }
 }

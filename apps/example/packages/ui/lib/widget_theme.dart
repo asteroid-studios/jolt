@@ -9,19 +9,19 @@ WidgetTheme widgetTheme(BuildContext context) {
         // borderRadius: theme.borderRadius.lg,
         // padding: EdgeInsets.all(context.spacing.lg),
         ),
-    buttonStyle: (type) => ButtonStyle(
-      labelStyle: context.style.button,
-      surfaceStyle: SurfaceStyle(
-        borderRadius: context.borderRadius.xl,
-        padding: EdgeInsets.symmetric(
-          vertical: context.spacing.xs,
-          horizontal: type == ButtonType.icon || type == ButtonType.empty
-              ? context.spacing.xs
-              : context.spacing.md,
-        ),
-        // borderWidth: 20,
-      ),
-    ),
+    // buttonStyle: (type) => ButtonStyle(
+    //   labelStyle: context.style.button,
+    //   surfaceStyle: SurfaceStyle(
+    //     borderRadius: context.borderRadius.xl,
+    //     padding: EdgeInsets.symmetric(
+    //       vertical: context.spacing.xs,
+    //       horizontal: type == ButtonType.icon || type == ButtonType.empty
+    //           ? context.spacing.xs
+    //           : context.spacing.md,
+    //     ),
+    //     // borderWidth: 20,
+    //   ),
+    // ),
     // // TODO popover theme, would be good to make it more contrasting by default
     // // TODO ie darkest background on dark and lightest on light
     // progressIndicator: ProgressIndicatorTheme(

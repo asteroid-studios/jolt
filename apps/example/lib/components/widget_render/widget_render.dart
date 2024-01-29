@@ -45,17 +45,17 @@ class WidgetRender extends StatelessWidget {
     );
 
     return Surface(
-      style: SurfaceStyle(
+      style: (context) => SurfaceStyle(
         margin: EdgeInsets.only(bottom: context.spacing.md),
         borderColor: context.color.surface,
         padding: EdgeInsets.zero,
-        color: context.color.transparent,
+        color: Colors.transparent,
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           Surface(
-            style: SurfaceStyle(
+            style: (context) => SurfaceStyle(
               border: const Border(),
               padding: EdgeInsets.symmetric(
                 vertical: context.spacing.xs,
@@ -72,11 +72,14 @@ class WidgetRender extends StatelessWidget {
                 Expanded(
                   child: Text(
                     title,
-                  ).withColor(context.color.neutral.s500),
+                  ).withColor(
+                    context.color.background.s500,
+                    // context.color.neutral.s500,
+                  ),
                 ),
                 Button(
-                  requestFocusOnPress: false,
-                  background: context.color.background,
+                  // requestFocusOnPress: false,
+                  color: context.color.background,
                   onPressed: () {
                     // TODO Copy widget code to clipboard
                     // TODO Show toast

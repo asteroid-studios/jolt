@@ -13,7 +13,7 @@ extension CustomTypography on Typography {
 }
 
 extension CustomColors on ColorScheme {
-  double get _opacity => isDark ? 0.3 : 0.2;
-  JoltColor get primaryButton => primary.withOpacity(_opacity);
-  JoltColor get secondaryButton => secondary.withOpacity(_opacity);
+  // double get _opacity => isDark ? 0.3 : 0.2;
+  // JoltColor get primaryButton => primary.withOpacity(_opacity);
+  // JoltColor get secondaryButton => secondary.withOpacity(_opacity);
 }

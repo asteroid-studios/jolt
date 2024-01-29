@@ -3,7 +3,7 @@ import 'package:jolt/jolt.dart';
 ///
 extension ColorContextX on BuildContext {
   /// Returns the current color scheme.
-  ColorScheme get color => theme.colorScheme;
+  JoltColorScheme get color => JoltColorScheme(theme.colorScheme);
 }
 
 /// Some utility methods on Color
@@ -17,34 +17,25 @@ extension ColorX on Color {
 
   /// Return HSL color
   HSLColor get _asHSLColor {
-    return HSLColor.fromColor(this);
+    final hsl = HSLColor.fromColor(this);
+
+    if (this != Colors.black && this != Colors.white) return hsl;
+
+    return hsl.withSaturation(0);
   }
+
+  /// The lightness value of the color, from HSL
+  double get saturation => _asHSLColor.saturation;
+
+  /// The lightness value of the color, from HSL
+  double get lightness => _asHSLColor.lightness;
 
   /// Return a copy of the color with the lightness changed
   Color withLightness(double lightness) =>
       _asHSLColor.withLightness(lightness).toColor();
 
-  /// Convert a [Color] into a [JoltColor]
   ///
-  /// Returns the [JoltColor] if it already is one
-  JoltColor get asJoltColor {
-    if (this is JoltColor) return this as JoltColor;
-
-    return JoltColor(
-      value,
-      shade50: withLightness(0.98),
-      shade100: withLightness(0.95),
-      shade200: withLightness(0.93),
-      shade300: withLightness(0.85),
-      shade400: withLightness(0.78),
-      shade500: withLightness(0.66),
-      shade600: withLightness(0.6),
-      shade700: withLightness(0.4),
-      shade800: withLightness(0.32),
-      shade900: withLightness(0.25),
-      shade950: withLightness(0.2),
-    );
-  }
+  JoltColorAs get as => JoltColorAs(color: this);
 }
 
 ///
@@ -59,6 +50,10 @@ extension ColorBorderX on Border {
     );
   }
 }
+
+
+
+
 
 /// Some utility methods on JoltColor
 // extension JoltColorX on JoltColor {

@@ -1,8 +1,4 @@
 import 'package:jolt/jolt.dart';
-import 'package:jolt/src/theming/color/color_resolvers.dart';
-
-const _pureWhite = const Color(0xFFFFFFFF);
-const _pureBlack = const Color(0xFF000000);
 
 /// A color that has a small table of related colors called a "swatch"
 class JoltColor extends Color {
@@ -22,9 +18,9 @@ class JoltColor extends Color {
     required Color shade800,
     required Color shade900,
     required Color shade950,
-    ColorResolvers? colorResolvers,
+    JoltColorResolvers? colorResolvers,
     this.opacity = 1.0,
-  })  : _colorResolvers = colorResolvers ?? const ColorResolvers(),
+  })  : _colorResolvers = colorResolvers ?? const JoltColorResolvers(),
         _shade50 = shade50,
         _shade100 = shade100,
         _shade200 = shade200,
@@ -85,7 +81,7 @@ class JoltColor extends Color {
   ///
   /// These are used to determine what colors to show on hover or focus
   /// for example
-  final ColorResolvers _colorResolvers;
+  final JoltColorResolvers _colorResolvers;
 
   /// The opacity of the color.
   @override
@@ -118,7 +114,7 @@ class JoltColor extends Color {
   ///
   /// Returns Color instead of JoltColor
   List<Color> get shadesFull => [
-        if (_shade50 != _pureWhite) _pureWhite,
+        if (_shade50 != Colors.white) Colors.white,
         _shade50,
         _shade100,
         _shade200,
@@ -130,7 +126,7 @@ class JoltColor extends Color {
         _shade800,
         _shade900,
         _shade950,
-        if (_shade950 != _pureBlack) _pureBlack,
+        if (_shade950 != Colors.black) Colors.black,
       ];
 
   @override
@@ -161,7 +157,7 @@ class JoltColor extends Color {
     Color? shade900,
     Color? shade950,
     double? opacity,
-    ColorResolvers? colorResolvers,
+    JoltColorResolvers? colorResolvers,
   }) {
     return JoltColor(
       value?.value ?? this.value,
@@ -207,31 +203,64 @@ class JoltColor extends Color {
 }
 
 ///
-extension JoltColorX on JoltColor {
+class JoltColorAs {
   ///
-  ColorAs get as => ColorAs(color: this);
-}
-
-///
-class ColorAs {
-  ///
-  const ColorAs({
-    required JoltColor color,
+  const JoltColorAs({
+    required Color color,
   }) : _color = color;
 
-  final JoltColor _color;
+  final Color _color;
 
   /// Resolve the background color from context.
-  Color background(BuildContext context) =>
-      _color._colorResolvers.backgroundColorResolver.call(_color, context);
+  Color background(BuildContext context) {
+    final joltColor = _color.as.joltColor();
+    return joltColor._colorResolvers.backgroundColorResolver
+        .call(joltColor, context);
+  }
 
   /// Resolve the border color from context.
-  Color border(BuildContext context) =>
-      _color._colorResolvers.borderColorResolver.call(_color, context);
+  Color border(BuildContext context) {
+    final joltColor = _color.as.joltColor();
+    return joltColor._colorResolvers.borderColorResolver
+        .call(joltColor, context);
+  }
 
   /// Resolve the foreground color from context.
-  Color foreground(BuildContext context) =>
-      _color._colorResolvers.foregroundColorResolver.call(_color, context);
+  Color foreground(BuildContext context) {
+    final joltColor = _color.as.joltColor();
+    return joltColor._colorResolvers.foregroundColorResolver
+        .call(joltColor, context);
+  }
+
+  /// Convert a [Color] into a [JoltColor]
+  ///
+  /// Returns the [JoltColor] if it already is one
+  JoltColor joltColor({
+    JoltColorShades? colorShades,
+  }) {
+    if (_color is JoltColor) return _color as JoltColor;
+
+    final useWide = _color == Colors.white || _color == Colors.black;
+    final shades = colorShades ??
+        (useWide ? JoltColorShades.wide() : const JoltColorShades());
+
+    return JoltColor(
+      _color
+          .withLightness(shades.closestLightnessToTarget(_color.lightness))
+          .value,
+      shade50: _color.withLightness(shades.shade50),
+      shade100: _color.withLightness(shades.shade100),
+      shade200: _color.withLightness(shades.shade200),
+      shade300: _color.withLightness(shades.shade300),
+      shade400: _color.withLightness(shades.shade400),
+      shade500: _color.withLightness(shades.shade500),
+      shade600: _color.withLightness(shades.shade600),
+      shade700: _color.withLightness(shades.shade700),
+      shade800: _color.withLightness(shades.shade800),
+      shade900: _color.withLightness(shades.shade900),
+      shade950: _color.withLightness(shades.shade950),
+    );
+  }
 }
 
 ///
