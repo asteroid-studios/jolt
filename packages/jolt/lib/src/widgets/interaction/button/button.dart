@@ -61,6 +61,7 @@ class Button extends StatelessWidget {
   Widget build(BuildContext context) {
     // The default widget style
     final widgetStyle = ButtonStyle(
+      squareIconButton: true,
       surfaceStyle: SurfaceStyle(
         splash: true,
         color: color,
@@ -79,11 +80,12 @@ class Button extends StatelessWidget {
       onLongPressed: onLongPressed,
       tooltip: tooltip,
       builder: (BuildContext context, InteractionState state) {
-        final spacing = style.spacing ?? context.spacing.xxxs;
+        final spacing = style.spacing ?? context.spacing.xs;
         final indicator = style.indicator ?? const CircularProgressIndicator();
         final buttonChildren = [
           if (icon != null || label == null)
             _ButtonIconSlot(
+              forceLabelSize: label == null,
               textStyle: style.textStyle,
               child: state.isWaiting
                   ? indicator
@@ -117,7 +119,10 @@ class Button extends StatelessWidget {
         }
 
         return FallbackStyle(
-          style: style.surfaceStyle,
+          style: style.surfaceStyle?.copyWith(
+            forcePaddingEqualToVertical:
+                style.squareIconButton! && label == null,
+          ),
           child: Surface(
             child: child,
             style: (context) => style.surfaceStyle!,
@@ -134,10 +139,12 @@ class _ButtonIconSlot extends StatelessWidget {
   const _ButtonIconSlot({
     required this.textStyle,
     required this.child,
+    required this.forceLabelSize,
   });
 
   final Widget? child;
   final TextStyle? textStyle;
+  final bool forceLabelSize;
 
   @override
   Widget build(BuildContext context) {
@@ -146,12 +153,12 @@ class _ButtonIconSlot extends StatelessWidget {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        RotatedBox(quarterTurns: 1, child: emptyCharBlock),
+        if (forceLabelSize) RotatedBox(quarterTurns: 1, child: emptyCharBlock),
         Row(
           mainAxisSize: MainAxisSize.min,
           children: [
             if (child != null) child!,
-            emptyCharBlock,
+            if (forceLabelSize) emptyCharBlock,
           ],
         ),
       ],

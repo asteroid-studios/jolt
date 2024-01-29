@@ -21,6 +21,9 @@ class ButtonStyle with _$ButtonStyle implements Style<ButtonStyle> {
 
     /// The indicator widget to show when the button is busy
     Widget? indicator,
+
+    /// Whether the buttons with no label should be square
+    bool? squareIconButton,
   }) = _ButtonStyle;
 
   // TODO add indicator none
@@ -37,6 +40,7 @@ class ButtonStyle with _$ButtonStyle implements Style<ButtonStyle> {
       textStyle: style?.textStyle ?? textStyle,
       spacing: style?.spacing ?? spacing,
       indicator: style?.indicator ?? indicator,
+      squareIconButton: style?.squareIconButton ?? squareIconButton,
     );
   }
 }

@@ -31,6 +31,11 @@ class SurfaceStyle with _$SurfaceStyle implements Style<SurfaceStyle> {
     /// Whether the surface should have a splash effect, defaults to false
     bool? splash,
 
+    /// Whether to force the padding to equal the vertical padding on all sides
+    ///
+    /// Used to make sure square buttons are square.
+    bool? forcePaddingEqualToVertical,
+
     /// Whether the surface should resolve the background color
     /// defaults to true
     ///
@@ -60,6 +65,8 @@ class SurfaceStyle with _$SurfaceStyle implements Style<SurfaceStyle> {
       backgroundBlendMode: style?.backgroundBlendMode ?? backgroundBlendMode,
       shape: style?.shape ?? shape,
       animationDuration: style?.animationDuration ?? animationDuration,
+      forcePaddingEqualToVertical:
+          style?.forcePaddingEqualToVertical ?? forcePaddingEqualToVertical,
       resolveBackgroundColor:
           style?.resolveBackgroundColor ?? resolveBackgroundColor,
     );

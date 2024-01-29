@@ -18,11 +18,15 @@ ButtonStyle buttonStyle(BuildContext context) {
 ButtonStyle outlineButton(BuildContext context) {
   return ButtonStyle(
     surfaceStyle: SurfaceStyle(
-      // background: context.color.transparent,
-      borderRadius: context.borderRadius.xl,
-      padding: EdgeInsets.symmetric(
-        vertical: context.spacing.xs,
-        horizontal: context.spacing.md,
+      color: SurfaceColor.of(context).as.joltColor().copyWith(
+        colorResolvers: JoltColorResolvers(
+          border: (color, context) {
+            return SurfaceColor.of(context)
+                .as
+                .foreground(context)
+                .withOpacity(0.7);
+          },
+        ),
       ),
     ),
   );

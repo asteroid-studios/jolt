@@ -22,8 +22,9 @@ class Surface extends StatelessWidget {
       color: context.color.surface,
       border: Border.all(width: 1.5),
       borderRadius: context.dimensions.borderRadius.md,
+      forcePaddingEqualToVertical: false,
       padding: EdgeInsets.symmetric(
-        horizontal: context.spacing.xs,
+        horizontal: context.spacing.sm,
         vertical: context.spacing.xs,
       ),
     );
@@ -35,6 +36,8 @@ class Surface extends StatelessWidget {
       style: this.style?.call(context),
     );
 
+    final padding = style.padding ?? EdgeInsets.zero;
+
     final color = style.color == Colors.transparent
         ? SurfaceColor.of(context)
         : style.color!;
@@ -42,7 +45,12 @@ class Surface extends StatelessWidget {
     final childWithPadding = SurfaceColor(
       color: color,
       child: Padding(
-        padding: style.padding ?? EdgeInsets.zero,
+        padding: style.forcePaddingEqualToVertical ?? false
+            ? EdgeInsets.symmetric(
+                horizontal: padding.vertical / 2,
+                vertical: padding.vertical / 2,
+              )
+            : padding,
         child: child,
       ),
     );
@@ -66,7 +74,7 @@ class Surface extends StatelessWidget {
             backgroundBlendMode: style.backgroundBlendMode,
             shape: style.shape ?? BoxShape.rectangle,
           ),
-          duration: style.animationDuration ?? context.durations.short,
+          duration: style.animationDuration ?? context.durations.mid,
           child: style.splash ?? false
               ? Splash(child: childWithPadding)
               : childWithPadding,

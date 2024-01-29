@@ -39,6 +39,11 @@ mixin _$SurfaceStyle {
   /// Whether the surface should have a splash effect, defaults to false
   bool? get splash => throw _privateConstructorUsedError;
 
+  /// Whether to force the padding to equal the vertical padding on all sides
+  ///
+  /// Used to make sure square buttons are square.
+  bool? get forcePaddingEqualToVertical => throw _privateConstructorUsedError;
+
   /// Whether the surface should resolve the background color
   /// defaults to true
   ///
@@ -74,6 +79,7 @@ abstract class $SurfaceStyleCopyWith<$Res> {
       BoxShape? shape,
       Duration? animationDuration,
       bool? splash,
+      bool? forcePaddingEqualToVertical,
       bool? resolveBackgroundColor});
 }
 
@@ -107,6 +113,7 @@ class _$SurfaceStyleCopyWithImpl<$Res, $Val extends SurfaceStyle>
     Object? shape = freezed,
     Object? animationDuration = freezed,
     Object? splash = freezed,
+    Object? forcePaddingEqualToVertical = freezed,
     Object? resolveBackgroundColor = freezed,
   }) {
     return _then(_value.copyWith(
@@ -178,6 +185,10 @@ class _$SurfaceStyleCopyWithImpl<$Res, $Val extends SurfaceStyle>
           ? _value.splash
           : splash // ignore: cast_nullable_to_non_nullable
               as bool?,
+      forcePaddingEqualToVertical: freezed == forcePaddingEqualToVertical
+          ? _value.forcePaddingEqualToVertical
+          : forcePaddingEqualToVertical // ignore: cast_nullable_to_non_nullable
+              as bool?,
       resolveBackgroundColor: freezed == resolveBackgroundColor
           ? _value.resolveBackgroundColor
           : resolveBackgroundColor // ignore: cast_nullable_to_non_nullable
@@ -212,6 +223,7 @@ abstract class _$$SurfaceStyleImplCopyWith<$Res>
       BoxShape? shape,
       Duration? animationDuration,
       bool? splash,
+      bool? forcePaddingEqualToVertical,
       bool? resolveBackgroundColor});
 }
 
@@ -243,6 +255,7 @@ class __$$SurfaceStyleImplCopyWithImpl<$Res>
     Object? shape = freezed,
     Object? animationDuration = freezed,
     Object? splash = freezed,
+    Object? forcePaddingEqualToVertical = freezed,
     Object? resolveBackgroundColor = freezed,
   }) {
     return _then(_$SurfaceStyleImpl(
@@ -314,6 +327,10 @@ class __$$SurfaceStyleImplCopyWithImpl<$Res>
           ? _value.splash
           : splash // ignore: cast_nullable_to_non_nullable
               as bool?,
+      forcePaddingEqualToVertical: freezed == forcePaddingEqualToVertical
+          ? _value.forcePaddingEqualToVertical
+          : forcePaddingEqualToVertical // ignore: cast_nullable_to_non_nullable
+              as bool?,
       resolveBackgroundColor: freezed == resolveBackgroundColor
           ? _value.resolveBackgroundColor
           : resolveBackgroundColor // ignore: cast_nullable_to_non_nullable
@@ -343,6 +360,7 @@ class _$SurfaceStyleImpl extends _SurfaceStyle {
       this.shape,
       this.animationDuration,
       this.splash,
+      this.forcePaddingEqualToVertical,
       this.resolveBackgroundColor})
       : _boxShadow = boxShadow,
         super._();
@@ -395,6 +413,12 @@ class _$SurfaceStyleImpl extends _SurfaceStyle {
   @override
   final bool? splash;
 
+  /// Whether to force the padding to equal the vertical padding on all sides
+  ///
+  /// Used to make sure square buttons are square.
+  @override
+  final bool? forcePaddingEqualToVertical;
+
   /// Whether the surface should resolve the background color
   /// defaults to true
   ///
@@ -404,7 +428,7 @@ class _$SurfaceStyleImpl extends _SurfaceStyle {
 
   @override
   String toString() {
-    return 'SurfaceStyle(width: $width, height: $height, constraints: $constraints, margin: $margin, padding: $padding, clipBehavior: $clipBehavior, color: $color, borderColor: $borderColor, image: $image, border: $border, borderRadius: $borderRadius, boxShadow: $boxShadow, gradient: $gradient, backgroundBlendMode: $backgroundBlendMode, shape: $shape, animationDuration: $animationDuration, splash: $splash, resolveBackgroundColor: $resolveBackgroundColor)';
+    return 'SurfaceStyle(width: $width, height: $height, constraints: $constraints, margin: $margin, padding: $padding, clipBehavior: $clipBehavior, color: $color, borderColor: $borderColor, image: $image, border: $border, borderRadius: $borderRadius, boxShadow: $boxShadow, gradient: $gradient, backgroundBlendMode: $backgroundBlendMode, shape: $shape, animationDuration: $animationDuration, splash: $splash, forcePaddingEqualToVertical: $forcePaddingEqualToVertical, resolveBackgroundColor: $resolveBackgroundColor)';
   }
 
   @override
@@ -437,31 +461,37 @@ class _$SurfaceStyleImpl extends _SurfaceStyle {
             (identical(other.animationDuration, animationDuration) ||
                 other.animationDuration == animationDuration) &&
             (identical(other.splash, splash) || other.splash == splash) &&
+            (identical(other.forcePaddingEqualToVertical,
+                    forcePaddingEqualToVertical) ||
+                other.forcePaddingEqualToVertical ==
+                    forcePaddingEqualToVertical) &&
             (identical(other.resolveBackgroundColor, resolveBackgroundColor) ||
                 other.resolveBackgroundColor == resolveBackgroundColor));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      width,
-      height,
-      constraints,
-      margin,
-      padding,
-      clipBehavior,
-      color,
-      borderColor,
-      image,
-      border,
-      borderRadius,
-      const DeepCollectionEquality().hash(_boxShadow),
-      gradient,
-      backgroundBlendMode,
-      shape,
-      animationDuration,
-      splash,
-      resolveBackgroundColor);
+  int get hashCode => Object.hashAll([
+        runtimeType,
+        width,
+        height,
+        constraints,
+        margin,
+        padding,
+        clipBehavior,
+        color,
+        borderColor,
+        image,
+        border,
+        borderRadius,
+        const DeepCollectionEquality().hash(_boxShadow),
+        gradient,
+        backgroundBlendMode,
+        shape,
+        animationDuration,
+        splash,
+        forcePaddingEqualToVertical,
+        resolveBackgroundColor
+      ]);
 
   @JsonKey(ignore: true)
   @override
@@ -489,6 +519,7 @@ abstract class _SurfaceStyle extends SurfaceStyle {
       final BoxShape? shape,
       final Duration? animationDuration,
       final bool? splash,
+      final bool? forcePaddingEqualToVertical,
       final bool? resolveBackgroundColor}) = _$SurfaceStyleImpl;
   const _SurfaceStyle._() : super._();
 
@@ -532,6 +563,12 @@ abstract class _SurfaceStyle extends SurfaceStyle {
 
   /// Whether the surface should have a splash effect, defaults to false
   bool? get splash;
+  @override
+
+  /// Whether to force the padding to equal the vertical padding on all sides
+  ///
+  /// Used to make sure square buttons are square.
+  bool? get forcePaddingEqualToVertical;
   @override
 
   /// Whether the surface should resolve the background color

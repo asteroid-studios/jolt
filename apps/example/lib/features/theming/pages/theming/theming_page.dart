@@ -1,3 +1,4 @@
+import 'package:ui/styles.dart';
 import 'package:ui/ui.dart';
 
 import 'package:example/utils/router/router.dart';
@@ -279,7 +280,6 @@ class ThemingPage extends StatelessWidget {
                     )
                     .toList(),
               ),
-
               Button(
                 label: 'Test',
                 icon: IconsDuotone.checkCircle,
@@ -292,6 +292,12 @@ class ThemingPage extends StatelessWidget {
                 onPressed: () {},
                 icon: IconsDuotone.checkCircle,
               ).withBackgroundSurfaceInverse(),
+              Button(
+                style: outlineButton,
+                label: 'Test',
+                onPressed: () {},
+                icon: IconsDuotone.checkCircle,
+              ),
               Container(
                 color: Colors.white,
                 width: 100,

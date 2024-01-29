@@ -30,6 +30,9 @@ mixin _$ButtonStyle {
   /// The indicator widget to show when the button is busy
   Widget? get indicator => throw _privateConstructorUsedError;
 
+  /// Whether the buttons with no label should be square
+  bool? get squareIconButton => throw _privateConstructorUsedError;
+
   @JsonKey(ignore: true)
   $ButtonStyleCopyWith<ButtonStyle> get copyWith =>
       throw _privateConstructorUsedError;
@@ -45,7 +48,8 @@ abstract class $ButtonStyleCopyWith<$Res> {
       {SurfaceStyle? surfaceStyle,
       TextStyle? textStyle,
       double? spacing,
-      Widget? indicator});
+      Widget? indicator,
+      bool? squareIconButton});
 
   $SurfaceStyleCopyWith<$Res>? get surfaceStyle;
 }
@@ -67,6 +71,7 @@ class _$ButtonStyleCopyWithImpl<$Res, $Val extends ButtonStyle>
     Object? textStyle = freezed,
     Object? spacing = freezed,
     Object? indicator = freezed,
+    Object? squareIconButton = freezed,
   }) {
     return _then(_value.copyWith(
       surfaceStyle: freezed == surfaceStyle
@@ -85,6 +90,10 @@ class _$ButtonStyleCopyWithImpl<$Res, $Val extends ButtonStyle>
           ? _value.indicator
           : indicator // ignore: cast_nullable_to_non_nullable
               as Widget?,
+      squareIconButton: freezed == squareIconButton
+          ? _value.squareIconButton
+          : squareIconButton // ignore: cast_nullable_to_non_nullable
+              as bool?,
     ) as $Val);
   }
 
@@ -113,7 +122,8 @@ abstract class _$$ButtonStyleImplCopyWith<$Res>
       {SurfaceStyle? surfaceStyle,
       TextStyle? textStyle,
       double? spacing,
-      Widget? indicator});
+      Widget? indicator,
+      bool? squareIconButton});
 
   @override
   $SurfaceStyleCopyWith<$Res>? get surfaceStyle;
@@ -134,6 +144,7 @@ class __$$ButtonStyleImplCopyWithImpl<$Res>
     Object? textStyle = freezed,
     Object? spacing = freezed,
     Object? indicator = freezed,
+    Object? squareIconButton = freezed,
   }) {
     return _then(_$ButtonStyleImpl(
       surfaceStyle: freezed == surfaceStyle
@@ -152,6 +163,10 @@ class __$$ButtonStyleImplCopyWithImpl<$Res>
           ? _value.indicator
           : indicator // ignore: cast_nullable_to_non_nullable
               as Widget?,
+      squareIconButton: freezed == squareIconButton
+          ? _value.squareIconButton
+          : squareIconButton // ignore: cast_nullable_to_non_nullable
+              as bool?,
     ));
   }
 }
@@ -160,7 +175,11 @@ class __$$ButtonStyleImplCopyWithImpl<$Res>
 
 class _$ButtonStyleImpl extends _ButtonStyle {
   const _$ButtonStyleImpl(
-      {this.surfaceStyle, this.textStyle, this.spacing, this.indicator})
+      {this.surfaceStyle,
+      this.textStyle,
+      this.spacing,
+      this.indicator,
+      this.squareIconButton})
       : super._();
 
   /// The style of the button surface
@@ -181,9 +200,13 @@ class _$ButtonStyleImpl extends _ButtonStyle {
   @override
   final Widget? indicator;
 
+  /// Whether the buttons with no label should be square
+  @override
+  final bool? squareIconButton;
+
   @override
   String toString() {
-    return 'ButtonStyle(surfaceStyle: $surfaceStyle, textStyle: $textStyle, spacing: $spacing, indicator: $indicator)';
+    return 'ButtonStyle(surfaceStyle: $surfaceStyle, textStyle: $textStyle, spacing: $spacing, indicator: $indicator, squareIconButton: $squareIconButton)';
   }
 
   @override
@@ -197,12 +220,14 @@ class _$ButtonStyleImpl extends _ButtonStyle {
                 other.textStyle == textStyle) &&
             (identical(other.spacing, spacing) || other.spacing == spacing) &&
             (identical(other.indicator, indicator) ||
-                other.indicator == indicator));
+                other.indicator == indicator) &&
+            (identical(other.squareIconButton, squareIconButton) ||
+                other.squareIconButton == squareIconButton));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, surfaceStyle, textStyle, spacing, indicator);
+  int get hashCode => Object.hash(runtimeType, surfaceStyle, textStyle, spacing,
+      indicator, squareIconButton);
 
   @JsonKey(ignore: true)
   @override
@@ -216,7 +241,8 @@ abstract class _ButtonStyle extends ButtonStyle {
       {final SurfaceStyle? surfaceStyle,
       final TextStyle? textStyle,
       final double? spacing,
-      final Widget? indicator}) = _$ButtonStyleImpl;
+      final Widget? indicator,
+      final bool? squareIconButton}) = _$ButtonStyleImpl;
   const _ButtonStyle._() : super._();
 
   @override
@@ -237,6 +263,10 @@ abstract class _ButtonStyle extends ButtonStyle {
 
   /// The indicator widget to show when the button is busy
   Widget? get indicator;
+  @override
+
+  /// Whether the buttons with no label should be square
+  bool? get squareIconButton;
   @override
   @JsonKey(ignore: true)
   _$$ButtonStyleImplCopyWith<_$ButtonStyleImpl> get copyWith =>
