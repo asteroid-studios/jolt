@@ -1,9 +1,11 @@
 import MyLightImage from 'public/cover_light.png';
 import MyDarkImage from 'public/cover_dark.png';
 import ThemeResponsiveImage from 'components/theme_responsive_image';
-import { Callout, Steps } from 'nextra-theme-docs'
+import ExternalLink from 'components/external_link';
+import { Callout, Steps, Cards, Card } from 'nextra-theme-docs'
+import {  AppStoreLogo, Globe, GooglePlayLogo, Lightning, Money, Siren, Warning } from "@phosphor-icons/react";
 
-# Introduction
+
 
 <br/>
 <ThemeResponsiveImage 
@@ -14,23 +16,38 @@ import { Callout, Steps } from 'nextra-theme-docs'
 <br/>
 
  
-Jolt is a UI framework for Flutter that aims to provide a flexible, composable and responsive set of widgets that can be used to build apps that look and feel great on any platform.
+## A powerful UI library for Flutter.
 
-<Callout emoji="⚡" type="jolt">
-  **Use JoltApp as an alternative to MaterialApp || CupertinoApp when building apps with Flutter.**
+Everything you need to create beautiful interfaces that look great on any platform. Highly flexible, easy to theme and creating custom widgets is a breeze.
+
+Check out the examples below or flick through the [example code](https://github.com/asteroid-studios/jolt/tree/master/apps/example).
+
+<Cards>
+  <ExternalLink child={<Card  icon={<Globe weight="duotone" size='32' />}  title="Web" href="https://example.flutterjolt.dev/"/>} href="https://example.flutterjolt.dev/"/>
+  <Card icon={<AppStoreLogo weight="duotone" size='32' />}  title="iOS" href="https://example.flutterjolt.dev/" />
+  <Card icon={<GooglePlayLogo weight="duotone" size='32' />}  title="Android" href="https://example.flutterjolt.dev/" />
+</Cards>
+
+<Callout emoji={<Lightning weight="duotone" size='28' />} type="jolt">
+  Use **JoltApp** as an alternative to **MaterialApp** or **CupertinoApp** when building apps with **Flutter.**
 </Callout>
-
 
 ## Goals
 
 <Steps> 
 
-### Composable
+### Favour composition
 
-The expectation is that if a developer digs into a provided widget, they should be able to easily understand how it works and extract their own version.
+We've all been told, **everything is a widget**.
 
-For example: A default **Button** widget is provided but internally it's just a composition of a **Surface** and **Interaction** widget.
+By combining powerful basic widgets like **Surface** and **Interaction**, you can create maintainable custom widgets easily.
 
+
+- Check out the [widget catalogue](https://example.flutterjolt.dev/) for basics, form-fields, and much more.
+- See the guide on [creating reusable widgets](https://example.flutterjolt.dev/).
+
+
+{/* TODO use a better example */}
 ``` dart filename="Some clickable text with padding that expands on hover" {2,6}
 Interaction(
   onTap: () => print('Do something'),
@@ -46,77 +63,74 @@ Interaction(
 ```
 
 
-### Flexible
+### Stay flexible
 
-Rather than try to force users into a specific design spec, the goal is to provide sensible defaults and allow apps to develop their own identity.
+Libraries like Material and Cupertino are fantastic tools but they can be very rigid by design.
 
-You can override the default style of any widget, either at the widget level or globally in the widget theme.
+With Jolt, a lot of effort has been made to ensure anything that could be configurable, is configurable.
 
-``` dart filename="An example widget theme"
-WidgetTheme widgetTheme(BuildContext context) {
-  return WidgetTheme(
-    surfaceStyle: SurfaceStyle(
-      // Make the border radius of every surface large
-      borderRadius: context.borderRadius.lg,
-    ),
-  );
-}
+- Every widget has a corresponding **Style** class. This class defines all the configurable properties available.
+- The system is designed to allow maximum maintainability, with a clearly defined [hierarchy](https://example.flutterjolt.dev/).
+
+
+``` dart filename="Theming example"
+
 ```
 
-### Responsive
+### Prioritise accessibility
 
-Making responsive designs should be easy, allowing tweaks to be made at any level of the widget tree to adapt to different screen sizes.
+When building quickly, we sometimes forget to put labels on buttons or to make sure the text has enough contrast.
+ 
+You can save your users from squinting by making accessibility easy.
 
-The **Shell** and **Scaffold** widgets make up the base of the responsive functionality, but you can use the **context.responsive** method to make micro-adjustments anywhere.
+- Semantic properties are readily available for all widgets including the new **identifier** property to make testing a breeze.
+- Jolt has a few tricks with colors to ensure text and backgrounds are always visible and clear.
 
-``` dart filename="Some responsive text" {3-5}
-Text(
-  'Some text',
-  style: context.responsive(
-    desktop: context.style.hero, // On desktop and above use the hero style
-  ) ?? context.style.heading, // Default to heading
-)
+``` dart filename="Accessibility example" {3-5}
+
 ```
 
-### Developer Friendly
+### Look great everywhere
 
-Jolt aims to be magic when your needs are simple but flexible when they're not.
+Flutter just about anywhere and between platform differences and screen sizes, responsive design is hard.
 
-A lot of thought was put in to naming conventions and how to make the API as intuitive as possible.
+Jolt can ease the burden with clever layout widgets and helpful responsive utilities.
 
-``` dart filename="A basic button" {4-6}
-Button(
-  label: 'Delete Account',
-  icon: Icons.trash,
-  // You could achieve the same styling inline - instead of using extensions
-  // background: context.color.error,
-  // style: context.style.label,
-)
-.withBackgroundError()
-.withStyleLabel(),
+- Set your breakpoints and use the **Shell** and **Scaffold** widgets to make use of the space available on each platform with ease.
+- When you need to make micro-adjustments, use the **context.responsive** method to make changes at any level of the widget tree.
+
+``` dart filename="Responsive example" {3-5}
+
+```
+
+### Move quickly with precision
+
+Building an MVP on the weekend? <br/>Or maybe implementing a large scale app based on a strict design system?
+
+You should be able to do both with the same library.
+
+- When you need to build quickly, Jolt uses sensible defaults that result in a great looking app with minimal effort.
+- When you need control over every shade and every pixel, you can do that too.
+
+
+{/* TODO example of automatic colors vs tightly defined */}
+``` dart filename="Quick vs thorough theming" {4-6}
+
 ```
 
 </Steps>
-
-## Demo
-
-Check out the [web demo](https://example.flutterjolt.dev) or flick through the [example source code](https://github.com/asteroid-studios/jolt/tree/master/apps/example).
 
 ## Roadmap
 
 This project is in an early alpha stage. Check the [roadmap](https://github.com/orgs/asteroid-studios/projects/3) to see what's coming next.
 
-## Disclaimers
-
-- This project is not Material and as such is not built to the Material 3 specification.
-- This project is not production ready **(yet)**.
-- This project is not a fully complete alternative to Material **(yet)**.
+<Callout emoji={<Siren weight="duotone" size='28' />} type="warning">
+  **Business beware** <br/> This project is neither production ready nor a fully complete alternative to Material/Cupertino **(yet)**. <br/>Keep a close eye on the project and hope to see you soon!
+</Callout>
 
 
-## Acknowledgements
-- [TailwindCSS](https://tailwindcss.com/), [Material Design](https://m3.material.io/) and [Radix UI](https://www.radix-ui.com/) were huge influences for this project.
-- Double call-out for Tailwind, we like their colors and font sizes so much we made them the default values.
-- [Phosphor Icons](https://phosphoricons.com/) were chosen as the default icon set as an awesome alternative to Material Icons, go check them out.
-- [@luke_pighetti](https://twitter.com/luke_pighetti) & [flutter_animate](https://pub.dev/packages/flutter_animate) were the inspiration for adding extension based syntax.
-- Jolt includes [form_builder_validators](https://pub.dev/packages/form_builder_validators) for easy form validation.
-- [flutter_form_builder](https://pub.dev/packages/flutter_form_builder) inspired the forms implementation.
+
+## Shout-outs
+- [TailwindCSS](https://tailwindcss.com/), Jolt provides the Tailwind colors as defaults in the **Color** class.
+- [Phosphor Icons](https://phosphoricons.com/), the icon package used in the examples and the documentation
+- [form_builder_validators](https://pub.dev/packages/form_builder_validators), comes packaged with Jolt for convenience.
