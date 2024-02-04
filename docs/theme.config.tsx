@@ -1,6 +1,7 @@
 import React from 'react'
 import { DocsThemeConfig } from 'nextra-theme-docs'
 import ThemeResponsiveImage from './components/theme_responsive_image'
+import { useRouter } from 'next/router'
 
 const config: DocsThemeConfig = {
   logo: <ThemeResponsiveImage
@@ -11,8 +12,14 @@ const config: DocsThemeConfig = {
     height='20'
   />,
   useNextSeoProps() {
+    const { asPath } = useRouter()
+    if (asPath !== '/docs') {
+      return {
+        titleTemplate: '%s – Jolt'
+      }
+    }
     return {
-      titleTemplate: '%s – Jolt',
+      titleTemplate: 'Docs - Jolt',
     }
   },
   logoLink: '/docs',
