@@ -1,10 +1,11 @@
 ///
-class BreakpointsData {
+class Breakpoints {
   ///
-  const BreakpointsData({
+  const Breakpoints({
     this.wearable = const Wearable(),
     this.mobile = const Mobile(),
     this.tablet = const Tablet(),
+    this.tabletLandscape = const TabletLandscape(),
     this.laptop = const Laptop(),
     this.desktop = const Desktop(),
     this.tv = const Tv(),
@@ -20,6 +21,9 @@ class BreakpointsData {
   final Tablet tablet;
 
   /// The tablet landscape breakpoint
+  final TabletLandscape tabletLandscape;
+
+  /// The tablet landscape breakpoint
   final Laptop laptop;
 
   /// The desktop breakpoint
@@ -33,6 +37,7 @@ class BreakpointsData {
         wearable,
         mobile,
         tablet,
+        tabletLandscape,
         laptop,
         desktop,
         tv,
@@ -82,6 +87,13 @@ class Mobile extends Breakpoint {
 class Tablet extends Breakpoint {
   ///
   const Tablet({super.maxWidth = 900}) : super(name: 'Tablet');
+}
+
+///
+class TabletLandscape extends Breakpoint {
+  ///
+  const TabletLandscape({super.maxWidth = 1200})
+      : super(name: 'TabletLandscape');
 }
 
 ///

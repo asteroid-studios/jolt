@@ -3,273 +3,208 @@ import 'dart:async';
 import 'package:jolt/jolt.dart';
 
 ///
-class Button extends StatefulWidget {
+class Button extends StatelessWidget {
   ///
   const Button({
-    super.key,
-    this.label,
-    this.tooltip,
-    this.icon,
-    this.iconSize,
-    this.iconScale = 1.0,
-    this.iconWidget,
-    this.onTap,
+    this.onPressed,
     this.onLongPressed,
-    this.errorHandler,
-    this.background,
-    this.backgroundDark,
+    this.label,
+    this.icon,
+    this.style,
     this.color,
-    this.colorDark,
-    this.borderColor,
-    this.borderWidth,
-    this.borderRadius,
-    this.labelStyle,
-    this.spacing,
-    this.width,
-    this.height,
-    this.padding,
-    this.verticalButton = false,
-    this.fullWidth = false,
-    this.autoFocus = false,
-    this.requestFocusOnPress = true,
-    this.mainAxisAlignment = MainAxisAlignment.center,
+    // TODO add foregroundColor
+    this.tooltip,
+    this.textStyle,
+    this.axis = Axis.horizontal,
     this.direction = TextDirection.ltr,
+    this.fullWidth = false,
+    this.mainAxisAlignment = MainAxisAlignment.center,
+    super.key,
   });
 
   ///
   final String? label;
 
   ///
-  final String? tooltip;
-
-  ///
   final IconData? icon;
 
   ///
-  final Widget? iconWidget;
+  final String? tooltip;
 
   ///
-  final double iconScale;
+  final StyleResolver<ButtonStyle>? style;
 
   ///
-  final double? iconSize;
+  final TextStyle? textStyle;
+
+  /// Color of the button surface
+  final Color? color;
 
   ///
-  final FutureOr<void> Function()? onTap;
+  final FutureOr<void> Function()? onPressed;
 
   ///
   final FutureOr<void> Function()? onLongPressed;
 
-  /// Called when an error occurs inside onTap or onLongPressed
-  final void Function(InteractionException)? errorHandler;
+  /// The orientation of the button, defaults to horizontal
+  final Axis axis;
 
-  ///
-  final bool requestFocusOnPress;
-
-  ///
-  final JoltColor? background;
-
-  ///
-  final JoltColor? backgroundDark;
-
-  ///
-  final Color? color;
-
-  ///
-  final Color? colorDark;
-
-  ///
-  final Color? borderColor;
-
-  ///
-  final double? borderWidth;
-
-  ///
-  final double? spacing;
-
-  ///
-  final BorderRadius? borderRadius;
-
-  ///
-  final TextStyle? labelStyle;
-
-  ///
-  final double? width;
-
-  ///
-  final double? height;
-
-  ///
-  final bool autoFocus;
-
-  ///
-  final EdgeInsets? padding;
-
-  /// Whether to arrange items vertically instead of horizontally
-  final bool verticalButton;
-
-  ///
-  final MainAxisAlignment mainAxisAlignment;
-
-  ///
+  /// The direction of the button, defaults to ltr
   final TextDirection direction;
 
-  ///
+  /// Whether the button should take up the full width of the parent
   final bool fullWidth;
 
-  @override
-  State<Button> createState() => _ButtonState();
-}
+  /// The alignment of the label + icon, defaults to centered
+  final MainAxisAlignment mainAxisAlignment;
 
-class _ButtonState extends State<Button> {
+  /// Button style with a transparent background
+  static ButtonStyle link(BuildContext context) {
+    final interaction = Interaction.maybeOf(context);
+    final isHovered = interaction?.isHovered ?? false;
+    final isFocused = interaction?.isFocused ?? false;
+    final background = SurfaceColor.of(context).as.joltColor();
+    return ButtonStyle(
+      surfaceStyle: SurfaceStyle(
+        color: background.copyWith(
+          colorResolvers: JoltColorResolvers(
+            background: (color, context) => background,
+            border: (color, context) =>
+                isFocused ? background.as.foreground(context) : background,
+          ),
+        ),
+      ),
+      textStyle: isHovered
+          ? const TextStyle(decoration: TextDecoration.underline)
+          : null,
+    );
+  }
+
+  /// Button style with a transparent background
+  static ButtonStyle ghost(BuildContext context) {
+    final background = SurfaceColor.of(context);
+    return ButtonStyle(surfaceStyle: SurfaceStyle(color: background));
+  }
+
+  /// Button style with a transparent background and a border
+  static ButtonStyle outline(BuildContext context) {
+    final background = SurfaceColor.of(context).as.joltColor();
+    return ButtonStyle(
+      surfaceStyle: SurfaceStyle(
+        color: background.copyWith(
+          colorResolvers: JoltColorResolvers(
+            border: (color, context) =>
+                background.as.foreground(context).withOpacity(0.7),
+          ),
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    // Prepare the button theme
-    late ButtonType type;
-    final hasIcon = widget.icon != null || widget.iconWidget != null;
-    final hasLabel = widget.label != null;
-    if (hasLabel && hasIcon) {
-      type = ButtonType.iconLabel;
-    } else if (hasLabel) {
-      type = ButtonType.label;
-    } else if (hasIcon) {
-      type = ButtonType.icon;
-    } else {
-      type = ButtonType.empty;
-    }
-    final buttonStyle = context.inherited.widgetTheme.buttonStyle?.call(type);
+    // The default widget style
+    const widgetStyle = ButtonStyle(
+      squareIconButton: true,
+      surfaceStyle: SurfaceStyle(splash: true),
+    );
 
     return Interaction(
-      onTap: widget.onTap,
-      onLongPressed: widget.onLongPressed,
-      errorHandler: widget.errorHandler,
-      tooltip: widget.tooltip,
-      autoFocus: widget.autoFocus,
-      requestFocusOnPress: widget.requestFocusOnPress,
-      builder: (context, state) {
-        final color = context.color.responsive(
-          widget.color,
-          colorDark: widget.colorDark,
+      onTap: onPressed,
+      onLongPressed: onLongPressed,
+      tooltip: tooltip,
+      builder: (BuildContext context, InteractionState state) {
+        // Merge and resolve all child styles.
+        final style = Style.resolveAll(
+          context,
+          widgetStyle: widgetStyle,
+          style: ButtonStyle(textStyle: textStyle)
+              .merge(this.style?.call(context)),
         );
-        // Prepare the icon
-        final icon = widget.iconWidget ??
-            (widget.icon != null
-                ? Icon(
-                    widget.icon!,
-                    size: widget.iconSize ?? widget.labelStyle?.fontSize,
-                    scale: widget.iconScale,
-                    color: color,
-                  )
-                : null);
-        // Prepare the progressIndicator
-        final progressIndicator = CircularProgressIndicator(
-          color: color,
-          // size: iconSize,
-        );
+
+        final spacing = style.spacing ?? context.spacing.xs;
+        final indicator = style.indicator ??
+            CircularProgressIndicator(color: style.textStyle?.color);
+        final buttonChildren = [
+          if (icon != null || label == null)
+            _ButtonIconSlot(
+              forceLabelSize: label == null,
+              textStyle: style.textStyle,
+              child: state.isWaiting
+                  ? indicator
+                  : icon?.asIcon(
+                      size: style.textStyle?.fontSize,
+                      color: style.textStyle?.color,
+                    ),
+            ),
+          if (label != null) label!.asText(style.textStyle),
+        ];
 
         late Widget child;
-        // Layout ICON button
-        if (widget.label == null) {
-          type = ButtonType.icon;
+        if (axis == Axis.vertical) {
+          // Layout VERTICAL button
           child = Column(
+            verticalDirection: direction == TextDirection.ltr
+                ? VerticalDirection.down
+                : VerticalDirection.up,
             mainAxisSize: MainAxisSize.min,
-            children: [
-              // Necessary for widths to line up without label
-              RotatedBox(
-                quarterTurns: 1,
-                child: Text('', style: widget.labelStyle),
-              ),
-              Row(
-                mainAxisSize:
-                    widget.fullWidth ? MainAxisSize.max : MainAxisSize.min,
-                mainAxisAlignment: widget.mainAxisAlignment,
-                children: [
-                  if (state.isAwaiting)
-                    progressIndicator
-                  else
-                    icon ?? const Icon(Icons.dot, color: Colors.transparent),
-                  // Necessary for heights to line up without label
-                  Text('', style: widget.labelStyle),
-                ],
-              )
-            ],
+            children: spacing > 0
+                ? buttonChildren.withSpacing(spacing, axis: Axis.vertical)
+                : buttonChildren,
           );
         } else {
-          if (icon == null) {
-            type = ButtonType.label;
-          } else {
-            type = ButtonType.iconLabel;
-          }
-          // Prepare LABEL button
-          final spacing =
-              widget.spacing ?? buttonStyle?.spacing ?? context.spacing.xs;
-          final buttonChildren = [
-            if (state.isAwaiting) progressIndicator else if (icon != null) icon,
-            Text(
-              widget.label!,
-              style: widget.labelStyle,
-              color: color,
-            ),
-          ];
-          if (widget.verticalButton) {
-            // Layout VERTICAL button
-            child = Column(
-              verticalDirection: widget.direction == TextDirection.ltr
-                  ? VerticalDirection.down
-                  : VerticalDirection.up,
-              mainAxisSize: MainAxisSize.min,
-              spacing: spacing,
-              children: buttonChildren,
-            );
-          } else {
-            // Layout HORIZONTAL button
-            child = Row(
-              textDirection: widget.direction,
-              mainAxisSize:
-                  widget.fullWidth ? MainAxisSize.max : MainAxisSize.min,
-              mainAxisAlignment: widget.mainAxisAlignment,
-              spacing: spacing,
-              children: buttonChildren,
-            );
-          }
+          // Layout HORIZONTAL button
+          child = Row(
+            textDirection: direction,
+            mainAxisSize: fullWidth ? MainAxisSize.max : MainAxisSize.min,
+            mainAxisAlignment: mainAxisAlignment,
+            children: spacing > 0
+                ? buttonChildren.withSpacing(spacing, axis: Axis.horizontal)
+                : buttonChildren,
+          );
         }
 
-        final surface = Surface(
-          fallbackStyle: buttonStyle?.surfaceStyle,
-          width: widget.width,
-          height: widget.height,
-          background: widget.background,
-          backgroundDark: widget.backgroundDark,
-          borderColor: widget.borderColor,
-          borderRadius: widget.borderRadius,
-          borderWidth: widget.borderWidth,
-          padding: widget.padding,
-          ripple: true,
-          child: child,
-        );
-
-        if (buttonStyle?.labelStyle == null) return surface;
-
-        return DefaultSymbolStyle(
-          style: (_) => buttonStyle!.labelStyle!,
-          child: surface,
+        return FallbackStyle(
+          style: style.surfaceStyle?.merge(SurfaceStyle(color: color)).copyWith(
+                forcePaddingEqualToVertical:
+                    style.squareIconButton! && label == null,
+              ),
+          child: Surface(child: child),
         );
       },
     );
   }
 }
 
-/// The type of button
-enum ButtonType {
-  /// An icon only
-  icon,
+/// This widget is used simply to ensure icon only buttons have the same
+/// height as icon + label buttons.
+class _ButtonIconSlot extends StatelessWidget {
+  const _ButtonIconSlot({
+    required this.textStyle,
+    required this.child,
+    required this.forceLabelSize,
+  });
 
-  /// An label only
-  label,
+  final Widget? child;
+  final TextStyle? textStyle;
+  final bool forceLabelSize;
 
-  /// Both an icon and label
-  iconLabel,
+  @override
+  Widget build(BuildContext context) {
+    final emptyCharBlock = Text('', style: textStyle);
 
-  /// An icon widget
-  empty,
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        if (forceLabelSize) RotatedBox(quarterTurns: 1, child: emptyCharBlock),
+        Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            if (child != null) child!,
+            if (forceLabelSize) emptyCharBlock,
+          ],
+        ),
+      ],
+    );
+  }
 }

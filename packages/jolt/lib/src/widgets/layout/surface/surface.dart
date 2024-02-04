@@ -4,160 +4,106 @@ import 'package:jolt/jolt.dart';
 class Surface extends StatelessWidget {
   ///
   const Surface({
-    required this.child,
-    this.background,
-    this.backgroundDark,
-    this.borderColor,
-    this.borderRadius,
-    this.borderWidth,
-    this.padding,
-    this.margin,
-    this.width,
-    this.height,
-    this.ripple = false,
-    this.fallbackStyle,
+    this.style,
+    this.child,
     super.key,
   });
 
   ///
-  final Widget child;
+  final StyleResolver<SurfaceStyle>? style;
 
   ///
-  final JoltColor? background;
-
-  ///
-  final JoltColor? backgroundDark;
-
-  ///
-  final Color? borderColor;
-
-  ///
-  final BorderRadius? borderRadius;
-
-  ///
-  final double? borderWidth;
-
-  ///
-  final EdgeInsets? padding;
-
-  ///
-  final EdgeInsets? margin;
-
-  ///
-  final double? width;
-
-  ///
-  final double? height;
-
-  /// Whether to show a ripple effect on tap
-  final bool ripple;
-
-  /// Pass a fallback surface style
-  /// which will be used over the default surface style from widget theme.
-  ///
-  /// For example button passes the button style to it's surface.
-  final SurfaceStyle? fallbackStyle;
+  final Widget? child;
 
   @override
   Widget build(BuildContext context) {
-    final defaultSurfaceStyle = SurfaceStyle(
-      background: context.color.surface,
-      borderWidth: 2,
-    );
-    // Hierarchy of applied surface styles in order:
-    // 1. A default surface style
-    // 2. The surface style from the widget theme.
-    // 3. A fallback style passed from a widget implementing surface (ie button)
-    // 4. A DefaultSurfaceStyle supplied style above this widget.
-    // 5. Styles passed directly to surface widget
-    final style = defaultSurfaceStyle
-        .merge(context.inherited.widgetTheme.surfaceStyle)
-        .merge(fallbackStyle)
-        .merge(DefaultSurfaceStyle.maybeOf(context))
-        .merge(
-          SurfaceStyle(
-            background: context.color.responsive(
-              background,
-              colorDark: backgroundDark,
-            ) as JoltColor?,
-            borderColor: borderColor,
-            borderRadius: borderRadius,
-            borderWidth: borderWidth,
-            padding: padding,
-            margin: margin,
-          ),
-        );
-
-    final defaultBackground = style.background!;
-    final defaultBorderColor = style.borderColor ?? defaultBackground;
-    final defaultBorderRadius = style.borderRadius ?? context.borderRadius.md;
-    final defaultBorderWidth = style.borderWidth!;
-    final defaultPadding = style.padding ??
-        EdgeInsets.symmetric(
-          horizontal: context.spacing.sm,
-          vertical: context.spacing.xs,
-        );
-
-    final interaction = context.inherited.interactionState;
-    final isHovered = interaction?.isHovered ?? false;
-    final isFocused = interaction?.isFocused ?? false;
-    final wasFocusedAfterPressed = interaction?.wasFocusedAfterPress ?? false;
-    final effectColor = isHovered
-        ? defaultBackground.onHovered
-        : isFocused
-            ? defaultBackground.onFocused
-            : null;
-
-    // Wrap with a default surface style so things
-    // like foregroundLight will work inside surface
-    // It's important to only pass the background or all surface params
-    // will be applied to everything below, ie button in a card
-    //
-    // Wrap the children of the surface with a symbol style so that they use
-    // the foreground color by default.
-    //
-    // Also wrap the children with padding.
-    final childWidget = DefaultSurfaceStyle(
-      style: SurfaceStyle(background: style.background),
-      child: DefaultSymbolStyle(
-        style: (_) => TextStyle(color: style.background?.foreground),
-        child: Padding(
-          padding: defaultPadding,
-          child: child,
-        ),
+    // The default widget style
+    final widgetStyle = SurfaceStyle(
+      color: context.color.surface,
+      border: Border.all(width: 1.5),
+      borderRadius: context.dimensions.borderRadius.md,
+      forcePaddingEqualToVertical: false,
+      padding: EdgeInsets.symmetric(
+        horizontal: context.spacing.sm,
+        vertical: context.spacing.xs,
       ),
     );
 
-    // Return the surface
-    return ClipRRect(
-      borderRadius: defaultBorderRadius,
-      child: AnimatedContainer(
-        width: width,
-        height: height,
-        margin: margin,
-        duration: context.durations.mid,
-        decoration: BoxDecoration(
-          borderRadius: defaultBorderRadius,
-          border: Border.all(
-            color: (isFocused && !wasFocusedAfterPressed)
-                ? context.color.primary
-                : defaultBorderColor,
-            width: defaultBorderWidth,
-          ),
-          // TODO implement shadow
-          // boxShadow: ,
-          color: effectColor != null
-              ? Color.alphaBlend(effectColor, defaultBackground)
-              : defaultBackground,
-        ),
-        child: ripple
-            ? TouchRippleEffect(
-                backgroundColor: defaultBackground.withOpacity(1),
-                borderRadius: defaultBorderRadius,
-                child: childWidget,
+    // Merge and resolve all child styles.
+    final style = Style.resolveAll(
+      context,
+      widgetStyle: widgetStyle,
+      style: this.style?.call(context),
+    );
+
+    final padding = style.padding ?? EdgeInsets.zero;
+
+    final color = style.color == Colors.transparent
+        ? SurfaceColor.of(context)
+        : style.color!;
+
+    final childWithPadding = SurfaceColor(
+      color: color,
+      child: Padding(
+        padding: style.forcePaddingEqualToVertical ?? false
+            ? EdgeInsets.symmetric(
+                horizontal: padding.vertical / 2,
+                vertical: padding.vertical / 2,
               )
-            : childWidget,
+            : padding,
+        child: child,
       ),
     );
+
+    return DefaultSymbolStyle(
+      style: (context) => TextStyle(color: color.as.foreground(context)),
+      child: SizedBox(
+        width: style.width,
+        height: style.height,
+        child: AnimatedContainer(
+          clipBehavior: style.clipBehavior ?? Clip.antiAlias,
+          decoration: BoxDecoration(
+            color: color.as.background(context),
+            image: style.image,
+            border: style.border?.copyWithColor(
+              style.borderColor ?? color.as.border(context),
+            ),
+            borderRadius: style.borderRadius,
+            boxShadow: style.boxShadow,
+            gradient: style.gradient,
+            backgroundBlendMode: style.backgroundBlendMode,
+            shape: style.shape ?? BoxShape.rectangle,
+          ),
+          duration: style.animationDuration ?? context.durations.mid,
+          child: style.splash ?? false
+              ? Splash(child: childWithPadding)
+              : childWithPadding,
+        ),
+      ),
+    );
+  }
+}
+
+///
+class SurfaceColor extends InheritedWidget {
+  ///
+  const SurfaceColor({
+    required this.color,
+    required super.child,
+    super.key,
+  });
+
+  ///
+  final Color color;
+
+  /// Helper method to access the nearest InheritedSurface in the widget tree
+  static Color of(BuildContext context) {
+    return context.dependOnInheritedWidgetOfExactType<SurfaceColor>()?.color ??
+        context.color.background;
+  }
+
+  @override
+  bool updateShouldNotify(covariant InheritedWidget oldWidget) {
+    return true;
   }
 }

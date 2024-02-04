@@ -16,30 +16,27 @@ This project is in an early alpha stage. Check the [roadmap](https://github.com/
 
 ## Contact
 
-If you have any questions, feel free to reach out to me on [Twitter](https://twitter.com/kane_wickman).
+If you have any questions, feel free to reach out on [Twitter](https://twitter.com/kane_wickman).
 
-I've also just set up a [Discord](https://discord.gg/PqKeQD5S) server, it's pretty quiet right now but come say hi if you want.
+Check out the [Discord](https://discord.gg/m9KEaBS48f) server, it's pretty quiet right now but come say hi if you want.
 
 ## Contributing
 
-Contributions are always welcome! Here is a list of how you can help:
+Contributions are always welcome! Here's some ways you could help:
 
 - Make feature requests
 - Suggest improvements
 - Report bugs/issues
-- Implement missing widgets by making a pull request
+- Implement tests or new widgets by making a pull request
+- Reach out to discuss co-maintaining the project
+- Create third-party packages that extend Jolt
 
 ## Disclaimers
-
-- This project is not Material and as such is not built to the Material 3 specification.
 - This project is not production ready **(yet)**.
 - This project is not a fully complete alternative to Material **(yet)**.
 
 
-## Acknowledgements
-- [TailwindCSS](https://tailwindcss.com/), [Material Design](https://m3.material.io/) and [Radix UI](https://www.radix-ui.com/) were huge influences for this project.
-- Double call-out for Tailwind, we like their colors and font sizes so much we made them the default values.
-- [Phosphor Icons](https://phosphoricons.com/) were chosen as the default icon set as an awesome alternative to Material Icons, go check them out.
-- [@luke_pighetti](https://twitter.com/luke_pighetti) & [flutter_animate](https://pub.dev/packages/flutter_animate) were the inspiration for adding extension based syntax.
-- Jolt includes [form_builder_validators](https://pub.dev/packages/form_builder_validators) for easy form validation.
-- [flutter_form_builder](https://pub.dev/packages/flutter_form_builder) inspired the forms implementation.
+## Shout-outs
+- [TailwindCSS](https://tailwindcss.com/), Jolt provides the Tailwind colors as defaults in the **Color** class.
+- [Phosphor Icons](https://phosphoricons.com/), the icon package used in the examples and the documentation
+- [form_builder_validators](https://pub.dev/packages/form_builder_validators), comes packaged with Jolt for convenience.

@@ -10,25 +10,30 @@ class BreakpointsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      title: 'Breakpoints',
-      content: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              'Current',
-            ),
-            Text(
-              context.view.breakpoint.name,
-              style: context.style.display,
-            ),
-            Text(
-              'Max-width: ${context.view.breakpoint.maxWidth}px',
-            ),
-          ],
+    return Scaffold.scrollView(
+      windowTitle: 'Breakpoints',
+      children: [
+        Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                'Current',
+              ),
+              Text(
+                context.view.breakpoint.name,
+                style: context.style.display,
+              ),
+              Text(
+                'Max-width: ${context.view.breakpoint.maxWidth}px',
+              ),
+              Text(
+                'Current-width: ${context.mediaQuery.size.width}px',
+              ),
+            ],
+          ),
         ),
-      ),
+      ],
     );
   }
 }

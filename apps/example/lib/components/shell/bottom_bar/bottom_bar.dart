@@ -44,28 +44,35 @@ class BottomBar extends StatelessWidget {
               return Expanded(
                 child: Button(
                   fullWidth: true,
-                  padding: EdgeInsets.only(
-                    top: context.spacing.md,
-                    left: context.spacing.md,
-                    right: context.spacing.md,
-                    bottom: max(
-                      context.spacing.md,
-                      context.mediaQuery.viewPadding.bottom,
+                  style: (context) => ButtonStyle(
+                    surfaceStyle: SurfaceStyle(
+                      borderRadius: BorderRadius.zero,
+                      color: Colors.transparent,
+                      padding: EdgeInsets.only(
+                        top: context.spacing.md,
+                        left: context.spacing.md,
+                        right: context.spacing.md,
+                        bottom: max(
+                          context.spacing.md,
+                          context.mediaQuery.viewPadding.bottom,
+                        ),
+                      ),
                     ),
                   ),
-                  background: context.color.transparent,
-                  borderColor: Colors.transparent,
-                  borderRadius: BorderRadius.zero,
-                  requestFocusOnPress: false,
+                  // TODO revisit
+                  // border: BorderColor(Colors.transparent),
+                  // TODO revisit
+                  // requestFocusOnPress: false,
+                  color: context.color.surface.as.foreground(context),
                   // color: (context.color.isDark
                   //     ? context.color.primary.s300
                   //     : context.color.primary.s950),
                   icon: selected ? item.selectedIcon : item.icon,
-                  iconSize: 24,
+                  // iconSize: 24,
                   // label: item.label,
                   // labelStyle: context.style.labelSmall,
                   // verticalButton: true,
-                  onTap: () {
+                  onPressed: () {
                     if (selected) {
                       if (currentTab.path ==
                           tabsRouter.currentPath.replaceAll('/', '')) {

@@ -39,44 +39,48 @@ class WidgetRender extends StatelessWidget {
     codeTheme['root'] = TextStyle(backgroundColor: context.color.background);
     final codeWidget = HighlightView(
       code,
-      textStyle: DefaultTextStyle.of(context).style.copyWith(
-            fontFamily: 'FiraCode',
-          ),
+      textStyle: context.style.code,
       languageId: 'dart',
       theme: codeTheme,
     );
 
     return Surface(
-      margin: EdgeInsets.only(bottom: context.spacing.md),
-      padding: EdgeInsets.zero,
-      background: context.color.transparent,
-      borderColor: context.color.surface,
+      style: (context) => SurfaceStyle(
+        margin: EdgeInsets.only(bottom: context.spacing.md),
+        borderColor: context.color.surface,
+        padding: EdgeInsets.zero,
+        color: Colors.transparent,
+      ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           Surface(
-            borderWidth: 0,
-            padding: EdgeInsets.symmetric(
-              vertical: context.spacing.xs,
-              horizontal: context.spacing.xl,
-            ),
-            background: context.color.surface.withOpacity(0.2),
-            borderRadius: BorderRadius.only(
-              topLeft: context.borderRadius.sm.topLeft,
-              topRight: context.borderRadius.sm.topLeft,
+            style: (context) => SurfaceStyle(
+              border: const Border(),
+              padding: EdgeInsets.symmetric(
+                vertical: context.spacing.xs,
+                horizontal: context.spacing.xl,
+              ),
+              color: context.color.surface.withOpacity(0.2),
+              borderRadius: BorderRadius.only(
+                topLeft: context.borderRadius.sm.topLeft,
+                topRight: context.borderRadius.sm.topLeft,
+              ),
             ),
             child: Row(
               children: [
                 Expanded(
                   child: Text(
                     title,
-                    color: context.color.neutral.s500,
+                  ).withColor(
+                    context.color.background.s500,
+                    // context.color.neutral.s500,
                   ),
                 ),
                 Button(
-                  requestFocusOnPress: false,
-                  background: context.color.background,
-                  onTap: () {
+                  // requestFocusOnPress: false,
+                  color: context.color.background,
+                  onPressed: () {
                     // TODO Copy widget code to clipboard
                     // TODO Show toast
                   },
@@ -88,7 +92,8 @@ class WidgetRender extends StatelessWidget {
           Flexible(
             // TODO this is actually helpful, maybe add to the docs
             // TODO maybe create a helper called ResetSurfaceStyle
-            child: DefaultSurfaceStyle(
+            // TODO Don't think this really works anymore
+            child: DefaultStyle(
               style: const SurfaceStyle(),
               child: Padding(
                 padding: EdgeInsets.all(context.spacing.xl),

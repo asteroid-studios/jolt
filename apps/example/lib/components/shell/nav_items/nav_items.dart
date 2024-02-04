@@ -15,6 +15,14 @@ const navBarItems = [
     icon: IconsBold.stackSimple,
     selectedIcon: IconsFill.stackSimple,
     route: WidgetsRoute(),
+    children: [
+      NavItem(
+        label: 'Layouts',
+        icon: IconsBold.gridFour,
+        selectedIcon: IconsFill.gridFour,
+        route: LayoutsRoute(),
+      ),
+    ],
   ),
   NavItem(
     label: 'Theming',

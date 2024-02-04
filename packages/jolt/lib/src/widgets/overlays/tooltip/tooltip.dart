@@ -11,7 +11,7 @@ class Tooltip extends StatefulWidget {
   const Tooltip({
     required this.child,
     required this.tooltip,
-    this.hasFocus = false,
+    this.focusNode,
     this.disabled = false,
     super.key,
   });
@@ -26,15 +26,17 @@ class Tooltip extends StatefulWidget {
   final bool disabled;
 
   /// If the tooltip should be shown as if it has focus
-  final bool hasFocus;
+  final FocusNode? focusNode;
 
   @override
   State<Tooltip> createState() => _TooltipState();
 }
 
 class _TooltipState extends State<Tooltip> {
+  bool hasFocus = false;
   bool isHovered = false;
   bool isPressing = false;
+  bool evaluatingPress = false;
   Timer? timer;
   Alignment followerAlignment = Alignment.center;
   Alignment targetAlignment = Alignment.center;
@@ -60,19 +62,29 @@ class _TooltipState extends State<Tooltip> {
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       getPosition();
+      widget.focusNode?.addListener(
+        () => setState(() {
+          // If not hovering and is focused, set hasFocus to true
+          if (!isHovered && (widget.focusNode?.hasFocus ?? false)) {
+            hasFocus = true;
+          } else {
+            hasFocus = false;
+          }
+        }),
+      );
     });
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    final visible = widget.hasFocus || isHovered || isPressing;
+    final visible = (hasFocus || isHovered || isPressing) && !evaluatingPress;
 
     return MouseRegion(
       onEnter: (_) {
         if (!isHovered) {
-          getPosition();
           setState(() => isHovered = true);
+          getPosition();
         }
       },
       onExit: (_) {
@@ -82,9 +94,7 @@ class _TooltipState extends State<Tooltip> {
       },
       child: Listener(
         onPointerDown: (event) async {
-          if (isHovered) {
-            setState(() => isHovered = false);
-          }
+          setState(() => evaluatingPress = true);
           if (Platform.isMobile || true) {
             // After 500ms, assume its a long press and show the tooltip
             timer?.cancel();
@@ -92,16 +102,20 @@ class _TooltipState extends State<Tooltip> {
               const Duration(milliseconds: 500),
               () {
                 getPosition();
-                setState(() => isPressing = true);
+                setState(() {
+                  evaluatingPress = false;
+                  isPressing = true;
+                });
               },
             );
           }
         },
         onPointerUp: (event) {
           timer?.cancel();
-          if (isPressing) {
-            setState(() => isPressing = false);
-          }
+          setState(() {
+            evaluatingPress = false;
+            isPressing = false;
+          });
         },
         child: PortalTarget(
           visible: visible && !widget.disabled,
@@ -123,14 +137,15 @@ class _TooltipState extends State<Tooltip> {
               ],
             ),
             child: Surface(
-              borderRadius: context.borderRadius.md,
-              padding: EdgeInsets.all(context.spacing.xs),
+              style: (context) => SurfaceStyle(
+                borderRadius: context.borderRadius.md,
+                padding: EdgeInsets.all(context.spacing.xs),
+              ),
               child: SelectionArea(
                 focusNode: FocusNode(canRequestFocus: false),
                 child: Text(
                   widget.tooltip,
                   style: context.style.bodySmall,
-                  color: context.color.surface.foreground,
                 ),
               ),
             ),

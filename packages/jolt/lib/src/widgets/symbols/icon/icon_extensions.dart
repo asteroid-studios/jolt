@@ -6,7 +6,6 @@ extension IconExtension on IconData {
   Icon asIcon({
     double? size,
     Color? color,
-    Color? colorDark,
     double scale = 1.0,
     bool flipHorizontal = false,
     bool flipVertical = false,
@@ -15,7 +14,6 @@ extension IconExtension on IconData {
         this,
         size: size,
         color: color,
-        colorDark: colorDark,
         scale: scale,
         flipHorizontal: flipHorizontal,
         flipVertical: flipVertical,

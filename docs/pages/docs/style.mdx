@@ -1,0 +1,98 @@
+
+import { Callout } from 'nextra-theme-docs'
+import { Info, Intersect, Lightning } from "@phosphor-icons/react";
+
+# Style
+
+## What's a Style?
+
+A Style refers to the appearance and behaviour of a widget.
+
+Examples include ButtonStyle, CardStyle, and TextFieldStyle.
+
+<Callout emoji={<Info weight="duotone" size='28' />} type="jolt">
+  Every widget in Jolt has its own Style class, except for JoltApp.
+</Callout>
+
+## Setting Styles
+
+Styles can be applied in three ways:
+- Globally, by setting the **styles** of **JoltApp**.
+- For descendants, by using a **DefaultStyle** widget all children will inherit the Style set.
+- For one instance of the widget, by passing directly.
+
+
+<Callout emoji={<Intersect weight="duotone" size='28' />} type="jolt">
+  **Merging Styles**
+
+  When a widget determines it's final style, it merges the available styles in the following order (higher number, higher priority):
+  1. The style set by the widget itself (ie default).
+  2. The global style set in **JoltApp**.
+  3. The style from the nearest **DefaultStyle** widget.
+  4. The style passed directly to the widget.
+</Callout>
+
+## Applying a style globally
+
+To apply a style globally, pass the style to the `styles` parameter of JoltApp. 
+
+```dart
+  final buttonStyle = (context) => ButtonStyle(
+    spacing: context.spacing.xs,
+  );
+
+  JoltApp.router(
+    styles: [
+      buttonStyle,
+    ],
+  ),
+```
+
+## Applying a style to descendants
+
+To apply a style all descendants, use a DefaultStyle widget.
+
+```dart
+  DefaultStyle(
+    style: Button.link, // Button.link is a predefined style, any style would do here
+    child: Row(
+      children: [
+        Button(),
+        Button(),
+      ],
+    ),
+  )
+```
+
+## Applying a style directly
+
+To apply a style directly, pass the style to the `style` parameter of the widget. 
+
+```dart
+  Button(
+    style: (context) => ButtonStyle(
+      color: context.color.primary
+    ),
+  )
+```
+
+
+## StyleResolver
+
+You might have noticed in the examples above, rather than passing the Style itself, we pass a function that returns the Style.
+
+This is called a StyleResolver and it exists to give you access to the context of the target widget when setting a style.
+
+When the widget to be styled is ready to determine its final style, it calls the StyleResolver with the context of the widget. This means you can access colors from the theme, spacing or even interaction state such as isHovering.
+
+```dart
+  Button(
+    style: (context) { 
+      final interaction = Interaction.maybeOf(context);
+      final isHovered = interaction?.isHovered ?? false;
+      return ButtonStyle(
+        color: isHovered ? context.color.primary : context.color.surface,
+      );
+    }
+  ),
+```

@@ -36,7 +36,7 @@ extension StringTextExtensions on String {
   Widget asBody() => Text(this).withStyleBody();
 
   /// Return a Text Widget with a default style.
-  Text asText() => Text(this);
+  Text asText([TextStyle? textStyle]) => Text(this, style: textStyle);
 
   /// Return a TextSpan Widget with a default style.
   TextSpan asTextSpan() => TextSpan(text: this);

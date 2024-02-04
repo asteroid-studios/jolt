@@ -14,14 +14,14 @@ class WidgetsPage extends StatelessWidget {
     Widget labelButton() {
       const code = '''
 Button(
-  onTap: () {},
+  onPressed: () {},
   label: 'Label',
 ),''';
       return WidgetRender(
         title: 'Button with label',
         code: code,
         child: Button(
-          onTap: () {},
+          onPressed: () {},
           label: 'Label',
         ),
       );
@@ -30,14 +30,14 @@ Button(
     Widget iconButton() {
       const code = '''
 Button(
-  onTap: () {},
+  onPressed: () {},
   icon: Icons.house,
 ),''';
       return WidgetRender(
         title: 'Button with icon',
         code: code,
         child: Button(
-          onTap: () {},
+          onPressed: () {},
           icon: Icons.house,
         ),
       );
@@ -46,7 +46,7 @@ Button(
     Widget comboButton() {
       const code = '''
 Button(
-  onTap: () {},
+  onPressed: () {},
   label: 'Home',
   icon: Icons.house,
 ),''';
@@ -54,7 +54,7 @@ Button(
         title: 'Button with icon',
         code: code,
         child: Button(
-          onTap: () {},
+          onPressed: () {},
           label: 'Home',
           icon: Icons.house,
         ),
@@ -64,7 +64,7 @@ Button(
     Widget disabledButton() {
       const code = '''
 Button(
-  onTap: null,
+  onPressed: null,
   label: 'Home',
   icon: Icons.house,
 ),''';
@@ -90,23 +90,33 @@ Button(
       builder: (context, constraints) {
         final crossAxisCount = context.responsive<int>(desktop: 2) ?? 1;
         final itemWidth = constraints.maxWidth / crossAxisCount;
-        return Scaffold(
-          title: 'Widgets',
-          content: Padding(
-            padding: EdgeInsets.all(context.spacing.md),
-            child: context.view.isTabletOrLarger
-                ? Container(
-                    height: context.mediaQuery.size.height - 300,
-                    // TODO convert to a sliverList
+        return SafeArea(
+          child: Scaffold.scrollView(
+            windowTitle: 'Widgets',
+            children: [
+              Button(
+                label: 'Layouts',
+                onPressed: () {
+                  context.navigateTo(LayoutsRoute());
+                },
+              ),
+              Padding(
+                padding: EdgeInsets.all(context.spacing.md),
+                child: context.view.isTabletOrLarger
+                    ? Container(
+                        height: context.mediaQuery.size.height - 300,
+                        // TODO convert to a sliverList
 
-                    child: GridView.count(
-                      crossAxisCount: crossAxisCount,
-                      crossAxisSpacing: context.spacing.md,
-                      childAspectRatio: itemWidth / 300,
-                      children: children,
-                    ),
-                  )
-                : Column(children: children),
+                        child: GridView.count(
+                          crossAxisCount: crossAxisCount,
+                          crossAxisSpacing: context.spacing.md,
+                          childAspectRatio: itemWidth / 300,
+                          children: children,
+                        ),
+                      )
+                    : Column(children: children),
+              ),
+            ],
           ),
         );
       },

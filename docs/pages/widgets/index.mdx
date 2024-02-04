@@ -1,0 +1,35 @@
+import ExternalLink from 'components/external_link';
+import { Callout, Steps, Cards, Card } from 'nextra-theme-docs'
+import {  AppStoreLogo, Bell, Circle, Code, CursorClick, Globe, GooglePlayLogo, GridFour, HandPointing, Lightning, Money, PictureInPicture, Rectangle, Siren, Textbox, Warning } from "@phosphor-icons/react";
+
+# Widgets
+
+Jolt is in the process of building a comprehensive library of widgets, some pages will be empty stubs for planned future widgets.
+
+To request a new widget please [open an issue](https://github.com/asteroid-studios/jolt/issues/new?title=New%20widget%20request&labels=feedback)
+
+---
+### Quick Links
+
+
+<Cards>
+  <Card icon={<GridFour weight="duotone" size='32' />}  title="Scaffold" href="./widgets/layout/scaffold" />
+  <Card icon={<HandPointing weight="duotone" size='32' />}  title="Button" href="./widgets/interaction/button" />
+  <Card icon={<Textbox weight="duotone" size='32' />}  title="TextField" href="./widgets/basics/jolt-app" />
+  <Card icon={<Bell weight="duotone" size='32' />}  title="Toast" href="./widgets/overlays/toast" />
+  <Card icon={<Rectangle weight="duotone" size='32' />}  title="Surface" href="./widgets/layout/surface" />
+  <Card icon={<CursorClick weight="duotone" size='32' />}  title="Interaction" href="./widgets/interaction/interaction" />
+</Cards>
+---
+
+### Demo
+
+See the available widgets in action in the example app.
+
+<Cards>
+  <ExternalLink child={<Card  icon={<Globe weight="duotone" size='32' />}  title="Web" href="https://example.flutterjolt.dev/"/>} href="https://example.flutterjolt.dev/"/>
+  <Card icon={<AppStoreLogo weight="duotone" size='32' />}  title="iOS" href="https://example.flutterjolt.dev/" />
+  <Card icon={<GooglePlayLogo weight="duotone" size='32' />}  title="Android" href="https://example.flutterjolt.dev/" />
+</Cards>
+
+

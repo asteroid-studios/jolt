@@ -32,7 +32,9 @@ class CircularProgressIndicator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = context.inherited.widgetTheme.progressIndicator;
-    final color = this.color ?? theme.color ?? context.color.primary;
+    // TODO change this to default to text color ie foreground.
+    // Same with the size.
+    final color = this.color ?? SurfaceColor.of(context).as.foreground(context);
     final size = this.size ?? theme.circularIndicatorSize;
     final icon =
         this.icon ?? theme.circularIndicatorIcon ?? IconsDuotone.circleNotch;

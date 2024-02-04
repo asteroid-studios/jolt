@@ -1,0 +1,82 @@
+# Themes
+
+## Coming from Material
+
+If you are familiar with the ThemeData class in Material, you know it is used not only to define the color scheme and typography, but also the appearance of Material widgets.
+
+You can have multiple themes, such as light, dark or any variation you want.
+
+This can be a bit messy, because when it comes to the general appearance and behaviour of widgets, you probably don't want them changing between themes.
+
+## The solution
+A **Theme** in Jolt only stores data related to:
+- ColorScheme
+- Typography
+- Dimensions
+
+The appearance and behaviour of widgets is **not** set by the theme, but instead defined by a [Style](./) class, which hopefully you just read all about.
+
+There are two major benefits of this approach:
+1. You can use the values from the themes you define when creating your widget styles.
+2. Themes are much simpler to manage.
+
+## An example
+
+
+```dart
+// Setup a few themes, you can go in to a lot of detail but this example uses light and dark defaults
+final themes = [
+  Theme(id: 'default_light', colorScheme: ColorScheme.light()),
+  Theme(id: 'default_dark', colorScheme: ColorScheme.dark()),
+];
+
+// Use values from your themes when creating your styles
+final buttonStyle = (context) => ButtonStyle(
+  textStyle: context.style.bodyLarge,
+);
+
+// Then later when setting up your JoltApp, you can pass your themes and styles.
+JoltApp(
+  themes: themes,
+  styles: [
+    buttonStyle,
+  ],
+);
+```
+## Theme management
+
+{/* 
+
+
+Theme management is provided out of the box, using Hive to persist the theme between sessions.
+
+Setting a theme is broken up into two possible choices:
+- Changing the primary color.
+- Changing the theme mode (light/dark/system).
+
+The reason this was done was to support the use case where you want to change the primary color of your app, but keep the theme mode the same.
+
+When you change from light to dark mode, Jolt will find the dark theme with the same primary color as the light theme you were using.
+
+```dart
+// Switch between light dark and system themes
+Button(
+  icon: Icons.sun,
+  onTap: () => context.jolt.setTheme(ThemeMode.light),
+),
+Button(
+  icon: Icons.moon,
+  onTap: () => context.jolt.setTheme(ThemeMode.dark),
+),
+Button(
+  icon: Icons.gear,
+  onTap: () => context.jolt.setTheme(ThemeMode.system),
+),
+
+// Change the primary color
+Button(
+  background: Colors.violet,
+  onTap: ()=> context.jolt.setPrimaryColor(Colors.violet),
+),
+```
+ */}

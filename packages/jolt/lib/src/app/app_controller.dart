@@ -15,7 +15,7 @@ class JoltAppController extends ValueNotifier<JoltAppState> {
     required List<Theme> themes,
     required PlatformDispatcher platformDispatcher,
     List<Locale> supportedLocales = const <Locale>[Locale('en', 'US')],
-    BreakpointsData breakpoints = const BreakpointsData(),
+    Breakpoints breakpoints = const Breakpoints(),
     Locale? locale,
   }) : super(
           // Init state

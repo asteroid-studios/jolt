@@ -1,0 +1,112 @@
+import { Callout, Steps, Tabs, Tab } from 'nextra-theme-docs'
+import {dartVersion, flutterVersion, joltVersion} from "components/versions";
+
+# Getting Started
+
+<Tabs items={['Quickstart', 'Manual']} defaultIndex="0">
+  <Tabs.Tab>
+
+If you are starting a new project it is recommended that you use the [Quickstart](./developer-experience/quickstart) which uses [BrickHub](https://docs.brickhub.dev/).
+
+<Callout type="info">
+**Required Step** <br/> Make sure you have [installed the Mason CLI](https://docs.brickhub.dev/installing) on your machine.
+</Callout>
+
+If you don't want to use BrickHub you could always pull down the [example](https://github.com/asteroid-studios/jolt/tree/master/apps/example) and use that as a starting point.
+  </Tabs.Tab>
+  <Tabs.Tab>
+  <Steps>
+
+### Add the dependency
+
+``` sh filename="Terminal"
+flutter pub add jolt
+```
+
+> or
+
+import { useEffect, useRef } from 'react'
+
+export function CurrentVersion({ children }) {
+  const ref = useRef()
+  // Find the corresponding token from the DOM
+  useEffect(() => {
+    if (ref.current) {
+      // Jolt Version
+      const joltVersionEl = [...ref.current.querySelectorAll('code > span > span')]
+              .find(el => el.innerText === 'joltVersion');
+      if (joltVersionEl) {
+        joltVersionEl.innerText = `^${joltVersion}`;
+      }
+      // SDK Version
+      const sdkVersionEl = [...ref.current.querySelectorAll('code > span > span')]
+              .find(el => el.innerText === 'sdkVersion');
+      if (sdkVersionEl) {
+        sdkVersionEl.innerText = `"${dartVersion}"`;
+      }
+      // Flutter Version
+      const flutterVersionEl = [...ref.current.querySelectorAll('code > span > span')]
+              .find(el => el.innerText === 'flutterVersion');
+      if (flutterVersionEl) {
+        flutterVersionEl.innerText = `"${flutterVersion}"`;
+      }
+    }
+  }, [])
+  return (
+    <>
+      <div ref={ref} style={{ marginTop: '1.5rem' }}>
+        {children}
+      </div>
+    </>
+  )
+}
+
+<CurrentVersion>
+``` yaml filename="lib/pubspec.yaml" {8}
+environment:
+  sdk: sdkVersion
+  flutter: flutterVersion
+
+dependencies:
+  flutter:
+    sdk: flutter
+  jolt: joltVersion
+```
+</CurrentVersion>
+
+
+
+### Initialise JoltApp
+
+``` dart filename="lib/main.dart" {3}
+void main() async {
+
+  await Jolt.initFlutter(); // Make sure to initialise Jolt
+
+  runApp(
+    JoltApp.router(
+      themes: themes,
+      widgetTheme: widgetTheme,
+      routerConfig: _appRouter.config(),
+    );
+  );
+  
+  // Alternatively, you can also use the default constructor and pass a home widget
+  // runApp(
+  //   JoltApp(
+  //     themes: themes,
+  //     widgetTheme: widgetTheme,
+  //     home: const HomeScreen(),
+  //   );
+  // );
+}
+```
+
+</Steps>
+  </Tabs.Tab>
+</Tabs>
+
+
+
+
+

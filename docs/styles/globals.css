@@ -44,4 +44,5 @@ html.dark .nextra-banner-container {
 
 html.dark .nextra-callout:not(.nx-text-yellow-900, .nx-text-orange-800, .nx-text-red-900, .nx-text-blue-900) {
     color: #ac87ff;
+    padding: 18px 4px;
 }

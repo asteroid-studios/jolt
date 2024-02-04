@@ -12,13 +12,15 @@ class TopBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Surface(
-      borderRadius: BorderRadius.zero,
-      padding: EdgeInsets.symmetric(
-        horizontal: context.spacing.md,
-        vertical: context.spacing.sm,
+      style: (context) => SurfaceStyle(
+        border: Border.all(width: 0),
+        borderRadius: BorderRadius.zero,
+        color: context.color.surface,
+        padding: EdgeInsets.symmetric(
+          horizontal: context.spacing.md,
+          vertical: context.spacing.sm,
+        ),
       ),
-      background: context.color.surface,
-      borderWidth: 0,
       child: SafeArea(
         bottom: false,
         left: false,
@@ -44,22 +46,22 @@ class TopBar extends StatelessWidget {
             ),
             const Expanded(child: SizedBox()),
             Button(
-              onTap: () {
+              onPressed: () {
                 showSideBar();
               },
               tooltip: 'Show Mobile Menu',
               icon: Icons.sidebar,
-              iconSize: 20,
+              // iconSize: 20,
             ),
             const Spacing.sm(),
             Button(
-              onTap: () {},
+              onPressed: () {},
               tooltip: 'Hide SideBar',
-              iconWidget: Icons.sidebar.asIcon(
-                size: 20,
-                flipHorizontal: true,
-                color: context.color.surface.foreground,
-              ),
+              // iconWidget: Icons.sidebar.asIcon(
+              //   size: 20,
+              //   flipHorizontal: true,
+              //   // color: context.color.surface.foreground,
+              // ),
             ),
           ],
         ),

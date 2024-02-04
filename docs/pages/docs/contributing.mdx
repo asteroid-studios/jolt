@@ -1,0 +1,53 @@
+import { Button, Callout, Cards, Card } from 'nextra/components'
+import {  PencilCircle, Lightning } from "@phosphor-icons/react";
+
+# Contributing
+
+<Callout emoji={<Lightning weight="duotone" size='28' />} type="jolt">
+  If you are interested in contributing to Jolt, you can [create a PR](https://github.com/asteroid-studios/jolt) or [send a message](https://twitter.com/kane_wickman) for more info.
+</Callout>
+
+## Getting started
+
+Before you rush off to make your first PR, please have a quick read through the docs about the conventions and goals set out for the project.
+
+There is information about why/how Jolt differs from Material, as well as file structure, comments and testing.
+
+## The basics
+
+### Linting
+
+The linting of choice is currently [very_good_analysis](https://pub.dev/packages/very_good_analysis). Please make sure that any PRs are submitted with no linting errors.
+
+### Comments
+
+As part of the linting, you might see `Missing documentation for a public member`. 
+
+All public members should have sensible comments, for example:
+
+``` dart
+/// Providing a tooltip to [Button] will enable a tooltip to show on hover or long press.
+///
+/// It will also add the tooltip to the semantic widget for accessibility.
+final String tooltip;
+```
+
+
+### Testing
+
+TBD
+
+
+```dart
+Button(style: myVarient)
+
+```
+
+### Guides
+
+
+
+<Cards>
+  <Card icon={<PencilCircle weight="duotone" size='32' />}  title="Creating a custom widget" href="/guides/creating-a-widget" />
+</Cards>
+

@@ -65,39 +65,41 @@ class _SideBarLeftState extends State<SideBarLeft> {
             children: [
               const Spacing.xs(),
               Column(
-                spacing: context.spacing.sm,
-                children: navBarItems.mapIndexed((index, item) {
-                  final tabsController =
-                      autoTabsRouterKey.currentState?.controller;
-                  final router = AppRouter.instance;
-                  final currentName = router.currentSegments.last.name;
-                  // TODO no tabsController on web so selected doesn't work
-                  final currentIndex = tabsController?.activeIndex ?? 0;
-                  final selected = currentIndex == index;
-                  final button = SideBarButton(
-                    item: item,
-                    selected: selected,
-                    topLevel: true,
-                    index: index,
-                    isOverlay: widget.isOverlay,
-                  );
-                  if (!selected) return button;
-                  return Column(
-                    spacing: context.spacing.sm,
-                    children: [
-                      button,
-                      ...item.children.map(
-                        (i) => SideBarButton(
-                          item: i,
-                          selected: i.route.routeName == currentName,
-                          topLevel: false,
-                          index: index,
-                          isOverlay: widget.isOverlay,
-                        ),
-                      ),
-                    ],
-                  );
-                }).toList(),
+                children: [
+                  ...navBarItems.mapIndexed(
+                    (index, item) {
+                      final tabsController =
+                          autoTabsRouterKey.currentState?.controller;
+                      final router = AppRouter.instance;
+                      final currentName = router.currentSegments.last.name;
+                      // TODO no tabsController on web so selected doesn't work
+                      final currentIndex = tabsController?.activeIndex ?? 0;
+                      final selected = currentIndex == index;
+                      final button = SideBarButton(
+                        item: item,
+                        selected: selected,
+                        topLevel: true,
+                        index: index,
+                        isOverlay: widget.isOverlay,
+                      );
+                      if (!selected) return button;
+                      return Column(
+                        children: [
+                          button,
+                          ...item.children.map<Widget>(
+                            (i) => SideBarButton(
+                              item: i,
+                              selected: i.route.routeName == currentName,
+                              topLevel: false,
+                              index: index,
+                              isOverlay: widget.isOverlay,
+                            ),
+                          ),
+                        ].withSpacingSm(),
+                      );
+                    },
+                  )
+                ].withSpacingSm(),
               ),
               const Expanded(
                 child: SizedBox(),
@@ -107,7 +109,7 @@ class _SideBarLeftState extends State<SideBarLeft> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 icon: Icons.code,
                 label: 'Example Code',
-                onTap: () => launchUrl(
+                onPressed: () => launchUrl(
                   Uri.parse(
                     'https://github.com/asteroid-studios/jolt/tree/master/apps/example',
                   ),
@@ -119,7 +121,7 @@ class _SideBarLeftState extends State<SideBarLeft> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 icon: Icons.fileDoc,
                 label: 'Docs',
-                onTap: () => launchUrl(
+                onPressed: () => launchUrl(
                   Uri.parse('https://flutterjolt.dev'),
                 ),
               ),
@@ -129,7 +131,7 @@ class _SideBarLeftState extends State<SideBarLeft> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 icon: Icons.githubLogo,
                 label: 'GitHub',
-                onTap: () => launchUrl(
+                onPressed: () => launchUrl(
                   Uri.parse('https://github.com/asteroid-studios/jolt'),
                 ),
               ),
@@ -178,17 +180,17 @@ class SideBarButton extends StatelessWidget {
         if (!topLevel) const Spacing.lg(),
         Expanded(
           child: Button(
-            background: selected
+            color: selected
                 ? context.color.primary
                 : topLevel
                     ? context.color.surface
                     : context.color.primary.s200,
             mainAxisAlignment: MainAxisAlignment.start,
-            requestFocusOnPress: false,
+            // requestFocusOnPress: false,
             fullWidth: true,
             icon: selected ? item.selectedIcon : item.icon,
             label: item.label,
-            onTap: () {
+            onPressed: () {
               if (!selected && !Platform.isWeb && topLevel) {
                 autoTabsRouterKey.currentState?.controller
                     ?.setActiveIndex(index);

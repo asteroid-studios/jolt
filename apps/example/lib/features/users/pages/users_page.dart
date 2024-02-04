@@ -7,11 +7,13 @@ class UsersPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      title: 'Users',
-      content: Center(
-        child: Text('users'),
-      ),
+    return Scaffold.scrollView(
+      windowTitle: 'Users',
+      children: [
+        Center(
+          child: Text('users'),
+        ),
+      ],
     );
   }
 }

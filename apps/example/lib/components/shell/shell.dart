@@ -5,7 +5,6 @@ import 'package:example/components/shell/footer/footer.dart';
 import 'package:example/components/shell/nav_items/nav_items.dart';
 import 'package:example/components/shell/sidebar_left/sidebar_left.dart';
 import 'package:example/components/shell/sidebar_right/sidebar_right.dart';
-import 'package:example/components/shell/top_bar/top_bar.dart';
 import 'package:example/utils/router/router.dart';
 
 final autoTabsRouterKey = GlobalKey<AutoTabsRouterState>();
@@ -24,7 +23,7 @@ class AppShell extends StatelessWidget {
         // desktopTopBar: const DesktopTopBar(),
         sideBarLeft: context.responsive(
           mobile: null,
-          laptop: const SideBarLeft(),
+          tabletLandscape: const SideBarLeft(),
         ),
         sideBarRight: context.responsive(
           mobile: null,
@@ -34,7 +33,7 @@ class AppShell extends StatelessWidget {
           mobile: !Platform.isWeb && tabsRouter != null
               ? BottomBar(tabsRouter)
               : const SizedBox.shrink(),
-          laptop: const SizedBox.shrink(),
+          tabletLandscape: const SizedBox.shrink(),
         ),
         // topBar: const TopBar(),
         footer: const Footer(),

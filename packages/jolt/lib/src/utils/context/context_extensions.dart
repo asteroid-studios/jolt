@@ -13,9 +13,6 @@ class ContextInherited {
 
   final BuildContext _context;
 
-  /// Return the closest SurfaceStyle from the currentContext
-  SurfaceStyle get surfaceStyle => DefaultSurfaceStyle.of(_context);
-
   /// Return the closest WidgetTheme from the currentContext
   WidgetTheme get widgetTheme => DefaultWidgetTheme.of(_context);
 

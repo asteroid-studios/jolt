@@ -3,6 +3,7 @@ import 'package:flutter/material.dart' as m
 
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_portal/flutter_portal.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 import 'package:jolt/jolt.dart';
 
@@ -52,7 +53,7 @@ class JoltApp extends StatefulWidget {
   final String? title;
 
   /// Define the breakpoints for the app
-  final BreakpointsData? breakpoints;
+  final Breakpoints? breakpoints;
 
   /// Styling for all Jolt widgets.
   final WidgetTheme Function(BuildContext)? widgetTheme;
@@ -106,7 +107,7 @@ class _JoltAppState extends State<JoltApp> with WidgetsBindingObserver {
   @override
   void initState() {
     controller = JoltAppController(
-      breakpoints: widget.breakpoints ?? const BreakpointsData(),
+      breakpoints: widget.breakpoints ?? const Breakpoints(),
       locale: widget.locale,
       supportedLocales: widget.supportedLocales,
       platformDispatcher: WidgetsBinding.instance.platformDispatcher,
@@ -139,8 +140,7 @@ class _JoltAppState extends State<JoltApp> with WidgetsBindingObserver {
   List<LocalizationsDelegate<dynamic>> get _localizationsDelegates {
     return <LocalizationsDelegate<dynamic>>[
       ...?widget.localizationsDelegates,
-      // DefaultMaterialLocalizations.delegate,
-      // DefaultCupertinoLocalizations.delegate,
+      RefreshLocalizations.delegate,
       GlobalMaterialLocalizations.delegate,
       GlobalWidgetsLocalizations.delegate,
       GlobalCupertinoLocalizations.delegate,
@@ -290,21 +290,25 @@ class _DefaultStyles extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    m.ThemeData materialThemeData(ColorScheme color) {
+    Color foreground(Color color) {
+      return color.as.foreground(context);
+    }
+
+    m.ThemeData materialThemeData(JoltColorScheme color) {
       return m.ThemeData(
         scaffoldBackgroundColor: color.background,
         colorScheme: m.ColorScheme(
           brightness: color.brightness,
           primary: color.primary,
-          onPrimary: color.primary.foreground,
+          onPrimary: foreground(color.primary),
           secondary: color.secondary,
-          onSecondary: color.secondary.foreground,
+          onSecondary: foreground(color.secondary),
           surface: color.surface,
-          onSurface: color.surface.foreground,
+          onSurface: foreground(color.surface),
           background: color.background,
-          onBackground: color.background.foreground,
+          onBackground: foreground(color.background),
           error: color.error,
-          onError: color.error.foreground,
+          onError: foreground(color.error),
         ),
       );
     }
@@ -331,7 +335,7 @@ class _DefaultStyles extends StatelessWidget {
                   // Set the default symbol style (Text and Icons)
                   child: DefaultSymbolStyle(
                     style: (context) => context.style.body.copyWith(
-                      color: context.color.surface.foreground,
+                      color: foreground(context.color.surface),
                     ),
                     // Set the default selection style
                     child: DefaultSelectionStyle(
