@@ -1,13 +1,15 @@
 {
-  "index": "Introduction",
-  "getting-started": "Getting Started",
-  "theming": "Theming",
-  "responsiveness": "Responsiveness",
-  "widgets": "Widgets",
-  "developer-experience": "Developer Experience",
-  "contributing": "Contributing",
-  "widget-catalogue": {
+  "index": {
+    "title": "",
     "display": "hidden"
+  },
+  "docs": {
+    "title": "Docs",
+    "type": "page"
+  },
+  "widgets": {
+    "title": "Widgets",
+    "type": "page"
   },
   "about": {
     "title": "About",
@@ -18,5 +20,10 @@
     "type": "page",
     "href": "https://twitter.com/kane_wickman",
     "newWindow": true
+  },
+  "guides": {
+    "title": "Guides",
+    "type": "page",
+    "display": "hidden"
   }
 }

@@ -49,7 +49,7 @@ class SplashTapFactory extends HookWidget {
                   max(size.value.width, size.value.height) *
                   2,
               fillColor: color.withOpacity(
-                1 - max(0.6, splashController.value),
+                1 - max(0.8, splashController.value),
               ),
             ),
             child: child,

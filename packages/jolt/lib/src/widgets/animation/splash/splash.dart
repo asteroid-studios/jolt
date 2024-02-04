@@ -1,6 +1,4 @@
 import 'package:jolt/jolt.dart';
-import 'package:jolt/src/widgets/animation/splash/splash.style.dart';
-import 'package:jolt/src/widgets/animation/splash/splash_factories/splash_tap_factory.dart';
 
 ///
 class Splash extends StatelessWidget {
@@ -28,8 +26,6 @@ class Splash extends StatelessWidget {
       widgetStyle: widgetStyle,
       style: this.style?.call(context),
     );
-
-    // TODO instead, only add splash style as part of button. So none by default
 
     if (style == SplashStyle.none || style.splashFactory == null) {
       return child ?? const SizedBox.shrink();

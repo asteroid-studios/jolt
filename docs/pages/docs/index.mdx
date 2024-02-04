@@ -1,0 +1,135 @@
+import MyLightImage from 'public/cover_light.png';
+import MyDarkImage from 'public/cover_dark.png';
+import ThemeResponsiveImage from 'components/theme_responsive_image';
+import ExternalLink from 'components/external_link';
+import { Callout, Steps, Cards, Card } from 'nextra-theme-docs'
+import {  AppStoreLogo, Globe, GooglePlayLogo, Lightning, Money, Siren, Warning } from "@phosphor-icons/react";
+
+
+<br/>
+<ThemeResponsiveImage 
+    lightSrc= {MyLightImage}
+    darkSrc= {MyDarkImage}
+    alt= 'Jolt'
+/>
+<br/>
+
+ 
+## A powerful UI library for Flutter.
+
+Everything you need to create beautiful interfaces that look great on any platform. Highly flexible, easy to theme and a breeze to create custom widgets.
+
+Check out the examples below or flick through the [example code](https://github.com/asteroid-studios/jolt/tree/master/apps/example).
+
+<Cards>
+  <ExternalLink child={<Card  icon={<Globe weight="duotone" size='32' />}  title="Web" href="https://example.flutterjolt.dev/"/>} href="https://example.flutterjolt.dev/"/>
+  <Card icon={<AppStoreLogo weight="duotone" size='32' />}  title="iOS" href="https://example.flutterjolt.dev/" />
+  <Card icon={<GooglePlayLogo weight="duotone" size='32' />}  title="Android" href="https://example.flutterjolt.dev/" />
+</Cards>
+
+<Callout emoji={<Lightning weight="duotone" size='28' />} type="jolt">
+  Use **JoltApp** as an alternative to **MaterialApp** or **CupertinoApp** when building apps with **Flutter.**
+</Callout>
+
+## Goals
+
+<Steps> 
+
+### Favour composition
+
+We've all been told, **everything is a widget**.
+
+By combining powerful basic widgets like **Surface** and **Interaction**, you can create maintainable custom widgets easily.
+
+
+- Check out the [widget catalogue](https://example.flutterjolt.dev/) for basics, form-fields, and much more.
+- See the guide on [creating reusable widgets](https://example.flutterjolt.dev/).
+
+
+{/* TODO use a better example */}
+``` dart filename="Some clickable text with padding that expands on hover" {2,6}
+Interaction(
+  onTap: () => print('Do something'),
+  builder: (context, state) {
+    return Surface(
+      padding: EdgeInsets.all(
+        state.isHovering ? context.spacing.md : context.spacing.sm
+      ),
+      child: Text('Click me'),
+    );
+  }
+)
+```
+
+
+### Stay flexible
+
+Libraries like Material and Cupertino are fantastic tools but they can be very rigid by design.
+
+With Jolt, anything that can be configurable, is configurable.
+
+- Every widget has a corresponding **Style** class. This class defines all the configurable properties available.
+- The system is designed to allow maximum maintainability, with a clearly defined [hierarchy](https://example.flutterjolt.dev/).
+
+
+``` dart filename="Theming example"
+
+```
+
+### Prioritise accessibility
+
+When building quickly, we sometimes forget to put labels on buttons or to make sure the text has enough contrast.
+ 
+You can save your users from squinting by making accessibility easy.
+
+- Semantic properties are readily available for all widgets including the new **identifier** property to make testing a breeze.
+- Jolt has a few tricks with colors to ensure text and backgrounds are always visible and clear.
+
+``` dart filename="Accessibility example" {3-5}
+
+```
+
+### Look great everywhere
+
+Flutter just about anywhere and between platform differences and screen sizes, responsive design is hard.
+
+Jolt can ease the burden with clever layout widgets and helpful responsive utilities.
+
+- Set your breakpoints and use the **Shell** and **Scaffold** widgets to make use of the space available on each platform with ease.
+- When you need to make micro-adjustments, use the **context.responsive** method to make changes at any level of the widget tree.
+
+``` dart filename="Responsive example" {3-5}
+
+```
+
+### Move quickly with precision
+
+Building an MVP on the weekend? <br/>Or maybe implementing a large scale app based on a strict design system?
+
+You can now do both with the same library.
+
+- When you need to build quickly, Jolt uses sensible defaults that result in a great looking app with minimal effort.
+- When you need control over every shade and every pixel, you can do that too.
+
+
+{/* TODO example of automatic colors vs tightly defined */}
+``` dart filename="Quick vs thorough theming" {4-6}
+
+```
+
+</Steps>
+
+## Roadmap
+
+This project is in an early alpha stage. Check the [roadmap](https://github.com/orgs/asteroid-studios/projects/3) to see what's coming next.
+
+<Callout emoji={<Siren weight="duotone" size='28' />} type="warning">
+  **Business beware** <br/> This project is neither production ready nor a fully complete alternative to Material/Cupertino **(yet)**. <br/>Keep a close eye on the project and hope to see you soon!
+</Callout>
+
+
+
+## Shout-outs
+- [TailwindCSS](https://tailwindcss.com/), Jolt provides the Tailwind colors as defaults in the **Color** class.
+- [Phosphor Icons](https://phosphoricons.com/), the icon package used in the examples and the documentation
+- [form_builder_validators](https://pub.dev/packages/form_builder_validators), comes packaged with Jolt for convenience.

@@ -1,0 +1,15 @@
+{
+  "index": { 
+    "title": "Introduction",
+    "theme": {
+      "breadcrumb": false
+    }
+  },
+  "getting-started": "Getting Started",
+  "style": "Style",
+  "accessibility": "Accessibility",
+  "responsiveness": "Responsiveness",
+  "contributing": "Contributing",
+  "best-practices": "Best Practices",
+  "faq": "FAQ"
+}

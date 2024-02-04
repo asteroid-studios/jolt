@@ -15,6 +15,7 @@ const config: DocsThemeConfig = {
       titleTemplate: '%s – Jolt',
     }
   },
+  logoLink: '/docs',
   banner: {
     key: 'pre-alpha',
     text: (
@@ -30,7 +31,7 @@ const config: DocsThemeConfig = {
   chat: {
     link: 'https://discord.gg/PqKeQD5S',
   },
-  docsRepositoryBase: 'https://github.com/shuding/nextra-docs-template',
+  docsRepositoryBase: 'https://github.com/asteroid-studios/jolt/tree/master/docs',
   footer: {
     text: 'Copyright © 2023 Kane Wickman',
   },

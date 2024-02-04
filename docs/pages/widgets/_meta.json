@@ -1,5 +1,19 @@
 {
-  "catalogue": {
-    "display": "hidden"
-  }
+  "index": { 
+    "title": "Widgets",
+    "theme": {
+      "breadcrumb": false
+    }
+  },
+  "-" : {
+    "type": "separator"
+  },
+  "jolt-app": "JoltApp",
+  "form": "Form",
+  "form-fields": "Fields",
+  "interaction": "Interaction",
+  "layout": "Layout",
+  "overlays": "Overlays",
+  "animation": "Animation",
+  "icon": "Icon"
 }

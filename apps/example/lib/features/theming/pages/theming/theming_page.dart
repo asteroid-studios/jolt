@@ -57,6 +57,10 @@ class ThemingPage extends StatelessWidget {
       );
     }
 
+    Future<void> waitABit() async {
+      await Future<void>.delayed(context.durations.long);
+    }
+
     return Scaffold.scrollView(
       windowTitle: 'Theming',
       children: [
@@ -96,17 +100,17 @@ class ThemingPage extends StatelessWidget {
               Button(
                 label: 'Store',
                 icon: Icons.appStoreLogo,
-                onPressed: () {},
+                onPressed: waitABit,
               ).withBackgroundPrimary(),
               Button(
                 label: 'Save to clipboard',
                 icon: IconsBold.copy,
-                onPressed: () {},
+                onPressed: waitABit,
               ).withBackgroundTertiary(),
               Button(
                 label: 'Home',
                 icon: Icons.house,
-                onPressed: () {},
+                onPressed: waitABit,
                 // border: BorderColor(
                 //   context.color.surface.as.foreground(context),
                 // ),
@@ -114,12 +118,12 @@ class ThemingPage extends StatelessWidget {
               Button(
                 label: 'Home',
                 icon: Icons.house,
-                onPressed: () {},
+                onPressed: waitABit,
               ).withBackgroundTransparent().withStyleDisplay(),
               Button(
                 label: 'House',
                 icon: Icons.house,
-                onPressed: () {},
+                onPressed: waitABit,
                 color: context.color.primary.withOpacity(0.3),
                 // color: context.color.primary.s950,
               ),
@@ -129,119 +133,119 @@ class ThemingPage extends StatelessWidget {
                 color: context.color.surface,
                 // icon: Icons.checkCircle,
                 icon: IconsDuotone.checkCircle,
-                onPressed: () {},
+                onPressed: waitABit,
               ).withBackgroundSuccess(),
               Button(
                 label: 'Delete',
                 icon: Icons.trash,
-                onPressed: () {},
+                onPressed: waitABit,
               ).withBackgroundError(),
               Button(
                 label: 'User',
                 color: context.color.primary.s50,
                 icon: Icons.userCircle,
-                onPressed: () {},
+                onPressed: waitABit,
               ),
               Button(
                 label: 'User',
                 color: context.color.primary.s100,
                 icon: Icons.userCircle,
-                onPressed: () {},
+                onPressed: waitABit,
               ),
               Button(
                 label: 'User',
                 color: context.color.primary.s200,
                 icon: Icons.userCircle,
-                onPressed: () {},
+                onPressed: waitABit,
               ),
               Button(
                 label: 'User',
                 color: context.color.primary.s300,
                 icon: Icons.userCircle,
-                onPressed: () {},
+                onPressed: waitABit,
               ),
               Button(
                 label: 'User',
                 color: context.color.primary.s400,
                 icon: Icons.userCircle,
-                onPressed: () {},
+                onPressed: waitABit,
               ),
               Button(
                 label: 'User',
                 color: context.color.primary.s500,
                 icon: Icons.userCircle,
-                onPressed: () {},
+                onPressed: waitABit,
               ),
               Button(
                 label: 'User',
                 color: context.color.primary.s600,
                 icon: Icons.userCircle,
-                onPressed: () {},
+                onPressed: waitABit,
               ),
               Button(
                 label: 'User',
                 color: context.color.primary.s700,
                 icon: Icons.userCircle,
-                onPressed: () {},
+                onPressed: waitABit,
               ),
               Button(
                 label: 'User',
                 color: context.color.primary.s800,
                 icon: Icons.userCircle,
-                onPressed: () {},
+                onPressed: waitABit,
               ),
               Button(
                 label: 'User',
                 color: context.color.primary.s900,
                 icon: Icons.userCircle,
-                onPressed: () {},
+                onPressed: waitABit,
               ),
               Button(
                 label: 'User',
                 color: context.color.primary.s950,
                 icon: Icons.userCircle,
-                onPressed: () {},
+                onPressed: waitABit,
               ),
               Button(
                 label: 'User',
                 color: Colors.violet,
                 icon: Icons.userCircle,
-                onPressed: () {},
+                onPressed: waitABit,
               ),
               Button(
                 label: 'User',
                 color: Colors.violet,
                 icon: Icons.userCircle,
-                onPressed: () {},
+                onPressed: waitABit,
               ),
               Button(
                 icon: Icons.userCircle,
                 color: Colors.violet,
-                onPressed: () {},
+                onPressed: waitABit,
               ),
               Button(
                 icon: Icons.airplane,
                 // label: 'C',
                 color: Colors.violet,
-                onPressed: () {},
+                onPressed: waitABit,
               ),
               Button(
                 color: Colors.amber,
-                onPressed: () {},
+                onPressed: waitABit,
               ),
               Button(
                 icon: Icons.userCircle,
                 axis: Axis.vertical,
                 // label: 'User',
                 color: Colors.violet,
-                onPressed: () {},
+                onPressed: waitABit,
               ),
               Button(
                 icon: Icons.userCircle,
                 axis: Axis.vertical,
                 label: 'User',
                 color: Colors.violet,
-                onPressed: () {},
+                onPressed: waitABit,
               ),
               Wrap(
                 children: Colors.violet.shades
@@ -249,7 +253,7 @@ class ThemingPage extends StatelessWidget {
                       (s) => Button(
                         color: s,
                         label: 'Test',
-                        onPressed: () {},
+                        onPressed: waitABit,
                       ),
                     )
                     .toList(),
@@ -258,13 +262,13 @@ class ThemingPage extends StatelessWidget {
                 label: 'User',
                 color: Color.fromARGB(255, 147, 145, 154).as.joltColor().s900,
                 icon: Icons.userCircle,
-                onPressed: () {},
+                onPressed: waitABit,
               ),
               Button(
                 label: 'User',
                 color: Color(0xFF8b5cf6),
                 icon: Icons.userCircle,
-                onPressed: () {},
+                onPressed: waitABit,
               ),
               Wrap(
                 children: Color(0xFFf43f5e)
@@ -275,7 +279,7 @@ class ThemingPage extends StatelessWidget {
                       (s) => Button(
                         color: s,
                         label: 'Test',
-                        onPressed: () {},
+                        onPressed: waitABit,
                       ),
                     )
                     .toList(),
@@ -285,18 +289,37 @@ class ThemingPage extends StatelessWidget {
                 icon: IconsDuotone.checkCircle,
 
                 // TODO issue, widget doesn't update style when onpressed changes ie enable/disable
-                onPressed: () {},
+                onPressed: waitABit,
               ).withBackgroundSurface(),
               Button(
                 label: 'Test',
-                onPressed: () {},
+                onPressed: waitABit,
                 icon: IconsDuotone.checkCircle,
               ).withBackgroundSurfaceInverse(),
               Button(
-                style: outlineButton,
-                label: 'Test',
-                onPressed: () {},
+                style: Button.link,
+                // color: Colors.rose,
+                textStyle: TextStyle(color: Colors.red),
+                label: 'Forgot Password',
+                onPressed: waitABit,
+              ),
+              Button(
+                style: Button.ghost,
+                icon: IconsDuotone.password,
+                // textStyle: TextStyle(color: Colors.red),
+                label: 'Forgot Password',
+                onPressed: waitABit,
+              ),
+              Button(
+                style: Button.outline,
                 icon: IconsDuotone.checkCircle,
+                label: 'Complete',
+                onPressed: waitABit,
+              ),
+              Button(
+                style: Button.outline,
+                icon: IconsDuotone.userCircle,
+                onPressed: waitABit,
               ),
               Container(
                 color: Colors.white,
@@ -318,6 +341,13 @@ class ThemingPage extends StatelessWidget {
                   'Test'.asDisplay().withColorForeground(),
                   ' Test'.asHeadingSmall().withColorForegroundLight(),
                 ],
+              ),
+              Button(
+                icon: Icons.arrowLineUp,
+                label: 'Test',
+                // style: Button.outline,
+                // color: Color(0xFFf43f5e).as.joltColor().s700,
+                onPressed: () {},
               ),
               // Form(
               //   builder: (context, state) {

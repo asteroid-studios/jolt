@@ -12,6 +12,7 @@ class Button extends StatelessWidget {
     this.icon,
     this.style,
     this.color,
+    // TODO add foregroundColor
     this.tooltip,
     this.textStyle,
     this.axis = Axis.horizontal,
@@ -57,22 +58,55 @@ class Button extends StatelessWidget {
   /// The alignment of the label + icon, defaults to centered
   final MainAxisAlignment mainAxisAlignment;
 
+  /// Button style with a transparent background
+  static ButtonStyle link(BuildContext context) {
+    final interaction = Interaction.maybeOf(context);
+    final isHovered = interaction?.isHovered ?? false;
+    final isFocused = interaction?.isFocused ?? false;
+    final background = SurfaceColor.of(context).as.joltColor();
+    return ButtonStyle(
+      surfaceStyle: SurfaceStyle(
+        color: background.copyWith(
+          colorResolvers: JoltColorResolvers(
+            background: (color, context) => background,
+            border: (color, context) =>
+                isFocused ? background.as.foreground(context) : background,
+          ),
+        ),
+      ),
+      textStyle: isHovered
+          ? const TextStyle(decoration: TextDecoration.underline)
+          : null,
+    );
+  }
+
+  /// Button style with a transparent background
+  static ButtonStyle ghost(BuildContext context) {
+    final background = SurfaceColor.of(context);
+    return ButtonStyle(surfaceStyle: SurfaceStyle(color: background));
+  }
+
+  /// Button style with a transparent background and a border
+  static ButtonStyle outline(BuildContext context) {
+    final background = SurfaceColor.of(context).as.joltColor();
+    return ButtonStyle(
+      surfaceStyle: SurfaceStyle(
+        color: background.copyWith(
+          colorResolvers: JoltColorResolvers(
+            border: (color, context) =>
+                background.as.foreground(context).withOpacity(0.7),
+          ),
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     // The default widget style
-    final widgetStyle = ButtonStyle(
+    const widgetStyle = ButtonStyle(
       squareIconButton: true,
-      surfaceStyle: SurfaceStyle(
-        splash: true,
-        color: color,
-      ),
-    );
-
-    // Merge and resolve all child styles.
-    final style = Style.resolveAll(
-      context,
-      widgetStyle: widgetStyle,
-      style: this.style?.call(context),
+      surfaceStyle: SurfaceStyle(splash: true),
     );
 
     return Interaction(
@@ -80,8 +114,17 @@ class Button extends StatelessWidget {
       onLongPressed: onLongPressed,
       tooltip: tooltip,
       builder: (BuildContext context, InteractionState state) {
+        // Merge and resolve all child styles.
+        final style = Style.resolveAll(
+          context,
+          widgetStyle: widgetStyle,
+          style: ButtonStyle(textStyle: textStyle)
+              .merge(this.style?.call(context)),
+        );
+
         final spacing = style.spacing ?? context.spacing.xs;
-        final indicator = style.indicator ?? const CircularProgressIndicator();
+        final indicator = style.indicator ??
+            CircularProgressIndicator(color: style.textStyle?.color);
         final buttonChildren = [
           if (icon != null || label == null)
             _ButtonIconSlot(
@@ -89,7 +132,10 @@ class Button extends StatelessWidget {
               textStyle: style.textStyle,
               child: state.isWaiting
                   ? indicator
-                  : icon?.asIcon(size: style.textStyle?.fontSize),
+                  : icon?.asIcon(
+                      size: style.textStyle?.fontSize,
+                      color: style.textStyle?.color,
+                    ),
             ),
           if (label != null) label!.asText(style.textStyle),
         ];
@@ -119,14 +165,11 @@ class Button extends StatelessWidget {
         }
 
         return FallbackStyle(
-          style: style.surfaceStyle?.copyWith(
-            forcePaddingEqualToVertical:
-                style.squareIconButton! && label == null,
-          ),
-          child: Surface(
-            child: child,
-            style: (context) => style.surfaceStyle!,
-          ),
+          style: style.surfaceStyle?.merge(SurfaceStyle(color: color)).copyWith(
+                forcePaddingEqualToVertical:
+                    style.squareIconButton! && label == null,
+              ),
+          child: Surface(child: child),
         );
       },
     );

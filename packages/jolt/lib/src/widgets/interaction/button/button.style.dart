@@ -37,7 +37,7 @@ class ButtonStyle with _$ButtonStyle implements Style<ButtonStyle> {
     return copyWith(
       surfaceStyle:
           surfaceStyle?.merge(style?.surfaceStyle) ?? style?.surfaceStyle,
-      textStyle: style?.textStyle ?? textStyle,
+      textStyle: textStyle?.merge(style?.textStyle) ?? style?.textStyle,
       spacing: style?.spacing ?? spacing,
       indicator: style?.indicator ?? indicator,
       squareIconButton: style?.squareIconButton ?? squareIconButton,
