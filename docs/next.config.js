@@ -14,16 +14,6 @@ module.exports = {
         destination: '/docs',
         permanent: true,
       },
-      // {
-      //   source: '/docs',
-      //   destination: '/docs/introduction',
-      //   permanent: true,
-      // },
-      // {
-      //   source: '/widgets',
-      //   destination: '/widgets/all',
-      //   permanent: true,
-      // },
     ];
   },
 };

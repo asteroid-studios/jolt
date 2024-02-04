@@ -24,12 +24,15 @@ const config: DocsThemeConfig = {
       </a>
     )
   },
+  editLink: {
+    component: null
+  },
   primaryHue: {dark:  270, light: 270},
   project: {
     link: 'https://github.com/asteroid-studios/jolt',
   },
   chat: {
-    link: 'https://discord.gg/PqKeQD5S',
+    link: 'https://discord.gg/m9KEaBS48f',
   },
   docsRepositoryBase: 'https://github.com/asteroid-studios/jolt/tree/master/docs',
   footer: {
