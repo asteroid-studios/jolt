@@ -10,7 +10,7 @@ class Colors {
 
   /// Completely Transparent.
   ///
-  /// To access a JoltColor that is transparent, use context.color.transparent
+  /// To access a ColorSwatch that is transparent, use context.color.transparent
   static const transparent = Color(0x00000000);
 
   /// Pure white
@@ -20,7 +20,7 @@ class Colors {
   static const black = Color(0xff000000);
 
   /// A neutral color with a blueish tint
-  static const slate = JoltColor(
+  static const slate = ColorSwatch(
     0xFF475569,
     name: 'Slate',
     shade50: Color(0xFFf8fafc),
@@ -37,7 +37,7 @@ class Colors {
   );
 
   ///
-  static const grey = JoltColor(
+  static const grey = ColorSwatch(
     0xFF4b5563,
     name: 'Grey',
     shade50: Color(0xFFf9fafb),
@@ -54,7 +54,7 @@ class Colors {
   );
 
   ///
-  static const neutral = JoltColor(
+  static const neutral = ColorSwatch(
     0xff525252,
     name: 'Neutral',
     shade50: Color(0xfffafafa),
@@ -71,7 +71,7 @@ class Colors {
   );
 
   /// A neutral color
-  static const stone = JoltColor(
+  static const stone = ColorSwatch(
     0xff525252,
     name: 'Stone',
     shade50: Color(0xfffafaf9),
@@ -88,7 +88,7 @@ class Colors {
   );
 
   /// A light green color.
-  static const emerald = JoltColor(
+  static const emerald = ColorSwatch(
     0xff059669,
     name: 'Emerald',
     shade50: Color(0xffecfdf5),
@@ -105,7 +105,7 @@ class Colors {
   );
 
   /// A light purple color.
-  static const violet = JoltColor(
+  static const violet = ColorSwatch(
     0xff7c3aed,
     name: 'Violet',
     shade50: Color(0xfffaf5ff),
@@ -122,7 +122,7 @@ class Colors {
   );
 
   /// A light red color.
-  static const red = JoltColor(
+  static const red = ColorSwatch(
     0xffdc2626,
     name: 'Red',
     shade50: Color(0xfffef2f2),
@@ -139,7 +139,7 @@ class Colors {
   );
 
   /// A light yellow color.
-  static const amber = JoltColor(
+  static const amber = ColorSwatch(
     0xffd97706,
     name: 'Amber',
     shade50: Color(0xfffffbeb),
@@ -156,7 +156,7 @@ class Colors {
   );
 
   /// A light blue color.
-  static const sky = JoltColor(
+  static const sky = ColorSwatch(
     0xff0284c7,
     name: 'Sky',
     shade50: Color(0xfff0f9ff),
@@ -173,7 +173,7 @@ class Colors {
   );
 
   /// Rose
-  static const rose = JoltColor(
+  static const rose = ColorSwatch(
     0xFFe11d48,
     name: 'Rose',
     shade50: Color(0xFFfff1f2),

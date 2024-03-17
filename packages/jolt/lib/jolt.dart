@@ -1,9 +1,16 @@
 // Flutter exports
-import 'package:jolt/utils/color/color_shades.dart';
+import 'package:jolt/utils/utils.dart';
 
 export 'package:flutter/material.dart' show Scrollbar, SelectionArea;
 export 'package:flutter/widgets.dart'
-    hide Form, FormField, FormFieldBuilder, FormFieldState, FormState, Icon;
+    hide
+        ColorSwatch,
+        Form,
+        FormField,
+        FormFieldBuilder,
+        FormFieldState,
+        FormState,
+        Icon;
 
 export 'package:jolt/utils/utils.dart';
 
@@ -15,13 +22,6 @@ class Jolt {
   /// the one and only instance of this singleton
   static final instance = Jolt._();
 
-  JoltColorShades _colorShades = const JoltColorShades();
-
   ///
-  static JoltColorShades get colorShades => Jolt.instance._colorShades;
-
-  ///
-  static set colorShades(JoltColorShades colorShades) {
-    Jolt.instance._colorShades = colorShades;
-  }
+  static JoltColor get color => JoltColor.instance;
 }

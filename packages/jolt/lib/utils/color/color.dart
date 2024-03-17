@@ -2,10 +2,39 @@ import 'package:jolt/jolt.dart';
 import 'package:tinycolor2/tinycolor2.dart';
 import 'dart:math' as math;
 
-/// A color that has a small table of related colors called a "swatch"
-class JoltColor extends Color {
+///
+class JoltColor {
+  /// private constructor
+  JoltColor._();
+
+  /// the one and only instance of this singleton
+  static final instance = JoltColor._();
+
+  /// The shades used to convert a color into a swatch
   ///
-  const JoltColor(
+  /// You can overwrite this value using
+  ///
+  /// `Jolt.color.shades = JoltColorShades()`
+  ///
+  /// If you want more exact control over the shades of a color,
+  /// instead use a ColorSwatch()
+  JoltColorShades shades = const JoltColorShades();
+
+  /// The default function to determine the foreground color
+  Color Function(Color color) foreground = (color) {
+    return color.isLight ? color.shade900 : color.shade100;
+  };
+
+  /// The default function to determine the foregroundLight color
+  Color Function(Color color) foregroundLight = (color) {
+    return color.isLight ? color.shade600 : color.shade400;
+  };
+}
+
+/// A color that has a small table of related colors called a "swatch"
+class ColorSwatch extends Color {
+  ///
+  const ColorSwatch(
     super.value, {
     required this.name,
     required this.shade50,
@@ -78,14 +107,10 @@ extension ColorX on Color {
   ///
   ColorAs get as => ColorAs(value);
 
-  bool get _isPureBlack => as.hsl.saturation == 1;
-
-  bool get _isPureWhite => as.hsl.saturation == 0;
-
-  bool get _isPureBlackOrWhite => _isPureBlack || _isPureWhite;
+  bool get _greyscale => as.hsl.saturation == 1 || as.hsl.saturation == 0;
 
   JoltColorShades get _shades =>
-      _isPureBlackOrWhite ? JoltColorShades.wide() : Jolt.colorShades;
+      _greyscale ? JoltColorShades.wide() : Jolt.color.shades;
 
   ///
   Color get shade50 => withLightness(_shades.shade50);
@@ -178,15 +203,8 @@ class ColorAs extends Color {
   }
 
   ///
-  Color get foreground {
-    return isLight ? shade900 : shade100;
-  }
+  Color get foreground => Jolt.color.foreground(this);
 
   ///
-  Color get foregroundLight {
-    return isLight ? shade600 : shade400;
-  }
+  Color get foregroundLight => Jolt.color.foregroundLight(this);
 }
-
-const _pureBlack = Color(0xff000000);
-const _pureWhite = Color(0xffffffff);
