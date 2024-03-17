@@ -1,7 +1,7 @@
 import 'package:flutter/services.dart';
 
 import 'package:flutter_jimtl/flutter_jimtl.dart';
-import 'package:ui/ui.dart';
+import 'package:ui_copy/ui.dart';
 
 import 'package:example/features/dashboard/translations/dashboard_translations.dart';
 import 'package:example/utils/translation/app_translations.dart';

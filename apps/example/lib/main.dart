@@ -1,7 +1,7 @@
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
-import 'package:ui/ui.dart';
+import 'package:ui_copy/ui.dart';
 
 import 'package:example/components/app/app.dart';
 

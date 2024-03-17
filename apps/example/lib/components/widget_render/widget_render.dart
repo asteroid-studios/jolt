@@ -1,7 +1,7 @@
 import 'package:flutter_highlighting/flutter_highlighting.dart';
 import 'package:flutter_highlighting/themes/paraiso-dark.dart';
 import 'package:flutter_highlighting/themes/paraiso-light.dart';
-import 'package:ui/ui.dart';
+import 'package:ui_copy/ui.dart';
 
 ///
 class WidgetRender extends StatelessWidget {
@@ -94,7 +94,7 @@ class WidgetRender extends StatelessWidget {
             // TODO maybe create a helper called ResetSurfaceStyle
             // TODO Don't think this really works anymore
             child: DefaultStyle(
-              style: const SurfaceStyle(),
+              style: (context) => const SurfaceStyle(),
               child: Padding(
                 padding: EdgeInsets.all(context.spacing.xl),
                 child: context.view.isMobileOrSmaller

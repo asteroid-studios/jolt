@@ -1,4 +1,4 @@
-import 'package:ui/ui.dart';
+import 'package:ui_copy/ui.dart';
 
 ///
 class SideBarRight extends StatelessWidget {

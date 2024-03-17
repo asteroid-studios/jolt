@@ -35,6 +35,9 @@ html.dark .nextra-banner-container {
     color: #ac87ff !important;
 }
 
+.nextra-callout {
+    padding: 18px 4px;
+}
 
 .nextra-callout:not(.nx-text-yellow-900, .nx-text-orange-800, .nx-text-red-900, .nx-text-blue-900) {
     background: #ad87ff1c;
@@ -44,5 +47,4 @@ html.dark .nextra-banner-container {
 
 html.dark .nextra-callout:not(.nx-text-yellow-900, .nx-text-orange-800, .nx-text-red-900, .nx-text-blue-900) {
     color: #ac87ff;
-    padding: 18px 4px;
 }

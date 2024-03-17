@@ -1,4 +1,4 @@
-import 'package:ui/ui.dart';
+import 'package:ui_copy/ui.dart';
 
 import 'package:example/components/shell/sidebar_left/sidebar_left.dart';
 import 'package:example/utils/assets/assets.dart';

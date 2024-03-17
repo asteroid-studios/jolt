@@ -1,8 +1,7 @@
 import 'dart:io';
 
 import 'package:jolt_cli/src/logger_extension.dart';
-import 'package:jolt_cli/src/templates/scaffold/scaffold_bundle.dart';
-import 'package:jolt_cli/src/templates/template.dart';
+import 'package:jolt_cli/src/templates/templates.dart';
 import 'package:mason/mason.dart';
 
 /// {@template dart_cli_template}
@@ -13,14 +12,14 @@ class JoltUiTemplate extends Template {
   JoltUiTemplate()
       : super(
           name: 'init',
-          bundle: scaffoldBundle,
+          bundle: uiBundle,
           help: 'Initialise Jolt in your project',
         );
 
   @override
   Future<void> onGenerateComplete(Logger logger, Directory outputDir) async {
-    // await installDartPackages(logger, outputDir);
-    // await applyDartFixes(logger, outputDir);
+    await installDartPackages(logger, outputDir);
+    await applyDartFixes(logger, outputDir);
     _logSummary(logger);
   }
 

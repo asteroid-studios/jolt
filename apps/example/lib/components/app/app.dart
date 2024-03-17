@@ -1,6 +1,6 @@
-import 'package:ui/themes.dart';
-import 'package:ui/ui.dart';
-import 'package:ui/widget_theme.dart';
+import 'package:ui_copy/themes.dart';
+import 'package:ui_copy/ui.dart';
+import 'package:ui_copy/widget_theme.dart';
 
 import 'package:example/utils/router/router.dart';
 import 'package:example/utils/translation/delegates.dart';

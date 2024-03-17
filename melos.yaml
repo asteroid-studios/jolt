@@ -2,17 +2,16 @@ name: jolt
 repository: https://github.com/asteroid-studios/jolt
 
 packages:
-  - "apps/*"
+  - "apps/**"
   - "packages/**"
 
-command:
-  bootstrap:
-    usePubspecOverrides: true
+ignore:
+  - "packages/jolt_cli/bricks/ui/__brick__"
 
 ide:
   intellij:
     enabled: false
-  
+
 scripts:
   analyze:
     exec: dart analyze .

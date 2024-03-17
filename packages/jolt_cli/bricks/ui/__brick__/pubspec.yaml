@@ -10,11 +10,13 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  freezed_annotation: ^2.4.1
   jolt:
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  freezed: ^2.4.7
   very_good_analysis: ^5.1.0
 
 flutter:
@@ -22,6 +24,6 @@ flutter:
   fonts:
     - family: Satoshi
       fonts:
-        - asset: fonts/Satoshi-Variable.ttf
-        - asset: fonts/Satoshi-VariableItalic.ttf
+        - asset: fonts/satoshi/Satoshi-Variable.ttf
+        - asset: fonts/satoshi/Satoshi-VariableItalic.ttf
           style: italic

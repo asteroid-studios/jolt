@@ -1,6 +1,6 @@
 import 'package:flutter_jimtl/flutter_jimtl.dart';
 import 'package:intl/intl.dart';
-import 'package:ui/ui.dart';
+import 'package:ui_copy/ui.dart';
 
 ///
 @GenerateArb(suppressLastModified: true, dir: 'assets/arb')

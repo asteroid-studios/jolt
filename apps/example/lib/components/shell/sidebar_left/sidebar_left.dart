@@ -1,5 +1,5 @@
 import 'package:collection/collection.dart';
-import 'package:ui/ui.dart';
+import 'package:ui_copy/ui.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'package:example/components/shell/nav_items/nav_items.dart';

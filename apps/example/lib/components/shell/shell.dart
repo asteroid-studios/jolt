@@ -1,4 +1,4 @@
-import 'package:ui/ui.dart';
+import 'package:ui_copy/ui.dart';
 
 import 'package:example/components/shell/bottom_bar/bottom_bar.dart';
 import 'package:example/components/shell/footer/footer.dart';

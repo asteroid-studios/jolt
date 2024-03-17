@@ -40,6 +40,7 @@ class JoltCliCommandRunner extends CompletionCommandRunner<int> {
 
     // Add sub commands
     addCommand(AddCommand(logger: _logger));
+    addCommand(InitCommand(logger: _logger));
     addCommand(UpdateCommand(logger: _logger, pubUpdater: _pubUpdater));
   }
 

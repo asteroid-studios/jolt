@@ -1,5 +1,5 @@
-import 'package:ui/styles.dart';
-import 'package:ui/ui.dart';
+import 'package:ui_copy/styles.dart';
+import 'package:ui_copy/ui.dart';
 
 import 'package:example/utils/router/router.dart';
 

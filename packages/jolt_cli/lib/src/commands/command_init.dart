@@ -15,12 +15,12 @@ typedef MasonGeneratorFromBundle = Future<MasonGenerator> Function(MasonBundle);
 typedef MasonGeneratorFromBrick = Future<MasonGenerator> Function(Brick);
 
 ///
-abstract class InitCommand extends Command<int> {
+class InitCommand extends Command<int> {
   /// {@macro create_subcommand}
   InitCommand({
     required this.logger,
-    @visibleForTesting required MasonGeneratorFromBundle? generatorFromBundle,
-    @visibleForTesting required MasonGeneratorFromBrick? generatorFromBrick,
+    MasonGeneratorFromBundle? generatorFromBundle,
+    MasonGeneratorFromBrick? generatorFromBrick,
   })  : _generatorFromBundle = generatorFromBundle ?? MasonGenerator.fromBundle,
         _generatorFromBrick = generatorFromBrick ?? MasonGenerator.fromBrick;
 
@@ -38,6 +38,12 @@ abstract class InitCommand extends Command<int> {
 
   @override
   String get invocation => 'jolt init [arguments]';
+
+  @override
+  String get description => 'Initialise Jolt';
+
+  @override
+  String get name => 'init';
 
   @override
   ArgResults get argResults => argResultOverrides ?? super.argResults!;

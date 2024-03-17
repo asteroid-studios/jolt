@@ -57,9 +57,9 @@
     },
     {
       "name": "file",
-      "rootUri": "file:///Users/kanewickman/.pub-cache/hosted/pub.dev/file-6.1.4",
+      "rootUri": "file:///Users/kanewickman/.pub-cache/hosted/pub.dev/file-7.0.0",
       "packageUri": "lib/",
-      "languageVersion": "2.12"
+      "languageVersion": "3.0"
     },
     {
       "name": "glob",
@@ -105,9 +105,9 @@
     },
     {
       "name": "melos",
-      "rootUri": "file:///Users/kanewickman/.pub-cache/hosted/pub.dev/melos-3.4.0",
+      "rootUri": "file:///Users/kanewickman/.pub-cache/hosted/pub.dev/melos-5.1.0",
       "packageUri": "lib/",
-      "languageVersion": "2.18"
+      "languageVersion": "3.0"
     },
     {
       "name": "meta",
@@ -141,9 +141,9 @@
     },
     {
       "name": "process",
-      "rootUri": "file:///Users/kanewickman/.pub-cache/hosted/pub.dev/process-4.2.4",
+      "rootUri": "file:///Users/kanewickman/.pub-cache/hosted/pub.dev/process-5.0.2",
       "packageUri": "lib/",
-      "languageVersion": "2.14"
+      "languageVersion": "3.0"
     },
     {
       "name": "prompts",
@@ -159,7 +159,7 @@
     },
     {
       "name": "pub_updater",
-      "rootUri": "file:///Users/kanewickman/.pub-cache/hosted/pub.dev/pub_updater-0.3.1",
+      "rootUri": "file:///Users/kanewickman/.pub-cache/hosted/pub.dev/pub_updater-0.4.0",
       "packageUri": "lib/",
       "languageVersion": "3.0"
     },
@@ -248,7 +248,7 @@
       "languageVersion": "2.18"
     }
   ],
-  "generated": "2024-01-12T08:55:11.358839Z",
+  "generated": "2024-03-17T09:03:08.032821Z",
   "generator": "pub",
-  "generatorVersion": "3.2.3"
+  "generatorVersion": "3.3.0"
 }
