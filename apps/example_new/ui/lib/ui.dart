@@ -1,5 +1,6 @@
 // Export jolt
 export 'package:jolt/jolt.dart';
+export 'package:ui/config.dart';
 
 // Export all widgets from the ui package
 export 'package:ui/style/breakpoints/breakpoints.dart';

@@ -1,5 +1,5 @@
 import 'package:jolt/jolt.dart';
-import 'package:tinycolor2/tinycolor2.dart';
+export 'package:tinycolor2/tinycolor2.dart';
 import 'dart:math' as math;
 
 ///

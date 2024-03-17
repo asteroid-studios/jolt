@@ -2,6 +2,7 @@ import 'package:collection/collection.dart';
 import 'package:ui/ui.dart';
 
 void main() {
+  configureJolt();
   runApp(const MyApp());
 }
 
