@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:args/args.dart';
 import 'package:args/command_runner.dart';
+import 'package:jolt_cli/src/commands/add/add.dart';
 import 'package:jolt_cli/src/templates/template.dart';
 import 'package:mason/mason.dart';
 import 'package:meta/meta.dart';
@@ -42,7 +43,7 @@ abstract class AddSubCommand extends Command<int> {
   Template get template;
 
   @override
-  String get invocation => 'very_good create $name <project-name> [arguments]';
+  String get invocation => 'jolt add $name [arguments]';
 
   @override
   ArgResults get argResults => argResultOverrides ?? super.argResults!;
@@ -81,8 +82,8 @@ abstract class AddSubCommand extends Command<int> {
   Future<int> runAdd(MasonGenerator generator, Template template) async {
     var vars = getTemplateVars();
 
-    final uiDir = Directory('ui');
-    if (!uiDir.existsSync()) {
+    final uiDart = File('ui/lib/ui.dart');
+    if (!uiDart.existsSync()) {
       logger.err(
         'Jolt has not been initialised.\n'
         'Please run `jolt init` first.',
@@ -90,21 +91,14 @@ abstract class AddSubCommand extends Command<int> {
       return ExitCode.usage.code;
     }
 
-    final dir = Directory('ui/widgets/${template.name}');
+    final dir = Directory('ui/lib/widgets/${template.name}');
 
-    if (dir.existsSync()) {
-      final overwrite = logger.confirm(
-        lightYellow.wrap(
-          styleBold.wrap(
-            'You have already installed ${template.name}.\n'
-            'Are you sure you want to overwrite it?',
-          ),
-        ),
+    final export = "export 'widgets/${template.name}/${template.name}.dart';";
+    if (!uiDart.readAsStringSync().contains(export)) {
+      uiDart.writeAsStringSync(
+        '${uiDart.readAsStringSync()}\n$export',
+        mode: FileMode.append,
       );
-
-      if (!overwrite) {
-        return ExitCode.usage.code;
-      }
     }
 
     final generateProgress = logger.progress('Bootstrapping');
