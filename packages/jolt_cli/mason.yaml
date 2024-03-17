@@ -1,0 +1,7 @@
+bricks:
+  ui:
+    path: bricks/ui
+  button:
+    path: bricks/button
+  scaffold:
+    path: bricks/scaffold
