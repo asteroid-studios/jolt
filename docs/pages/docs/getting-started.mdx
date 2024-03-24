@@ -1,5 +1,11 @@
-import { Callout, Steps, Tabs, Tab } from "nextra-theme-docs";
+import { Callout, Steps, Tabs, Tab, Cards, Card } from "nextra-theme-docs";
 import { dartVersion, flutterVersion, joltVersion } from "components/versions";
+import {
+  PuzzlePiece,
+  FolderDashed,
+  Info,
+  LightbulbFilament,
+} from "@phosphor-icons/react";
 
 # Getting Started
 
@@ -17,15 +23,52 @@ dart pub global activate jolt_cli
 
 <Tabs.Tab>
 
-Best practice for managing Jolt in your Flutter project, is to keep all your UI components installed from Jolt in a standalone package within your project.
-
 From the root of your Flutter project, run the following command:
 
 ```sh
 jolt init
 ```
 
-This will create a new ui folder, which will be your Jolt package. Any Jolt widgets you install will be created within that folder.
+This will create a Flutter package called **'ui'** within your project.
+
+This package is where you should keep all your UI code, widgets, themes, typography, colors, etc.
+
+When you initialise Jolt, a whole bunch of styling is setup for you. This code is now yours to own and modify as you see fit.
+
+Any Jolt widgets that you install will be added to this package in the lib/widgets folder. You can also add your own custom widgets to the same folder.
+
+### App Setup
+
+To convert your project to a Jolt project, replace your existing MaterialApp or CupertinoApp with JoltApp.
+
+```dart
+import 'package:ui/ui.dart';
+
+class App extends StatelessWidget {
+  const App({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return JoltApp.router(
+      themes: themes,
+      styles: styles,
+      routerConfig: AppRouter.instance.config(),
+    );
+  }
+}
+```
+
+Make sure to replace your Material imports with your new ui package.
+
+```dart
+// import 'package:material/material.dart';
+import 'package:ui/ui.dart';
+```
+
+<Callout emoji={<Info weight="duotone" size="28" />} type="info">
+  **Need more info?** <br /> Follow this guide to [migrating from Material to
+  Jolt](../guides/migrating-from-material)
+</Callout>
 
 </Tabs.Tab>
 <Tabs.Tab>
@@ -47,3 +90,23 @@ A new project will be created with the following optional features:
 </Tabs>
 
 </Steps>
+
+## Next Steps
+
+<Cards>
+  <Card
+    icon={<FolderDashed weight="duotone" size="32" />}
+    title="Your ui folder"
+    href="../widgets/interaction/button"
+  />
+  <Card
+    icon={<PuzzlePiece weight="duotone" size="32" />}
+    title="Install a widget"
+    href="../widgets/interaction/button"
+  />
+  <Card
+    icon={<LightbulbFilament weight="duotone" size="32" />}
+    title="Create your own widget"
+    href="../widgets/interaction/button"
+  />
+</Cards>

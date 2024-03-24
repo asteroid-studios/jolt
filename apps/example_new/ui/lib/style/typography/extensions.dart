@@ -3,13 +3,16 @@ part of 'typography.dart';
 ///
 extension TypographyX on BuildContext {
   ///
-  Typography get text => Typography(this);
+  Typography get text => const Typography();
 }
 
 ///
 extension TextStyleX on TextStyle {
   ///
   TextStyle get italic => copyWith(fontStyle: FontStyle.italic);
+
+  ///
+  TextStyle get bold => w600;
 
   ///
   TextStyle get w100 => copyWith(
@@ -64,28 +67,29 @@ extension TextStyleX on TextStyle {
         fontWeight: FontWeight.w900,
         fontVariations: VariableFontWeight.w900,
       );
+
+  ///
+  TextStyle colored(
+    Color color, {
+    Color? dark,
+  }) {
+    return copyWith(color: ThemeProvider.theme.isDark ? dark ?? color : color);
+  }
+
+  ///
+  TextStyle withColorForeground(BuildContext context) {
+    // TODO remove this
+    return this;
+  }
+
+  ///
+  TextStyle withColorForegroundLight(BuildContext context) {
+    // TODO remove this
+    return this;
+  }
 }
 
-///
-extension ContextualTextStyleX on TextStyleC {
-  ///
-  TextStyle get primary => copyWith(
-      // TODO fix up once color is linked up
-      // color: context?.color.primary,
-      );
 
-  ///
-  TextStyle get secondary => copyWith(
-      // TODO fix up once color is linked up
-      // color: context?.color.secondary,
-      );
-
-  ///
-  TextStyle get tertiary => copyWith(
-      // TODO fix up once color is linked up
-      // color: context?.color.tertiary,
-      );
-}
 
 // TODO put back DefaultSymbolStyle extensions
 // TODO put back String extensions

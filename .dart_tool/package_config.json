@@ -75,9 +75,9 @@
     },
     {
       "name": "http",
-      "rootUri": "file:///Users/kanewickman/.pub-cache/hosted/pub.dev/http-1.1.2",
+      "rootUri": "file:///Users/kanewickman/.pub-cache/hosted/pub.dev/http-1.2.1",
       "packageUri": "lib/",
-      "languageVersion": "3.2"
+      "languageVersion": "3.3"
     },
     {
       "name": "http_parser",
@@ -105,13 +105,13 @@
     },
     {
       "name": "melos",
-      "rootUri": "file:///Users/kanewickman/.pub-cache/hosted/pub.dev/melos-5.1.0",
+      "rootUri": "file:///Users/kanewickman/.pub-cache/hosted/pub.dev/melos-5.2.1",
       "packageUri": "lib/",
       "languageVersion": "3.0"
     },
     {
       "name": "meta",
-      "rootUri": "file:///Users/kanewickman/.pub-cache/hosted/pub.dev/meta-1.11.0",
+      "rootUri": "file:///Users/kanewickman/.pub-cache/hosted/pub.dev/meta-1.12.0",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -225,9 +225,9 @@
     },
     {
       "name": "web",
-      "rootUri": "file:///Users/kanewickman/.pub-cache/hosted/pub.dev/web-0.4.2",
+      "rootUri": "file:///Users/kanewickman/.pub-cache/hosted/pub.dev/web-0.5.1",
       "packageUri": "lib/",
-      "languageVersion": "3.2"
+      "languageVersion": "3.3"
     },
     {
       "name": "yaml",
@@ -237,7 +237,7 @@
     },
     {
       "name": "yaml_edit",
-      "rootUri": "file:///Users/kanewickman/.pub-cache/hosted/pub.dev/yaml_edit-2.1.1",
+      "rootUri": "file:///Users/kanewickman/.pub-cache/hosted/pub.dev/yaml_edit-2.2.0",
       "packageUri": "lib/",
       "languageVersion": "2.19"
     },
@@ -248,7 +248,10 @@
       "languageVersion": "2.18"
     }
   ],
-  "generated": "2024-03-17T09:03:08.032821Z",
+  "generated": "2024-03-24T04:44:15.391091Z",
   "generator": "pub",
-  "generatorVersion": "3.3.0"
+  "generatorVersion": "3.4.0-267.0.dev",
+  "flutterRoot": "file:///Users/kanewickman/fvm/versions/master",
+  "flutterVersion": "3.21.0-13.0.pre.26",
+  "pubCache": "file:///Users/kanewickman/.pub-cache"
 }

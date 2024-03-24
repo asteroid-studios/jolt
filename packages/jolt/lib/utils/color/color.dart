@@ -20,6 +20,15 @@ class JoltColor {
   /// instead use a ColorSwatch()
   JoltColorShades shades = const JoltColorShades();
 
+  /// The default function to determine the active color
+  Color Function(Color color) active = (color) {
+    if (color.value == _pureWhite.value || color.value == _pureBlack.value) {
+      return color.weaken();
+    } else {
+      return color.strengthen();
+    }
+  };
+
   /// The default function to determine the foreground color
   Color Function(Color color) foreground = (color) {
     return color.isLight ? color.shade900 : color.shade100;
@@ -27,7 +36,12 @@ class JoltColor {
 
   /// The default function to determine the foregroundLight color
   Color Function(Color color) foregroundLight = (color) {
-    return color.isLight ? color.shade600 : color.shade400;
+    return (color.isMediumBrightness
+            ? color.isLight
+                ? color.shade700
+                : color.shade300
+            : color.shade500)
+        .withMaxSaturation(0.3);
   };
 }
 
@@ -77,10 +91,10 @@ class ColorSwatch extends Color {
   /// The third darkest shade.
   final Color shade800;
 
-  ///
+  /// The second darkest shade.
   final Color shade900;
 
-  ///
+  /// The darkest shade.
   final Color shade950;
 
   ///
@@ -103,7 +117,7 @@ class ColorSwatch extends Color {
 }
 
 ///
-extension ColorX on Color {
+extension ColorExtension on Color {
   ///
   ColorAs get as => ColorAs(value);
 
@@ -165,6 +179,19 @@ extension ColorX on Color {
     return as.hsl.withLightness(lightness).toColor();
   }
 
+  /// Return a copy of the color with the saturation changed
+  Color withSaturation(double saturation) {
+    return as.hsl.withSaturation(saturation).toColor();
+  }
+
+  /// Return a copy of the color with the saturation changed
+  Color withMaxSaturation(double saturation) {
+    final hslColor = as.hsl;
+    return hslColor
+        .withSaturation(math.min(saturation, hslColor.saturation))
+        .toColor();
+  }
+
   /// If the color is dark, make it darker, if light make lighter
   Color strengthen([int value = 10]) {
     final hslColor = as.hsl;
@@ -184,6 +211,9 @@ extension ColorX on Color {
         .withLightness(math.max(0, math.min(1, newLightness)))
         .toColor();
   }
+
+  ///
+  bool get isMediumBrightness => brightness > 50 && brightness < 200;
 }
 
 ///
@@ -203,8 +233,14 @@ class ColorAs extends Color {
   }
 
   ///
+  Color get active => Jolt.color.active(this);
+
+  ///
   Color get foreground => Jolt.color.foreground(this);
 
   ///
   Color get foregroundLight => Jolt.color.foregroundLight(this);
 }
+
+const _pureWhite = Color(0xFFFFFFFF);
+const _pureBlack = Color(0xFF000000);

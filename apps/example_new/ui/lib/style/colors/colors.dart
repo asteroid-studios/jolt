@@ -1,5 +1,7 @@
 import 'package:jolt/jolt.dart';
 
+part 'extensions.dart';
+
 /// Some pre-configured colors for Jolt.
 ///
 /// Colors are based on the [TailwindCSS](https://tailwindcss.com/docs/customizing-colors) color palette.
@@ -106,7 +108,7 @@ class Colors {
 
   /// A light purple color.
   static const violet = ColorSwatch(
-    0xff7c3aed,
+    0xff8b5cf6,
     name: 'Violet',
     shade50: Color(0xfffaf5ff),
     shade100: Color(0xffede9fe),

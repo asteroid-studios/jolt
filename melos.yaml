@@ -2,11 +2,16 @@ name: jolt
 repository: https://github.com/asteroid-studios/jolt
 
 packages:
-  - "apps/**"
-  - "packages/**"
+  - "apps/example_new"
+  - "apps/example_new/**"
+  - "packages/jolt_cli"
+  - "packages/jolt_cli/**"
+  - "packages/jolt"
 
 ignore:
   - "packages/jolt_cli/bricks/ui/__brick__"
+
+sdkPath: .fvm/flutter_sdk
 
 ide:
   intellij:

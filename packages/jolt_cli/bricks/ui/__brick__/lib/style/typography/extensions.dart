@@ -3,13 +3,16 @@ part of 'typography.dart';
 ///
 extension TypographyX on BuildContext {
   ///
-  Typography get text => Typography(this);
+  Typography get text => const Typography();
 }
 
 ///
 extension TextStyleX on TextStyle {
   ///
   TextStyle get italic => copyWith(fontStyle: FontStyle.italic);
+
+  ///
+  TextStyle get bold => w600;
 
   ///
   TextStyle get w100 => copyWith(
@@ -64,28 +67,55 @@ extension TextStyleX on TextStyle {
         fontWeight: FontWeight.w900,
         fontVariations: VariableFontWeight.w900,
       );
-}
 
-///
-extension ContextualTextStyleX on TextStyleC {
   ///
   TextStyle get primary => copyWith(
+      // What I'm thinking I can do is make the current theme brightness available
+      // like: Jolt.theme.brightness
       // TODO fix up once color is linked up
       // color: context?.color.primary,
       );
 
   ///
   TextStyle get secondary => copyWith(
+      // What I'm thinking I can do is make the current theme brightness available
+      // like: Jolt.theme.brightness
       // TODO fix up once color is linked up
       // color: context?.color.secondary,
       );
 
   ///
   TextStyle get tertiary => copyWith(
+      // What I'm thinking I can do is make the current theme brightness available
+      // like: Jolt.theme.brightness
       // TODO fix up once color is linked up
       // color: context?.color.tertiary,
       );
+
+  ///
+  TextStyle withColor(Color color, {Color? dark}) {
+    // TODO add a colorDark parameter to this method
+    // What I'm thinking I can do is make the current theme brightness available
+    // like: Jolt.theme.brightness
+    return copyWith(color: color);
+  }
+
+  ///
+  TextStyle withColorForeground(BuildContext context) {
+    // TODO get surface color from context
+    // return color();
+    return this;
+  }
+
+  ///
+  TextStyle withColorForegroundLight(BuildContext context) {
+    // TODO get surface color from context
+    // return color();
+    return this;
+  }
 }
+
+
 
 // TODO put back DefaultSymbolStyle extensions
 // TODO put back String extensions

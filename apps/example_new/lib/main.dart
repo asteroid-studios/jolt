@@ -1,9 +1,43 @@
 import 'package:collection/collection.dart';
+import 'package:ui/config.dart';
 import 'package:ui/ui.dart';
 
 void main() {
-  configureJolt();
-  runApp(const MyApp());
+  Jolt.initialise(config);
+  runApp(const ThemeProvider(child: MyApp()));
+}
+
+Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)
+    pageTransition = (_, animation, second, child) {
+  return FadeTransition(
+    opacity: animation,
+    child: FadeTransition(
+      opacity: Tween<double>(begin: 1.0, end: 0.0).animate(second),
+      child: child,
+    ),
+  );
+};
+
+Route generate(RouteSettings settings) {
+  switch (settings.name) {
+    case "/text":
+      return PageRouteBuilder(
+        transitionsBuilder: pageTransition,
+        pageBuilder: (BuildContext context, Animation<double> animation,
+            Animation<double> secondaryAnimation) {
+          return const TextPage();
+        },
+      );
+    case "/":
+    default:
+      return PageRouteBuilder(
+        transitionsBuilder: pageTransition,
+        pageBuilder: (BuildContext context, Animation<double> animation,
+            Animation<double> secondaryAnimation) {
+          return const MyHomePage();
+        },
+      );
+  }
 }
 
 class MyApp extends StatelessWidget {
@@ -13,17 +47,16 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return WidgetsApp(
-      color: Color(0xff0000FF),
+      color: context.color.primary,
       title: 'Flutter Demo',
-      builder: (context, child) {
-        return const MyHomePage(title: 'Flutter Demo Home Page');
-      },
+      navigatorKey: Jolt.instance.navigatorKey,
+      onGenerateRoute: generate,
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
+  const MyHomePage({super.key});
 
   // This widget is the home page of your application. It is stateful, meaning
   // that it has a State object (defined below) that contains fields that affect
@@ -34,100 +67,72 @@ class MyHomePage extends StatefulWidget {
   // used by the build method of the State. Fields in a Widget subclass are
   // always marked "final".
 
-  final String title;
-
   @override
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _MyHomePageState extends State<MyHomePage> with ThemeValues {
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
-    return const ColoredBox(
-      color: Color.fromARGB(255, 12, 12, 15),
+    return ColoredBox(
+      color: color.background,
       child: Center(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            NormalColorSpread(color: Color(0xff10b981), name: 'Random'),
-            SizedBox(width: 100),
-            NormalColorSpread(color: Color(0xff0ea5e9), name: 'Random'),
-            SizedBox(width: 100),
-            NormalColorSpread(color: Color(0xff8b5cf6), name: 'Random'),
-            SizedBox(width: 100),
-            NormalColorSpread(color: Color(0xffec4899), name: 'Random'),
-            SizedBox(width: 100),
-            NormalColorSpread(color: Color(0xfff59e0b), name: 'Random'),
-            SizedBox(width: 100),
-            NormalColorSpread(color: Color(0xffef4444), name: 'Random'),
-            SizedBox(width: 100),
-            NormalColorSpread(color: Colors.black, name: 'Black'),
-            SizedBox(width: 100),
-            NormalColorSpread(color: Color(0xffcbd5e1), name: 'Random'),
-          ],
+        child: SingleChildScrollView(
+          child: Wrap(
+            children: [
+              Text(
+                'New Test',
+                style: text.hero.lg.bold.colored(
+                  color.primary,
+                  dark: color.primary.shade200,
+                ),
+              ),
+              const NormalColorSpread(
+                  foreground: Colors.emerald, name: 'Emerald'),
+              NormalColorSpread(
+                foreground: Color(Colors.emerald.shade600.value),
+                name: 'SkyEmerald',
+              ),
+              const SizedBox(width: 100),
+              const NormalColorSpread(foreground: Colors.sky, name: 'Sky'),
+              NormalColorSpread(
+                foreground: Color(Colors.sky.shade600.value),
+                name: 'Sky',
+              ),
+              const SizedBox(width: 100),
+              const NormalColorSpread(
+                  foreground: Colors.violet, name: 'Violet'),
+              NormalColorSpread(
+                foreground: Color(Colors.violet.shade600.value),
+                name: 'Violet',
+              ),
+              const SizedBox(width: 100),
+              const NormalColorSpread(foreground: Colors.rose, name: 'Rose'),
+              NormalColorSpread(
+                foreground: Color(Colors.rose.shade600.value),
+                name: 'Rose',
+              ),
+              const SizedBox(width: 100),
+              const NormalColorSpread(foreground: Colors.slate, name: 'Amber'),
+              NormalColorSpread(
+                foreground: Color(Colors.slate.value),
+                name: 'Amber',
+              ),
+              const SizedBox(width: 100),
+              const NormalColorSpread(foreground: Colors.black, name: 'Black'),
+            ],
+          ),
         ),
       ),
     );
   }
 }
 
-class ColorSpread extends StatelessWidget {
-  const ColorSpread({required this.color, super.key});
+class NormalColorSpread extends StatelessWidget with ThemeValues {
+  const NormalColorSpread(
+      {required this.foreground, required this.name, super.key});
 
-  final ColorSwatch color;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-      Text(
-        color.name,
-        style: context.text.heading.copyWith(color: color),
-      ),
-      Text(
-        'H: ${color.as.hsl.hue.toStringAsFixed(2)}',
-        style: context.text.heading.copyWith(color: color),
-      ),
-      Text(
-        'S: ${color.as.hsl.saturation.toStringAsFixed(2)}',
-        style: context.text.heading.copyWith(color: color),
-      ),
-      Text(
-        'L: ${color.as.hsl.lightness.toStringAsFixed(2)}',
-        style: context.text.heading.copyWith(color: color),
-      ),
-      ...color.shades.mapIndexed((i, c) {
-        final hex = c.value.toRadixString(16).characters.skip(2).toString();
-        return Row(
-          children: [
-            Text(
-              hex.characters.take(3).toString(),
-              style: context.text.display.copyWith(
-                color: c,
-              ),
-            ),
-            Text(
-              hex.characters.skip(3).toString(),
-              style: context.text.display.copyWith(
-                color: Color(color.value).shades[i],
-              ),
-            ),
-          ],
-        );
-      }),
-    ]);
-  }
-}
-
-class NormalColorSpread extends StatelessWidget {
-  const NormalColorSpread({required this.color, required this.name, super.key});
-
-  final Color color;
+  final Color foreground;
   final String name;
 
   @override
@@ -135,47 +140,266 @@ class NormalColorSpread extends StatelessWidget {
     return Column(mainAxisAlignment: MainAxisAlignment.center, children: [
       Text(
         name,
-        style: context.text.heading.copyWith(color: color),
+        style: text.heading.copyWith(color: foreground),
       ),
       Text(
-        'H: ${color.as.hsl.hue.toStringAsFixed(2)}',
-        style: context.text.heading.copyWith(color: color),
+        'H: ${foreground.as.hsl.hue.toStringAsFixed(2)}',
+        style: text.heading.copyWith(color: foreground),
       ),
       Text(
-        'S: ${color.as.hsl.saturation.toStringAsFixed(2)}',
-        style: context.text.heading.copyWith(color: color),
+        'S: ${foreground.as.hsl.saturation.toStringAsFixed(2)}',
+        style: text.heading.copyWith(color: foreground),
       ),
       Text(
-        'L: ${color.as.hsl.lightness.toStringAsFixed(2)}',
-        style: context.text.heading.copyWith(color: color),
+        'L: ${foreground.as.hsl.lightness.toStringAsFixed(2)}',
+        style: text.heading.copyWith(color: foreground),
       ),
-      ...color.shades.mapIndexed((i, c) {
+      ...(foreground is ColorSwatch
+              ? (foreground as ColorSwatch).shades
+              : foreground.shades)
+          .mapIndexed((i, c) {
         final hex = c.value.toRadixString(16).characters.skip(2).toString();
-        return Container(
-          color: c.as.foreground,
-          width: 200,
-          height: 80,
-          child: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  hex,
-                  style: context.text.heading.sm.copyWith(
-                    color: c.as.foreground.as.foreground,
-                  ),
-                ),
-                Text(
-                  hex,
-                  style: context.text.label.lg.w600.copyWith(
-                    color: c.as.foregroundLight,
-                  ),
-                ),
-              ],
-            ),
-          ),
-        );
+        return Area(c, hex);
       }),
     ]);
   }
+}
+
+class Area extends StatefulWidget {
+  const Area(this.background, this.hex, {super.key});
+
+  final Color background;
+  final String hex;
+
+  @override
+  State<Area> createState() => _AreaState();
+}
+
+class _AreaState extends State<Area> {
+  bool isHovering = false;
+
+  @override
+  Widget build(BuildContext context) {
+    final background =
+        isHovering ? widget.background.as.active : widget.background;
+
+    return GestureDetector(
+      onTap: () async {
+        // ThemeProvider.of(context)?.toggleTheme();
+        final delete = await context.show<bool>(
+              // TotallyCustomDialog(),
+              BottomSheet(),
+              // Drawer(),
+              // Dialog(
+              //   title: 'Delete Jolt',
+              //   content: 'Are you sure you want to delete this jolt?',
+              //   onCancel: () => false,
+              //   onConfirm: () => true,
+              // ),
+            ) ??
+            false;
+        print(delete);
+        // context.show(
+        //   BottomSheet(
+        //     title: 'Test',
+        //     onPop: () {
+        //       return false;
+        //     },
+        //   ),
+        // );
+        // context.show(Drawer(
+        //   alignment: DrawerAlignment.right,
+        //   // crossAxisSize: null,
+        // ));
+      },
+      child: MouseRegion(
+        cursor: SystemMouseCursors.click,
+        onEnter: (_) => setState(() => isHovering = true),
+        onExit: (_) => setState(() => isHovering = false),
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 300),
+          decoration: BoxDecoration(
+            color: background,
+            border: Border.all(color: widget.background, width: 5),
+          ),
+          width: 174,
+          height: 80,
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const SizedBox(width: 16),
+              AnimatedContainer(
+                duration: const Duration(milliseconds: 300),
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: background.weaken(),
+                ),
+                width: 20,
+                height: 20,
+              ),
+              const SizedBox(width: 20),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    '#${widget.hex}',
+                    style: context.text.body.bold.colored(
+                      widget.background.as.foreground,
+                    ),
+                  ),
+                  Text(
+                    widget.hex,
+                    style: context.text.label.colored(
+                      widget.background.as.foregroundLight,
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class TextPage extends StatelessWidget with ThemeValues {
+  const TextPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final background = Colors.grey.shade50;
+
+    return ColoredBox(
+      color: background,
+      child: DefaultTextStyle(
+        style: TextStyle(color: background.as.foreground),
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              GestureDetector(
+                onTap: () => Navigator.of(context).pop(),
+                child: Text(
+                  'Back',
+                  style: text.heading.colored(Colors.rose),
+                ),
+              ),
+              Text(
+                'Hero large',
+                style: text.hero.lg.withColorForegroundLight(context),
+              ),
+              Text(
+                'Jolt',
+                style: text.hero.colored(color.primary),
+              ),
+              Text(
+                'Hero small',
+                style: text.hero.sm,
+              ),
+              Text(
+                'Display large',
+                style: text.display.lg,
+              ),
+              Text(
+                'Display',
+                style: text.display.colored(color.primary),
+              ),
+              Text(
+                'Display small',
+                style: text.display.sm,
+              ),
+              Text(
+                'Heading large',
+                style: text.heading.lg,
+              ),
+              Text(
+                'Heading',
+                style: text.heading.colored(color.primary),
+              ),
+              Text(
+                'Heading small',
+                style: text.heading.sm,
+              ),
+              Text(
+                'Body large',
+                style: text.body.lg,
+              ),
+              Text(
+                'Body',
+                style: text.body.colored(color.primary),
+              ),
+              Text(
+                'Body small',
+                style: text.body.sm,
+              ),
+              Text(
+                'Label large',
+                style: text.label.lg,
+              ),
+              Text(
+                'Label',
+                style: text.label.colored(color.primary),
+              ),
+              Text(
+                'Label small',
+                style: text.label.sm,
+              ),
+              const SizedBox(height: 60),
+              Text(
+                'Heading',
+                style: text.heading,
+              ),
+              Text(
+                'Some body text',
+                style: text.body.colored(background.as.foregroundLight),
+              ),
+              Container(
+                height: 2,
+                margin: const EdgeInsets.symmetric(vertical: 16),
+                width: 80,
+                color: background.shade200,
+              ),
+              Text(
+                'A sentence here about something Im not sure what',
+                style: context.text.body,
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+///
+class TotallyCustomDialog extends StatelessWidget
+    with ThemeValues, BottomSheetRoute {
+  ///
+  const TotallyCustomDialog({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () => context.show(Dialog(
+        title: 'Test',
+      )),
+      child: Container(
+        padding: EdgeInsets.all(16),
+        color: color.surface,
+        child: Text(
+          'Test',
+          style: text.heading.colored(color.tertiary),
+        ),
+      ),
+    );
+  }
+
+  // @override
+  // DrawerAlignment get alignment => DrawerAlignment.bottom;
+
+  // @override
+  // double? get crossAxisSize => 400;
 }

@@ -1,4 +1,4 @@
-import 'package:jolt/jolt.dart';
+import 'package:ui/ui.dart';
 
 part 'extensions.dart';
 
@@ -6,9 +6,9 @@ part 'extensions.dart';
 const _fontFamily = 'Satoshi';
 
 ///
-class HeroTextStyle extends TextStyleC {
+class TextStyleHero extends TextStyle {
   ///
-  const HeroTextStyle(super.context)
+  const TextStyleHero()
       : super(
           fontFamily: _fontFamily,
           fontWeight: FontWeight.w600,
@@ -17,19 +17,19 @@ class HeroTextStyle extends TextStyleC {
         );
 
   ///
-  TextStyleC get lg => copyWith(fontSize: 128);
+  TextStyle get lg => copyWith(fontSize: 128);
 
   ///
-  TextStyleC get md => this;
+  TextStyle get md => this;
 
   ///
-  TextStyleC get sm => copyWith(fontSize: 72);
+  TextStyle get sm => copyWith(fontSize: 72);
 }
 
 ///
-class DisplayTextStyle extends TextStyleC {
+class TextStyleDisplay extends TextStyle {
   ///
-  const DisplayTextStyle(super.context)
+  const TextStyleDisplay()
       : super(
           fontFamily: _fontFamily,
           fontWeight: FontWeight.w600,
@@ -38,19 +38,19 @@ class DisplayTextStyle extends TextStyleC {
         );
 
   ///
-  TextStyleC get lg => copyWith(fontSize: 60);
+  TextStyle get lg => copyWith(fontSize: 60);
 
   ///
-  TextStyleC get md => this;
+  TextStyle get md => this;
 
   ///
-  TextStyleC get sm => copyWith(fontSize: 36);
+  TextStyle get sm => copyWith(fontSize: 36);
 }
 
 ///
-class HeadingTextStyle extends TextStyleC {
+class TextStyleHeading extends TextStyle {
   ///
-  const HeadingTextStyle(super.context)
+  const TextStyleHeading()
       : super(
           fontFamily: _fontFamily,
           fontWeight: FontWeight.w600,
@@ -59,77 +59,74 @@ class HeadingTextStyle extends TextStyleC {
         );
 
   ///
-  TextStyleC get lg => copyWith(fontSize: 28);
+  TextStyle get lg => copyWith(fontSize: 28);
 
   ///
-  TextStyleC get md => this;
+  TextStyle get md => this;
 
   ///
-  TextStyleC get sm => copyWith(fontSize: 20);
+  TextStyle get sm => copyWith(fontSize: 20);
 }
 
 ///
-class BodyTextStyle extends TextStyleC {
+class TextStyleBody extends TextStyle {
   ///
-  const BodyTextStyle(super.context)
+  const TextStyleBody()
       : super(
           fontFamily: _fontFamily,
-          fontWeight: FontWeight.w400,
-          fontVariations: VariableFontWeight.w400,
+          fontWeight: FontWeight.w500,
+          fontVariations: VariableFontWeight.w500,
           fontSize: 16,
         );
 
   ///
-  TextStyleC get lg => copyWith(fontSize: 18);
+  TextStyle get lg => copyWith(fontSize: 18);
 
   ///
-  TextStyleC get md => this;
+  TextStyle get md => this;
 
   ///
-  TextStyleC get sm => copyWith(fontSize: 14);
+  TextStyle get sm => copyWith(fontSize: 14);
 }
 
 ///
-class LabelTextStyle extends TextStyleC {
+class TextStyleLabel extends TextStyle {
   ///
-  const LabelTextStyle(super.context)
+  const TextStyleLabel()
       : super(
           fontFamily: _fontFamily,
-          fontWeight: FontWeight.w400,
-          fontVariations: VariableFontWeight.w400,
+          fontWeight: FontWeight.w500,
+          fontVariations: VariableFontWeight.w500,
           fontSize: 12,
         );
 
   ///
-  TextStyleC get lg => copyWith(fontSize: 13);
+  TextStyle get lg => copyWith(fontSize: 13);
 
   ///
-  TextStyleC get md => this;
+  TextStyle get md => this;
 
   ///
-  TextStyleC get sm => copyWith(fontSize: 11);
+  TextStyle get sm => copyWith(fontSize: 11);
 }
 
 ///
 class Typography {
   ///
-  const Typography([this.context]);
+  const Typography();
 
   ///
-  final BuildContext? context;
+  TextStyleHero get hero => const TextStyleHero();
 
   ///
-  HeroTextStyle get hero => HeroTextStyle(context);
+  TextStyleDisplay get display => const TextStyleDisplay();
 
   ///
-  DisplayTextStyle get display => DisplayTextStyle(context);
+  TextStyleHeading get heading => const TextStyleHeading();
 
   ///
-  HeadingTextStyle get heading => HeadingTextStyle(context);
+  TextStyleBody get body => const TextStyleBody();
 
   ///
-  BodyTextStyle get body => BodyTextStyle(context);
-
-  ///
-  LabelTextStyle get label => LabelTextStyle(context);
+  TextStyleLabel get label => const TextStyleLabel();
 }

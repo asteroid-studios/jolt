@@ -1,5 +1,5 @@
 // Flutter exports
-import 'package:jolt/utils/utils.dart';
+import 'package:jolt/jolt.dart';
 
 export 'package:flutter/material.dart' show Scrollbar, SelectionArea;
 export 'package:flutter/widgets.dart'
@@ -13,6 +13,7 @@ export 'package:flutter/widgets.dart'
         Icon;
 
 export 'package:jolt/utils/utils.dart';
+export 'package:jolt/widgets/widgets.dart';
 
 ///
 class Jolt {
@@ -23,5 +24,16 @@ class Jolt {
   static final instance = Jolt._();
 
   ///
+  GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+
+  ///
+  static void initialise(void Function(Jolt) config) {
+    config(Jolt.instance);
+  }
+
+  ///
   static JoltColor get color => JoltColor.instance;
+
+  ///
+  static JoltDialog get dialog => JoltDialog.instance;
 }

@@ -321,7 +321,7 @@ class _DefaultStyles extends StatelessWidget {
         // to make the theme available below
         child: Builder(
           builder: (context) {
-            // Set a material theme for very basic material cupport
+            // Set a material theme for very basic material support
             return m.Theme(
               data: materialThemeData(context.color),
               // Set the default Widget theme
