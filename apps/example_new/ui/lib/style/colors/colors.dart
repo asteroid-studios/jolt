@@ -1,4 +1,4 @@
-import 'package:jolt/jolt.dart';
+import 'package:ui/ui.dart';
 
 part 'extensions.dart';
 

@@ -81,10 +81,10 @@ class _MyHomePageState extends State<MyHomePage> with ThemeValues {
           child: Wrap(
             children: [
               Text(
-                'New Test',
+                'Testing',
                 style: text.hero.lg.bold.colored(
-                  color.primary,
-                  dark: color.primary.shade200,
+                  color.primary.swatch.shade600,
+                  dark: color.primary.swatch.shade400,
                 ),
               ),
               const NormalColorSpread(
@@ -185,32 +185,20 @@ class _AreaState extends State<Area> {
 
     return GestureDetector(
       onTap: () async {
-        // ThemeProvider.of(context)?.toggleTheme();
-        final delete = await context.show<bool>(
-              // TotallyCustomDialog(),
-              BottomSheet(),
-              // Drawer(),
-              // Dialog(
-              //   title: 'Delete Jolt',
-              //   content: 'Are you sure you want to delete this jolt?',
-              //   onCancel: () => false,
-              //   onConfirm: () => true,
-              // ),
-            ) ??
-            false;
-        print(delete);
-        // context.show(
-        //   BottomSheet(
-        //     title: 'Test',
-        //     onPop: () {
-        //       return false;
-        //     },
-        //   ),
-        // );
-        // context.show(Drawer(
-        //   alignment: DrawerAlignment.right,
-        //   // crossAxisSize: null,
-        // ));
+        ThemeProvider.of(context)?.toggleTheme();
+        // final delete = await context.show<bool>(
+        // TotallyCustomDialog(),
+        // BottomSheet(),
+        // Drawer(),
+        // Dialog(
+        //   title: 'Delete Jolt',
+        //   content: 'Are you sure you want to delete this jolt?',
+        //   onCancel: () => false,
+        //   onConfirm: () => true,
+        // ),
+        //     ) ??
+        //     false;
+        // print(delete);
       },
       child: MouseRegion(
         cursor: SystemMouseCursors.click,

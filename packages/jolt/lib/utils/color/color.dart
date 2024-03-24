@@ -214,6 +214,25 @@ extension ColorExtension on Color {
 
   ///
   bool get isMediumBrightness => brightness > 50 && brightness < 200;
+
+  ///
+  ColorSwatch get swatch => this is ColorSwatch
+      ? this as ColorSwatch
+      : ColorSwatch(
+          value,
+          name: 'Generated Swatch',
+          shade50: shade50,
+          shade100: shade100,
+          shade200: shade200,
+          shade300: shade300,
+          shade400: shade400,
+          shade500: shade500,
+          shade600: shade600,
+          shade700: shade700,
+          shade800: shade800,
+          shade900: shade900,
+          shade950: shade950,
+        );
 }
 
 ///

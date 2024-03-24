@@ -1,11 +1,12 @@
 import 'package:ui/ui.dart';
+export 'dart:ui' show Brightness;
 
 final _defaultBackgroundLight = Colors.grey.shade50;
 final _defaultSurfaceLight = Colors.grey.shade100;
 final _defaultBackgroundDark = Colors.grey.shade950;
 final _defaultSurfaceDark = Colors.grey.shade900;
 const _defaultPrimary = Colors.violet;
-final _defaultSecondary = Colors.violet.shade300;
+final _defaultSecondary = _defaultPrimary.shade300;
 final _defaultTertiaryLight = Colors.grey.shade950;
 final _defaultTertiaryDark = Colors.grey.shade50;
 const _defaultError = Colors.red;
@@ -13,21 +14,34 @@ const _defaultWarning = Colors.amber;
 const _defaultSuccess = Colors.emerald;
 
 ///
-abstract class Theme extends BaseTheme {
+abstract class Theme {
+  ///
+  String get id;
+
   ///
   ColorScheme get colorScheme;
+
+  ///
+  Typography get typography => const Typography();
+
+  ///
+  bool get isDark => colorScheme.isDark;
+
+  ///
+  bool get isLight => colorScheme.isLight;
+
+  // TODO add spacing, radius, breakpoints, etc.
 }
 
 ///
 mixin ThemeValues on Object {
   ///
-  Theme get theme => ThemeProvider.theme;
+  ColorScheme get color => ThemeProvider.theme.colorScheme;
 
   ///
-  ColorScheme get color => theme.colorScheme;
+  Typography get text => ThemeProvider.theme.typography;
 
-  ///
-  Typography get text => const Typography();
+  // TODO add spacing, radius, breakpoints, etc.
 }
 
 ///

@@ -4,12 +4,15 @@ export 'theme.dart';
 part 'extensions.dart';
 
 ///
+final themes = <Theme>[
+  DefaultThemeLight(),
+  DefaultThemeDark(),
+];
+
+///
 class DefaultThemeLight extends Theme {
   @override
   String get id => 'default_light';
-
-  @override
-  Brightness get brightness => Brightness.light;
 
   @override
   ColorScheme get colorScheme => ColorScheme.light();
@@ -19,9 +22,6 @@ class DefaultThemeLight extends Theme {
 class DefaultThemeDark extends Theme {
   @override
   String get id => 'default_dark';
-
-  @override
-  Brightness get brightness => Brightness.dark;
 
   @override
   ColorScheme get colorScheme => ColorScheme.dark();
