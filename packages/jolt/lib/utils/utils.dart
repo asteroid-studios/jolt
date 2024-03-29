@@ -1,3 +1,4 @@
+export 'animation/hero_animations.dart';
 export 'color/color.dart';
 export 'color/color_shades.dart';
 export 'dialog/dialog.dart';

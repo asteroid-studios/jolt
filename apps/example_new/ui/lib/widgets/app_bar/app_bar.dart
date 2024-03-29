@@ -36,10 +36,8 @@ class AppBar extends StatelessWidget with ThemeValues {
         children: [
           Hero(
             tag: 'AppBarBack',
-            flightShuttleBuilder: (c, a, d, f, hero) => OverflowBox(
-              maxWidth: double.infinity,
-              child: hero.widget,
-            ),
+            flightShuttleBuilder: showBack ? null : flightShuttleFadeBuilder,
+            transitionOnUserGestures: true,
             child: SizedBox(
               height: 40,
               child: showBack
