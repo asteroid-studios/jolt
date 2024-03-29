@@ -33,7 +33,7 @@ class ThemeProvider extends StatefulWidget {
 }
 
 ///
-class ThemeProviderState extends State<ThemeProvider> {
+class ThemeProviderState extends State<ThemeProvider> with ThemeValues {
   ///
   void setTheme(Theme newTheme) {
     _ThemeProvider.instance.theme = newTheme;
@@ -55,7 +55,19 @@ class ThemeProviderState extends State<ThemeProvider> {
 
   @override
   Widget build(BuildContext context) {
-    return _InheritedThemeProvider(state: this, child: widget.child);
+    return _InheritedThemeProvider(
+      state: this,
+      child: IconTheme(
+        data: IconThemeData(
+          color: color.background.as.foreground,
+          size: text.body.fontSize,
+        ),
+        child: DefaultTextStyle(
+          style: text.body.colored(color.background.as.foreground),
+          child: widget.child,
+        ),
+      ),
+    );
   }
 }
 
@@ -75,6 +87,8 @@ class _InheritedThemeProvider extends InheritedWidget {
 class _ThemeProvider {
   _ThemeProvider._() {
     // TODO initialise from shared preferences
+    // Need to make sure it is finished before first frame.
+    // Maybe do as part of runApp?
   }
   static final instance = _ThemeProvider._();
 
@@ -93,6 +107,6 @@ extension _ThemeProviderStateX on ThemeProviderState {
   }
 
   void refreshTheme() {
-    (context as Element).visitChildren(_rebuildChildren);
+    _rebuildChildren(context as Element);
   }
 }

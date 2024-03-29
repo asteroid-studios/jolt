@@ -90,6 +90,23 @@ class Colors {
   );
 
   /// A light green color.
+  static const green = ColorSwatch(
+    0xff15803d,
+    name: 'Green',
+    shade50: Color(0xfff0fdf4),
+    shade100: Color(0xffdcfce7),
+    shade200: Color(0xffbbf7d0),
+    shade300: Color(0xff86efac),
+    shade400: Color(0xff4ade80),
+    shade500: Color(0xff22c55e),
+    shade600: Color(0xff16a34a),
+    shade700: Color(0xff15803d),
+    shade800: Color(0xff166534),
+    shade900: Color(0xff14532d),
+    shade950: Color(0xff052e16),
+  );
+
+  /// A light green color.
   static const emerald = ColorSwatch(
     0xff059669,
     name: 'Emerald',
@@ -125,7 +142,7 @@ class Colors {
 
   /// A light red color.
   static const red = ColorSwatch(
-    0xffdc2626,
+    0xffb91c1c,
     name: 'Red',
     shade50: Color(0xfffef2f2),
     shade100: Color(0xfffee2e2),
@@ -138,6 +155,23 @@ class Colors {
     shade800: Color(0xff991b1b),
     shade900: Color(0xff7f1d1d),
     shade950: Color(0xff450a0a),
+  );
+
+  /// A light yellow color.
+  static const orange = ColorSwatch(
+    0xffea580c,
+    name: 'Orange',
+    shade50: Color(0xfffff7ed),
+    shade100: Color(0xffffedd5),
+    shade200: Color(0xfffed7aa),
+    shade300: Color(0xfffdba74),
+    shade400: Color(0xfffb923c),
+    shade500: Color(0xfff97316),
+    shade600: Color(0xffea580c),
+    shade700: Color(0xffc2410c),
+    shade800: Color(0xff9a3412),
+    shade900: Color(0xff7c2d12),
+    shade950: Color(0xff431407),
   );
 
   /// A light yellow color.

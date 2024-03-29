@@ -1,57 +1,22 @@
+import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:collection/collection.dart';
+import 'package:example_new/components/app.dart';
+import 'package:flutter_web_plugins/url_strategy.dart';
 import 'package:ui/config.dart';
 import 'package:ui/ui.dart';
 
 void main() {
+  usePathUrlStrategy();
   Jolt.initialise(config);
-  runApp(const ThemeProvider(child: MyApp()));
-}
-
-Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)
-    pageTransition = (_, animation, second, child) {
-  return FadeTransition(
-    opacity: animation,
-    child: FadeTransition(
-      opacity: Tween<double>(begin: 1.0, end: 0.0).animate(second),
-      child: child,
-    ),
-  );
-};
-
-Route generate(RouteSettings settings) {
-  switch (settings.name) {
-    case "/text":
-      return PageRouteBuilder(
-        transitionsBuilder: pageTransition,
-        pageBuilder: (BuildContext context, Animation<double> animation,
-            Animation<double> secondaryAnimation) {
-          return const TextPage();
-        },
-      );
-    case "/":
-    default:
-      return PageRouteBuilder(
-        transitionsBuilder: pageTransition,
-        pageBuilder: (BuildContext context, Animation<double> animation,
-            Animation<double> secondaryAnimation) {
-          return const MyHomePage();
-        },
-      );
-  }
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  // This widget is the root of your application.
-  @override
-  Widget build(BuildContext context) {
-    return WidgetsApp(
-      color: context.color.primary,
-      title: 'Flutter Demo',
-      navigatorKey: Jolt.instance.navigatorKey,
-      onGenerateRoute: generate,
-    );
+  runApp(const App());
+  if (Platform.isDesktop) {
+    // doWhenWindowReady(() {
+    // const initialSize = Size(600, 450);
+    // appWindow.minSize = initialSize;
+    // appWindow.size = initialSize;
+    // appWindow.alignment = Alignment.center;
+    appWindow.show();
+    // });
   }
 }
 
@@ -74,19 +39,20 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> with ThemeValues {
   @override
   Widget build(BuildContext context) {
-    return ColoredBox(
+    return AnimatedContainer(
+      duration: const Duration(milliseconds: 200),
       color: color.background,
       child: Center(
         child: SingleChildScrollView(
           child: Wrap(
             children: [
-              Text(
-                'Testing',
-                style: text.hero.lg.bold.colored(
-                  color.primary.swatch.shade600,
-                  dark: color.primary.swatch.shade400,
-                ),
-              ),
+              // Text(
+              //   'Testing',
+              //   style: text.hero.lg.bold.colored(
+              //     color.primary.swatch.shade600,
+              //     dark: color.primary.swatch.shade400,
+              //   ),
+              // ),
               const NormalColorSpread(
                   foreground: Colors.emerald, name: 'Emerald'),
               NormalColorSpread(
@@ -186,18 +152,23 @@ class _AreaState extends State<Area> {
     return GestureDetector(
       onTap: () async {
         ThemeProvider.of(context)?.toggleTheme();
-        // final delete = await context.show<bool>(
-        // TotallyCustomDialog(),
-        // BottomSheet(),
-        // Drawer(),
-        // Dialog(
-        //   title: 'Delete Jolt',
-        //   content: 'Are you sure you want to delete this jolt?',
-        //   onCancel: () => false,
-        //   onConfirm: () => true,
-        // ),
-        //     ) ??
-        //     false;
+        final delete = await context.show<bool>(
+              // TotallyCustomDialog(),
+              // BottomSheet(),
+              // Drawer(),
+              Dialog(
+                title: 'Delete Jolt',
+                content: 'Are you sure you want to delete this jolt?',
+                onCancel: () => false,
+                onConfirm: () {
+                  context.show(Drawer(
+                    title: 'Test',
+                  ));
+                  return true;
+                },
+              ),
+            ) ??
+            false;
         // print(delete);
       },
       child: MouseRegion(

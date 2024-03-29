@@ -4,6 +4,11 @@ part 'extensions.dart';
 
 /// The default font-family used with Jolt.
 const _fontFamily = 'Satoshi';
+const _package = 'ui';
+const _headingFontWeight = FontWeight.w700;
+const _headingFontVariation = VariableFontWeight.w700;
+const _bodyFontWeight = FontWeight.w600;
+const _bodyFontVariation = VariableFontWeight.w600;
 
 ///
 class TextStyleHero extends TextStyle {
@@ -11,8 +16,9 @@ class TextStyleHero extends TextStyle {
   const TextStyleHero()
       : super(
           fontFamily: _fontFamily,
-          fontWeight: FontWeight.w600,
-          fontVariations: VariableFontWeight.w600,
+          package: _package,
+          fontWeight: _headingFontWeight,
+          fontVariations: _headingFontVariation,
           fontSize: 96,
         );
 
@@ -32,8 +38,9 @@ class TextStyleDisplay extends TextStyle {
   const TextStyleDisplay()
       : super(
           fontFamily: _fontFamily,
-          fontWeight: FontWeight.w600,
-          fontVariations: VariableFontWeight.w600,
+          package: _package,
+          fontWeight: _headingFontWeight,
+          fontVariations: _headingFontVariation,
           fontSize: 48,
         );
 
@@ -53,8 +60,9 @@ class TextStyleHeading extends TextStyle {
   const TextStyleHeading()
       : super(
           fontFamily: _fontFamily,
-          fontWeight: FontWeight.w600,
-          fontVariations: VariableFontWeight.w600,
+          package: _package,
+          fontWeight: _headingFontWeight,
+          fontVariations: _headingFontVariation,
           fontSize: 24,
         );
 
@@ -74,8 +82,9 @@ class TextStyleBody extends TextStyle {
   const TextStyleBody()
       : super(
           fontFamily: _fontFamily,
-          fontWeight: FontWeight.w500,
-          fontVariations: VariableFontWeight.w500,
+          package: _package,
+          fontWeight: _bodyFontWeight,
+          fontVariations: _bodyFontVariation,
           fontSize: 16,
         );
 
@@ -95,8 +104,9 @@ class TextStyleLabel extends TextStyle {
   const TextStyleLabel()
       : super(
           fontFamily: _fontFamily,
-          fontWeight: FontWeight.w500,
-          fontVariations: VariableFontWeight.w500,
+          package: _package,
+          fontWeight: _bodyFontWeight,
+          fontVariations: _bodyFontVariation,
           fontSize: 12,
         );
 

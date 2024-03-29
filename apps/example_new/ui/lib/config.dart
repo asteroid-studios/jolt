@@ -1,5 +1,4 @@
 import 'package:ui/ui.dart';
-export 'package:jolt/jolt.dart';
 
 /// To be run before runApp(), usually in main.dart
 ///

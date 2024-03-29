@@ -1,17 +1,19 @@
 import 'package:ui/ui.dart';
 export 'dart:ui' show Brightness;
 
-final _defaultBackgroundLight = Colors.grey.shade50;
-final _defaultSurfaceLight = Colors.grey.shade100;
-final _defaultBackgroundDark = Colors.grey.shade950;
-final _defaultSurfaceDark = Colors.grey.shade900;
+final _defaultBackgroundLight = Colors.neutral.shade50;
+final _defaultSurfaceLight = Colors.neutral.shade200;
+final _defaultOutlineLight = Colors.neutral.shade300;
+final _defaultBackgroundDark = Colors.neutral.shade950;
+final _defaultSurfaceDark = Colors.neutral.shade900;
+final _defaultOutlineDark = Colors.neutral.shade800;
 const _defaultPrimary = Colors.violet;
 final _defaultSecondary = _defaultPrimary.shade300;
-final _defaultTertiaryLight = Colors.grey.shade950;
-final _defaultTertiaryDark = Colors.grey.shade50;
+final _defaultTertiaryLight = Colors.neutral.shade950;
+final _defaultTertiaryDark = Colors.neutral.shade50;
 const _defaultError = Colors.red;
 const _defaultWarning = Colors.amber;
-const _defaultSuccess = Colors.emerald;
+const _defaultSuccess = Colors.green;
 
 ///
 abstract class Theme {
@@ -51,6 +53,7 @@ class ColorScheme {
     required this.brightness,
     required this.background,
     required this.surface,
+    required this.outline,
     required this.primary,
     required this.secondary,
     required this.tertiary,
@@ -63,6 +66,7 @@ class ColorScheme {
   factory ColorScheme.light({
     Color? background,
     Color? surface,
+    Color? outline,
     Color? primary,
     Color? secondary,
     Color? tertiary,
@@ -74,6 +78,7 @@ class ColorScheme {
       brightness: Brightness.light,
       background: background ?? _defaultBackgroundLight,
       surface: surface ?? _defaultSurfaceLight,
+      outline: outline ?? _defaultOutlineLight,
       primary: primary ?? _defaultPrimary,
       secondary: secondary ?? _defaultSecondary,
       tertiary: tertiary ?? _defaultTertiaryLight,
@@ -87,6 +92,7 @@ class ColorScheme {
   factory ColorScheme.dark({
     Color? background,
     Color? surface,
+    Color? outline,
     Color? primary,
     Color? secondary,
     Color? tertiary,
@@ -98,6 +104,7 @@ class ColorScheme {
       brightness: Brightness.dark,
       background: background ?? _defaultBackgroundDark,
       surface: surface ?? _defaultSurfaceDark,
+      outline: outline ?? _defaultOutlineDark,
       primary: primary ?? _defaultPrimary,
       secondary: secondary ?? _defaultSecondary,
       tertiary: tertiary ?? _defaultTertiaryDark,
@@ -124,6 +131,9 @@ class ColorScheme {
 
   ///
   final Color background;
+
+  ///
+  final Color outline;
 
   ///
   final Color success;

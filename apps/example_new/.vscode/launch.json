@@ -4,8 +4,13 @@
     {
       "name": "debug",
       "request": "launch",
+      "type": "dart"
+    },
+    {
+      "name": "debug web",
+      "request": "launch",
       "type": "dart",
-      "toolArgs": ["--enable-experiment=macros"]
+      "args": ["-d", "chrome"]
     }
   ]
 }

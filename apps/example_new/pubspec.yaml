@@ -7,16 +7,31 @@ environment:
   sdk: ">=3.3.0 <4.0.0"
 
 dependencies:
+  auto_route: ^8.0.0
+  bitsdojo_window: ^0.1.6
   collection: ^1.18.0
   flutter:
+    sdk: flutter
+  flutter_hooks: ^0.20.5
+  flutter_web_plugins:
     sdk: flutter
   ui:
     path: ui
 
 dev_dependencies:
+  auto_route_generator: ^8.0.0
   flutter_test:
     sdk: flutter
   very_good_analysis: ^5.1.0
+
+dependency_overrides:
+  # TODO remove after Waiting for https://github.com/Milad-Akarie/auto_route_library/pull/1840
+  auto_route:
+    # path: ../auto_route_library/auto_route
+    git:
+      url: https://github.com/kane-knowby/auto_route_library.git
+      path: auto_route
+      ref: master
 
 flutter:
   uses-material-design: false

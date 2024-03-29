@@ -9,8 +9,7 @@ export 'package:flutter/widgets.dart'
         FormField,
         FormFieldBuilder,
         FormFieldState,
-        FormState,
-        Icon;
+        FormState;
 
 export 'package:jolt/utils/utils.dart';
 export 'package:jolt/widgets/widgets.dart';

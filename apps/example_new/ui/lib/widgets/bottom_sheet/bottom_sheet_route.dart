@@ -1,22 +1,22 @@
 import 'package:ui/ui.dart';
 
 ///
-mixin BottomSheetRoute on Widget implements JoltDialogRoute {
+mixin BottomSheetRoute on Object implements JoltDialogRoute {
   ///
   @override
-  String get type => 'bottomSheet';
+  Duration get transitionDuration => DefaultDialogStyle.transitionDuration;
 
   ///
   @override
-  Duration get transitionDuration => DialogStyle.transitionDuration;
+  bool get barrierDismissible => DefaultDialogStyle.barrierDismissible;
 
   ///
   @override
-  bool get barrierDismissible => DialogStyle.barrierDismissible;
+  Color get barrierColor => DefaultDialogStyle.barrierColor;
 
   ///
   @override
-  Color get barrierColor => DialogStyle.barrierColor;
+  bool get stackBarrier => DefaultDialogStyle.stackBarrier;
 
   ///
   @override
@@ -31,9 +31,53 @@ mixin BottomSheetRoute on Widget implements JoltDialogRoute {
     return Transform(
       transform: Matrix4.translationValues(0, transform, 0),
       child: Opacity(
-        opacity: curvedValue,
+        opacity: curvedValue * (1 - (a2.value / 3)),
         child: Align(
           alignment: Alignment.bottomCenter,
+          child: _BottomSheetSurface(child: child),
+        ),
+      ),
+    );
+  }
+}
+
+class _BottomSheetSurface extends StatelessWidget with ThemeValues {
+  const _BottomSheetSurface({
+    required this.child,
+  });
+
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    // TODO replace with DialogStyle
+    return SafeArea(
+      bottom: false,
+      minimum: const EdgeInsets.only(top: 24),
+      child: Dismissible(
+        key: const Key('JoltBottomSheet'),
+        direction: DismissDirection.down,
+        onDismissed: (direction) => Navigator.of(context).pop(),
+        child: Container(
+          width: 450,
+          // TODO remove margin on mobile
+          margin: const EdgeInsets.all(16),
+          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 24),
+          decoration: BoxDecoration(
+            color: color.background,
+            borderRadius: BorderRadius.circular(8),
+            border: Border.all(
+              strokeAlign: BorderSide.strokeAlignCenter,
+              color: color.outline,
+            ),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.2),
+                blurRadius: 32,
+                offset: const Offset(0, 4),
+              ),
+            ],
+          ),
           child: child,
         ),
       ),

@@ -48,22 +48,22 @@ extension _DrawerDialogRoute on DrawerDialogRoute {
 }
 
 ///
-mixin DrawerRoute on Widget implements DrawerDialogRoute {
+mixin DrawerRoute on Object implements DrawerDialogRoute {
   ///
   @override
-  String get type => 'drawer';
+  Duration get transitionDuration => DefaultDialogStyle.transitionDuration;
 
   ///
   @override
-  Duration get transitionDuration => DialogStyle.transitionDuration;
+  bool get barrierDismissible => DefaultDialogStyle.barrierDismissible;
 
   ///
   @override
-  bool get barrierDismissible => DialogStyle.barrierDismissible;
+  Color get barrierColor => DefaultDialogStyle.barrierColor;
 
   ///
   @override
-  Color get barrierColor => DialogStyle.barrierColor;
+  bool get stackBarrier => DefaultDialogStyle.stackBarrier;
 
   ///
   @override
@@ -76,19 +76,91 @@ mixin DrawerRoute on Widget implements DrawerDialogRoute {
     final curvedValue = Curves.easeInOut.transform(a1.value);
     final xTransform = alignment.vertical ? 0.0 : (1 - curvedValue) * offset;
     final yTransform = alignment.vertical ? (1 - curvedValue) * offset : 0.0;
+    // TODO animate drawer out when another pops on top
     return Transform(
       transform: Matrix4.translationValues(xTransform, yTransform, 0),
       child: Opacity(
-        opacity: curvedValue,
+        opacity: curvedValue * (1 - (a2.value / 3)),
         child: Align(
           alignment: alignment.alignment,
-          child: SizedBox(
+          child: _DrawerSurface(
+            alignment: alignment,
             width: width,
             height: height,
             child: child,
           ),
         ),
       ),
+    );
+  }
+}
+
+///
+class _DrawerSurface extends StatelessWidget with ThemeValues {
+  ///
+  const _DrawerSurface({
+    required this.width,
+    required this.height,
+    required this.alignment,
+    required this.child,
+  });
+
+  final double? width;
+  final double? height;
+  final DrawerAlignment alignment;
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    // TODO replace with DialogStyle
+    return Container(
+      width: width,
+      height: height,
+      // margin: const EdgeInsets.symmetric(vertical: 8),
+      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 24),
+      decoration: BoxDecoration(
+        color: color.background,
+        borderRadius: BorderRadius.only(
+          topLeft: alignment == DrawerAlignment.right ||
+                  alignment == DrawerAlignment.bottom
+              ? const Radius.circular(16)
+              : Radius.zero,
+          topRight: alignment == DrawerAlignment.left ||
+                  alignment == DrawerAlignment.bottom
+              ? const Radius.circular(16)
+              : Radius.zero,
+          bottomLeft: alignment == DrawerAlignment.right ||
+                  alignment == DrawerAlignment.top
+              ? const Radius.circular(16)
+              : Radius.zero,
+          bottomRight: alignment == DrawerAlignment.left ||
+                  alignment == DrawerAlignment.top
+              ? const Radius.circular(16)
+              : Radius.zero,
+        ),
+        border: Border(
+          left: alignment == DrawerAlignment.right
+              ? BorderSide(color: color.outline)
+              : BorderSide.none,
+          right: alignment == DrawerAlignment.left
+              ? BorderSide(color: color.outline)
+              : BorderSide.none,
+          top: alignment == DrawerAlignment.bottom
+              ? BorderSide(color: color.outline)
+              : BorderSide.none,
+          bottom: alignment == DrawerAlignment.top
+              ? BorderSide(color: color.outline)
+              : BorderSide.none,
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.2),
+            blurRadius: 32,
+            offset: const Offset(0, 4),
+          ),
+        ],
+      ),
+      child: child,
     );
   }
 }

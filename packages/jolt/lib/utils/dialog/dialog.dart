@@ -3,16 +3,17 @@ import 'package:jolt/jolt.dart';
 ///
 class JoltDialogRoute {
   ///
-  String get type => 'joltDialog';
-
-  ///
   Duration get transitionDuration => const Duration(milliseconds: 200);
 
   ///
   bool get barrierDismissible => true;
 
+  /// If true,
+  /// will show barrier even if another dialog barrier is already showing
+  bool get stackBarrier => false;
+
   ///
-  Color get barrierColor => const Color(0x00000000);
+  Color? get barrierColor => const Color(0x00000000);
 
   ///
   Widget transitionBuilder(
@@ -42,9 +43,9 @@ Future<T?> _show<T>(BuildContext context, Widget modal) async {
       transitionDuration: route.transitionDuration,
       transitionBuilder: route.transitionBuilder,
       barrierDismissible: route.barrierDismissible,
-      barrierColor: parent?.type == route.type
-          ? const Color(0x00000000)
-          : route.barrierColor,
+      barrierColor: parent == null || route.stackBarrier
+          ? route.barrierColor
+          : const Color(0x00000000),
       // anchorPoint: anchorPoint,
     ),
   );

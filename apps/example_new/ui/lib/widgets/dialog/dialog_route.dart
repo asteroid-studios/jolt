@@ -1,22 +1,22 @@
 import 'package:ui/ui.dart';
 
 ///
-mixin DialogRoute on Widget implements JoltDialogRoute {
+mixin DialogRoute on Object implements JoltDialogRoute {
   ///
   @override
-  String get type => 'dialog';
+  Duration get transitionDuration => DefaultDialogStyle.transitionDuration;
 
   ///
   @override
-  Duration get transitionDuration => DialogStyle.transitionDuration;
+  bool get barrierDismissible => DefaultDialogStyle.barrierDismissible;
 
   ///
   @override
-  bool get barrierDismissible => DialogStyle.barrierDismissible;
+  bool get stackBarrier => DefaultDialogStyle.stackBarrier;
 
   ///
   @override
-  Color get barrierColor => DialogStyle.barrierColor;
+  Color get barrierColor => DefaultDialogStyle.barrierColor;
 
   ///
   @override
@@ -30,9 +30,42 @@ mixin DialogRoute on Widget implements JoltDialogRoute {
     return Transform.scale(
       scale: curvedValue,
       child: Opacity(
-        opacity: a1.value,
-        child: Center(child: child),
+        opacity: a1.value * (1 - (a2.value / 3)),
+        child: Center(child: _DialogSurface(child: child)),
       ),
+    );
+  }
+}
+
+class _DialogSurface extends StatelessWidget with ThemeValues {
+  const _DialogSurface({
+    required this.child,
+  });
+
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    // TODO replace with DialogStyle
+    return Container(
+      margin: const EdgeInsets.all(16),
+      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 24),
+      decoration: BoxDecoration(
+        color: color.background,
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(
+          strokeAlign: BorderSide.strokeAlignCenter,
+          color: color.outline,
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.2),
+            blurRadius: 32,
+            offset: const Offset(0, 4),
+          ),
+        ],
+      ),
+      child: child,
     );
   }
 }
