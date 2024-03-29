@@ -7,15 +7,22 @@ class AutoRouteBottomSheetRoute extends CustomRoute {
     super.path,
     super.meta,
     super.usesPathAsKey,
-  }) : super(customRouteBuilder: _BottomSheetRoute.new);
+    bool disableBarrier = false,
+  }) : super(
+          customRouteBuilder:
+              <T>(BuildContext context, Widget child, AutoRoutePage<T> page) =>
+                  _BottomSheetRoute(page, disableBarrier: disableBarrier),
+        );
 }
 
 class _BottomSheetRoute<T> extends PageRoute<T> with BottomSheetRoute {
   _BottomSheetRoute(
-    BuildContext context, // ignore: avoid_unused_constructor_parameters
-    Widget child, // ignore: avoid_unused_constructor_parameters
-    AutoRoutePage<T> page,
-  ) : super(settings: page);
+    AutoRoutePage<T> page, {
+    required this.disableBarrier,
+  }) : super(settings: page);
+
+  @override
+  final bool disableBarrier;
 
   AutoRoutePage<T> get _page => settings as AutoRoutePage<T>;
 

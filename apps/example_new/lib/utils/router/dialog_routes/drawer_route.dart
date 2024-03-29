@@ -7,15 +7,22 @@ class AutoRouteDrawerRoute extends CustomRoute {
     super.path,
     super.meta,
     super.usesPathAsKey,
-  }) : super(customRouteBuilder: _DrawerRoute.new);
+    bool disableBarrier = false,
+  }) : super(
+          customRouteBuilder:
+              <T>(BuildContext context, Widget child, AutoRoutePage<T> page) =>
+                  _DrawerRoute(page, disableBarrier: disableBarrier),
+        );
 }
 
 class _DrawerRoute<T> extends PageRoute<T> with DrawerRoute {
   _DrawerRoute(
-    BuildContext context, // ignore: avoid_unused_constructor_parameters
-    Widget child, // ignore: avoid_unused_constructor_parameters
-    AutoRoutePage<T> page,
-  ) : super(settings: page);
+    AutoRoutePage<T> page, {
+    required this.disableBarrier,
+  }) : super(settings: page);
+
+  @override
+  final bool disableBarrier;
 
   AutoRoutePage<T> get _page => settings as AutoRoutePage<T>;
 

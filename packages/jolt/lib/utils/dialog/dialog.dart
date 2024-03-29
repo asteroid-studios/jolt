@@ -12,6 +12,10 @@ class JoltDialogRoute {
   /// will show barrier even if another dialog barrier is already showing
   bool get stackBarrier => false;
 
+  /// If true,
+  /// will will ignore the barrierColor and show a transparent barrier
+  bool get disableBarrier => false;
+
   ///
   Color? get barrierColor => const Color(0x00000000);
 
@@ -43,9 +47,10 @@ Future<T?> _show<T>(BuildContext context, Widget modal) async {
       transitionDuration: route.transitionDuration,
       transitionBuilder: route.transitionBuilder,
       barrierDismissible: route.barrierDismissible,
-      barrierColor: parent == null || route.stackBarrier
-          ? route.barrierColor
-          : const Color(0x00000000),
+      barrierColor:
+          (parent == null || route.stackBarrier) && !route.disableBarrier
+              ? route.barrierColor
+              : const Color(0x00000000),
       // anchorPoint: anchorPoint,
     ),
   );

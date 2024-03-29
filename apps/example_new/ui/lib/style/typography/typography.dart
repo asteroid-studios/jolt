@@ -7,8 +7,8 @@ const _fontFamily = 'Satoshi';
 const _package = 'ui';
 const _headingFontWeight = FontWeight.w700;
 const _headingFontVariation = VariableFontWeight.w700;
-const _bodyFontWeight = FontWeight.w600;
-const _bodyFontVariation = VariableFontWeight.w600;
+const _bodyFontWeight = FontWeight.w500;
+const _bodyFontVariation = VariableFontWeight.w500;
 
 ///
 class TextStyleHero extends TextStyle {

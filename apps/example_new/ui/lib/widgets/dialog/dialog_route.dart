@@ -16,7 +16,12 @@ mixin DialogRoute on Object implements JoltDialogRoute {
 
   ///
   @override
-  Color get barrierColor => DefaultDialogStyle.barrierColor;
+  bool get disableBarrier => false;
+
+  ///
+  @override
+  Color get barrierColor =>
+      disableBarrier ? Colors.transparent : DefaultDialogStyle.barrierColor;
 
   ///
   @override

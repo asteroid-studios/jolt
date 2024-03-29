@@ -59,11 +59,16 @@ mixin DrawerRoute on Object implements DrawerDialogRoute {
 
   ///
   @override
-  Color get barrierColor => DefaultDialogStyle.barrierColor;
+  Color get barrierColor =>
+      disableBarrier ? Colors.transparent : DefaultDialogStyle.barrierColor;
 
   ///
   @override
   bool get stackBarrier => DefaultDialogStyle.stackBarrier;
+
+  ///
+  @override
+  bool get disableBarrier => false;
 
   ///
   @override
