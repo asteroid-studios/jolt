@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:ui/ui.dart';
 
 ///
@@ -29,60 +31,75 @@ class AppBar extends StatelessWidget with ThemeValues {
 
     return SliverDynamicPersistentHeader(
       scrollBehavior: SliverHeaderBehavior.pinned,
-      child: Container(
-        width: double.infinity,
-        padding: EdgeInsets.only(
-          top: MediaQuery.of(context).viewPadding.top + Spacing.sm,
-          left: Spacing.lg,
-          right: Spacing.lg,
-          bottom: Spacing.sm,
-        ),
-        color: color.surface,
-        child: Row(
-          children: [
-            Hero(
-              tag: 'AppBarBack',
-              flightShuttleBuilder: showBack ? null : flightShuttleFadeBuilder,
-              transitionOnUserGestures: true,
-              child: SizedBox(
-                height: 40,
-                child: showBack
-                    ? GestureDetector(
-                        onTap: () => Navigator.of(context).maybePop(),
-                        child: Icon(
-                          IconsBold.caretLeft,
-                          size: text.heading.sm.fontSize,
+      child: GestureDetector(
+        onTap: () {
+          Scrollable.maybeOf(context)?.widget.controller?.animateTo(
+                0,
+                duration: const Duration(milliseconds: 200),
+                curve: Curves.easeInOut,
+              );
+        },
+        child: ClipRect(
+          child: BackdropFilter(
+            filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
+            child: Container(
+              width: double.infinity,
+              padding: EdgeInsets.only(
+                top: MediaQuery.of(context).viewPadding.top + Spacing.sm,
+                left: Spacing.lg,
+                right: Spacing.lg,
+                bottom: Spacing.sm,
+              ),
+              color: color.background.withOpacity(0.9),
+              child: Row(
+                children: [
+                  Hero(
+                    tag: 'AppBarBack',
+                    flightShuttleBuilder:
+                        showBack ? null : flightShuttleFadeBuilder,
+                    transitionOnUserGestures: true,
+                    child: SizedBox(
+                      height: 40,
+                      child: showBack
+                          ? GestureDetector(
+                              onTap: () => Navigator.of(context).maybePop(),
+                              child: Icon(
+                                IconsBold.caretLeft,
+                                size: text.heading.sm.fontSize,
+                              ),
+                            )
+                          : null,
+                    ),
+                  ),
+                  if (showBack) const Gap.sm(),
+                  if (title != null)
+                    Expanded(
+                      child: Hero(
+                        tag: 'AppBarTitle',
+                        child: Text(
+                          title!,
+                          style: titleStyle ?? text.heading,
                         ),
-                      )
-                    : null,
+                      ),
+                    ),
+                  Hero(
+                    tag: 'AppBarActions',
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: ConstrainedBox(
+                        // TODO come up with a better way to handle jumping when icon vs no icon
+                        constraints: const BoxConstraints(minHeight: 40),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: actions,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
-            if (showBack) const Gap.sm(),
-            if (title != null)
-              Expanded(
-                child: Hero(
-                  tag: 'AppBarTitle',
-                  child: Text(
-                    title!,
-                    style: titleStyle ?? text.heading,
-                  ),
-                ),
-              ),
-            Hero(
-              tag: 'AppBarActions',
-              child: SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: ConstrainedBox(
-                  // TODO come up with a better way to handle jumping when icon vs no icon
-                  constraints: const BoxConstraints(minHeight: 40),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: actions,
-                  ),
-                ),
-              ),
-            ),
-          ],
+          ),
         ),
       ),
     );

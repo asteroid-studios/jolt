@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:example_new/utils/router/router.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:ui/ui.dart';
@@ -9,21 +11,34 @@ class AppPage extends HookWidget with ThemeValues {
 
   @override
   Widget build(BuildContext context) {
-    useEffect(() {}, []);
+    final spaces = useState(<String>[]);
 
     return Scaffold(
-      bottomBar: Container(
-        width: double.infinity,
-        padding: EdgeInsets.only(
-          bottom: context.mediaQuery.viewPadding.bottom + 20,
-          top: 20,
-          left: 20,
-          right: 20,
+      bottomBar: ClipRect(
+        child: BackdropFilter(
+          filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
+          child: Container(
+            width: double.infinity,
+            padding: EdgeInsets.only(
+              bottom: context.mediaQuery.viewPadding.bottom + 20,
+              top: 20,
+              left: 20,
+              right: 20,
+            ),
+            color: color.background.withOpacity(0.9),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Icon(IconsDuotone.house, size: text.heading.fontSize),
+                Icon(IconsDuotone.bell, size: text.heading.fontSize),
+                Icon(IconsDuotone.userCircle, size: text.heading.fontSize),
+              ],
+            ),
+          ),
         ),
-        color: color.primary.withOpacity(0.5),
-        child: Text('Bottom menu', style: text.heading),
       ),
       content: ScrollArea(
+        primary: true,
         children: [
           AppBar(
             title: 'Jolt',
@@ -56,11 +71,40 @@ class AppPage extends HookWidget with ThemeValues {
                   ),
                 ),
               ),
+              if (!Platform.isMobile) const Gap.xs(),
+              if (!Platform.isMobile)
+                GestureDetector(
+                  onTap: () {
+                    spaces.value = [];
+                  },
+                  child: AnimatedContainer(
+                    duration: const Duration(milliseconds: 200),
+                    decoration: BoxDecoration(
+                      color: color.surface.weaken(),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    padding: EdgeInsets.symmetric(
+                      vertical: Spacing.xs,
+                      horizontal: Spacing.xs,
+                    ),
+                    child: Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        const RotatedBox(quarterTurns: 1, child: Text('')),
+                        const Text(''),
+                        Icon(
+                          IconsDuotone.arrowClockwise,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
             ],
           ),
           RefreshIndicator(
             onRefresh: () async {
-              await Future<void>.delayed(const Duration(seconds: 2));
+              await Future<void>.delayed(const Duration(seconds: 1));
+              spaces.value = [];
               print('REFRESHED');
             },
           ),
@@ -106,8 +150,33 @@ class AppPage extends HookWidget with ThemeValues {
               ),
             ),
           ),
-          Container(
-            height: 1000,
+          ...spaces.value
+              .map((s) => Column(
+                    children: [
+                      Container(
+                        height: 150.0,
+                        color: color.surface,
+                      ),
+                      Container(
+                        height: 4,
+                        color: color.background,
+                      ),
+                    ],
+                  ))
+              .toList(),
+          LoadMoreIndicator(
+            onLoadMore: spaces.value.length > 16
+                ? null
+                : () async {
+                    await Future<void>.delayed(const Duration(seconds: 1));
+                    spaces.value = [
+                      ...spaces.value,
+                      'Test1',
+                      'Test2',
+                      'Test3',
+                    ];
+                    print('LOADED MORE');
+                  },
           ),
         ],
       ),

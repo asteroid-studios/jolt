@@ -16,6 +16,7 @@ export 'package:ui/widgets/dialog/dialog.dart';
 export 'package:ui/widgets/drawer/drawer.dart';
 export 'package:ui/widgets/gap/gap.dart';
 export 'package:ui/widgets/icon/icon.dart';
+export 'package:ui/widgets/load_more_indicator/load_more_indicator.dart';
 export 'package:ui/widgets/refresh_indicator/refresh_indicator.dart';
 export 'package:ui/widgets/scaffold/scaffold.dart';
 export 'package:ui/widgets/theme/theme_provider.dart';

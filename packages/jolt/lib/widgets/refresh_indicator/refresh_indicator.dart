@@ -1,7 +1,5 @@
 import 'package:jolt/jolt.dart';
 
-// TODO make a load more which is the same thing in reverse.
-
 ///
 class JoltRefreshIndicator extends StatefulWidget {
   ///
@@ -15,7 +13,7 @@ class JoltRefreshIndicator extends StatefulWidget {
 
   ///
   // ignore: avoid_positional_boolean_parameters
-  final Widget Function(bool refreshing) indicator;
+  final Widget Function(bool refreshing, double offset) indicator;
 
   ///
   final Future<void> Function()? onRefresh;
@@ -50,7 +48,7 @@ class _RefreshIndicatorState extends State<JoltRefreshIndicator> {
     return ListenableBuilder(
       listenable: Scrollable.of(context).position,
       builder: (context, child) {
-        final offset = Scrollable.of(context).position.pixels;
+        final offset = Scrollable.maybeOf(context)?.position.pixels ?? 0;
         // if(position.pixels)
         if (offset < 0 || refreshing) {
           if (offset < -widget.refreshOffset) refresh();
@@ -78,7 +76,7 @@ class _RefreshIndicatorState extends State<JoltRefreshIndicator> {
                     maxHeight: refreshing ? double.infinity : offset.abs(),
                   ),
                   child: Center(
-                    child: widget.indicator(refreshing),
+                    child: widget.indicator(refreshing, offset),
                   ),
                 ),
               ),

@@ -80,6 +80,21 @@ sealed class Breakpoint {
   /// The desktop breakpoint
   static Desktop get desktop => Desktop();
 
+  ///
+  bool get isMobile => this is Mobile;
+
+  ///
+  bool get isTablet => this is Tablet;
+
+  ///
+  bool get isTabletLandscape => this is TabletLandscape;
+
+  ///
+  bool get isLaptop => this is Laptop;
+
+  ///
+  bool get isDesktop => this is Desktop;
+
   /// Get all breakpoint values as a list
   static List<Breakpoint> get values => [
         mobile,

@@ -38,7 +38,7 @@ class Scaffold extends StatelessWidget with ThemeValues {
               children: [
                 ScrollAreaPadding(
                   padding: VerticalInsets(
-                    bottom: 100,
+                    bottom: 106,
                   ),
                   child: content,
                 ),
