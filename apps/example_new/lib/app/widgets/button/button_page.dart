@@ -8,12 +8,14 @@ class ButtonPage extends StatelessWidget with ThemeValues {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: 'Buttons',
-      ),
-      content: Text(
-        'Buttons',
-        style: text.heading,
+      content: ScrollArea(
+        children: [
+          AppBar(title: 'Buttons'),
+          Text(
+            'Buttons',
+            style: text.heading,
+          ),
+        ],
       ),
     );
   }

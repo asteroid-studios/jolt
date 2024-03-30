@@ -8,43 +8,72 @@ class WidgetsPage extends StatelessWidget with ThemeValues {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: 'Widgets',
-        actions: [
-          // GestureDetector(
-          //   onTap: () {
-          //     ThemeProvider.of(context)?.toggleTheme();
-          //   },
-          //   child: AnimatedContainer(
-          //     duration: const Duration(milliseconds: 200),
-          //     decoration: BoxDecoration(
-          //       color: color.surface.weaken(),
-          //       borderRadius: BorderRadius.circular(8),
-          //     ),
-          //     padding: EdgeInsets.symmetric(
-          //       vertical: Spacing.xs,
-          //       horizontal: Spacing.xs,
-          //     ),
-          //     child: Stack(
-          //       alignment: Alignment.center,
-          //       children: [
-          //         const RotatedBox(quarterTurns: 1, child: Text('')),
-          //         const Text(''),
-          //         Icon(IconsDuotone.copy),
-          //       ],
-          //     ),
-          //   ),
-          // ),
+      content: ScrollArea(
+        children: [
+          AppBar(
+            title: 'Widgets',
+            actions: [
+              GestureDetector(
+                onTap: () {
+                  ThemeProvider.of(context)?.toggleTheme();
+                },
+                child: AnimatedContainer(
+                  duration: const Duration(milliseconds: 200),
+                  decoration: BoxDecoration(
+                    color: color.surface.weaken(),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  padding: EdgeInsets.symmetric(
+                    vertical: Spacing.xs,
+                    horizontal: Spacing.xs,
+                  ),
+                  child: Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      const RotatedBox(quarterTurns: 1, child: Text('')),
+                      const Text(''),
+                      Icon(IconsDuotone.cpu),
+                    ],
+                  ),
+                ),
+              ),
+              const Gap.xs(),
+              GestureDetector(
+                onTap: () {
+                  ThemeProvider.of(context)?.toggleTheme();
+                },
+                child: AnimatedContainer(
+                  duration: const Duration(milliseconds: 200),
+                  decoration: BoxDecoration(
+                    color: color.surface.weaken(),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  padding: EdgeInsets.symmetric(
+                    vertical: Spacing.xs,
+                    horizontal: Spacing.xs,
+                  ),
+                  child: Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      const RotatedBox(quarterTurns: 1, child: Text('')),
+                      const Text(''),
+                      Icon(IconsDuotone.copy),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+          GestureDetector(
+            onTap: () {
+              context.router.navigate(const ButtonRoute());
+            },
+            child: Text(
+              'Widgets',
+              style: text.heading.colored(color.background.as.foreground),
+            ),
+          ),
         ],
-      ),
-      content: GestureDetector(
-        onTap: () {
-          context.router.navigate(const ButtonRoute());
-        },
-        child: Text(
-          'Widgets',
-          style: text.heading.colored(color.background.as.foreground),
-        ),
       ),
     );
     // return AnimatedContainer(

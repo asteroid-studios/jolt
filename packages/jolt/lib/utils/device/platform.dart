@@ -112,7 +112,7 @@ class Platform {
 }
 
 ///
-extension JoltPlatformXT<T> on T {
+extension JoltPlatformX<T> on T {
   ///
   T platform(
     T defaultValue, {
