@@ -1,7 +1,5 @@
 import 'package:ui/ui.dart';
 
-part 'extensions.dart';
-
 /// The default font-family used with Jolt.
 const _fontFamily = 'Satoshi';
 const _package = 'ui';

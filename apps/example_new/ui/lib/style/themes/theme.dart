@@ -3,10 +3,10 @@ export 'dart:ui' show Brightness;
 
 final _defaultBackgroundLight = Colors.neutral.shade50;
 final _defaultSurfaceLight = Colors.neutral.shade200;
-final _defaultOutlineLight = Colors.neutral.shade300;
+final _defaultOutlineLight = Colors.neutral.shade200;
 final _defaultBackgroundDark = Colors.neutral.shade950;
 final _defaultSurfaceDark = Colors.neutral.shade900;
-final _defaultOutlineDark = Colors.neutral.shade800;
+final _defaultOutlineDark = Colors.neutral.shade900;
 const _defaultPrimary = Colors.violet;
 final _defaultSecondary = _defaultPrimary.shade300;
 final _defaultTertiaryLight = Colors.neutral.shade950;

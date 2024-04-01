@@ -3,8 +3,6 @@
 import 'package:collection/collection.dart';
 import 'package:ui/ui.dart';
 
-part 'breakpoint.extensions.dart';
-
 ///
 class Mobile extends Breakpoint {
   @override

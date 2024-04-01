@@ -9,11 +9,17 @@ class ButtonPage extends StatelessWidget with ThemeValues {
   Widget build(BuildContext context) {
     return Scaffold(
       content: ScrollArea(
+        physics: const NeverScrollableScrollPhysics(),
         children: [
           AppBar(title: 'Buttons'),
-          Text(
-            'Buttons',
-            style: text.heading,
+          SliverFillRemaining(
+            hasScrollBody: false,
+            child: Center(
+              child: Text(
+                'Buttons',
+                style: text.heading,
+              ),
+            ),
           ),
         ],
       ),

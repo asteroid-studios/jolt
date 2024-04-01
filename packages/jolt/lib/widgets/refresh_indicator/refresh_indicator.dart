@@ -1,13 +1,16 @@
 import 'package:jolt/jolt.dart';
+import 'package:flutter/services.dart';
 
+// TODO add an option for haptic feedback
 ///
 class JoltRefreshIndicator extends StatefulWidget {
   ///
   const JoltRefreshIndicator({
     required this.indicator,
     required this.onRefresh,
-    this.refreshOffset = 100,
+    this.refreshOffset = 48,
     this.backgroundColor,
+    this.hapticFeedback = true,
     super.key,
   });
 
@@ -24,20 +27,35 @@ class JoltRefreshIndicator extends StatefulWidget {
   ///
   final double refreshOffset;
 
+  ///
+  final bool hapticFeedback;
+
   @override
   State<JoltRefreshIndicator> createState() => _RefreshIndicatorState();
 }
 
 class _RefreshIndicatorState extends State<JoltRefreshIndicator> {
+  bool readyToRefresh = false;
   bool refreshing = false;
 
-  void refresh() {
+  void triggerOnRefresh() {
     if (!refreshing) {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        setState(() => refreshing = true);
-        widget.onRefresh?.call().then((value) {
-          setState(() => refreshing = false);
+      WidgetsBinding.instance
+          .addPostFrameCallback((_) => setState(() => refreshing = true));
+      widget.onRefresh?.call().then((value) {
+        setState(() {
+          refreshing = false;
+          readyToRefresh = false;
         });
+      });
+    }
+  }
+
+  void prepRefresh() {
+    if (!readyToRefresh) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        setState(() => readyToRefresh = true);
+        if (widget.hapticFeedback) HapticFeedback.lightImpact();
       });
     }
   }
@@ -49,9 +67,14 @@ class _RefreshIndicatorState extends State<JoltRefreshIndicator> {
       listenable: Scrollable.of(context).position,
       builder: (context, child) {
         final offset = Scrollable.maybeOf(context)?.position.pixels ?? 0;
-        // if(position.pixels)
-        if (offset < 0 || refreshing) {
-          if (offset < -widget.refreshOffset) refresh();
+
+        // If the indicator is in the refreshing state
+        // and the user lets go of their finger,
+        // then trigger the onRefresh callback
+        if (readyToRefresh && offset >= 0) triggerOnRefresh();
+
+        if (offset < 0 || readyToRefresh) {
+          if (offset < -widget.refreshOffset) prepRefresh();
           return Stack(
             children: [
               Align(
@@ -73,16 +96,15 @@ class _RefreshIndicatorState extends State<JoltRefreshIndicator> {
                 child: Container(
                   color: widget.backgroundColor,
                   constraints: BoxConstraints(
-                    maxHeight: refreshing ? double.infinity : offset.abs(),
+                    maxHeight: readyToRefresh ? double.infinity : offset.abs(),
                   ),
-                  child: Center(
-                    child: widget.indicator(refreshing, offset),
-                  ),
+                  child: widget.indicator(readyToRefresh, offset),
                 ),
               ),
             ],
           );
         }
+
         return const SizedBox.shrink();
       },
     );

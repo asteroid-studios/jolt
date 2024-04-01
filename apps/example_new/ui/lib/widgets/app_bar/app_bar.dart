@@ -1,13 +1,16 @@
-import 'dart:ui';
-
+import 'package:flutter/rendering.dart';
 import 'package:ui/ui.dart';
+import 'package:visibility_detector/visibility_detector.dart';
 
 ///
-class AppBar extends StatelessWidget with ThemeValues {
+class AppBar extends StatefulWidget {
   ///
   const AppBar({
     this.title,
     this.titleStyle,
+    this.pinned = true,
+    this.floating = false,
+    this.background,
     this.actions = const [],
     super.key,
   });
@@ -21,40 +24,68 @@ class AppBar extends StatelessWidget with ThemeValues {
   ///
   final List<Widget> actions;
 
+  ///
+  final Color? background;
+
+  ///
+  final bool pinned;
+
+  ///
+  final bool floating;
+
+  @override
+  State<AppBar> createState() => _AppBarState();
+}
+
+class _AppBarState extends State<AppBar> with ThemeValues {
+  bool visible = true;
+
+  /// Scroll to the top of the scrollable widget
+  void scrollToTop() =>
+      Scrollable.maybeOf(context)?.widget.controller?.animateTo(
+            0,
+            duration: const Duration(milliseconds: 200),
+            curve: Curves.easeInOut,
+          );
+
   @override
   Widget build(BuildContext context) {
     final showBack = !(ModalRoute.of(context)?.isFirst ?? false);
-
-    // TODO the ability to pin or float should be set here
-    // TODO when not at the top, the hero animations should not be used, becuase it looks weird
-    // What if I just make the tag for each hero include the y position, that way that will only animate when matching!
-
-    return SliverDynamicPersistentHeader(
-      scrollBehavior: SliverHeaderBehavior.pinned,
+    final background = widget.background ?? color.background;
+    final appBar = Title(
+      color: background,
+      title: widget.title ?? '',
       child: GestureDetector(
-        onTap: () {
-          Scrollable.maybeOf(context)?.widget.controller?.animateTo(
-                0,
-                duration: const Duration(milliseconds: 200),
-                curve: Curves.easeInOut,
-              );
-        },
-        child: ClipRect(
-          child: BackdropFilter(
-            filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
-            child: Container(
-              width: double.infinity,
-              padding: EdgeInsets.only(
-                top: MediaQuery.of(context).viewPadding.top + Spacing.sm,
-                left: Spacing.lg,
-                right: Spacing.lg,
-                bottom: Spacing.sm,
+        onTap: scrollToTop,
+        child: Blur(
+          child: Container(
+            width: double.infinity,
+            padding: EdgeInsets.only(
+              top: MediaQuery.of(context).viewPadding.top + Spacing.sm,
+              left: Spacing.lg,
+              right: Spacing.lg,
+              bottom: Spacing.sm,
+            ),
+            decoration: BoxDecoration(
+              color: background.withOpacity(0.9),
+              border: Border(
+                bottom: BorderSide(
+                  color: color.outline,
+                ),
               ),
-              color: color.background.withOpacity(0.9),
+            ),
+            child: VisibilityDetector(
+              key: const Key('AppBar'),
+              onVisibilityChanged: (visibilityInfo) {
+                final isVisible = visibilityInfo.visibleFraction == 1;
+                if (visible != isVisible && context.mounted) {
+                  setState(() => visible = isVisible);
+                }
+              },
               child: Row(
                 children: [
-                  Hero(
-                    tag: 'AppBarBack',
+                  HeroOptional(
+                    tag: visible ? 'AppBarBack' : null,
                     flightShuttleBuilder:
                         showBack ? null : flightShuttleFadeBuilder,
                     transitionOnUserGestures: true,
@@ -72,18 +103,18 @@ class AppBar extends StatelessWidget with ThemeValues {
                     ),
                   ),
                   if (showBack) const Gap.sm(),
-                  if (title != null)
+                  if (widget.title != null)
                     Expanded(
-                      child: Hero(
-                        tag: 'AppBarTitle',
+                      child: HeroOptional(
+                        tag: visible ? 'AppBarTitle' : null,
                         child: Text(
-                          title!,
-                          style: titleStyle ?? text.heading,
+                          widget.title!,
+                          style: widget.titleStyle ?? text.heading,
                         ),
                       ),
                     ),
-                  Hero(
-                    tag: 'AppBarActions',
+                  HeroOptional(
+                    tag: visible ? 'AppBarActions' : null,
                     child: SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
                       child: ConstrainedBox(
@@ -91,7 +122,7 @@ class AppBar extends StatelessWidget with ThemeValues {
                         constraints: const BoxConstraints(minHeight: 40),
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
-                          children: actions,
+                          children: widget.actions,
                         ),
                       ),
                     ),
@@ -103,5 +134,25 @@ class AppBar extends StatelessWidget with ThemeValues {
         ),
       ),
     );
+
+    if (widget.floating) {
+      final scrollDirection = Scaffold.of(context).scrollDirection;
+      final hideAppBar = scrollDirection == ScrollDirection.reverse;
+
+      return SliverDynamicPersistentHeader(
+        child: AbsorbPointer(
+          absorbing: hideAppBar,
+          child: AnimatedOpacity(
+            duration: const Duration(milliseconds: 300),
+            opacity: hideAppBar ? 0 : 1,
+            child: appBar,
+          ),
+        ),
+      );
+    }
+
+    if (widget.pinned) return SliverDynamicPersistentHeader(child: appBar);
+
+    return appBar;
   }
 }

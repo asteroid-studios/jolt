@@ -1,4 +1,4 @@
-part of 'themes.dart';
+import 'package:ui/ui.dart';
 
 ///
 extension ThemesX on BuildContext {

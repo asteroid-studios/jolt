@@ -1,8 +1,6 @@
 import 'package:ui/ui.dart';
 export 'theme.dart';
 
-part 'extensions.dart';
-
 ///
 final themes = <Theme>[
   DefaultThemeLight(),

@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:example_new/utils/router/router.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:ui/ui.dart';
@@ -14,34 +12,15 @@ class AppPage extends HookWidget with ThemeValues {
     final spaces = useState(<String>[]);
 
     return Scaffold(
-      bottomBar: ClipRect(
-        child: BackdropFilter(
-          filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
-          child: Container(
-            width: double.infinity,
-            padding: EdgeInsets.only(
-              bottom: context.mediaQuery.viewPadding.bottom + 20,
-              top: 20,
-              left: 20,
-              right: 20,
-            ),
-            color: color.background.withOpacity(0.9),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Icon(IconsDuotone.house, size: text.heading.fontSize),
-                Icon(IconsDuotone.bell, size: text.heading.fontSize),
-                Icon(IconsDuotone.userCircle, size: text.heading.fontSize),
-              ],
-            ),
-          ),
-        ),
+      bottomBar: NavigationBar(
+        floating: true,
       ),
       content: ScrollArea(
-        primary: true,
         children: [
           AppBar(
             title: 'Jolt',
+            // pinned: false,
+            floating: true,
             // titleStyle: text.display.sm,
             actions: [
               GestureDetector(
@@ -74,9 +53,7 @@ class AppPage extends HookWidget with ThemeValues {
               if (!Platform.isMobile) const Gap.xs(),
               if (!Platform.isMobile)
                 GestureDetector(
-                  onTap: () {
-                    spaces.value = [];
-                  },
+                  onTap: () => RefreshIndicator.triggerRefresh(context),
                   child: AnimatedContainer(
                     duration: const Duration(milliseconds: 200),
                     decoration: BoxDecoration(
@@ -103,9 +80,8 @@ class AppPage extends HookWidget with ThemeValues {
           ),
           RefreshIndicator(
             onRefresh: () async {
-              await Future<void>.delayed(const Duration(seconds: 1));
+              await Future<void>.delayed(const Duration(milliseconds: 200));
               spaces.value = [];
-              print('REFRESHED');
             },
           ),
           GestureDetector(
@@ -168,14 +144,15 @@ class AppPage extends HookWidget with ThemeValues {
             onLoadMore: spaces.value.length > 16
                 ? null
                 : () async {
-                    await Future<void>.delayed(const Duration(seconds: 1));
+                    await Future<void>.delayed(
+                      const Duration(milliseconds: 500),
+                    );
                     spaces.value = [
                       ...spaces.value,
                       'Test1',
                       'Test2',
                       'Test3',
                     ];
-                    print('LOADED MORE');
                   },
           ),
         ],

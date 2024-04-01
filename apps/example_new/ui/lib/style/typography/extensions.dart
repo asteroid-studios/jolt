@@ -1,4 +1,4 @@
-part of 'typography.dart';
+import 'package:ui/ui.dart';
 
 ///
 extension TypographyX on BuildContext {

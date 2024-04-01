@@ -15,7 +15,7 @@ class SliverDynamicPersistentHeader extends SingleChildRenderObjectWidget {
   ///
   const SliverDynamicPersistentHeader({
     required super.child,
-    this.scrollBehavior = SliverHeaderBehavior.floating,
+    this.scrollBehavior = SliverHeaderBehavior.pinned,
     super.key,
   });
 

@@ -1,4 +1,4 @@
-part of 'breakpoint.dart';
+import 'package:ui/ui.dart';
 
 ///
 extension BreakpointX<T> on T {

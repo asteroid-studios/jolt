@@ -1,7 +1,5 @@
 import 'package:ui/ui.dart';
 
-part 'extensions.dart';
-
 /// Some pre-configured colors for Jolt.
 ///
 /// Colors are based on the [TailwindCSS](https://tailwindcss.com/docs/customizing-colors) color palette.

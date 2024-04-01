@@ -1,4 +1,4 @@
-part of 'colors.dart';
+import 'package:ui/ui.dart';
 
 ///
 extension ColorX on Color {

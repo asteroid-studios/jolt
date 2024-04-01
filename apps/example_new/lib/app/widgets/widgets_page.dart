@@ -8,7 +8,12 @@ class WidgetsPage extends StatelessWidget with ThemeValues {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // sidebarRight: Container(
+      //   color: color.surface,
+      //   width: 50,
+      // ),
       content: ScrollArea(
+        physics: const NeverScrollableScrollPhysics(),
         children: [
           AppBar(
             title: 'Widgets',
@@ -64,13 +69,18 @@ class WidgetsPage extends StatelessWidget with ThemeValues {
               ),
             ],
           ),
-          GestureDetector(
-            onTap: () {
-              context.router.navigate(const ButtonRoute());
-            },
-            child: Text(
-              'Widgets',
-              style: text.heading.colored(color.background.as.foreground),
+          SliverFillRemaining(
+            hasScrollBody: false,
+            child: Center(
+              child: GestureDetector(
+                onTap: () {
+                  context.router.navigate(const ButtonRoute());
+                },
+                child: Text(
+                  'Widgets',
+                  style: text.heading.colored(color.background.as.foreground),
+                ),
+              ),
             ),
           ),
         ],
