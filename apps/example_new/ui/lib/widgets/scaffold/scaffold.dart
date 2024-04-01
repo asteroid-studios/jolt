@@ -141,7 +141,7 @@ class ScaffoldState extends State<Scaffold> with ThemeValues {
                     return true;
                   }
                   final pixels = notification.metrics.pixels;
-                  if (direction == ScrollDirection.reverse && pixels < 0) {
+                  if (direction == ScrollDirection.reverse && pixels < -50) {
                     return true;
                   }
                   setState(() => scrollDirection = direction);

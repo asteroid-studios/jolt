@@ -17,17 +17,26 @@ class RefreshIndicator extends StatelessWidget with ThemeValues {
   ///
   final Future<void> Function()? onRefresh;
 
+  /// Trigger the refresh indicator programmatically
+  ///
+  /// Will only work if there is a [RefreshIndicator] present in the ScrollArea
+  ///
+  /// Useful to trigger a refresh from a button on Desktop or Web
   static void triggerRefresh(BuildContext context) {
     PrimaryScrollController.of(context).animateTo(
-      -50,
+      -scrollOffset,
       duration: const Duration(milliseconds: 200),
       curve: Curves.ease,
     );
   }
 
+  /// The distance after which the onRefresh will trigger
+  static double get scrollOffset => 48;
+
   @override
   Widget build(BuildContext context) {
     return JoltRefreshIndicator(
+      refreshOffset: scrollOffset,
       indicator: (bool refreshing, double offset) {
         return Center(
           child: Padding(
@@ -42,7 +51,7 @@ class RefreshIndicator extends StatelessWidget with ThemeValues {
                       )
                     : Opacity(
                         key: const Key('trigger'),
-                        opacity: min(1, max(0, 1 * -(offset / 48))),
+                        opacity: min(1, max(0, 1 * -(offset / scrollOffset))),
                         child: Transform.rotate(
                           angle: -(offset * pi) / 60,
                           child: Icon(
