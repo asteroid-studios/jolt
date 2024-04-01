@@ -18,54 +18,18 @@ class WidgetsPage extends StatelessWidget with ThemeValues {
           AppBar(
             title: 'Widgets',
             actions: [
-              GestureDetector(
+              Button(
+                icon: IconsDuotone.cpu,
                 onTap: () {
                   ThemeProvider.of(context)?.toggleTheme();
                 },
-                child: AnimatedContainer(
-                  duration: const Duration(milliseconds: 200),
-                  decoration: BoxDecoration(
-                    color: color.surface.weaken(),
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  padding: EdgeInsets.symmetric(
-                    vertical: Spacing.xs,
-                    horizontal: Spacing.xs,
-                  ),
-                  child: Stack(
-                    alignment: Alignment.center,
-                    children: [
-                      const RotatedBox(quarterTurns: 1, child: Text('')),
-                      const Text(''),
-                      Icon(IconsDuotone.cpu),
-                    ],
-                  ),
-                ),
               ),
               const Gap.xs(),
-              GestureDetector(
+              Button(
+                icon: IconsDuotone.copy,
                 onTap: () {
                   ThemeProvider.of(context)?.toggleTheme();
                 },
-                child: AnimatedContainer(
-                  duration: const Duration(milliseconds: 200),
-                  decoration: BoxDecoration(
-                    color: color.surface.weaken(),
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  padding: EdgeInsets.symmetric(
-                    vertical: Spacing.xs,
-                    horizontal: Spacing.xs,
-                  ),
-                  child: Stack(
-                    alignment: Alignment.center,
-                    children: [
-                      const RotatedBox(quarterTurns: 1, child: Text('')),
-                      const Text(''),
-                      Icon(IconsDuotone.copy),
-                    ],
-                  ),
-                ),
               ),
             ],
           ),

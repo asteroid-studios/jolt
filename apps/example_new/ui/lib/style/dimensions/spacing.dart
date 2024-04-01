@@ -13,7 +13,7 @@ enum SpacingSize {
   xs(8),
 
   ///
-  sm(12),
+  sm(10),
 
   ///
   md(16),

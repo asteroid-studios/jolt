@@ -10,6 +10,7 @@ class AppBar extends StatefulWidget {
     this.titleStyle,
     this.pinned = true,
     this.floating = false,
+    this.bottom,
     this.background,
     this.actions = const [],
     super.key,
@@ -23,6 +24,9 @@ class AppBar extends StatefulWidget {
 
   ///
   final List<Widget> actions;
+
+  /// The widget to display at the bottom of the app bar
+  final Widget? bottom;
 
   ///
   final Color? background;
@@ -82,51 +86,56 @@ class _AppBarState extends State<AppBar> with ThemeValues {
                   setState(() => visible = isVisible);
                 }
               },
-              child: Row(
+              child: Column(
                 children: [
-                  HeroOptional(
-                    tag: visible ? 'AppBarBack' : null,
-                    flightShuttleBuilder:
-                        showBack ? null : flightShuttleFadeBuilder,
-                    transitionOnUserGestures: true,
-                    child: SizedBox(
-                      height: 40,
-                      child: showBack
-                          ? GestureDetector(
-                              onTap: () => Navigator.of(context).maybePop(),
-                              child: Icon(
-                                IconsBold.caretLeft,
-                                size: text.heading.sm.fontSize,
-                              ),
-                            )
-                          : null,
-                    ),
-                  ),
-                  if (showBack) const Gap.sm(),
-                  if (widget.title != null)
-                    Expanded(
-                      child: HeroOptional(
-                        tag: visible ? 'AppBarTitle' : null,
-                        child: Text(
-                          widget.title!,
-                          style: widget.titleStyle ?? text.heading,
+                  Row(
+                    children: [
+                      HeroOptional(
+                        tag: visible ? 'AppBarBack' : null,
+                        flightShuttleBuilder:
+                            showBack ? null : flightShuttleFadeBuilder,
+                        transitionOnUserGestures: true,
+                        child: SizedBox(
+                          height: 40,
+                          child: showBack
+                              ? GestureDetector(
+                                  onTap: () => Navigator.of(context).maybePop(),
+                                  child: Icon(
+                                    IconsBold.caretLeft,
+                                    size: text.heading.sm.fontSize,
+                                  ),
+                                )
+                              : null,
                         ),
                       ),
-                    ),
-                  HeroOptional(
-                    tag: visible ? 'AppBarActions' : null,
-                    child: SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: ConstrainedBox(
-                        // TODO come up with a better way to handle jumping when icon vs no icon
-                        constraints: const BoxConstraints(minHeight: 40),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: widget.actions,
+                      if (showBack) const Gap.sm(),
+                      if (widget.title != null)
+                        Expanded(
+                          child: HeroOptional(
+                            tag: visible ? 'AppBarTitle' : null,
+                            child: Text(
+                              widget.title!,
+                              style: widget.titleStyle ?? text.heading,
+                            ),
+                          ),
+                        ),
+                      HeroOptional(
+                        tag: visible ? 'AppBarActions' : null,
+                        child: SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: ConstrainedBox(
+                            // TODO come up with a better way to handle jumping when icon vs no icon
+                            constraints: const BoxConstraints(minHeight: 40),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: widget.actions,
+                            ),
+                          ),
                         ),
                       ),
-                    ),
+                    ],
                   ),
+                  if (widget.bottom != null) widget.bottom!,
                 ],
               ),
             ),
@@ -134,6 +143,21 @@ class _AppBarState extends State<AppBar> with ThemeValues {
         ),
       ),
     );
+
+    // TODO I should be able to support an app bar that has a min and max varient by using
+    // Scrollable.of(context).position.pixels.
+    // They can set a min and max height, then I can animate between the two
+    // Using current value of pixels.
+
+    // Mainly need to work out what kind of animations people would want to support
+    // Maybe it should be a totally separate app bar with a builder method,
+    // Instead of trying to support all the different use cases in one widget
+
+    // So AppBar.builder(
+    //  builder: (context, expanded) {
+    //   return expanded ? ExpandedOption() : Collapsed();
+    //  }
+    // ),
 
     if (widget.floating) {
       final scrollDirection = Scaffold.of(context).scrollDirection;

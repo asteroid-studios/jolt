@@ -23,9 +23,11 @@ class JoltLoadMoreIndicator extends StatefulWidget {
 }
 
 class _LoadMoreIndicatorState extends State<JoltLoadMoreIndicator> {
+  // Last position defaults to a negative value
+  // to make sure load more is triggered if the page is not full on load.
+  double lastPosition = -50;
   bool loadingMore = false;
   bool loaded = false;
-  double lastPosition = 0;
 
   @override
   void initState() {
@@ -62,8 +64,7 @@ class _LoadMoreIndicatorState extends State<JoltLoadMoreIndicator> {
             ? position?.maxScrollExtent ?? double.infinity
             : double.infinity;
         final offset = position?.pixels ?? 0;
-        if (offset >= scrollExtent - 5) loadMore(offset);
-
+        if (offset >= scrollExtent - 20) loadMore(offset);
         return widget.indicator(loadingMore);
       },
     );

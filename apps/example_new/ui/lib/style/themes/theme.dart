@@ -1,16 +1,19 @@
+// ignore_for_file: prefer_const_declarations
+
 import 'package:ui/ui.dart';
 export 'dart:ui' show Brightness;
 
-final _defaultBackgroundLight = Colors.neutral.shade50;
-final _defaultSurfaceLight = Colors.neutral.shade200;
-final _defaultOutlineLight = Colors.neutral.shade200;
-final _defaultBackgroundDark = Colors.neutral.shade950;
-final _defaultSurfaceDark = Colors.neutral.shade900;
-final _defaultOutlineDark = Colors.neutral.shade900;
+final _baseColor = Colors.neutral;
+final _defaultBackgroundLight = Colors.white;
+final _defaultSurfaceLight = _baseColor.shade200;
+final _defaultOutlineLight = _baseColor.shade100;
+final _defaultBackgroundDark = _baseColor.shade950;
+final _defaultSurfaceDark = _baseColor.shade800;
+final _defaultOutlineDark = _baseColor.shade900;
 const _defaultPrimary = Colors.violet;
 final _defaultSecondary = _defaultPrimary.shade300;
-final _defaultTertiaryLight = Colors.neutral.shade950;
-final _defaultTertiaryDark = Colors.neutral.shade50;
+final _defaultTertiaryLight = Colors.grey.shade950;
+final _defaultTertiaryDark = Colors.grey.shade50;
 const _defaultError = Colors.red;
 const _defaultWarning = Colors.amber;
 const _defaultSuccess = Colors.green;

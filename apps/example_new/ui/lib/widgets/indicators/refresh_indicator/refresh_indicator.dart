@@ -24,7 +24,7 @@ class RefreshIndicator extends StatelessWidget with ThemeValues {
   /// Useful to trigger a refresh from a button on Desktop or Web
   static void triggerRefresh(BuildContext context) {
     PrimaryScrollController.of(context).animateTo(
-      -scrollOffset,
+      -scrollOffset - 5,
       duration: const Duration(milliseconds: 200),
       curve: Curves.ease,
     );
