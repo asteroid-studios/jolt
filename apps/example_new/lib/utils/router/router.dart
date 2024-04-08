@@ -17,6 +17,8 @@ extension ConfigX on AppRouter {
 
 @AutoRouterConfig()
 class AppRouter extends $AppRouter {
+  AppRouter({super.navigatorKey});
+
   @override
   List<AutoRoute> get routes {
     return [

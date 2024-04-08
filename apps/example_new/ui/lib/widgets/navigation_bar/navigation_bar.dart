@@ -14,14 +14,16 @@ class NavigationBar extends StatelessWidget with ThemeValues {
 
   @override
   Widget build(BuildContext context) {
-    final navBar = Blur(
+    final scrollDirection = Scaffold.of(context).scrollDirection;
+    final isScrolling = scrollDirection == ScrollDirection.reverse;
+
+    return Collapsible(
+      collapsed: isScrolling && floating,
       child: Container(
-        width: double.infinity,
         padding: EdgeInsets.only(
-          bottom: context.mediaQuery.padding.bottom + 20,
-          top: 20,
-          left: 20,
-          right: 20,
+          bottom: context.mediaQuery.padding.bottom,
+          left: Spacing.sm,
+          right: Spacing.sm,
         ),
         decoration: BoxDecoration(
           border: Border(
@@ -32,30 +34,29 @@ class NavigationBar extends StatelessWidget with ThemeValues {
           color: color.background.withOpacity(0.9),
         ),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            Icon(IconsDuotone.house, size: text.heading.fontSize),
-            Icon(IconsDuotone.bell, size: text.heading.fontSize),
-            Icon(IconsDuotone.userCircle, size: text.heading.fontSize),
-          ],
+            // TODO don't hard code these here
+            Button(
+              onTap: () {},
+              icon: IconsDuotone.house,
+              color: Colors.transparent,
+              labelStyle: text.heading,
+            ),
+            Button(
+              onTap: () {},
+              icon: IconsDuotone.bell,
+              color: Colors.transparent,
+              labelStyle: text.heading,
+            ),
+            Button(
+              onTap: () {},
+              icon: IconsDuotone.userCircle,
+              color: Colors.transparent,
+              labelStyle: text.heading,
+            ),
+          ].withExpanded(),
         ),
-      ),
+      ).withBlur(),
     );
-
-    if (floating) {
-      final scrollDirection = Scaffold.of(context).scrollDirection;
-      final hideNavBar = scrollDirection == ScrollDirection.reverse;
-
-      return AbsorbPointer(
-        absorbing: hideNavBar,
-        child: AnimatedOpacity(
-          duration: const Duration(milliseconds: 300),
-          opacity: hideNavBar ? 0 : 1,
-          child: navBar,
-        ),
-      );
-    }
-
-    return navBar;
   }
 }

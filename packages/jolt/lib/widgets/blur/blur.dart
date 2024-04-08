@@ -8,7 +8,7 @@ class Blur extends StatelessWidget {
   const Blur({
     required this.child,
     this.borderRadius = BorderRadius.zero,
-    this.value = 5,
+    this.blur = 5,
     super.key,
   });
 
@@ -16,7 +16,7 @@ class Blur extends StatelessWidget {
   final Widget child;
 
   ///
-  final double value;
+  final double blur;
 
   ///
   final BorderRadiusGeometry borderRadius;
@@ -26,9 +26,23 @@ class Blur extends StatelessWidget {
     return ClipRRect(
       borderRadius: borderRadius,
       child: BackdropFilter(
-        filter: ImageFilter.blur(sigmaX: value, sigmaY: value),
+        filter: ImageFilter.blur(sigmaX: blur, sigmaY: blur),
         child: child,
       ),
     );
   }
+}
+
+///
+extension JoltBlurX on Widget {
+  ///
+  Widget withBlur({
+    BorderRadiusGeometry borderRadius = BorderRadius.zero,
+    double blur = 5,
+  }) =>
+      Blur(
+        borderRadius: borderRadius,
+        blur: blur,
+        child: this,
+      );
 }

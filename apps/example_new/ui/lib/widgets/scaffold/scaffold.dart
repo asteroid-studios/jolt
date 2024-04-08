@@ -1,4 +1,5 @@
 import 'package:flutter/rendering.dart';
+import 'package:flutter/services.dart';
 import 'package:ui/ui.dart';
 
 // TODO use a better implementation using CustomMultiChildLayout
@@ -12,9 +13,9 @@ class Scaffold extends StatefulWidget {
     this.sidebarLeft,
     this.sidebarRight,
     this.safeAreaTop = true,
-    this.safeAreaBottom = true,
-    this.safeAreaLeft = true,
-    this.safeAreaRight = true,
+    this.safeAreaBottom = false,
+    this.safeAreaLeft = false,
+    this.safeAreaRight = false,
     this.background,
     this.backgroundStatusBar,
     super.key,
@@ -107,75 +108,84 @@ class ScaffoldState extends State<Scaffold> with ThemeValues {
   @override
   Widget build(BuildContext context) {
     final background = widget.background ?? color.background;
+    final backgroundBrightness =
+        background.isDark ? Brightness.dark : Brightness.light;
 
-    return AnimatedContainer(
-      padding: EdgeInsets.only(
-        left: context.mediaQuery.padding.left,
-        bottom: context.mediaQuery.padding.bottom,
-        right: context.mediaQuery.padding.right,
+    return AnnotatedRegion(
+      value: SystemUiOverlayStyle(
+        statusBarBrightness: backgroundBrightness,
+        statusBarIconBrightness: backgroundBrightness,
       ),
-      duration: const Duration(milliseconds: 200),
-      color: background,
-      child: Column(
-        children: [
-          if (widget.safeAreaTop)
-            GestureDetector(
-              onTap: scrollToTop,
-              child: Container(
-                color: widget.backgroundStatusBar ?? background,
-                height: context.mediaQuery.padding.top,
+      child: AnimatedContainer(
+        padding: EdgeInsets.only(
+          left: context.mediaQuery.padding.left,
+          bottom: widget.safeAreaBottom ? context.mediaQuery.padding.bottom : 0,
+          right: context.mediaQuery.padding.right,
+        ),
+        duration: const Duration(milliseconds: 200),
+        color: background,
+        child: Column(
+          children: [
+            if (widget.safeAreaTop)
+              GestureDetector(
+                onTap: scrollToTop,
+                child: Container(
+                  color: widget.backgroundStatusBar ?? background,
+                  height: context.mediaQuery.padding.top,
+                ),
               ),
-            ),
-          Expanded(
-            child: MediaQuery.removePadding(
-              context: context,
-              removeTop: widget.safeAreaTop,
-              removeRight: widget.safeAreaTop,
-              removeLeft: widget.safeAreaLeft,
-              removeBottom: widget.safeAreaRight,
-              child: NotificationListener<UserScrollNotification>(
-                onNotification: (notification) {
-                  final direction = notification.direction;
-                  if (direction == ScrollDirection.idle ||
-                      direction == scrollDirection) {
+            Expanded(
+              child: MediaQuery.removePadding(
+                context: context,
+                removeTop: widget.safeAreaTop,
+                removeRight: widget.safeAreaTop,
+                removeLeft: widget.safeAreaLeft,
+                removeBottom: widget.safeAreaRight,
+                child: NotificationListener<UserScrollNotification>(
+                  onNotification: (notification) {
+                    final direction = notification.direction;
+                    if (direction == ScrollDirection.idle ||
+                        direction == scrollDirection) {
+                      return true;
+                    }
+                    final pixels = notification.metrics.pixels;
+                    if (direction == ScrollDirection.reverse && pixels < -50) {
+                      return true;
+                    }
+                    setState(() => scrollDirection = direction);
                     return true;
-                  }
-                  final pixels = notification.metrics.pixels;
-                  if (direction == ScrollDirection.reverse && pixels < -50) {
-                    return true;
-                  }
-                  setState(() => scrollDirection = direction);
-                  return true;
-                },
-                child: _ScaffoldScope(
-                  state: this,
-                  child: Row(
-                    children: [
-                      if (widget.sidebarLeft != null) widget.sidebarLeft!,
-                      Expanded(
-                        child: Stack(
-                          children: [
-                            ScrollAreaPadding(
-                              // TODO fix
-                              padding: VerticalInsets(bottom: 65),
-                              child: widget.content,
-                            ),
-                            if (widget.bottomBar != null)
-                              Align(
-                                alignment: Alignment.bottomCenter,
-                                child: widget.bottomBar,
+                  },
+                  child: _ScaffoldScope(
+                    state: this,
+                    child: Row(
+                      children: [
+                        if (widget.sidebarLeft != null) widget.sidebarLeft!,
+                        Expanded(
+                          child: Stack(
+                            children: [
+                              ScrollAreaCaps(
+                                end: [
+                                  const Gap(80),
+                                ],
+                                child: widget.content,
                               ),
-                          ],
+                              if (widget.bottomBar != null)
+                                Align(
+                                  alignment: Alignment.bottomCenter,
+                                  child: widget.bottomBar,
+                                ),
+                            ],
+                          ),
                         ),
-                      ),
-                      if (widget.sidebarRight != null) widget.sidebarRight!,
-                    ],
+                        if (widget.sidebarRight != null) widget.sidebarRight!,
+                      ],
+                    ),
                   ),
                 ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

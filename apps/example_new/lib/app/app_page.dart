@@ -1,4 +1,5 @@
 import 'package:example_new/utils/router/router.dart';
+import 'package:flutter/material.dart' as material;
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:ui/ui.dart';
 
@@ -10,37 +11,51 @@ class AppPage extends HookWidget with ThemeValues {
   @override
   Widget build(BuildContext context) {
     final spaces = useState(<String>[]);
+    final collapsed = useState(true);
 
     return Scaffold(
-      bottomBar: NavigationBar(floating: Platform.isMobile),
+      bottomBar: NavigationBar(floating: true),
+      // bottomBar: NavigationBar(floating: Platform.isMobile),
       content: ScrollArea(
         children: [
+          // material.SliverAppBar(
+          //   floating: true,
+          //   title: Text('title'),
+          // ),
           AppBar(
             title: 'Jolt',
             titleStyle: text.display.sm,
             // pinned: false,
+            // TODO regular floating does not work
+            floating: true,
             // floating: Platform.isMobile,
-            bottom: Container(
-              width: double.infinity,
-              margin: EdgeInsets.only(top: Spacing.xs),
-              padding: EdgeInsets.symmetric(
-                horizontal: Spacing.lg,
-                vertical: Spacing.sm,
-              ),
-              decoration: BoxDecoration(
-                color: color.surface,
-                border: Border.all(color: color.surface),
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: Row(
-                children: [
-                  Icon(
-                    IconsDuotone.magnifyingGlass,
-                    color: color.surface.shade400.dark(color.surface.shade600),
-                  ),
-                  Gap.sm(),
-                  Expanded(child: Text('Search')),
-                ],
+            bottom: GestureDetector(
+              onTap: () {
+                collapsed.value = !collapsed.value;
+              },
+              child: Container(
+                width: double.infinity,
+                margin: EdgeInsets.only(top: Spacing.xs),
+                padding: EdgeInsets.symmetric(
+                  horizontal: Spacing.lg,
+                  vertical: Spacing.sm,
+                ),
+                decoration: BoxDecoration(
+                  color: color.surface,
+                  border: Border.all(color: color.surface),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: Row(
+                  children: [
+                    Icon(
+                      IconsDuotone.magnifyingGlass,
+                      color:
+                          color.surface.shade400.dark(color.surface.shade600),
+                    ),
+                    Gap.sm(),
+                    Expanded(child: Text('Search')),
+                  ],
+                ),
               ),
             ),
             actions: [
@@ -90,7 +105,36 @@ class AppPage extends HookWidget with ThemeValues {
                     'Heading',
                     style: text.heading,
                   ),
-                  const Gap.sm(),
+                  const Gap.md(),
+                  Container(
+                    clipBehavior: Clip.antiAlias,
+                    decoration: BoxDecoration(
+                      color: color.surface,
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: Collapsible(
+                      collapsedSize: 80,
+                      collapsed: collapsed.value,
+                      alignment: Alignment.center,
+                      child: Builder(
+                        builder: (context) {
+                          return GestureDetector(
+                            onTap: () {
+                              collapsed.value = !collapsed.value;
+                            },
+                            child: AspectRatio(
+                              aspectRatio: 16 / 10,
+                              child: Image.network(
+                                "https://images.unsplash.com/photo-1712315461416-bdaeba08ce20?q=80&w=2487&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+                  ),
+                  const Gap.md(),
                   Text(
                     "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
                     style: text.body,

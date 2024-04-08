@@ -28,13 +28,13 @@ class ScrollArea extends CustomScrollView {
 
   @override
   List<Widget> buildSlivers(BuildContext context) {
-    final padding = ScrollAreaPadding.of(context);
+    final caps = ScrollAreaCaps.of(context);
+    final start = caps?.start ?? [];
+    final end = caps?.end ?? [];
     return [
-      if (padding.top > 0)
-        SliverToBoxAdapter(child: SizedBox(height: padding.top)),
+      if (start.isNotEmpty) ...start.map((c) => _Sliver(child: c)),
       ...super.buildSlivers(context).map((child) => _Sliver(child: child)),
-      if (padding.bottom > 0)
-        SliverToBoxAdapter(child: SizedBox(height: padding.bottom)),
+      if (end.isNotEmpty) ...end.map((c) => _Sliver(child: c)),
     ];
   }
 }
@@ -117,54 +117,27 @@ class _SingleChildRenderObjectElement extends SingleChildRenderObjectElement {
 }
 
 ///
-class ScrollAreaPadding extends InheritedWidget {
+class ScrollAreaCaps extends InheritedWidget {
   ///
-  const ScrollAreaPadding({
-    required this.padding,
+  const ScrollAreaCaps({
     required super.child,
+    this.start = const [],
+    this.end = const [],
     super.key,
   });
 
-  ///
-  final VerticalInsets padding;
+  /// Widgets to place at the start of the scroll area
+  final List<Widget> start;
+
+  /// Widgets to place at the end of the scroll area
+  final List<Widget> end;
 
   ///
-  static VerticalInsets of(BuildContext context) {
-    return context
-            .dependOnInheritedWidgetOfExactType<ScrollAreaPadding>()
-            ?.padding ??
-        const VerticalInsets();
+  static ScrollAreaCaps? of(BuildContext context) {
+    return context.dependOnInheritedWidgetOfExactType<ScrollAreaCaps>();
   }
 
   @override
-  bool updateShouldNotify(ScrollAreaPadding oldWidget) =>
-      padding != oldWidget.padding;
-}
-
-///
-@immutable
-class VerticalInsets {
-  ///
-  const VerticalInsets({
-    this.top = 0,
-    this.bottom = 0,
-  });
-
-  ///
-  final double top;
-
-  ///
-  final double bottom;
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(this, other)) return true;
-
-    return other is VerticalInsets &&
-        other.top == top &&
-        other.bottom == bottom;
-  }
-
-  @override
-  int get hashCode => top.hashCode ^ bottom.hashCode;
+  bool updateShouldNotify(ScrollAreaCaps oldWidget) =>
+      start != oldWidget.start || end != oldWidget.end;
 }

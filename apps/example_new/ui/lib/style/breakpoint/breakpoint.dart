@@ -51,6 +51,9 @@ sealed class Breakpoint {
   ///
   double get maxWidth;
 
+  // TODO add values for max content width and gutters etc
+  // These will be used by section widget
+
   /// Less than operator
   bool operator <(Breakpoint other) => maxWidth < other.maxWidth;
 

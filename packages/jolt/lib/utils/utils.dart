@@ -4,6 +4,7 @@ export 'color/color_shades.dart';
 export 'device/device.dart';
 export 'device/platform.dart';
 export 'dialog/dialog.dart';
-export 'typography/typography.dart';
+export 'layout/layout.dart';
 export 'style/inherited_style.dart';
 export 'style/style.dart';
+export 'typography/typography.dart';

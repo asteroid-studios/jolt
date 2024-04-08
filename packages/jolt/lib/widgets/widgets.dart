@@ -1,4 +1,5 @@
 export 'blur/blur.dart';
+export 'collapsible/collapsible.dart';
 export 'hero_optional/hero_optional.dart';
 export 'load_more_indicator/load_more_indicator.dart';
 export 'refresh_indicator/refresh_indicator.dart';
