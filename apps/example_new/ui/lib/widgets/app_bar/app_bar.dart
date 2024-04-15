@@ -1,5 +1,3 @@
-import 'package:flutter/gestures.dart';
-import 'package:flutter/rendering.dart';
 import 'package:ui/ui.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
@@ -9,7 +7,7 @@ class AppBar extends StatefulWidget {
   const AppBar({
     this.title,
     this.titleStyle,
-    this.pinned = true,
+    this.pinned = false,
     this.floating = false,
     this.bottom,
     this.background,
@@ -94,10 +92,10 @@ class _AppBarState extends State<AppBar> with ThemeValues {
                 Row(
                   children: [
                     HeroOptional(
-                      tag: visible ? 'AppBarBack' : null,
+                      tag: '',
+                      // tag: visible ? 'AppBarBack' : null,
                       flightShuttleBuilder:
                           showBack ? null : flightShuttleFadeBuilder,
-                      transitionOnUserGestures: true,
                       child: SizedBox(
                         height: 40,
                         child: showBack
@@ -115,7 +113,8 @@ class _AppBarState extends State<AppBar> with ThemeValues {
                     if (widget.title != null)
                       Expanded(
                         child: HeroOptional(
-                          tag: visible ? 'AppBarTitle' : null,
+                          tag: '',
+                          // tag: visible ? 'AppBarTitle' : null,
                           child: Text(
                             widget.title!,
                             style: widget.titleStyle ?? text.heading,
@@ -123,7 +122,8 @@ class _AppBarState extends State<AppBar> with ThemeValues {
                         ),
                       ),
                     HeroOptional(
-                      tag: visible ? 'AppBarActions' : null,
+                      tag: '',
+                      // tag: visible ? 'AppBarActions' : null,
                       child: SingleChildScrollView(
                         scrollDirection: Axis.horizontal,
                         child: ConstrainedBox(
@@ -161,51 +161,12 @@ class _AppBarState extends State<AppBar> with ThemeValues {
     //  }
     // ),
 
-    if (widget.floating) {
-      final scrollDirection = Scaffold.of(context).scrollDirection;
-      final hideAppBar = scrollDirection == ScrollDirection.reverse;
+    if (!widget.floating && !widget.pinned) return appBar;
 
-      return SliverDynamicPersistentHeader(
-        // scrollBehavior: SliverHeaderBehavior.floating,
-        child: appBar,
-      );
-    }
-
-    if (widget.pinned) return SliverDynamicPersistentHeader(child: appBar);
-
-    return appBar;
-  }
-}
-
-///
-class Floating extends StatefulWidget {
-  ///
-  const Floating({
-    required this.child,
-    super.key,
-  });
-
-  ///
-  final Widget child;
-
-  @override
-  State<Floating> createState() => _FloatingState();
-}
-
-class _FloatingState extends State<Floating> {
-  @override
-  Widget build(BuildContext context) {
-    return ListenableBuilder(
-      listenable: Scrollable.of(context).position,
-      builder: (context, child) {
-        final position = Scrollable.of(context).position;
-        return Collapsible(
-          alignment: Alignment.bottomCenter,
-          collapsedSizeOffset: position.pixels,
-          collapsed: true,
-          child: widget.child,
-        );
-      },
+    return SliverDynamicPersistentHeader(
+      floating: widget.floating,
+      pinned: widget.pinned,
+      child: appBar,
     );
   }
 }

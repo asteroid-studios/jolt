@@ -54,9 +54,9 @@ class Gap extends StatelessWidget {
         spacing = SpacingSize.xxxl;
 
   ///
-  const Gap.section({super.key})
+  const Gap.hero({super.key})
       : size = null,
-        spacing = SpacingSize.section;
+        spacing = SpacingSize.hero;
 
   ///
   final double? size;

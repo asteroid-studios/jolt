@@ -121,8 +121,9 @@ class _DrawerSurface extends StatelessWidget with ThemeValues {
     return Container(
       width: width,
       height: height,
+      clipBehavior: Clip.antiAlias,
       // margin: const EdgeInsets.symmetric(vertical: 8),
-      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 24),
+      // padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 24),
       decoration: BoxDecoration(
         color: color.background,
         borderRadius: BorderRadius.only(

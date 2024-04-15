@@ -1,7 +1,7 @@
 // Flutter exports
 import 'package:jolt/jolt.dart';
 
-export 'package:flutter/material.dart' show Scrollbar, SelectionArea;
+export 'package:flutter/material.dart' show SelectionArea;
 export 'package:flutter/widgets.dart'
     hide
         ColorSwatch,

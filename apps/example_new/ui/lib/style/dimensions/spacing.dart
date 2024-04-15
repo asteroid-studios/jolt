@@ -31,7 +31,7 @@ enum SpacingSize {
   xxxl(48),
 
   ///
-  section(128);
+  hero(128);
 
   const SpacingSize(this.value);
 
@@ -72,5 +72,5 @@ class Spacing {
   static double get xxxl => SpacingSize.xxxl.value;
 
   ///
-  static double get section => SpacingSize.section.value;
+  static double get hero => SpacingSize.hero.value;
 }

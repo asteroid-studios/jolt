@@ -245,13 +245,10 @@
       "name": "jolt_workspace",
       "rootUri": "../",
       "packageUri": "lib/",
-      "languageVersion": "2.18"
+      "languageVersion": "3.3"
     }
   ],
-  "generated": "2024-03-24T04:44:15.391091Z",
+  "generated": "2024-04-09T04:47:06.616976Z",
   "generator": "pub",
-  "generatorVersion": "3.4.0-267.0.dev",
-  "flutterRoot": "file:///Users/kanewickman/fvm/versions/master",
-  "flutterVersion": "3.21.0-13.0.pre.26",
-  "pubCache": "file:///Users/kanewickman/.pub-cache"
+  "generatorVersion": "3.3.0"
 }

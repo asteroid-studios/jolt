@@ -36,11 +36,12 @@ packages:
   auto_route:
     dependency: "direct main"
     description:
-      name: auto_route
-      sha256: b8811ee87bf3099976f5d10d8a6b5d4f2a7e936acae61c7ef5b3a2725bc2f2c7
-      url: "https://pub.dev"
-    source: hosted
-    version: "8.0.0"
+      path: auto_route
+      ref: master
+      resolved-ref: "201c7069ee0417f73e021dabebf05f8a99b855ec"
+      url: "https://github.com/kane-knowby/auto_route_library.git"
+    source: git
+    version: "7.8.4"
   auto_route_generator:
     dependency: "direct dev"
     description:
@@ -225,14 +226,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.3.6"
-  extended_sliver:
-    dependency: transitive
-    description:
-      name: extended_sliver
-      sha256: "2198476e535aa0210656a9cf8b59331bf860bb543ac2431c5ec8d49bd76a310d"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.1.3"
   fake_async:
     dependency: transitive
     description:
@@ -360,6 +353,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.4"
+  jni:
+    dependency: transitive
+    description:
+      name: jni
+      sha256: "63984817b9ac1d07a02d0a8da20b1d526ba1872d75c6667b4d667f4facc39222"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.8.0"
   jolt:
     dependency: "direct overridden"
     description:
@@ -447,6 +448,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.5"
+  native_storage:
+    dependency: transitive
+    description:
+      name: native_storage
+      sha256: "0eb8bd4804e71dfd46b159dd2f808d52e4bfb2e98d7f92ad68c33f471487c562"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.1.3"
   nested:
     dependency: transitive
     description:
@@ -471,30 +480,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.9.0"
-  path_provider_linux:
-    dependency: transitive
-    description:
-      name: path_provider_linux
-      sha256: f7a1fe3a634fe7734c8d3f2766ad746ae2a2884abe22e241a8b301bf5cac3279
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.2.1"
-  path_provider_platform_interface:
-    dependency: transitive
-    description:
-      name: path_provider_platform_interface
-      sha256: "88f5779f72ba699763fa3a3b06aa4bf6de76c8e5de842cf6f29e2e06476c2334"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.1.2"
-  path_provider_windows:
-    dependency: transitive
-    description:
-      name: path_provider_windows
-      sha256: "8bc9f22eee8690981c22aa7fc602f5c85b497a6fb2ceb35ee5a5e5ed85ad8170"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.2.1"
   petitparser:
     dependency: transitive
     description:
@@ -519,14 +504,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.4"
-  platform:
-    dependency: transitive
-    description:
-      name: platform
-      sha256: "12220bb4b65720483f8fa9450b4332347737cf8213dd2840d8b2c823e47243ec"
-      url: "https://pub.dev"
-    source: hosted
-    version: "3.1.4"
   plugin_platform_interface:
     dependency: transitive
     description:
@@ -559,62 +536,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.2.3"
-  shared_preferences:
-    dependency: transitive
-    description:
-      name: shared_preferences
-      sha256: "81429e4481e1ccfb51ede496e916348668fd0921627779233bd24cc3ff6abd02"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.2.2"
-  shared_preferences_android:
-    dependency: transitive
-    description:
-      name: shared_preferences_android
-      sha256: "8568a389334b6e83415b6aae55378e158fbc2314e074983362d20c562780fb06"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.2.1"
-  shared_preferences_foundation:
-    dependency: transitive
-    description:
-      name: shared_preferences_foundation
-      sha256: "7708d83064f38060c7b39db12aefe449cb8cdc031d6062280087bc4cdb988f5c"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.3.5"
-  shared_preferences_linux:
-    dependency: transitive
-    description:
-      name: shared_preferences_linux
-      sha256: "9f2cbcf46d4270ea8be39fa156d86379077c8a5228d9dfdb1164ae0bb93f1faa"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.3.2"
-  shared_preferences_platform_interface:
-    dependency: transitive
-    description:
-      name: shared_preferences_platform_interface
-      sha256: "22e2ecac9419b4246d7c22bfbbda589e3acf5c0351137d87dd2939d984d37c3b"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.3.2"
-  shared_preferences_web:
-    dependency: transitive
-    description:
-      name: shared_preferences_web
-      sha256: "9aee1089b36bd2aafe06582b7d7817fd317ef05fc30e6ba14bff247d0933042a"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.3.0"
-  shared_preferences_windows:
-    dependency: transitive
-    description:
-      name: shared_preferences_windows
-      sha256: "841ad54f3c8381c480d0c9b508b89a34036f512482c407e6df7a9c4aa2ef8f59"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.3.2"
   shelf:
     dependency: transitive
     description:
@@ -636,6 +557,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.99"
+  sliver_tools:
+    dependency: transitive
+    description:
+      name: sliver_tools
+      sha256: eae28220badfb9d0559207badcbbc9ad5331aac829a88cb0964d330d2a4636a6
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.2.12"
   source_gen:
     dependency: transitive
     description:
@@ -791,10 +720,130 @@ packages:
     dependency: transitive
     description:
       name: win32
-      sha256: "8cb58b45c47dcb42ab3651533626161d6b67a2921917d8d429791f76972b3480"
+      sha256: "0a989dc7ca2bb51eac91e8fd00851297cfffd641aa7538b165c62637ca0eaa4a"
       url: "https://pub.dev"
     source: hosted
-    version: "5.3.0"
+    version: "5.4.0"
+  win32_registry:
+    dependency: transitive
+    description:
+      name: win32_registry
+      sha256: "10589e0d7f4e053f2c61023a31c9ce01146656a70b7b7f0828c0b46d7da2a9bb"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.1.3"
+  windows_applicationmodel:
+    dependency: transitive
+    description:
+      name: windows_applicationmodel
+      sha256: fce866308c8395efca0ea646cc8ee3ff5a59470f82458e420cf170129876cc85
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.2.0"
+  windows_data:
+    dependency: transitive
+    description:
+      name: windows_data
+      sha256: "7da30e632a9bb8db10c7c4bae11e8cae66cf9b89efb5f1a7ff19b8906f3fdf08"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.2.0"
+  windows_devices:
+    dependency: transitive
+    description:
+      name: windows_devices
+      sha256: "503d78b9f721d42b35c1d280c3ec839d1006d29b7b5cabd38ed100458d9f0358"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.2.0"
+  windows_foundation:
+    dependency: transitive
+    description:
+      name: windows_foundation
+      sha256: "3ed6e5346e9d54eff9781b1b371a47ca323d0978f4b26e8916e8bc494cae187f"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.2.0"
+  windows_globalization:
+    dependency: transitive
+    description:
+      name: windows_globalization
+      sha256: "162e7f05a866f2d99ae797afa9c68dff570ba8562d13c5c0a7cc14089b3c8d18"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.1.0+1"
+  windows_graphics:
+    dependency: transitive
+    description:
+      name: windows_graphics
+      sha256: a6646c32ff79105264dcc9cf47ead211ba176386f857b63394e6d29f0c5ff9eb
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.2.0"
+  windows_media:
+    dependency: transitive
+    description:
+      name: windows_media
+      sha256: "6b55c1a7ed48f1e38eb1dc4829eca7ee9fdbe6d2a4744d887d99ba13bde78c7d"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.2.0"
+  windows_networking:
+    dependency: transitive
+    description:
+      name: windows_networking
+      sha256: "04f9e1f004f85af3d400c24bd226efb0c4513f7f843ba07998528f0bdee62e7a"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.2.0"
+  windows_perception:
+    dependency: transitive
+    description:
+      name: windows_perception
+      sha256: aa9fb6c8c97be855aece8f28943284c2680afa65a012144e012173081e568728
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.1.0"
+  windows_security:
+    dependency: transitive
+    description:
+      name: windows_security
+      sha256: c1f2bbe4c2b2fdf07cb50afff652413bb8f908d27328c547db03e7591c1331e2
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.1.0+1"
+  windows_services:
+    dependency: transitive
+    description:
+      name: windows_services
+      sha256: dad37ce3c795867e650b66a347b412e066e625a734ac2444ff163f4e5b8a040b
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.1.0"
+  windows_storage:
+    dependency: transitive
+    description:
+      name: windows_storage
+      sha256: ba370214ad4dca9ffda684f40231a5da68f296d8d8dde1b7c0b8011dd150b64e
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.2.0"
+  windows_system:
+    dependency: transitive
+    description:
+      name: windows_system
+      sha256: "8d5c2524bef8c71923b16cd9610fe194c77540687fae661e4fbbb7c78340fabe"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.1.0+1"
+  windows_ui:
+    dependency: transitive
+    description:
+      name: windows_ui
+      sha256: "8fdff2a7bc05070ea3021b320d64fa27559095708bc8912cd3ee9eb509ed9b95"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.2.0"
   xdg_directories:
     dependency: transitive
     description:

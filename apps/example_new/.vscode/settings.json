@@ -1,3 +1,6 @@
 {
-  "cSpell.words": ["routefly", "xxxs"]
+  "cSpell.words": ["xxxs"],
+  "editor.codeActionsOnSave": {
+    "source.fixAll": "explicit"
+  }
 }

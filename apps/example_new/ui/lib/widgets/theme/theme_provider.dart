@@ -1,3 +1,5 @@
+import 'package:collection/collection.dart';
+import 'package:native_storage/native_storage.dart';
 import 'package:ui/ui.dart';
 
 ///
@@ -34,9 +36,11 @@ class ThemeProvider extends StatefulWidget {
 
 ///
 class ThemeProviderState extends State<ThemeProvider> with ThemeValues {
+  // TODO store actual values to be available like context.color.etc
+
   ///
   void setTheme(Theme newTheme) {
-    _ThemeProvider.instance.theme = newTheme;
+    _ThemeProvider.instance.setTheme(newTheme);
     refreshTheme();
   }
 
@@ -85,16 +89,29 @@ class _InheritedThemeProvider extends InheritedWidget {
 
 ///
 class _ThemeProvider {
+  // TODO change default from light to system.
   _ThemeProvider._() {
-    // TODO initialise from shared preferences
-    // Need to make sure it is finished before first frame.
-    // Maybe do as part of runApp?
+    final themeId = _storage.read(_themeIdKey);
+    _theme =
+        themes.firstWhereOrNull((t) => t.id == themeId) ?? DefaultThemeLight();
   }
+
   static final instance = _ThemeProvider._();
 
-  double scalingFactor = 1;
+  void setTheme(Theme newTheme) {
+    _theme = newTheme;
+    _storage.write(_themeIdKey, newTheme.id);
+  }
 
-  Theme theme = themes.firstOrNull ?? DefaultThemeLight();
+  Theme _theme = themes.firstOrNull ?? DefaultThemeLight();
+
+  Theme get theme => _theme;
+
+  NativeStorage get _storage => NativeStorage();
+
+  String get _themeIdKey => 'uiThemeId';
+
+  double scalingFactor = 1;
 
   Typography typography = const Typography();
 }

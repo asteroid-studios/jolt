@@ -124,25 +124,15 @@ sealed class Breakpoint {
     T? tabletLandscape,
     T? laptop,
     T? desktop,
-  }) {
-    final mobileBreakpoint = mobile ?? defaultValue;
-    final tabletBreakpoint = tablet ?? mobileBreakpoint;
-    final tabletLandscapeBreakpoint = tabletLandscape ?? tabletBreakpoint;
-    final laptopBreakpoint = laptop ?? tabletLandscapeBreakpoint;
-    final desktopBreakpoint = desktop ?? laptopBreakpoint;
-    switch (current()) {
-      case Mobile():
-        return mobileBreakpoint;
-      case Tablet():
-        return tabletBreakpoint;
-      case TabletLandscape():
-        return tabletLandscapeBreakpoint;
-      case Laptop():
-        return laptopBreakpoint;
-      case Desktop():
-        return desktopBreakpoint;
-    }
-  }
+  }) =>
+      current().when(
+        defaultValue,
+        mobile: mobile,
+        tablet: tablet,
+        tabletLandscape: tabletLandscape,
+        laptop: laptop,
+        desktop: desktop,
+      );
 }
 
 Size _screenSize() {

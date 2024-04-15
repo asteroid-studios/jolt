@@ -14,4 +14,6 @@ export 'indicators/load_more_indicator/load_more_indicator.dart';
 export 'indicators/refresh_indicator/refresh_indicator.dart';
 export 'navigation_bar/navigation_bar.dart';
 export 'scaffold/scaffold.dart';
+export 'scroll_bar/scroll_bar.dart';
+export 'section/section.dart';
 export 'theme/theme_provider.dart';
