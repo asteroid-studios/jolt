@@ -75,6 +75,12 @@ class _SliverDynamicPersistentHeaderState
               ),
             ),
           ),
+        if (size == Size.zero)
+          SliverToBoxAdapter(
+            child: IgnoreHeroScope(
+              child: widget.expandedChild ?? widget.child,
+            ),
+          ),
       ],
     );
   }

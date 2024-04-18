@@ -9,7 +9,8 @@ export 'package:flutter/widgets.dart'
         FormField,
         FormFieldBuilder,
         FormFieldState,
-        FormState;
+        FormState,
+        Hero;
 
 export 'package:jolt/utils/utils.dart';
 export 'package:jolt/widgets/widgets.dart';

@@ -1,11 +1,12 @@
 import 'package:jolt/jolt.dart';
+import 'package:flutter/widgets.dart' as widgets show Hero;
 
 ///
-class HeroOptional extends StatelessWidget {
+class Hero extends StatelessWidget {
   /// When a tag is provided, the child will be wrapped in a [Hero] widget.
   ///
   /// If no tag is provided, the child will be returned as is.
-  const HeroOptional({
+  const Hero({
     required this.tag,
     required this.child,
     this.createRectTween,
@@ -43,7 +44,7 @@ class HeroOptional extends StatelessWidget {
   Widget build(BuildContext context) {
     final ignoreHero = IgnoreHeroScope.of(context);
     if (tag == null || tag!.isEmpty || ignoreHero) return child;
-    return Hero(
+    return widgets.Hero(
       tag: tag!,
       createRectTween: createRectTween,
       flightShuttleBuilder: flightShuttleBuilder,

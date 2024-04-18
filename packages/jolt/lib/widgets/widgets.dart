@@ -1,3 +1,4 @@
+export 'animated_decorated_sliver/animated_decorated_sliver.dart';
 export 'blur/blur.dart';
 export 'collapsible/collapsible.dart';
 export 'hero_optional/hero_optional.dart';

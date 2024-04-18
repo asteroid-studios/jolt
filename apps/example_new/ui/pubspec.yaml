@@ -8,6 +8,7 @@ environment:
   flutter: ">=3.0.0"
 
 dependencies:
+  boxy: ^2.2.0
   collection: ^1.18.0
   flutter:
     sdk: flutter
@@ -16,6 +17,7 @@ dependencies:
   jolt:
   native_storage: ^0.1.3
   phosphor_flutter: ^2.0.1
+  sliver_tools: ^0.2.12
   visibility_detector: ^0.4.0+2
 
 dev_dependencies:

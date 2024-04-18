@@ -9,6 +9,7 @@ class AppBar extends StatefulWidget {
     this.titleStyle,
     this.pinned = false,
     this.floating = false,
+    this.fullWidth = false,
     this.bottom,
     this.background,
     this.actions = const [],
@@ -34,6 +35,9 @@ class AppBar extends StatefulWidget {
   final bool pinned;
 
   ///
+  final bool fullWidth;
+
+  ///
   final bool floating;
 
   @override
@@ -45,7 +49,7 @@ class _AppBarState extends State<AppBar> with ThemeValues {
 
   /// Scroll to the top of the scrollable widget
   void scrollToTop() {
-    // TODO issue is that you cannot receive taps if the view is already scrolling
+    // TODOissue is that you cannot receive taps if the view is already scrolling
     // Because of this, the user has to tap twice to scroll to the top
     // https://github.com/flutter/flutter/issues/42588
     // https://github.com/flutter/flutter/issues/92119
@@ -62,91 +66,79 @@ class _AppBarState extends State<AppBar> with ThemeValues {
     final background = widget.background ?? color.background;
     final appBar = GestureDetector(
       onTap: scrollToTop,
-      child: Blur(
-        child: Container(
-          width: double.infinity,
-          padding: EdgeInsets.only(
-            top: MediaQuery.of(context).viewPadding.top + Spacing.sm,
-            left: Spacing.lg,
-            right: Spacing.lg,
-            bottom: Spacing.sm,
-          ),
-          decoration: BoxDecoration(
-            color: background.withOpacity(0.9),
-            border: Border(
-              bottom: BorderSide(
-                color: color.outline,
+      child: Container(
+        width: double.infinity,
+        padding: EdgeInsets.only(
+          top: MediaQuery.of(context).viewPadding.top + Spacing.sm,
+          bottom: Spacing.sm,
+        ),
+        child: VisibilityDetector(
+          key: const Key('AppBar'),
+          onVisibilityChanged: (visibilityInfo) {
+            final isVisible = visibilityInfo.visibleFraction == 1;
+            if (visible != isVisible && context.mounted) {
+              setState(() => visible = isVisible);
+            }
+          },
+          child: Column(
+            children: [
+              Row(
+                children: [
+                  Hero(
+                    tag: '',
+                    // tag: visible ? 'AppBarBack' : null,
+                    flightShuttleBuilder:
+                        showBack ? null : flightShuttleFadeBuilder,
+                    child: SizedBox(
+                      height: 40,
+                      child: showBack
+                          ? GestureDetector(
+                              onTap: () => Navigator.of(context).maybePop(),
+                              child: Icon(
+                                IconsBold.caretLeft,
+                                size: text.heading.sm.fontSize,
+                              ),
+                            )
+                          : null,
+                    ),
+                  ),
+                  if (showBack) const Gap.sm(),
+                  if (widget.title != null)
+                    Expanded(
+                      child: Hero(
+                        tag: '',
+                        // tag: visible ? 'AppBarTitle' : null,
+                        child: Text(
+                          widget.title!,
+                          style: widget.titleStyle ?? text.heading,
+                        ),
+                      ),
+                    ),
+                  Hero(
+                    tag: '',
+                    // tag: visible ? 'AppBarActions' : null,
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: ConstrainedBox(
+                        // TODOcome up with a better way to handle jumping when icon vs no icon
+                        constraints: const BoxConstraints(minHeight: 40),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: widget.actions,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
-            ),
-          ),
-          child: VisibilityDetector(
-            key: const Key('AppBar'),
-            onVisibilityChanged: (visibilityInfo) {
-              final isVisible = visibilityInfo.visibleFraction == 1;
-              if (visible != isVisible && context.mounted) {
-                setState(() => visible = isVisible);
-              }
-            },
-            child: Column(
-              children: [
-                Row(
-                  children: [
-                    HeroOptional(
-                      tag: '',
-                      // tag: visible ? 'AppBarBack' : null,
-                      flightShuttleBuilder:
-                          showBack ? null : flightShuttleFadeBuilder,
-                      child: SizedBox(
-                        height: 40,
-                        child: showBack
-                            ? GestureDetector(
-                                onTap: () => Navigator.of(context).maybePop(),
-                                child: Icon(
-                                  IconsBold.caretLeft,
-                                  size: text.heading.sm.fontSize,
-                                ),
-                              )
-                            : null,
-                      ),
-                    ),
-                    if (showBack) const Gap.sm(),
-                    if (widget.title != null)
-                      Expanded(
-                        child: HeroOptional(
-                          tag: '',
-                          // tag: visible ? 'AppBarTitle' : null,
-                          child: Text(
-                            widget.title!,
-                            style: widget.titleStyle ?? text.heading,
-                          ),
-                        ),
-                      ),
-                    HeroOptional(
-                      tag: '',
-                      // tag: visible ? 'AppBarActions' : null,
-                      child: SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: ConstrainedBox(
-                          // TODO come up with a better way to handle jumping when icon vs no icon
-                          constraints: const BoxConstraints(minHeight: 40),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: widget.actions,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                if (widget.bottom != null) widget.bottom!,
-              ],
-            ),
+              if (widget.bottom != null) widget.bottom!,
+            ],
           ),
         ),
       ),
     );
 
-    // TODO I should be able to support an app bar that has a min and max varient by using
+    // TODOI should be able to support an app bar that has a min and max varient by using
     // Scrollable.of(context).position.pixels.
     // They can set a min and max height, then I can animate between the two
     // Using current value of pixels.
@@ -161,9 +153,17 @@ class _AppBarState extends State<AppBar> with ThemeValues {
     //  }
     // ),
 
-    if (!widget.floating && !widget.pinned) return appBar;
-
-    return SliverDynamicPersistentHeader(
+    return Section(
+      blur: 5,
+      fullWidth: widget.fullWidth,
+      decoration: BoxDecoration(
+        color: background.withOpacity(0.9),
+        border: Border(
+          bottom: BorderSide(
+            color: color.outline,
+          ),
+        ),
+      ),
       floating: widget.floating,
       pinned: widget.pinned,
       child: appBar,

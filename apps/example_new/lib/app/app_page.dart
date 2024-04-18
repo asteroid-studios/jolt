@@ -16,57 +16,102 @@ class AppPage extends HookWidget with ThemeValues {
       bottomBar: const NavigationBar(floating: true),
       // bottomBar: NavigationBar(floating: Platform.isMobile),
       content: ScrollArea(
+        // scrollDirection: Axis.horizontal,
         children: [
-          // AppBar(
-          //   title: 'Jolt',
-          //   titleStyle: text.display.sm,
-          //   // pinned: true,
-          //   floating: true,
-          //   // floating: Platform.isMobile,
-          //   bottom: GestureDetector(
-          //     onTap: () {
-          //       collapsed.value = !collapsed.value;
-          //     },
-          //     child: Container(
-          //       width: double.infinity,
-          //       margin: EdgeInsets.only(top: Spacing.xs),
-          //       padding: EdgeInsets.symmetric(
-          //         horizontal: Spacing.lg,
-          //         vertical: Spacing.sm,
-          //       ),
-          //       decoration: BoxDecoration(
-          //         color: color.surface,
-          //         border: Border.all(color: color.surface),
-          //         borderRadius: BorderRadius.circular(8),
-          //       ),
-          //       child: Row(
-          //         children: [
-          //           Icon(
-          //             IconsDuotone.magnifyingGlass,
-          //             color:
-          //                 color.surface.shade400.dark(color.surface.shade600),
-          //           ),
-          //           Gap.sm(),
-          //           Expanded(child: Text('Search')),
-          //         ],
-          //       ),
-          //     ),
-          //   ),
-          //   actions: [
-          //     Button(
-          //       icon: color.isDark ? IconsDuotone.moon : IconsDuotone.sun,
-          //       onTap: () {
-          //         ThemeProvider.of(context)?.toggleTheme();
-          //       },
-          //     ),
-          //     if (!Platform.isMobile) const Gap.xs(),
-          //     if (!Platform.isMobile)
-          //       Button(
-          //         icon: IconsDuotone.arrowClockwise,
-          //         onTap: () => RefreshIndicator.triggerRefresh(context),
-          //       ),
-          //   ],
-          // ),
+          AppBar(
+            title: 'Jolt',
+            titleStyle: text.display.sm,
+            pinned: true,
+            // floating: true,
+            // floating: Platform.isMobile,
+            bottom: GestureDetector(
+              onTap: () {
+                collapsed.value = !collapsed.value;
+              },
+              child: Container(
+                width: double.infinity,
+                margin: EdgeInsets.only(top: Spacing.xs),
+                padding: EdgeInsets.symmetric(
+                  horizontal: Spacing.lg,
+                  vertical: Spacing.sm,
+                ),
+                decoration: BoxDecoration(
+                  color: color.surface,
+                  border: Border.all(color: color.surface),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: Row(
+                  children: [
+                    Icon(
+                      IconsDuotone.magnifyingGlass,
+                      color:
+                          color.surface.shade400.dark(color.surface.shade600),
+                    ),
+                    const Gap.sm(),
+                    const Expanded(child: Text('Search')),
+                  ],
+                ),
+              ),
+            ),
+            actions: [
+              Button(
+                icon: color.isDark ? IconsDuotone.moon : IconsDuotone.sun,
+                onTap: () {
+                  ThemeProvider.of(context)?.toggleTheme();
+                },
+              ),
+              if (!Platform.isMobile) const Gap.xs(),
+              if (!Platform.isMobile)
+                Button(
+                  icon: IconsDuotone.arrowClockwise,
+                  onTap: () => RefreshIndicator.triggerRefresh(context),
+                ),
+            ],
+          ),
+          Section(
+            background: color.surface,
+            // fillRemaining: true,
+            // fillMainAxis: true,
+            // fillMainAxisFraction: 0.4,
+            pinned: true,
+            child: Column(
+              children: List.generate(
+                3,
+                (i) => Container(
+                  height: 50,
+                  margin: const EdgeInsets.only(top: 20),
+                  color: color.primary,
+                ),
+              ),
+            ),
+            // child: SliverList.builder(
+            //   itemCount: 4,
+            //   itemBuilder: (context, index) {
+            //     return Container(
+            //       height: 50,
+            //       margin: const EdgeInsets.only(top: 20),
+            //       color: color.primary,
+            //     );
+            //   },
+            // delegate: SliverChildBuilderDelegate(
+            //   childCount: 10,
+            //   (context, index) {
+            //     return Container(
+            //       height: 30,
+            //       margin: const EdgeInsets.only(top: 20),
+            //       color: Colors.violet,
+            //     );
+            //   },
+            // ),
+            // ),
+          ),
+          Section(
+            fillMainAxis: true,
+            fillMainAxisFraction: 0.5,
+            child: Container(
+              color: Colors.rose,
+            ),
+          ),
           ScrollGroup(
             children: [
               SliverDynamicPersistentHeader(

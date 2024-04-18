@@ -33,8 +33,9 @@ class WidgetsPage extends StatelessWidget with ThemeValues {
               ),
             ],
           ),
-          SliverFillRemaining(
-            hasScrollBody: false,
+          Section(
+            // background: Colors.rose,
+            fillRemaining: true,
             child: Center(
               child: GestureDetector(
                 onTap: () {
