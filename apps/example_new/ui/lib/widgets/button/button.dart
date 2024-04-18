@@ -8,6 +8,7 @@ class Button extends StatelessWidget {
     this.icon,
     this.onTap,
     this.color,
+    this.selected = false,
     this.labelStyle,
     super.key,
   });
@@ -27,6 +28,9 @@ class Button extends StatelessWidget {
   ///
   final Color? color;
 
+  // TODOremove
+  final bool selected;
+
   @override
   Widget build(BuildContext context) {
     final c = ThemeProvider.theme.colorScheme;
@@ -38,7 +42,13 @@ class Button extends StatelessWidget {
         duration: const Duration(milliseconds: 200),
         decoration: BoxDecoration(
           color: background,
-          border: Border.all(color: background),
+          border: selected
+              ? Border.all(
+                  color: Colors.white,
+                  width: 1.2,
+                  strokeAlign: BorderSide.strokeAlignOutside,
+                )
+              : null,
           borderRadius: BorderRadius.circular(8),
         ),
         padding: EdgeInsets.symmetric(

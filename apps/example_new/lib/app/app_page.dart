@@ -63,81 +63,55 @@ class AppPage extends HookWidget with ThemeValues {
               if (!Platform.isMobile) const Gap.xs(),
               if (!Platform.isMobile)
                 Button(
+                  selected: true,
                   icon: IconsDuotone.arrowClockwise,
                   onTap: () => RefreshIndicator.triggerRefresh(context),
                 ),
             ],
           ),
-          Section(
-            background: color.surface,
-            // fillRemaining: true,
-            // fillMainAxis: true,
-            // fillMainAxisFraction: 0.4,
-            pinned: true,
-            child: Column(
-              children: List.generate(
-                3,
-                (i) => Container(
-                  height: 50,
-                  margin: const EdgeInsets.only(top: 20),
-                  color: color.primary,
-                ),
-              ),
-            ),
-            // child: SliverList.builder(
-            //   itemCount: 4,
-            //   itemBuilder: (context, index) {
-            //     return Container(
-            //       height: 50,
-            //       margin: const EdgeInsets.only(top: 20),
-            //       color: color.primary,
-            //     );
-            //   },
-            // delegate: SliverChildBuilderDelegate(
-            //   childCount: 10,
-            //   (context, index) {
-            //     return Container(
-            //       height: 30,
-            //       margin: const EdgeInsets.only(top: 20),
-            //       color: Colors.violet,
-            //     );
-            //   },
-            // ),
-            // ),
+          // Section(
+          //   fillMainAxis: true,
+          //   fillMainAxisFraction: 0.5,
+          //   child: Container(
+          //     color: Colors.rose,
+          //   ),
+          // ),
+          // const Gap.sm(),
+          RefreshIndicator(
+            onRefresh: () async {
+              await Future<void>.delayed(const Duration(milliseconds: 200));
+              spaces.value = [];
+            },
           ),
-          Section(
-            fillMainAxis: true,
-            fillMainAxisFraction: 0.5,
-            child: Container(
-              color: Colors.rose,
-            ),
-          ),
+          // const Gap.sm(),
           ScrollGroup(
             children: [
-              SliverDynamicPersistentHeader(
+              Section(
                 pinned: true,
+                blur: 5,
+                background: Colors.amber.shade400
+                    .dark(Colors.amber.shade700)
+                    .withOpacity(0.9),
                 child: Container(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: Spacing.lg,
-                    vertical: Spacing.md,
-                  ),
-                  color: Colors.amber.shade400.dark(Colors.amber.shade700),
-                  child: Text(
-                    'Title',
-                    style: text.heading.colored(
-                      Colors.black.dark(Colors.white),
-                    ),
+                  padding: EdgeInsets.symmetric(vertical: Spacing.md),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Text(
+                          'Title',
+                          style: text.heading.colored(
+                            Colors.black.dark(Colors.white),
+                          ),
+                        ),
+                      ),
+                      const Button(
+                        label: 'Test',
+                      ),
+                    ],
                   ),
                 ),
               ),
-              const Gap.sm(),
-              RefreshIndicator(
-                onRefresh: () async {
-                  await Future<void>.delayed(const Duration(milliseconds: 200));
-                  spaces.value = [];
-                },
-              ),
-              const Gap.sm(),
+              const Gap.md(),
               GestureDetector(
                 onTap: () async {
                   await context.router.push(const WidgetsRoute());
