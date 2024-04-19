@@ -1,6 +1,6 @@
 {
   "cSpell.words": ["xxxs"],
   "editor.codeActionsOnSave": {
-    "source.fixAll": "explicit"
+    "source.fixAll": "never"
   }
 }

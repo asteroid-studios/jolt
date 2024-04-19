@@ -71,7 +71,7 @@ class Section extends StatelessWidget {
   Widget build(BuildContext context) {
     final contentWidth = maxContentWidth ?? 1200.0;
     final remainingWidth = max(context.mediaQuery.size.width - contentWidth, 0);
-    final horizontalPadding = remainingWidth / 2 + 16.0;
+    final horizontalPadding = remainingWidth / 2 + 24.0;
 
     var section = child;
 
@@ -95,7 +95,7 @@ class Section extends StatelessWidget {
       }
 
       return AnimatedDecoratedSliver(
-        duration: const Duration(milliseconds: 300),
+        duration: surfaceDuration,
         decoration: decoration ?? BoxDecoration(color: background),
         sliver: SliverPadding(
           padding: fullWidth
@@ -109,13 +109,14 @@ class Section extends StatelessWidget {
     }
 
     section = AnimatedContainer(
-      duration: const Duration(milliseconds: 300),
+      duration: surfaceDuration,
       decoration: decoration ?? BoxDecoration(color: background),
       child: Padding(
         padding: fullWidth
             ? EdgeInsets.zero
-            : EdgeInsets.symmetric(
-                horizontal: horizontalPadding,
+            : EdgeInsets.only(
+                left: horizontalPadding + context.mediaQuery.padding.left,
+                right: horizontalPadding + context.mediaQuery.padding.right,
               ),
         child: child,
       ),

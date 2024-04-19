@@ -9,7 +9,9 @@ class Button extends StatelessWidget {
     this.onTap,
     this.color,
     this.selected = false,
+    this.mainAxisAlignment = MainAxisAlignment.center,
     this.labelStyle,
+    this.horizontalPadding,
     super.key,
   });
 
@@ -28,6 +30,12 @@ class Button extends StatelessWidget {
   ///
   final Color? color;
 
+  ///
+  final double? horizontalPadding;
+
+  ///
+  final MainAxisAlignment mainAxisAlignment;
+
   // TODOremove
   final bool selected;
 
@@ -39,7 +47,7 @@ class Button extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: AnimatedContainer(
-        duration: const Duration(milliseconds: 200),
+        duration: surfaceDuration,
         decoration: BoxDecoration(
           color: background,
           border: selected
@@ -53,7 +61,8 @@ class Button extends StatelessWidget {
         ),
         padding: EdgeInsets.symmetric(
           vertical: Spacing.sm,
-          horizontal: label != null ? Spacing.lg : Spacing.sm,
+          horizontal:
+              horizontalPadding ?? (label != null ? Spacing.lg : Spacing.sm),
         ),
         child: Stack(
           alignment: Alignment.center,
@@ -61,7 +70,7 @@ class Button extends StatelessWidget {
             const RotatedBox(quarterTurns: 1, child: Text('')),
             const Text(''),
             Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: mainAxisAlignment,
               children: [
                 if (icon != null)
                   Icon(

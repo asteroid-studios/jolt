@@ -10,7 +10,9 @@ export 'package:flutter/widgets.dart'
         FormFieldBuilder,
         FormFieldState,
         FormState,
-        Hero;
+        Hero,
+        SliverPersistentHeader,
+        SliverPersistentHeaderDelegate;
 
 export 'package:jolt/utils/utils.dart';
 export 'package:jolt/widgets/widgets.dart';

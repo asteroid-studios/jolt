@@ -18,57 +18,58 @@ class AppPage extends HookWidget with ThemeValues {
       content: ScrollArea(
         // scrollDirection: Axis.horizontal,
         children: [
-          AppBar(
-            title: 'Jolt',
-            titleStyle: text.display.sm,
-            pinned: true,
-            // floating: true,
-            // floating: Platform.isMobile,
-            bottom: GestureDetector(
-              onTap: () {
-                collapsed.value = !collapsed.value;
-              },
-              child: Container(
-                width: double.infinity,
-                margin: EdgeInsets.only(top: Spacing.xs),
-                padding: EdgeInsets.symmetric(
-                  horizontal: Spacing.lg,
-                  vertical: Spacing.sm,
-                ),
-                decoration: BoxDecoration(
-                  color: color.surface,
-                  border: Border.all(color: color.surface),
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: Row(
-                  children: [
-                    Icon(
-                      IconsDuotone.magnifyingGlass,
-                      color:
-                          color.surface.shade400.dark(color.surface.shade600),
-                    ),
-                    const Gap.sm(),
-                    const Expanded(child: Text('Search')),
-                  ],
-                ),
-              ),
-            ),
-            actions: [
-              Button(
-                icon: color.isDark ? IconsDuotone.moon : IconsDuotone.sun,
-                onTap: () {
-                  ThemeProvider.of(context)?.toggleTheme();
-                },
-              ),
-              if (!Platform.isMobile) const Gap.xs(),
-              if (!Platform.isMobile)
-                Button(
-                  selected: true,
-                  icon: IconsDuotone.arrowClockwise,
-                  onTap: () => RefreshIndicator.triggerRefresh(context),
-                ),
-            ],
-          ),
+          // AppBar(
+          //   title: 'Jolt',
+          //   titleStyle: text.display.sm,
+          //   pinned: true,
+          //   // floating: true,
+          //   // floating: Platform.isMobile,
+          //   bottom: GestureDetector(
+          //     onTap: () {
+          //       collapsed.value = !collapsed.value;
+          //     },
+          //     child: AnimatedContainer(
+          //       duration: surfaceDuration,
+          //       width: double.infinity,
+          //       margin: EdgeInsets.only(top: Spacing.xs),
+          //       padding: EdgeInsets.symmetric(
+          //         horizontal: Spacing.lg,
+          //         vertical: Spacing.sm,
+          //       ),
+          //       decoration: BoxDecoration(
+          //         color: color.surface,
+          //         border: Border.all(color: color.surface),
+          //         borderRadius: BorderRadius.circular(8),
+          //       ),
+          //       child: Row(
+          //         children: [
+          //           Icon(
+          //             IconsDuotone.magnifyingGlass,
+          //             color:
+          //                 color.surface.shade400.dark(color.surface.shade600),
+          //           ),
+          //           const Gap.sm(),
+          //           const Expanded(child: Text('Search')),
+          //         ],
+          //       ),
+          //     ),
+          //   ),
+          //   actions: [
+          //     Button(
+          //       icon: color.isDark ? IconsDuotone.moon : IconsDuotone.sun,
+          //       onTap: () {
+          //         ThemeProvider.of(context)?.toggleTheme();
+          //       },
+          //     ),
+          //     if (!Platform.isMobile) const Gap.xs(),
+          //     if (!Platform.isMobile)
+          //       Button(
+          //         selected: true,
+          //         icon: IconsDuotone.arrowClockwise,
+          //         onTap: () => RefreshIndicator.triggerRefresh(context),
+          //       ),
+          //   ],
+          // ),
           // Section(
           //   fillMainAxis: true,
           //   fillMainAxisFraction: 0.5,
@@ -83,41 +84,70 @@ class AppPage extends HookWidget with ThemeValues {
               spaces.value = [];
             },
           ),
+
+          Section(
+            pinned: true,
+            // floating: true,
+            blur: 5,
+            background: Colors.rose,
+            // background: Colors.amber.shade400
+            //     .dark(Colors.amber.shade700)
+            //     .withOpacity(0.9),
+            child: Container(
+              padding: EdgeInsets.symmetric(vertical: Spacing.md),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Text(
+                      'Pinned',
+                      style: text.heading.colored(
+                        Colors.black.dark(Colors.white),
+                      ),
+                    ),
+                  ),
+                  // const Button(
+                  //   label: 'Test',
+                  // ),
+                ],
+              ),
+            ),
+          ),
+          Section(
+            // pinned: true,
+            floating: true,
+            blur: 5,
+            background: Colors.green,
+            // background: Colors.rose.shade400
+            //     .dark(Colors.rose.shade700)
+            //     .withOpacity(0.9),
+            child: Container(
+              padding: EdgeInsets.symmetric(vertical: Spacing.xl),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Text(
+                      'Floating',
+                      style: text.heading.colored(
+                        Colors.black.dark(Colors.white),
+                      ),
+                    ),
+                  ),
+                  // const Button(
+                  //   label: 'Test',
+                  // ),
+                ],
+              ),
+            ),
+          ),
           // const Gap.sm(),
           ScrollGroup(
             children: [
-              Section(
-                pinned: true,
-                blur: 5,
-                background: Colors.amber.shade400
-                    .dark(Colors.amber.shade700)
-                    .withOpacity(0.9),
-                child: Container(
-                  padding: EdgeInsets.symmetric(vertical: Spacing.md),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: Text(
-                          'Title',
-                          style: text.heading.colored(
-                            Colors.black.dark(Colors.white),
-                          ),
-                        ),
-                      ),
-                      const Button(
-                        label: 'Test',
-                      ),
-                    ],
-                  ),
-                ),
-              ),
               const Gap.md(),
-              GestureDetector(
-                onTap: () async {
-                  await context.router.push(const WidgetsRoute());
-                },
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: Spacing.lg),
+              Section(
+                child: GestureDetector(
+                  onTap: () async {
+                    await context.router.push(const WidgetsRoute());
+                  },
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [

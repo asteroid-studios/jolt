@@ -16,4 +16,5 @@ export 'navigation_bar/navigation_bar.dart';
 export 'scaffold/scaffold.dart';
 export 'scroll_bar/scroll_bar.dart';
 export 'section/section.dart';
+export 'surface/surface.dart';
 export 'theme/theme_provider.dart';

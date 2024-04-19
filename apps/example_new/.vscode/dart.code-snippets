@@ -1,0 +1,7 @@
+{
+  "Gap": {
+    "prefix": "gap",
+    "body": ["const Gap.$1(),"],
+    "description": "Gap"
+  }
+}

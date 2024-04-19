@@ -2,7 +2,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:ui/ui.dart';
 
-// TODO use a better implementation using CustomMultiChildLayout
+// TODOuse a better implementation using CustomMultiChildLayout
 // https://api.flutter.dev/flutter/widgets/CustomMultiChildLayout-class.html
 ///
 class Scaffold extends StatefulWidget {
@@ -14,8 +14,6 @@ class Scaffold extends StatefulWidget {
     this.sidebarRight,
     this.safeAreaTop = true,
     this.safeAreaBottom = false,
-    this.safeAreaLeft = false,
-    this.safeAreaRight = false,
     this.background,
     this.backgroundStatusBar,
     super.key,
@@ -46,12 +44,6 @@ class Scaffold extends StatefulWidget {
 
   ///
   final bool safeAreaBottom;
-
-  ///
-  final bool safeAreaLeft;
-
-  ///
-  final bool safeAreaRight;
 
   @override
   State<Scaffold> createState() => ScaffoldState();
@@ -118,18 +110,17 @@ class ScaffoldState extends State<Scaffold> with ThemeValues {
       ),
       child: AnimatedContainer(
         padding: EdgeInsets.only(
-          left: context.mediaQuery.padding.left,
           bottom: widget.safeAreaBottom ? context.mediaQuery.padding.bottom : 0,
-          right: context.mediaQuery.padding.right,
         ),
-        duration: const Duration(milliseconds: 200),
+        duration: surfaceDuration,
         color: background,
         child: Column(
           children: [
             if (widget.safeAreaTop)
               GestureDetector(
                 onTap: scrollToTop,
-                child: Container(
+                child: AnimatedContainer(
+                  duration: surfaceDuration,
                   color: widget.backgroundStatusBar ?? background,
                   height: context.mediaQuery.padding.top,
                 ),
@@ -138,9 +129,7 @@ class ScaffoldState extends State<Scaffold> with ThemeValues {
               child: MediaQuery.removePadding(
                 context: context,
                 removeTop: widget.safeAreaTop,
-                removeRight: widget.safeAreaTop,
-                removeLeft: widget.safeAreaLeft,
-                removeBottom: widget.safeAreaRight,
+                removeBottom: widget.safeAreaBottom,
                 child: NotificationListener<UserScrollNotification>(
                   onNotification: (notification) {
                     final direction = notification.direction;
@@ -164,8 +153,8 @@ class ScaffoldState extends State<Scaffold> with ThemeValues {
                           child: Stack(
                             children: [
                               ScrollAreaCaps(
-                                end: [
-                                  const Gap(80),
+                                end: const [
+                                  Gap(80),
                                 ],
                                 child: widget.content,
                               ),

@@ -19,7 +19,8 @@ class NavigationBar extends StatelessWidget with ThemeValues {
 
     return Collapsible(
       collapsed: isScrolling && floating,
-      child: Container(
+      child: AnimatedContainer(
+        duration: surfaceDuration,
         padding: EdgeInsets.only(
           bottom: context.mediaQuery.padding.bottom,
           left: Spacing.sm,
@@ -35,7 +36,7 @@ class NavigationBar extends StatelessWidget with ThemeValues {
         ),
         child: Row(
           children: [
-            // TODO don't hard code these here
+            // TODOdon't hard code these here
             Button(
               onTap: () {},
               icon: IconsDuotone.house,
