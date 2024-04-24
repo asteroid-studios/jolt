@@ -2,7 +2,9 @@ import 'package:ui/ui.dart';
 
 ///
 extension ThemesX on BuildContext {
-  // TODO replace with actual context.theme.colorscheme
   ///
-  ColorScheme get color => ThemeProvider.theme.colorScheme;
+  Theme get theme => Theme.of(this);
+
+  ///
+  ColorScheme get color => theme.colorScheme;
 }

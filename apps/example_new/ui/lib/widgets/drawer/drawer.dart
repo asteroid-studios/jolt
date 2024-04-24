@@ -3,7 +3,7 @@ import 'package:ui/ui.dart';
 export 'drawer_route.dart';
 
 ///
-class Drawer extends StatelessWidget with DrawerRoute, ThemeValues {
+class Drawer extends StatelessWidget with DrawerRoute {
   ///
   const Drawer({
     this.crossAxisSize = 450,
@@ -37,7 +37,7 @@ class Drawer extends StatelessWidget with DrawerRoute, ThemeValues {
           },
           child: Text(
             'Drawer',
-            style: text.heading.colored(color.background.as.foreground),
+            style: Fonts.heading.colored(Colors.background.as.foreground),
           ),
         ),
       ],

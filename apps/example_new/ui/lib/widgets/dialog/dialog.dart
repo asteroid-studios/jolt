@@ -3,7 +3,7 @@ import 'package:ui/ui.dart';
 export 'dialog_route.dart';
 
 ///
-class Dialog<T> extends StatelessWidget with ThemeValues, DialogRoute {
+class Dialog<T> extends StatelessWidget with DialogRoute {
   ///
   const Dialog({
     this.title,
@@ -45,13 +45,13 @@ class Dialog<T> extends StatelessWidget with ThemeValues, DialogRoute {
           if (title != null)
             Text(
               title!,
-              style: context.text.heading.colored(color.surface.as.foreground),
+              style: context.text.heading.colored(Colors.surface.as.foreground),
             ),
           if (content != null)
             Text(
               content!,
               style:
-                  context.text.body.colored(color.surface.as.foregroundLight),
+                  context.text.body.colored(Colors.surface.as.foregroundLight),
             ),
           if (child != null) child!,
           SizedBox(height: 20),
@@ -69,14 +69,14 @@ class Dialog<T> extends StatelessWidget with ThemeValues, DialogRoute {
                   decoration: BoxDecoration(
                     border: Border.all(
                       strokeAlign: BorderSide.strokeAlignCenter,
-                      color: color.outline,
+                      color: Colors.outline,
                     ),
-                    // color: color.surface,
+                    // color: Colors.surface,
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: Text(
                     'Cancel',
-                    style: text.body.colored(color.surface.as.foreground),
+                    style: Fonts.body.colored(Colors.surface.as.foreground),
                   ),
                 ),
               ),
@@ -91,14 +91,14 @@ class Dialog<T> extends StatelessWidget with ThemeValues, DialogRoute {
                   decoration: BoxDecoration(
                     border: Border.all(
                       strokeAlign: BorderSide.strokeAlignCenter,
-                      color: color.error,
+                      color: Colors.error,
                     ),
-                    color: color.error,
+                    color: Colors.error,
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: Text(
                     'Delete',
-                    style: text.body.colored(color.error.as.foreground),
+                    style: Fonts.body.colored(Colors.error.as.foreground),
                   ),
                 ),
               ),

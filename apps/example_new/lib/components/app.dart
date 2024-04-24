@@ -4,7 +4,7 @@ import 'package:flutter/material.dart' as material;
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:ui/ui.dart';
 
-class App extends HookWidget with ThemeValues {
+class App extends HookWidget {
   const App({super.key});
 
   @override
@@ -14,18 +14,18 @@ class App extends HookWidget with ThemeValues {
     );
 
     return ThemeProvider(
-      child: HeroControllerScope(
+      builder: (context) => HeroControllerScope(
         controller: HeroController(),
         child: WidgetsApp.router(
-          color: color.primary,
+          color: Colors.primary,
           locale: const Locale('en'),
           localizationsDelegates: const [
             material.DefaultMaterialLocalizations.delegate,
             material.DefaultWidgetsLocalizations.delegate,
           ],
           debugShowCheckedModeBanner: false,
-          builder: DesktopWrapper.builder,
           routerConfig: router.routerConfig,
+          builder: (context, child) => DesktopWrapper.builder(child, router),
         ),
       ),
     );

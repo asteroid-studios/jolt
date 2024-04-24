@@ -3,7 +3,7 @@ import 'dart:math';
 import 'package:ui/ui.dart';
 
 ///
-class RefreshIndicator extends StatelessWidget with ThemeValues {
+class RefreshIndicator extends StatelessWidget {
   ///
   const RefreshIndicator({
     required this.onRefresh,
@@ -47,7 +47,7 @@ class RefreshIndicator extends StatelessWidget with ThemeValues {
                 child: refreshing
                     ? CircularProgressIndicator(
                         key: const Key('refreshing'),
-                        color: color.background.as.foreground.withOpacity(0.5),
+                        color: Colors.background.as.foreground.withOpacity(0.5),
                       )
                     : Opacity(
                         key: const Key('trigger'),
@@ -56,7 +56,7 @@ class RefreshIndicator extends StatelessWidget with ThemeValues {
                           angle: -(offset * pi) / 60,
                           child: Icon(
                             IconsDuotone.arrowClockwise,
-                            size: text.heading.fontSize,
+                            size: Fonts.heading.fontSize,
                           ),
                         ),
                       ),

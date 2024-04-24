@@ -7,6 +7,12 @@ extension TypographyX on BuildContext {
 }
 
 ///
+extension StringTextX on String {
+  ///
+  Text get text => Text(this);
+}
+
+///
 extension TextStyleX on TextStyle {
   ///
   TextStyle get italic => copyWith(fontStyle: FontStyle.italic);
@@ -73,7 +79,7 @@ extension TextStyleX on TextStyle {
     Color color, {
     Color? dark,
   }) {
-    return copyWith(color: ThemeProvider.theme.isDark ? dark ?? color : color);
+    return copyWith(color: Colors.isDark ? dark ?? color : color);
   }
 
   ///

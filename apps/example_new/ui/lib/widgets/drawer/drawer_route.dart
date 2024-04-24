@@ -101,7 +101,7 @@ mixin DrawerRoute on Object implements DrawerDialogRoute {
 }
 
 ///
-class _DrawerSurface extends StatelessWidget with ThemeValues {
+class _DrawerSurface extends StatelessWidget {
   ///
   const _DrawerSurface({
     required this.width,
@@ -125,7 +125,7 @@ class _DrawerSurface extends StatelessWidget with ThemeValues {
       // margin: const EdgeInsets.symmetric(vertical: 8),
       // padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 24),
       decoration: BoxDecoration(
-        color: color.background,
+        color: Colors.background,
         borderRadius: BorderRadius.only(
           topLeft: alignment == DrawerAlignment.right ||
                   alignment == DrawerAlignment.bottom
@@ -146,16 +146,16 @@ class _DrawerSurface extends StatelessWidget with ThemeValues {
         ),
         border: Border(
           left: alignment == DrawerAlignment.right
-              ? BorderSide(color: color.outline)
+              ? BorderSide(color: Colors.outline)
               : BorderSide.none,
           right: alignment == DrawerAlignment.left
-              ? BorderSide(color: color.outline)
+              ? BorderSide(color: Colors.outline)
               : BorderSide.none,
           top: alignment == DrawerAlignment.bottom
-              ? BorderSide(color: color.outline)
+              ? BorderSide(color: Colors.outline)
               : BorderSide.none,
           bottom: alignment == DrawerAlignment.top
-              ? BorderSide(color: color.outline)
+              ? BorderSide(color: Colors.outline)
               : BorderSide.none,
         ),
         boxShadow: [

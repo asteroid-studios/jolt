@@ -1,6 +1,5 @@
 import 'package:flutter/rendering.dart';
 import 'package:jolt/jolt.dart';
-import 'package:jolt/widgets/sliver_dynamic_persistent_header/sliver_persistent_header.dart';
 import 'package:sliver_tools/sliver_tools.dart';
 
 ///

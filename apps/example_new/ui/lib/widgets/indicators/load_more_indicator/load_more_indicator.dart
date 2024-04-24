@@ -1,7 +1,7 @@
 import 'package:ui/ui.dart';
 
 ///
-class LoadMoreIndicator extends StatelessWidget with ThemeValues {
+class LoadMoreIndicator extends StatelessWidget {
   ///
   const LoadMoreIndicator({
     required this.onLoadMore,

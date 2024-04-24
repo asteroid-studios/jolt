@@ -6,23 +6,28 @@ class Button extends StatelessWidget {
   const Button({
     this.label,
     this.icon,
+    this.trailing,
     this.onTap,
     this.color,
     this.selected = false,
     this.mainAxisAlignment = MainAxisAlignment.center,
-    this.labelStyle,
+    this.size,
+    this.padding,
     this.horizontalPadding,
     super.key,
   });
 
   ///
-  final String? label;
+  final Widget? label;
 
   ///
-  final IconData? icon;
+  final Widget? icon;
 
   ///
-  final TextStyle? labelStyle;
+  final Widget? trailing;
+
+  ///
+  final double? size;
 
   ///
   final void Function()? onTap;
@@ -31,18 +36,22 @@ class Button extends StatelessWidget {
   final Color? color;
 
   ///
+  final double? padding;
+
+  ///
   final double? horizontalPadding;
 
   ///
   final MainAxisAlignment mainAxisAlignment;
 
-  // TODOremove
+  // TODO remove
   final bool selected;
 
   @override
   Widget build(BuildContext context) {
-    final c = ThemeProvider.theme.colorScheme;
-    final background = color ?? c.surface;
+    final background = color ?? Colors.surface;
+
+    final padding = this.padding ?? Spacing.sm;
 
     return GestureDetector(
       onTap: onTap,
@@ -60,32 +69,33 @@ class Button extends StatelessWidget {
           borderRadius: BorderRadius.circular(8),
         ),
         padding: EdgeInsets.symmetric(
-          vertical: Spacing.sm,
+          vertical: padding,
           horizontal:
-              horizontalPadding ?? (label != null ? Spacing.lg : Spacing.sm),
+              horizontalPadding ?? (label != null ? Spacing.lg : padding),
         ),
-        child: Stack(
-          alignment: Alignment.center,
-          children: [
-            const RotatedBox(quarterTurns: 1, child: Text('')),
-            const Text(''),
-            Row(
-              mainAxisAlignment: mainAxisAlignment,
+        child: IconTheme.merge(
+          data: IconThemeData(
+            size: size ?? DefaultTextStyle.of(context).style.fontSize,
+          ),
+          child: DefaultTextStyle.merge(
+            style: TextStyle(fontSize: size),
+            child: Stack(
+              alignment: Alignment.center,
               children: [
-                if (icon != null)
-                  Icon(
-                    icon!,
-                    size: labelStyle?.fontSize,
-                  ),
-                if (icon != null && label != null) const Gap.xs(),
-                if (label != null)
-                  Text(
-                    label!,
-                    style: labelStyle,
-                  ),
+                const RotatedBox(quarterTurns: 1, child: Text('')),
+                const Text(''),
+                Row(
+                  mainAxisAlignment: mainAxisAlignment,
+                  children: [
+                    if (icon != null) icon!,
+                    if (icon != null && label != null) const Gap.xs(),
+                    if (label != null) label!,
+                    if (trailing != null) trailing!,
+                  ],
+                ),
               ],
             ),
-          ],
+          ),
         ),
       ),
     );

@@ -83,7 +83,7 @@ class Scaffold extends StatefulWidget {
 }
 
 ///
-class ScaffoldState extends State<Scaffold> with ThemeValues {
+class ScaffoldState extends State<Scaffold> {
   ///
   ScrollDirection scrollDirection = ScrollDirection.idle;
 
@@ -98,8 +98,20 @@ class ScaffoldState extends State<Scaffold> with ThemeValues {
   }
 
   @override
+  void initState() {
+    ScrollToTopNotifier.instance.addListener(scrollToTop);
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    ScrollToTopNotifier.instance.removeListener(scrollToTop);
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final background = widget.background ?? color.background;
+    final background = widget.background ?? Colors.background;
     final backgroundBrightness =
         background.isDark ? Brightness.dark : Brightness.light;
 
@@ -152,10 +164,9 @@ class ScaffoldState extends State<Scaffold> with ThemeValues {
                         Expanded(
                           child: Stack(
                             children: [
-                              ScrollAreaCaps(
-                                end: const [
-                                  Gap(80),
-                                ],
+                              ScrollPadding(
+                                context: context,
+                                end: 45,
                                 child: widget.content,
                               ),
                               if (widget.bottomBar != null)
@@ -190,4 +201,17 @@ class _ScaffoldScope extends InheritedWidget {
 
   @override
   bool updateShouldNotify(_ScaffoldScope oldWidget) => true;
+}
+
+///
+class ScrollToTopNotifier extends ChangeNotifier {
+  ScrollToTopNotifier._();
+
+  ///
+  static final instance = ScrollToTopNotifier._();
+
+  /// Notify any listeners to scroll to the top of the page
+  static void startScroll() {
+    instance.notifyListeners();
+  }
 }

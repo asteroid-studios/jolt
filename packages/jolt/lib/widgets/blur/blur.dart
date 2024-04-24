@@ -31,17 +31,3 @@ class Blur extends StatelessWidget {
     );
   }
 }
-
-///
-extension JoltBlurX on Widget {
-  ///
-  Widget withBlur({
-    BorderRadiusGeometry borderRadius = BorderRadius.zero,
-    double blur = 5,
-  }) =>
-      Blur(
-        borderRadius: borderRadius,
-        blur: blur,
-        child: this,
-      );
-}

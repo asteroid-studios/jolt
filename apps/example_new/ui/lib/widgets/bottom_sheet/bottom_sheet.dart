@@ -3,7 +3,7 @@ import 'package:ui/ui.dart';
 export 'bottom_sheet_route.dart';
 
 ///
-class BottomSheet extends StatelessWidget with ThemeValues, BottomSheetRoute {
+class BottomSheet extends StatelessWidget with BottomSheetRoute {
   ///
   const BottomSheet({this.title, super.key});
 
@@ -22,7 +22,7 @@ class BottomSheet extends StatelessWidget with ThemeValues, BottomSheetRoute {
           },
           child: Text(
             title ?? 'Bottom sheet',
-            style: text.heading.sm.colored(color.surface.as.foreground),
+            style: Fonts.heading.sm.colored(Colors.surface.as.foreground),
           ),
         ),
       ],

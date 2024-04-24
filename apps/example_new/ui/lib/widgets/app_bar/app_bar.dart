@@ -44,7 +44,7 @@ class AppBar extends StatefulWidget {
   State<AppBar> createState() => _AppBarState();
 }
 
-class _AppBarState extends State<AppBar> with ThemeValues {
+class _AppBarState extends State<AppBar> {
   bool visible = true;
 
   /// Scroll to the top of the scrollable widget
@@ -63,7 +63,7 @@ class _AppBarState extends State<AppBar> with ThemeValues {
   @override
   Widget build(BuildContext context) {
     final showBack = !(ModalRoute.of(context)?.isFirst ?? false);
-    final background = widget.background ?? color.background;
+    final background = widget.background ?? Colors.background;
     final appBar = GestureDetector(
       onTap: scrollToTop,
       child: Container(
@@ -84,6 +84,7 @@ class _AppBarState extends State<AppBar> with ThemeValues {
             children: [
               Row(
                 children: [
+                  if (showBack) const Gap.sm(),
                   Hero(
                     tag: '',
                     // tag: visible ? 'AppBarBack' : null,
@@ -92,17 +93,19 @@ class _AppBarState extends State<AppBar> with ThemeValues {
                     child: SizedBox(
                       height: 40,
                       child: showBack
-                          ? GestureDetector(
+                          ? Button(
+                              color: Colors.transparent,
+                              padding: Spacing.xs,
                               onTap: () => Navigator.of(context).maybePop(),
-                              child: Icon(
+                              icon: Icon(
                                 IconsBold.caretLeft,
-                                size: text.heading.sm.fontSize,
+                                size: Fonts.heading.sm.fontSize,
                               ),
                             )
                           : null,
                     ),
                   ),
-                  if (showBack) const Gap.sm(),
+                  if (showBack) const Gap.sm() else const Gap.lg(),
                   if (widget.title != null)
                     Expanded(
                       child: Hero(
@@ -110,7 +113,7 @@ class _AppBarState extends State<AppBar> with ThemeValues {
                         // tag: visible ? 'AppBarTitle' : null,
                         child: Text(
                           widget.title!,
-                          style: widget.titleStyle ?? text.heading,
+                          style: widget.titleStyle ?? Fonts.heading,
                         ),
                       ),
                     ),
@@ -129,9 +132,14 @@ class _AppBarState extends State<AppBar> with ThemeValues {
                       ),
                     ),
                   ),
+                  const Gap.sm(),
                 ],
               ),
-              if (widget.bottom != null) widget.bottom!,
+              if (widget.bottom != null)
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: Spacing.lg),
+                  child: widget.bottom,
+                ),
             ],
           ),
         ),
@@ -160,10 +168,11 @@ class _AppBarState extends State<AppBar> with ThemeValues {
         color: background.withOpacity(0.9),
         border: Border(
           bottom: BorderSide(
-            color: color.outline,
+            color: Colors.outline,
           ),
         ),
       ),
+      horizontalPadding: 0,
       floating: widget.floating,
       pinned: widget.pinned,
       child: appBar,

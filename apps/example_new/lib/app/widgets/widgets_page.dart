@@ -2,7 +2,7 @@ import 'package:example_new/utils/router/router.dart';
 import 'package:ui/ui.dart';
 
 @RoutePage()
-class WidgetsPage extends StatelessWidget with ThemeValues {
+class WidgetsPage extends StatelessWidget {
   const WidgetsPage({super.key});
 
   @override
@@ -19,14 +19,16 @@ class WidgetsPage extends StatelessWidget with ThemeValues {
             title: 'Widgets',
             actions: [
               Button(
-                icon: IconsDuotone.cpu,
+                color: Colors.transparent,
+                icon: IconsDuotone.cpu.icon,
                 onTap: () {
                   ThemeProvider.of(context)?.toggleTheme();
                 },
               ),
               const Gap.xs(),
               Button(
-                icon: IconsDuotone.copy,
+                color: Colors.transparent,
+                icon: IconsDuotone.copy.icon,
                 onTap: () {
                   ThemeProvider.of(context)?.toggleTheme();
                 },
@@ -43,7 +45,7 @@ class WidgetsPage extends StatelessWidget with ThemeValues {
                 },
                 child: Text(
                   'Widgets',
-                  style: text.heading.colored(color.background.as.foreground),
+                  style: Fonts.heading.colored(Colors.background.as.foreground),
                 ),
               ),
             ),

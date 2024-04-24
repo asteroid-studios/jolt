@@ -27,39 +27,46 @@ class ScrollArea extends CustomScrollView {
 
   @override
   List<Widget> buildSlivers(BuildContext context) {
-    final caps = ScrollAreaCaps.of(context);
-    final start = caps?.start ?? [];
-    final end = caps?.end ?? [];
+    final padding = ScrollPadding.of(context);
+
     return [
-      if (start.isNotEmpty) ...start.map((c) => JoltSliver(child: c)),
+      if (padding.start > 0)
+        SliverPersistentHeader(
+          pinned: true,
+          delegate: _FixedExtentDelegate(padding.start),
+        ),
       ...super.buildSlivers(context).map((child) => JoltSliver(child: child)),
-      if (end.isNotEmpty) ...end.map((c) => JoltSliver(child: c)),
+      if (padding.end > 0)
+        SliverPersistentHeader(
+          delegate: _FixedExtentDelegate(padding.end),
+        ),
     ];
   }
 }
 
-///
-class ScrollAreaCaps extends InheritedWidget {
-  ///
-  const ScrollAreaCaps({
-    required super.child,
-    this.start = const [],
-    this.end = const [],
-    super.key,
-  });
+class _FixedExtentDelegate extends SliverPersistentHeaderDelegate {
+  _FixedExtentDelegate(this.extent);
 
-  /// Widgets to place at the start of the scroll area
-  final List<Widget> start;
+  final double extent;
 
-  /// Widgets to place at the end of the scroll area
-  final List<Widget> end;
+  @override
+  double get minExtent => extent;
 
-  ///
-  static ScrollAreaCaps? of(BuildContext context) {
-    return context.dependOnInheritedWidgetOfExactType<ScrollAreaCaps>();
+  @override
+  double get maxExtent => extent;
+
+  @override
+  Widget build(_, __, ___) {
+    final direction = Scrollable.of(_).axisDirection;
+    if (direction == AxisDirection.left || direction == AxisDirection.right) {
+      return SizedBox(width: extent);
+    }
+    return SizedBox(height: extent);
   }
 
   @override
-  bool updateShouldNotify(ScrollAreaCaps oldWidget) =>
-      start != oldWidget.start || end != oldWidget.end;
+  bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) {
+    return maxExtent != oldDelegate.maxExtent ||
+        minExtent != oldDelegate.minExtent;
+  }
 }

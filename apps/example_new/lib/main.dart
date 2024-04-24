@@ -12,8 +12,8 @@ void main() {
   runApp(const App());
   if (Platform.isDesktop) {
     // doWhenWindowReady(() {
-    // const initialSize = Size(600, 450);
-    // appWindow.minSize = initialSize;
+    const initialSize = Size(350, 450);
+    appWindow.minSize = initialSize;
     // appWindow.size = initialSize;
     // appWindow.alignment = Alignment.center;
     appWindow.show();
@@ -39,7 +39,7 @@ final test = mat.Scaffold();
 //   State<MyHomePage> createState() => _MyHomePageState();
 // }
 
-// class _MyHomePageState extends State<MyHomePage> with ThemeValues {
+// class _MyHomePageState extends State<MyHomePage>  {
 //   @override
 //   Widget build(BuildContext context) {
 //     return AnimatedContainer(
@@ -97,7 +97,7 @@ final test = mat.Scaffold();
 //   }
 // }
 
-// class NormalColorSpread extends StatelessWidget with ThemeValues {
+// class NormalColorSpread extends StatelessWidget  {
 //   const NormalColorSpread(
 //       {required this.foreground, required this.name, super.key});
 
@@ -226,7 +226,7 @@ final test = mat.Scaffold();
 //   }
 // }
 
-// class TextPage extends StatelessWidget with ThemeValues {
+// class TextPage extends StatelessWidget  {
 //   const TextPage({super.key});
 
 //   @override
@@ -338,7 +338,7 @@ final test = mat.Scaffold();
 
 // ///
 // class TotallyCustomDialog extends StatelessWidget
-//     with ThemeValues, BottomSheetRoute {
+//     , BottomSheetRoute {
 //   ///
 //   const TotallyCustomDialog({super.key});
 

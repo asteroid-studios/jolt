@@ -14,8 +14,10 @@ class Section extends StatelessWidget {
     this.fullWidth = false,
     this.fillMainAxisFraction = 1.0,
     this.maxContentWidth,
-    this.background,
+    this.color,
     this.decoration,
+    this.horizontalPadding,
+    this.verticalPadding,
     this.blur = 0.0,
     super.key,
   })  : assert(
@@ -62,16 +64,31 @@ class Section extends StatelessWidget {
   final double blur;
 
   ///
-  final Color? background;
+  final Color? color;
 
   ///
   final Decoration? decoration;
+
+  ///
+  final double? horizontalPadding;
+
+  ///
+  final double? verticalPadding;
 
   @override
   Widget build(BuildContext context) {
     final contentWidth = maxContentWidth ?? 1200.0;
     final remainingWidth = max(context.mediaQuery.size.width - contentWidth, 0);
-    final horizontalPadding = remainingWidth / 2 + 24.0;
+    final horizontalPadding =
+        remainingWidth / 2 + (this.horizontalPadding ?? Spacing.lg);
+    final verticalPadding = this.verticalPadding ?? 0;
+    final padding = EdgeInsets.only(
+      left: fullWidth ? 0 : horizontalPadding + context.mediaQuery.padding.left,
+      right:
+          fullWidth ? 0 : horizontalPadding + context.mediaQuery.padding.right,
+      top: verticalPadding,
+      bottom: verticalPadding,
+    );
 
     var section = child;
 
@@ -96,13 +113,9 @@ class Section extends StatelessWidget {
 
       return AnimatedDecoratedSliver(
         duration: surfaceDuration,
-        decoration: decoration ?? BoxDecoration(color: background),
+        decoration: decoration ?? BoxDecoration(color: color),
         sliver: SliverPadding(
-          padding: fullWidth
-              ? EdgeInsets.zero
-              : EdgeInsets.symmetric(
-                  horizontal: horizontalPadding,
-                ),
+          padding: padding,
           sliver: fillMainAxis ? section : JoltSliver(child: section),
         ),
       );
@@ -110,14 +123,9 @@ class Section extends StatelessWidget {
 
     section = AnimatedContainer(
       duration: surfaceDuration,
-      decoration: decoration ?? BoxDecoration(color: background),
+      decoration: decoration ?? BoxDecoration(color: color),
       child: Padding(
-        padding: fullWidth
-            ? EdgeInsets.zero
-            : EdgeInsets.only(
-                left: horizontalPadding + context.mediaQuery.padding.left,
-                right: horizontalPadding + context.mediaQuery.padding.right,
-              ),
+        padding: padding,
         child: child,
       ),
     );

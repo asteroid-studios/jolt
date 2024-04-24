@@ -1,4 +1,5 @@
 import 'package:phosphor_flutter/phosphor_flutter.dart';
+import 'package:ui/ui.dart';
 
 /// Regular Phosphor Icons
 typedef Icons = PhosphorIconsRegular;
@@ -17,3 +18,9 @@ typedef IconsThin = PhosphorIconsThin;
 
 /// Light Phosphor Icons
 typedef IconsLight = PhosphorIconsLight;
+
+///
+extension IconsX on IconData {
+  ///
+  Icon get icon => Icon(this);
+}

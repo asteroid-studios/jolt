@@ -24,7 +24,9 @@ class AppRouter extends $AppRouter {
     return [
       // Auth Routes
       AutoRoute(path: '/', page: AppRoute.page),
+      AutoRoute(path: '/colors', page: ColorsRoute.page),
       AutoRoute(path: '/widgets', page: WidgetsRoute.page),
+      AutoRoute(path: '/widgets/form', page: FormRoute.page),
       AutoRoute(path: '/widgets/button', page: ButtonRoute.page),
       // Show page not found for any other url
       AutoRoute(path: '*', page: NotFoundRoute.page),

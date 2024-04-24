@@ -46,7 +46,7 @@ mixin BottomSheetRoute on Object implements JoltDialogRoute {
   }
 }
 
-class _BottomSheetSurface extends StatelessWidget with ThemeValues {
+class _BottomSheetSurface extends StatelessWidget {
   const _BottomSheetSurface({
     required this.child,
   });
@@ -69,11 +69,11 @@ class _BottomSheetSurface extends StatelessWidget with ThemeValues {
           margin: const EdgeInsets.all(16),
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 24),
           decoration: BoxDecoration(
-            color: color.background,
+            color: Colors.background,
             borderRadius: BorderRadius.circular(8),
             border: Border.all(
               strokeAlign: BorderSide.strokeAlignCenter,
-              color: color.outline,
+              color: Colors.outline,
             ),
             boxShadow: [
               BoxShadow(

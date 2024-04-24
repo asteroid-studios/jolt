@@ -3,20 +3,20 @@
 import 'package:ui/ui.dart';
 export 'dart:ui' show Brightness;
 
-final _baseColor = Colors.neutral;
+final _baseColor = Colors.tailwind.neutral;
 final _defaultBackgroundLight = Colors.white;
-final _defaultSurfaceLight = _baseColor.shade200;
+final _defaultSurfaceLight = _baseColor.shade100.darken(2);
 final _defaultOutlineLight = _baseColor.shade100;
 final _defaultBackgroundDark = _baseColor.shade950;
 final _defaultSurfaceDark = _baseColor.shade800;
 final _defaultOutlineDark = _baseColor.shade900;
-const _defaultPrimary = Colors.violet;
+final _defaultPrimary = Colors.tailwind.violet;
 final _defaultSecondary = _defaultPrimary.shade300;
-final _defaultTertiaryLight = Colors.grey.shade950;
-final _defaultTertiaryDark = Colors.grey.shade50;
-const _defaultError = Colors.red;
-const _defaultWarning = Colors.amber;
-const _defaultSuccess = Colors.green;
+final _defaultTertiaryLight = Colors.tailwind.grey.shade950;
+final _defaultTertiaryDark = Colors.tailwind.grey.shade50;
+final _defaultError = Colors.tailwind.red;
+final _defaultWarning = Colors.tailwind.amber;
+final _defaultSuccess = Colors.tailwind.green;
 
 ///
 abstract class Theme {
@@ -35,16 +35,10 @@ abstract class Theme {
   ///
   bool get isLight => colorScheme.isLight;
 
-  // TODO add spacing, radius, breakpoints, etc.
-}
-
-///
-mixin ThemeValues on Object {
   ///
-  ColorScheme get color => ThemeProvider.theme.colorScheme;
-
-  ///
-  Typography get text => ThemeProvider.theme.typography;
+  static Theme of(BuildContext context) {
+    return ThemeProvider.of(context)?.theme ?? themes.first;
+  }
 
   // TODO add spacing, radius, breakpoints, etc.
 }
