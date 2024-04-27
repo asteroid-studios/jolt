@@ -48,6 +48,10 @@ class DesktopWrapper extends HookWidget {
                 width: context.mediaQuery.size.width -
                     (NavMenu.forceOpen ? NavMenu.width : 0),
                 child: ScrollStack(
+                  // bottom: Container(
+                  //   height: 80,
+                  //   color: Colors.tailwind.amber,
+                  // ),
                   top: Blur(
                     child: GestureDetector(
                       onTap: ScrollToTopNotifier.startScroll,

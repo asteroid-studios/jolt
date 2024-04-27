@@ -32,7 +32,22 @@ class AppPage extends HookWidget {
         //   height: 70,
         //   color: Colors.tailwind.amber,
         // ),
-        bottomBar: const NavigationBar(floating: false),
+        // bottomBar: const NavigationBar(floating: false),
+        bottomBar: SafeArea(
+          child: Container(
+            margin: EdgeInsets.all(Spacing.md),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Button(
+                  size: Fonts.body.lg.fontSize,
+                  color: Colors.primary,
+                  icon: Icons.plus.icon,
+                ),
+              ],
+            ),
+          ),
+        ),
         // bottomBar: NavigationBar(floating: Platform.isMobile),
         content: Scrollbar(
           child: ScrollArea(

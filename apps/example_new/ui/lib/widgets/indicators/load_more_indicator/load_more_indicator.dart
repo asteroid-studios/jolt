@@ -19,14 +19,18 @@ class LoadMoreIndicator extends StatelessWidget {
   Widget build(BuildContext context) {
     return JoltLoadMoreIndicator(
       indicator: (bool loading) {
-        return AnimatedOpacity(
-          opacity: loading ? 0.5 : 0,
+        return AnimatedSwitcher(
           duration: const Duration(milliseconds: 500),
-          child: Container(
-            color: backgroundColor,
-            padding: EdgeInsets.all(Spacing.lg),
-            child: const Center(child: CircularProgressIndicator()),
-          ),
+          child: loading
+              ? Opacity(
+                  opacity: 0.5,
+                  child: Container(
+                    color: backgroundColor,
+                    padding: EdgeInsets.all(Spacing.lg),
+                    child: const Center(child: CircularProgressIndicator()),
+                  ),
+                )
+              : SizedBox(),
         );
       },
       onLoadMore: onLoadMore,
