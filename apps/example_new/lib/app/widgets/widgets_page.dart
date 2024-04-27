@@ -15,26 +15,26 @@ class WidgetsPage extends StatelessWidget {
       content: ScrollArea(
         physics: const NeverScrollableScrollPhysics(),
         children: [
-          AppBar(
-            title: 'Widgets',
-            actions: [
-              Button(
-                color: Colors.transparent,
-                icon: IconsDuotone.cpu.icon,
-                onTap: () {
-                  ThemeProvider.of(context)?.toggleTheme();
-                },
-              ),
-              const Gap.xs(),
-              Button(
-                color: Colors.transparent,
-                icon: IconsDuotone.copy.icon,
-                onTap: () {
-                  ThemeProvider.of(context)?.toggleTheme();
-                },
-              ),
-            ],
-          ),
+          // AppBar(
+          //   title: 'Widgets',
+          //   actions: [
+          //     Button(
+          //       color: Colors.transparent,
+          //       icon: IconsDuotone.cpu.icon,
+          //       onTap: () {
+          //         ThemeProvider.of(context)?.toggleTheme();
+          //       },
+          //     ),
+          //     const Gap.xs(),
+          //     Button(
+          //       color: Colors.transparent,
+          //       icon: IconsDuotone.copy.icon,
+          //       onTap: () {
+          //         ThemeProvider.of(context)?.toggleTheme();
+          //       },
+          //     ),
+          //   ],
+          // ),
           Section(
             // background: Colors.rose,
             fillRemaining: true,

@@ -11,7 +11,6 @@ class ButtonPage extends StatelessWidget {
       content: ScrollArea(
         physics: const NeverScrollableScrollPhysics(),
         children: [
-          AppBar(title: 'Buttons'),
           SliverFillRemaining(
             hasScrollBody: false,
             child: Center(

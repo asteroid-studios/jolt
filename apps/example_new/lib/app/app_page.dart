@@ -3,8 +3,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:ui/ui.dart';
 import 'package:flutter/material.dart' as mat;
 
-final GlobalKey<mat.RefreshIndicatorState> _refreshIndicatorKey =
-    GlobalKey<mat.RefreshIndicatorState>();
+final GlobalKey<mat.RefreshIndicatorState> _refreshIndicatorKey = GlobalKey<mat.RefreshIndicatorState>();
 
 // TODOthis page will provide some information about jolt and links to docs, discord etc
 @RoutePage()
@@ -35,7 +34,10 @@ class AppPage extends HookWidget {
         // bottomBar: const NavigationBar(floating: false),
         bottomBar: SafeArea(
           child: Container(
-            margin: EdgeInsets.all(Spacing.md),
+            margin: EdgeInsets.symmetric(
+              horizontal: Spacing.lg,
+              vertical: Spacing.md,
+            ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
@@ -55,25 +57,25 @@ class AppPage extends HookWidget {
             // physics: AlwaysScrollableScrollPhysics(),
             // scrollDirection: Axis.horizontal,
             children: [
-              AppBar(
-                title: 'Jolt',
-                titleStyle: Fonts.display.sm,
-                pinned: true,
-                // floating: true,
-                // floating: Platform.isMobile,
-                actions: [
-                  // if (!Platform.isMobile) const Gap.xs(),
-                  // if (!Platform.isMobile)
-                  Button(
-                    selected: true,
-                    icon: IconsDuotone.arrowClockwise.icon,
-                    onTap: () {
-                      _refreshIndicatorKey.currentState?.show();
-                      // RefreshIndicator.triggerRefresh(context);
-                    },
-                  ),
-                ],
-              ),
+              // AppBar(
+              //   title: 'Jolt',
+              //   titleStyle: Fonts.display.sm,
+              //   pinned: true,
+              //   // floating: true,
+              //   // floating: Platform.isMobile,
+              //   actions: [
+              //     // if (!Platform.isMobile) const Gap.xs(),
+              //     // if (!Platform.isMobile)
+              //     Button(
+              //       selected: true,
+              //       icon: IconsDuotone.arrowClockwise.icon,
+              //       onTap: () {
+              //         _refreshIndicatorKey.currentState?.show();
+              //         // RefreshIndicator.triggerRefresh(context);
+              //       },
+              //     ),
+              //   ],
+              // ),
 
               // RefreshIndicator(
               //   onRefresh: () async {
@@ -83,6 +85,7 @@ class AppPage extends HookWidget {
               //     }
               //   },
               // ),
+              const Gap.sm(),
               Section(
                 child: GestureDetector(
                   onTap: () {
@@ -105,8 +108,7 @@ class AppPage extends HookWidget {
                       children: [
                         Icon(
                           IconsDuotone.magnifyingGlass,
-                          color: Colors.surface.shade400
-                              .dark(Colors.surface.shade600),
+                          color: Colors.surface.shade400.dark(Colors.surface.shade600),
                         ),
                         const Gap.sm(),
                         const Expanded(child: Text('Search')),
@@ -267,8 +269,7 @@ class AppPage extends HookWidget {
                         horizontal: Spacing.lg,
                         vertical: Spacing.md,
                       ),
-                      color: Colors.tailwind.rose.shade400
-                          .dark(Colors.tailwind.rose.shade700),
+                      color: Colors.tailwind.rose.shade400.dark(Colors.tailwind.rose.shade700),
                       child: Text(
                         'Title',
                         style: Fonts.heading.colored(

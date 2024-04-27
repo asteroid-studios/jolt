@@ -2,5 +2,6 @@
   "cSpell.words": ["scrollbars", "xxxs"],
   "editor.codeActionsOnSave": {
     "source.fixAll": "never"
-  }
+  },
+  "dart.lineLength": 120
 }

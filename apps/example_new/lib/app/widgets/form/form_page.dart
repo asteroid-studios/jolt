@@ -11,7 +11,6 @@ class FormPage extends StatelessWidget {
       content: ScrollArea(
         physics: const NeverScrollableScrollPhysics(),
         children: [
-          AppBar(title: 'Forms'),
           SliverFillRemaining(
             hasScrollBody: false,
             child: Center(

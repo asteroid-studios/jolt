@@ -45,8 +45,7 @@ class DesktopWrapper extends HookWidget {
           Stack(
             children: [
               SizedBox(
-                width: context.mediaQuery.size.width -
-                    (NavMenu.forceOpen ? NavMenu.width : 0),
+                width: context.mediaQuery.size.width - (NavMenu.forceOpen ? NavMenu.width : 0),
                 child: ScrollStack(
                   // bottom: Container(
                   //   height: 80,
@@ -58,52 +57,74 @@ class DesktopWrapper extends HookWidget {
                       child: AnimatedContainer(
                         duration: surfaceDuration,
                         padding: EdgeInsets.only(
-                          top: context.mediaQuery.viewPadding.top + Spacing.md,
-                          bottom: Spacing.md,
+                          top: context.mediaQuery.viewPadding.top + Spacing.xs,
+                          bottom: Spacing.xs,
                         ),
-                        color: context.color.background.withOpacity(0.9),
-                        child: Row(
-                          children: [
-                            if (!NavMenu.forceOpen) const Gap.sm(),
-                            if (!NavMenu.forceOpen)
-                              Button(
-                                icon: sidebarOpen.value
-                                    ? IconsBold.x.icon
-                                    : IconsBold.sidebar.icon,
-                                color: Colors.transparent,
-                                onTap: () {
-                                  sidebarOpen.value = !sidebarOpen.value;
-                                },
-                              )
-                            else
-                              const Gap.md(),
-                            Expanded(
-                              child: Button(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                padding: Spacing.xxs,
-                                horizontalPadding: Spacing.sm,
-                                color: Colors.transparent,
-                                label: Text('Jolt', style: Fonts.heading),
-                              ),
+                        decoration: BoxDecoration(
+                          color: context.color.background.withOpacity(0.9),
+                          border: Border(
+                            bottom: BorderSide(
+                              color: context.color.outline,
                             ),
-                            Button(
-                              icon: IconsDuotone.gear.icon,
-                              color: Colors.transparent,
-                              onTap: () {
-                                ThemeProvider.of(context)?.setSystemTheme();
-                              },
-                            ),
-                            Button(
-                              icon: Colors.isDark
-                                  ? IconsDuotone.moon.icon
-                                  : IconsDuotone.sun.icon,
-                              color: Colors.transparent,
-                              onTap: () {
-                                ThemeProvider.of(context)?.toggleTheme();
-                              },
-                            ),
-                            const Gap.sm(),
-                          ],
+                          ),
+                        ),
+                        child: ListenableBuilder(
+                          listenable: router,
+                          builder: (context, _) {
+                            final isHome = router.current.name == AppRoute.name;
+                            return Row(
+                              children: [
+                                if (isHome) const Gap.sm() else const Gap.xxs(),
+                                if (!NavMenu.forceOpen && isHome)
+                                  Button(
+                                    size: Fonts.heading.sm.fontSize,
+                                    icon: sidebarOpen.value ? IconsBold.x.icon : IconsDuotone.sidebar.icon,
+                                    color: Colors.transparent,
+                                    onTap: () {
+                                      sidebarOpen.value = !sidebarOpen.value;
+                                    },
+                                  )
+                                else if (!isHome)
+                                  Button(
+                                    size: Fonts.heading.sm.fontSize,
+                                    icon: IconsBold.caretLeft.icon,
+                                    color: Colors.transparent,
+                                    onTap: router.back,
+                                  )
+                                else
+                                  const Gap.md(),
+                                Expanded(
+                                  child: Button(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    padding: Spacing.xxs,
+                                    horizontalPadding: Spacing.sm,
+                                    color: Colors.transparent,
+                                    label: Text(
+                                      router.title(context),
+                                      style: Fonts.heading,
+                                    ),
+                                  ),
+                                ),
+                                Button(
+                                  size: Fonts.heading.sm.fontSize,
+                                  icon: IconsDuotone.gear.icon,
+                                  color: Colors.transparent,
+                                  onTap: () {
+                                    ThemeProvider.of(context)?.setSystemTheme();
+                                  },
+                                ),
+                                Button(
+                                  size: Fonts.heading.sm.fontSize,
+                                  icon: Colors.isDark ? IconsDuotone.moon.icon : IconsDuotone.sun.icon,
+                                  color: Colors.transparent,
+                                  onTap: () {
+                                    ThemeProvider.of(context)?.toggleTheme();
+                                  },
+                                ),
+                                const Gap.sm(),
+                              ],
+                            );
+                          },
                         ),
                       ),
                     ),
@@ -114,8 +135,7 @@ class DesktopWrapper extends HookWidget {
               Positioned.fill(
                 child: AnimatedOpacity(
                   duration: Duration(
-                    milliseconds:
-                        !(sidebarOpen.value && !NavMenu.forceOpen) ? 500 : 200,
+                    milliseconds: !(sidebarOpen.value && !NavMenu.forceOpen) ? 500 : 200,
                   ),
                   curve: Curves.easeIn,
                   opacity: sidebarOpen.value && !NavMenu.forceOpen ? 0.8 : 0,
@@ -153,8 +173,7 @@ class DesktopWrapper extends HookWidget {
                     child: Center(
                       child: Text(
                         'Jolt',
-                        style:
-                            Fonts.body.colored(Colors.background.as.foreground),
+                        style: Fonts.body.colored(Colors.background.as.foreground),
                       ),
                     ),
                   ),

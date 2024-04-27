@@ -54,8 +54,7 @@ class Scaffold extends StatefulWidget {
 
   ///
   static ScaffoldState of(BuildContext context) {
-    final scaffoldScope =
-        context.dependOnInheritedWidgetOfExactType<_ScaffoldScope>();
+    final scaffoldScope = context.dependOnInheritedWidgetOfExactType<_ScaffoldScope>();
     if (scaffoldScope == null) {
       throw FlutterError.fromParts(
         <DiagnosticsNode>[
@@ -93,12 +92,16 @@ class ScaffoldState extends State<Scaffold> {
 
   ///
   void scrollToTop() {
-    setState(() => scrollDirection = ScrollDirection.forward);
-    PrimaryScrollController.maybeOf(context)?.animateTo(
-      0,
-      duration: const Duration(milliseconds: 500),
-      curve: Curves.ease,
-    );
+    if (!mounted) return;
+    final isTop = ModalRoute.of(context)?.isCurrent ?? false;
+    if (isTop) {
+      setState(() => scrollDirection = ScrollDirection.forward);
+      PrimaryScrollController.maybeOf(context)?.animateTo(
+        0,
+        duration: const Duration(milliseconds: 500),
+        curve: Curves.ease,
+      );
+    }
   }
 
   @override
@@ -116,8 +119,7 @@ class ScaffoldState extends State<Scaffold> {
   @override
   Widget build(BuildContext context) {
     final background = widget.background ?? Colors.background;
-    final backgroundBrightness =
-        background.isDark ? Brightness.dark : Brightness.light;
+    final backgroundBrightness = background.isDark ? Brightness.dark : Brightness.light;
 
     return AnnotatedRegion(
       value: SystemUiOverlayStyle(
@@ -149,8 +151,7 @@ class ScaffoldState extends State<Scaffold> {
                 child: NotificationListener<UserScrollNotification>(
                   onNotification: (notification) {
                     final direction = notification.direction;
-                    if (direction == ScrollDirection.idle ||
-                        direction == scrollDirection) {
+                    if (direction == ScrollDirection.idle || direction == scrollDirection) {
                       return true;
                     }
                     final pixels = notification.metrics.pixels;
