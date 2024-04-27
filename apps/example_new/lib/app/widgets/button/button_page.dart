@@ -8,19 +8,11 @@ class ButtonPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      content: ScrollArea(
-        physics: const NeverScrollableScrollPhysics(),
-        children: [
-          SliverFillRemaining(
-            hasScrollBody: false,
-            child: Center(
-              child: Text(
-                'Buttons',
-                style: Fonts.heading,
-              ),
-            ),
-          ),
-        ],
+      content: Center(
+        child: Text(
+          'Buttons',
+          style: Fonts.heading,
+        ),
       ),
     );
   }

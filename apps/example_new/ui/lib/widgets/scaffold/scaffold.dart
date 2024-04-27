@@ -53,6 +53,11 @@ class Scaffold extends StatefulWidget {
   State<Scaffold> createState() => ScaffoldState();
 
   ///
+  static ScaffoldState? maybeOf(BuildContext context) {
+    return context.dependOnInheritedWidgetOfExactType<_ScaffoldScope>()?.state;
+  }
+
+  ///
   static ScaffoldState of(BuildContext context) {
     final scaffoldScope = context.dependOnInheritedWidgetOfExactType<_ScaffoldScope>();
     if (scaffoldScope == null) {
@@ -96,7 +101,9 @@ class ScaffoldState extends State<Scaffold> {
     final isTop = ModalRoute.of(context)?.isCurrent ?? false;
     if (isTop) {
       setState(() => scrollDirection = ScrollDirection.forward);
-      PrimaryScrollController.maybeOf(context)?.animateTo(
+      final controller = PrimaryScrollController.maybeOf(context);
+      if (controller == null || !controller.hasClients) return;
+      controller.animateTo(
         0,
         duration: const Duration(milliseconds: 500),
         curve: Curves.ease,

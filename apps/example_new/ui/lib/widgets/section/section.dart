@@ -21,8 +21,7 @@ class Section extends StatelessWidget {
     this.blur = 0.0,
     super.key,
   })  : assert(
-          !((fillMainAxis || fillRemaining || pinned || floating) &&
-              child is SliverMultiBoxAdaptorWidget),
+          !((fillMainAxis || fillRemaining || pinned || floating) && child is SliverMultiBoxAdaptorWidget),
           '\n\nCannot combine fillMainAxis / fillRemaining / pinned / floating with any kind of SliverMultiBoxAdaptorWidget (SliverList etc)\n',
         ),
         assert(
@@ -79,13 +78,11 @@ class Section extends StatelessWidget {
   Widget build(BuildContext context) {
     final contentWidth = maxContentWidth ?? 1200.0;
     final remainingWidth = max(context.mediaQuery.size.width - contentWidth, 0);
-    final horizontalPadding =
-        remainingWidth / 2 + (this.horizontalPadding ?? Spacing.lg);
+    final horizontalPadding = remainingWidth / 2 + (this.horizontalPadding ?? Spacing.lg);
     final verticalPadding = this.verticalPadding ?? 0;
     final padding = EdgeInsets.only(
       left: fullWidth ? 0 : horizontalPadding + context.mediaQuery.padding.left,
-      right:
-          fullWidth ? 0 : horizontalPadding + context.mediaQuery.padding.right,
+      right: fullWidth ? 0 : horizontalPadding + context.mediaQuery.padding.right,
       top: verticalPadding,
       bottom: verticalPadding,
     );

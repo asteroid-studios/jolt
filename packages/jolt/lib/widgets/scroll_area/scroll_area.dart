@@ -23,7 +23,13 @@ class ScrollArea extends CustomScrollView {
     super.scrollBehavior,
     super.semanticChildCount,
     super.shrinkWrap,
+    this.ignoreEndPadding = false,
   }) : super(slivers: children);
+
+  /// If true, the end padding will be ignored
+  ///
+  /// Useful if you are using a fillRemaining at the end of the view
+  final bool ignoreEndPadding;
 
   @override
   List<Widget> buildSlivers(BuildContext context) {
@@ -36,7 +42,7 @@ class ScrollArea extends CustomScrollView {
           delegate: _FixedExtentDelegate(padding.start),
         ),
       ...super.buildSlivers(context).map((child) => JoltSliver(child: child)),
-      if (padding.end > 0)
+      if (padding.end > 0 && !ignoreEndPadding)
         SliverPersistentHeader(
           delegate: _FixedExtentDelegate(padding.end),
         ),

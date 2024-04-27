@@ -18,6 +18,8 @@ class AppPage extends HookWidget {
     // TODO make Jolt version
     return mat.RefreshIndicator(
       key: _refreshIndicatorKey,
+      backgroundColor: Colors.background,
+      color: Colors.primary,
       triggerMode: mat.RefreshIndicatorTriggerMode.anywhere,
       edgeOffset: ScrollPadding.of(context).start,
       onRefresh: () async {
@@ -32,24 +34,24 @@ class AppPage extends HookWidget {
         //   color: Colors.tailwind.amber,
         // ),
         // bottomBar: const NavigationBar(floating: false),
-        bottomBar: SafeArea(
-          child: Container(
-            margin: EdgeInsets.symmetric(
-              horizontal: Spacing.lg,
-              vertical: Spacing.md,
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Button(
-                  size: Fonts.body.lg.fontSize,
-                  color: Colors.primary,
-                  icon: Icons.plus.icon,
-                ),
-              ],
-            ),
-          ),
-        ),
+        // bottomBar: SafeArea(
+        //   child: Container(
+        //     margin: EdgeInsets.symmetric(
+        //       horizontal: Spacing.lg,
+        //       vertical: Spacing.md,
+        //     ),
+        //     child: Row(
+        //       mainAxisAlignment: MainAxisAlignment.end,
+        //       children: [
+        //         Button(
+        //           size: Fonts.body.lg.fontSize,
+        //           color: Colors.primary,
+        //           icon: Icons.plus.icon,
+        //         ),
+        //       ],
+        //     ),
+        //   ),
+        // ),
         // bottomBar: NavigationBar(floating: Platform.isMobile),
         content: Scrollbar(
           child: ScrollArea(

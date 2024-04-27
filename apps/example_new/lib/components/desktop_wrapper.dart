@@ -51,6 +51,7 @@ class DesktopWrapper extends HookWidget {
                   //   height: 80,
                   //   color: Colors.tailwind.amber,
                   // ),
+                  bottom: const NavigationBar(floating: false),
                   top: Blur(
                     child: GestureDetector(
                       onTap: ScrollToTopNotifier.startScroll,

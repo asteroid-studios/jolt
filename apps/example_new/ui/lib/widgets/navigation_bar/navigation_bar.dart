@@ -14,7 +14,7 @@ class NavigationBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final scrollDirection = Scaffold.of(context).scrollDirection;
+    final scrollDirection = Scaffold.maybeOf(context)?.scrollDirection;
     final isScrolling = scrollDirection == ScrollDirection.reverse;
 
     return Collapsible(
