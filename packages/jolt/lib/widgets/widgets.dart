@@ -8,6 +8,7 @@ export 'scroll_area/jolt_sliver.dart';
 export 'scroll_area/scroll_area.dart';
 export 'scroll_area/scroll_group.dart';
 export 'scroll_area/scroll_padding.dart';
+export 'scroll_area/scroll_stack.dart';
 export 'sliver_dynamic_persistent_header/sliver_dynamic_persistent_header.dart';
 export 'sliver_dynamic_persistent_header/sliver_persistent_header.dart';
 export 'sliver_dynamic_persistent_header/sliver_persistent_header_render.dart';

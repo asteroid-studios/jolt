@@ -1,3 +1,4 @@
+import 'package:flutter/rendering.dart';
 import 'package:jolt/jolt.dart';
 import 'package:flutter/services.dart';
 
@@ -63,9 +64,15 @@ class _RefreshIndicatorState extends State<JoltRefreshIndicator> {
   @override
   Widget build(BuildContext context) {
     if (widget.onRefresh == null) return const SizedBox.shrink();
+
+    // TODO https://linear.app/asteroid-studios/issue/AST-91/refresh-doesnt-work-on-android
+
     return ListenableBuilder(
       listenable: Scrollable.of(context).position,
       builder: (context, child) {
+        // final physics = Scrollable.of(context).position.physics;
+        // final isClamping = physics is ClampingScrollPhysics;
+        // assert(!isClamping, 'The physics must not be ClampingScrollPhysics');
         final offset = Scrollable.maybeOf(context)?.position.pixels ?? 0;
 
         // If the indicator is in the refreshing state

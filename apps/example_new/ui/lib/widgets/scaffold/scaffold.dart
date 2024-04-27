@@ -9,6 +9,7 @@ class Scaffold extends StatefulWidget {
   ///
   const Scaffold({
     required this.content,
+    this.topBar,
     this.bottomBar,
     this.sidebarLeft,
     this.sidebarRight,
@@ -27,6 +28,9 @@ class Scaffold extends StatefulWidget {
 
   ///
   final Widget? sidebarRight;
+
+  ///
+  final Widget? topBar;
 
   ///
   final Widget? bottomBar;
@@ -128,15 +132,15 @@ class ScaffoldState extends State<Scaffold> {
         color: background,
         child: Column(
           children: [
-            if (widget.safeAreaTop)
-              GestureDetector(
-                onTap: scrollToTop,
-                child: AnimatedContainer(
-                  duration: surfaceDuration,
-                  color: widget.backgroundStatusBar ?? background,
-                  height: context.mediaQuery.padding.top,
-                ),
-              ),
+            // if (widget.safeAreaTop)
+            //   GestureDetector(
+            //     onTap: scrollToTop,
+            //     child: AnimatedContainer(
+            //       duration: surfaceDuration,
+            //       color: widget.backgroundStatusBar ?? background,
+            //       height: context.mediaQuery.padding.top,
+            //     ),
+            //   ),
             Expanded(
               child: MediaQuery.removePadding(
                 context: context,
@@ -162,19 +166,10 @@ class ScaffoldState extends State<Scaffold> {
                       children: [
                         if (widget.sidebarLeft != null) widget.sidebarLeft!,
                         Expanded(
-                          child: Stack(
-                            children: [
-                              ScrollPadding(
-                                context: context,
-                                end: 45,
-                                child: widget.content,
-                              ),
-                              if (widget.bottomBar != null)
-                                Align(
-                                  alignment: Alignment.bottomCenter,
-                                  child: widget.bottomBar,
-                                ),
-                            ],
+                          child: ScrollStack(
+                            top: widget.topBar,
+                            bottom: widget.bottomBar,
+                            child: widget.content,
                           ),
                         ),
                         if (widget.sidebarRight != null) widget.sidebarRight!,

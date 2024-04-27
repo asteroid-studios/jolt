@@ -8,6 +8,7 @@ environment:
   flutter: ">=3.0.0"
 
 dependencies:
+  boxy: ^2.2.0
   flutter:
     sdk: flutter
   sliver_tools: ^0.2.12

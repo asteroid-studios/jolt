@@ -47,67 +47,64 @@ class DesktopWrapper extends HookWidget {
               SizedBox(
                 width: context.mediaQuery.size.width -
                     (NavMenu.forceOpen ? NavMenu.width : 0),
-                child: Stack(
-                  children: [
-                    ScrollPadding(context: context, start: 72, child: child),
-                    Blur(
-                      child: GestureDetector(
-                        onTap: ScrollToTopNotifier.startScroll,
-                        child: AnimatedContainer(
-                          duration: surfaceDuration,
-                          padding: EdgeInsets.only(
-                            top:
-                                context.mediaQuery.viewPadding.top + Spacing.md,
-                            bottom: Spacing.md,
-                          ),
-                          color: context.color.background.withOpacity(0.9),
-                          child: Row(
-                            children: [
-                              if (!NavMenu.forceOpen) const Gap.sm(),
-                              if (!NavMenu.forceOpen)
-                                Button(
-                                  icon: sidebarOpen.value
-                                      ? IconsBold.x.icon
-                                      : IconsBold.sidebar.icon,
-                                  color: Colors.transparent,
-                                  onTap: () {
-                                    sidebarOpen.value = !sidebarOpen.value;
-                                  },
-                                )
-                              else
-                                const Gap.md(),
-                              Expanded(
-                                child: Button(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  padding: Spacing.xxs,
-                                  horizontalPadding: Spacing.sm,
-                                  color: Colors.transparent,
-                                  label: Text('Jolt', style: Fonts.heading),
-                                ),
-                              ),
+                child: ScrollStack(
+                  top: Blur(
+                    child: GestureDetector(
+                      onTap: ScrollToTopNotifier.startScroll,
+                      child: AnimatedContainer(
+                        duration: surfaceDuration,
+                        padding: EdgeInsets.only(
+                          top: context.mediaQuery.viewPadding.top + Spacing.md,
+                          bottom: Spacing.md,
+                        ),
+                        color: context.color.background.withOpacity(0.9),
+                        child: Row(
+                          children: [
+                            if (!NavMenu.forceOpen) const Gap.sm(),
+                            if (!NavMenu.forceOpen)
                               Button(
-                                icon: IconsDuotone.gear.icon,
+                                icon: sidebarOpen.value
+                                    ? IconsBold.x.icon
+                                    : IconsBold.sidebar.icon,
                                 color: Colors.transparent,
                                 onTap: () {
-                                  ThemeProvider.of(context)?.setSystemTheme();
+                                  sidebarOpen.value = !sidebarOpen.value;
                                 },
-                              ),
-                              Button(
-                                icon: Colors.isDark
-                                    ? IconsDuotone.moon.icon
-                                    : IconsDuotone.sun.icon,
+                              )
+                            else
+                              const Gap.md(),
+                            Expanded(
+                              child: Button(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                padding: Spacing.xxs,
+                                horizontalPadding: Spacing.sm,
                                 color: Colors.transparent,
-                                onTap: () {
-                                  ThemeProvider.of(context)?.toggleTheme();
-                                },
+                                label: Text('Jolt', style: Fonts.heading),
                               ),
-                              const Gap.sm(),
-                            ],
-                          ),
+                            ),
+                            Button(
+                              icon: IconsDuotone.gear.icon,
+                              color: Colors.transparent,
+                              onTap: () {
+                                ThemeProvider.of(context)?.setSystemTheme();
+                              },
+                            ),
+                            Button(
+                              icon: Colors.isDark
+                                  ? IconsDuotone.moon.icon
+                                  : IconsDuotone.sun.icon,
+                              color: Colors.transparent,
+                              onTap: () {
+                                ThemeProvider.of(context)?.toggleTheme();
+                              },
+                            ),
+                            const Gap.sm(),
+                          ],
                         ),
                       ),
                     ),
-                  ],
+                  ),
+                  child: child,
                 ),
               ),
               Positioned.fill(

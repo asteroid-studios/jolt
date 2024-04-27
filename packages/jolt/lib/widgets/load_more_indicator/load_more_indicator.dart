@@ -33,7 +33,7 @@ class _LoadMoreIndicatorState extends State<JoltLoadMoreIndicator> {
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       await Future<void>.delayed(const Duration(milliseconds: 200));
-      setState(() => loaded = true);
+      if (mounted) setState(() => loaded = true);
     });
     super.initState();
   }
@@ -41,11 +41,13 @@ class _LoadMoreIndicatorState extends State<JoltLoadMoreIndicator> {
   void loadMore(double position) {
     if (loaded && !loadingMore && (position - lastPosition).abs() > 10) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (!mounted) return;
         setState(() {
           loadingMore = true;
           lastPosition = position;
         });
         widget.onLoadMore?.call().then((value) {
+          if (!mounted) return;
           setState(() => loadingMore = false);
         });
       });
