@@ -138,11 +138,26 @@ class AppPage extends HookWidget {
                     blur: 5,
                     color: context.color.surface.withOpacity(.9),
                     child: Container(
-                      padding: EdgeInsets.symmetric(vertical: Spacing.md),
+                      padding: EdgeInsets.symmetric(vertical: Spacing.sm),
                       child: Row(
                         children: [
                           Expanded(
                             child: Text('Pinned', style: Fonts.body.lg.bold),
+                          ),
+                          Button(
+                            onTap: () {
+                              Jolt.dialog.show<void>(
+                                Drawer(
+                                  crossAxisSize: 450.0.responsive(mobile: context.mediaQuery.size.width - 50),
+                                  title: 'Test',
+                                ),
+                              );
+                            },
+                            color: Colors.transparent,
+                            icon: Icon(
+                              IconsBold.plus,
+                              color: Colors.primary.as.foreground,
+                            ),
                           ),
                         ],
                       ),
@@ -168,6 +183,11 @@ class AppPage extends HookWidget {
                         ),
                       ),
                       Button(
+                        onTap: () {
+                          Jolt.dialog.show(Dialog(
+                            title: 'Test',
+                          ));
+                        },
                         color: Colors.transparent,
                         icon: Icon(
                           IconsBold.plus,
@@ -300,7 +320,6 @@ class AppPage extends HookWidget {
                 onLoadMore: spaces.value.length > 16
                     ? null
                     : () async {
-                        print('load more');
                         await Future<void>.delayed(
                           const Duration(milliseconds: 500),
                         );

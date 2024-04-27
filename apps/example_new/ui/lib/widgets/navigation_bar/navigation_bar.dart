@@ -40,19 +40,25 @@ class NavigationBar extends StatelessWidget {
               // TODOdon't hard code these here
               Button(
                 onTap: () {},
-                icon: IconsDuotone.house.icon,
+                icon: IconsFill.house.icon,
                 color: Colors.transparent,
                 size: Fonts.heading.fontSize,
               ),
               Button(
                 onTap: () {},
-                icon: IconsDuotone.bell.icon,
+                icon: Icon(
+                  IconsDuotone.bell,
+                  // color: Colors.background.as.foreground.withOpacity(0.9),
+                ),
                 color: Colors.transparent,
                 size: Fonts.heading.fontSize,
               ),
               Button(
                 onTap: () {},
-                icon: IconsDuotone.userCircle.icon,
+                icon: Icon(
+                  IconsDuotone.userCircle,
+                  // color: Colors.background.as.foreground.withOpacity(0.9),
+                ),
                 color: Colors.transparent,
                 size: Fonts.heading.fontSize,
               ),

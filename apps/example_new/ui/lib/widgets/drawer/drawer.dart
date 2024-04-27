@@ -27,20 +27,25 @@ class Drawer extends StatelessWidget with DrawerRoute {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        GestureDetector(
-          onTap: () {
-            context.show(Drawer());
-          },
-          child: Text(
-            'Drawer',
-            style: Fonts.heading.colored(Colors.background.as.foreground),
-          ),
+    return Padding(
+      padding: EdgeInsets.all(Spacing.lg),
+      child: SafeArea(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            GestureDetector(
+              onTap: () {
+                context.show(Drawer());
+              },
+              child: Text(
+                'Drawer',
+                style: Fonts.heading.colored(Colors.background.as.foreground),
+              ),
+            ),
+          ],
         ),
-      ],
+      ),
     );
   }
 }

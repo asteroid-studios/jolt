@@ -1,6 +1,11 @@
 import 'dart:math';
 
+import 'package:boxy/boxy.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:jolt/jolt.dart';
+
+// TODO refactor using boxy
+// Basically child will get passed and then inflated?
 
 ///
 class Collapsible extends StatefulWidget {
@@ -96,15 +101,6 @@ class CollapsibleState extends State<Collapsible> {
 
   void _updateSize() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      // Get the size of the child
-      final renderBox =
-          _childKey.currentContext?.findRenderObject() as RenderBox?;
-      final size = renderBox?.size ?? Size.zero;
-      if (widget.axis == Axis.horizontal && size.width != _width) {
-        setState(() => _width = size.width);
-      } else if (widget.axis == Axis.vertical && size.height != _height) {
-        setState(() => _height = size.height);
-      }
       if (_initialCollapsed != widget.collapsed) {
         setState(() {
           _collapsed = widget.collapsed;
@@ -128,39 +124,31 @@ class CollapsibleState extends State<Collapsible> {
       child: SizedBox(
         width: widget.keepHeightWhenCollapsed ? _width : null,
         height: widget.keepHeightWhenCollapsed ? _height : null,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Offstage(
-              child: SizedBox(
-                key: _childKey,
-                child: widget.child,
-              ),
+        child: AnimatedContainer(
+          duration: widget.animationDuration,
+          height: _collapsed && widget.axis == Axis.vertical
+              ? collapsedAmount
+              : _height,
+          width: _collapsed && widget.axis == Axis.horizontal
+              ? collapsedAmount
+              : _width,
+          child: SingleChildScrollView(
+            scrollDirection: widget.axis,
+            child: MeasurableWidget(
+              onChange: (Size size) {
+                Future.delayed(Duration.zero, () {
+                  if (!mounted) return;
+                  if (widget.axis == Axis.horizontal && size.width != _width) {
+                    setState(() => _width = size.width);
+                  } else if (widget.axis == Axis.vertical &&
+                      size.height != _height) {
+                    setState(() => _height = size.height);
+                  }
+                });
+              },
+              child: widget.child,
             ),
-            AnimatedContainer(
-              duration: widget.animationDuration,
-              height: _collapsed && widget.axis == Axis.vertical
-                  ? collapsedAmount
-                  : _height,
-              width: _collapsed && widget.axis == Axis.horizontal
-                  ? collapsedAmount
-                  : _width,
-              child: ClipRRect(
-                child: _width != null || _height != null
-                    ? OverflowBox(
-                        alignment: widget.alignment,
-                        minHeight: 0,
-                        minWidth: 0,
-                        maxHeight:
-                            widget.axis == Axis.vertical ? _height : null,
-                        maxWidth:
-                            widget.axis == Axis.horizontal ? _width : null,
-                        child: widget.child,
-                      )
-                    : widget.child,
-              ),
-            ),
-          ],
+          ),
         ),
       ),
     );

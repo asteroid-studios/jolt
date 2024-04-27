@@ -3,6 +3,7 @@ export 'blur/blur.dart';
 export 'collapsible/collapsible.dart';
 export 'hero_optional/hero_optional.dart';
 export 'load_more_indicator/load_more_indicator.dart';
+export 'measurable/measurable.dart';
 export 'refresh_indicator/refresh_indicator.dart';
 export 'scroll_area/jolt_sliver.dart';
 export 'scroll_area/scroll_area.dart';

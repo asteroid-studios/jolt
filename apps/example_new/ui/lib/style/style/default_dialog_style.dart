@@ -12,5 +12,5 @@ class DefaultDialogStyle {
   static bool get stackBarrier => false;
 
   ///
-  static Color get barrierColor => Colors.black.withOpacity(0.5);
+  static Color get barrierColor => Colors.black.withOpacity(0.8);
 }
