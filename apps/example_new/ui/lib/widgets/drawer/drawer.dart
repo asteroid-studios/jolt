@@ -40,7 +40,7 @@ class Drawer extends StatelessWidget with DrawerRoute {
               },
               child: Text(
                 'Drawer',
-                style: Fonts.heading.colored(Colors.background.as.foreground),
+                style: Fonts.heading.colored(Colors.background.foreground),
               ),
             ),
           ],

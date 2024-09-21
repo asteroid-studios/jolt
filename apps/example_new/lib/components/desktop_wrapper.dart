@@ -102,7 +102,7 @@ class DesktopWrapper extends HookWidget {
                                     color: Colors.transparent,
                                     label: Text(
                                       router.title(context),
-                                      style: Fonts.heading,
+                                      style: Fonts.heading.colored(Colors.background.foreground),
                                     ),
                                   ),
                                 ),
@@ -174,7 +174,7 @@ class DesktopWrapper extends HookWidget {
                     child: Center(
                       child: Text(
                         'Jolt',
-                        style: Fonts.body.colored(Colors.background.as.foreground),
+                        style: Fonts.body.colored(Colors.background.foreground),
                       ),
                     ),
                   ),
@@ -201,7 +201,7 @@ class DesktopWrapper extends HookWidget {
                         child: Icon(
                           // TODOreplace with a dropdown with light dark and system
                           Colors.isDark ? IconsDuotone.moon : IconsDuotone.sun,
-                          color: Colors.background.as.foreground,
+                          color: Colors.background.foreground,
                         ),
                       ),
                     ),

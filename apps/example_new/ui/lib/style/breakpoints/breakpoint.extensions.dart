@@ -54,6 +54,9 @@ extension BreakpointXT<T> on T {
 ///
 extension BreakpointContentX on BuildContext {
   ///
+  MediaQueryData get mediaQuery => MediaQuery.of(this);
+
+  ///
   Breakpoint get breakpoint => Breakpoint.current(this);
 
   ///

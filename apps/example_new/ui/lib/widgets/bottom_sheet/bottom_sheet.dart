@@ -22,7 +22,7 @@ class BottomSheet extends StatelessWidget with BottomSheetRoute {
           },
           child: Text(
             title ?? 'Bottom sheet',
-            style: Fonts.heading.sm.colored(Colors.surface.as.foreground),
+            style: Fonts.heading.sm.colored(Colors.surface.foreground),
           ),
         ),
       ],

@@ -48,7 +48,7 @@ class NavigationBar extends StatelessWidget {
                 onTap: () {},
                 icon: Icon(
                   IconsDuotone.bell,
-                  // color: Colors.background.as.foreground.withOpacity(0.9),
+                  // color: Colors.background.foreground.withOpacity(0.9),
                 ),
                 color: Colors.transparent,
                 size: Fonts.heading.fontSize,
@@ -57,7 +57,7 @@ class NavigationBar extends StatelessWidget {
                 onTap: () {},
                 icon: Icon(
                   IconsDuotone.userCircle,
-                  // color: Colors.background.as.foreground.withOpacity(0.9),
+                  // color: Colors.background.foreground.withOpacity(0.9),
                 ),
                 color: Colors.transparent,
                 size: Fonts.heading.fontSize,

@@ -34,7 +34,7 @@ class CircularProgressIndicator extends StatelessWidget {
     // final theme = context.inherited.widgetTheme.progressIndicator;
     // // TODO change this to default to text color ie foreground.
     // // Same with the size.
-    // final color = this.color ?? SurfaceColor.of(context).as.foreground(context);
+    // final color = this.color ?? SurfaceColor.of(context).foreground(context);
     // final size = this.size ?? theme.circularIndicatorSize;
     // final icon =
     //     this.icon ?? theme.circularIndicatorIcon ?? IconsDuotone.circleNotch;
@@ -49,14 +49,12 @@ class CircularProgressIndicator extends StatelessWidget {
 
     final widget = Icon(
       IconsDuotone.circleNotch,
-      size: Typography().heading.fontSize,
+      size: Fonts.heading.fontSize,
       color: color,
     );
 
     if (duration == Duration.zero) return widget;
 
-    return widget
-        .animate(onPlay: (controller) => controller.repeat())
-        .rotate(duration: duration);
+    return widget.animate(onPlay: (controller) => controller.repeat()).rotate(duration: duration);
   }
 }

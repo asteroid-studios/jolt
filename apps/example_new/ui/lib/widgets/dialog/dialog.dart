@@ -45,13 +45,12 @@ class Dialog<T> extends StatelessWidget with DialogRoute {
           if (title != null)
             Text(
               title!,
-              style: context.text.heading.colored(Colors.surface.as.foreground),
+              style: Fonts.heading.colored(Colors.surface.foreground),
             ),
           if (content != null)
             Text(
               content!,
-              style:
-                  context.text.body.colored(Colors.surface.as.foregroundLight),
+              style: Fonts.body.colored(Colors.surface.foregroundLight),
             ),
           if (child != null) child!,
           SizedBox(height: 20),
@@ -76,7 +75,7 @@ class Dialog<T> extends StatelessWidget with DialogRoute {
                   ),
                   child: Text(
                     'Cancel',
-                    style: Fonts.body.colored(Colors.surface.as.foreground),
+                    style: Fonts.body.colored(Colors.surface.foreground),
                   ),
                 ),
               ),
@@ -98,7 +97,7 @@ class Dialog<T> extends StatelessWidget with DialogRoute {
                   ),
                   child: Text(
                     'Delete',
-                    style: Fonts.body.colored(Colors.error.as.foreground),
+                    style: Fonts.body.colored(Colors.error.foreground),
                   ),
                 ),
               ),

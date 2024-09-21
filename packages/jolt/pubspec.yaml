@@ -15,7 +15,6 @@ dependencies:
   # flutter_animate: ^4.1.1+1
   # flutter_hooks: ^0.20.4
   # freezed_annotation: ^2.4.1
-  nested: ^1.0.0
   tinycolor2: ^3.0.1
 
 dev_dependencies:

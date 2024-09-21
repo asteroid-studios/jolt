@@ -47,7 +47,7 @@ class RefreshIndicator extends StatelessWidget {
                 child: refreshing
                     ? CircularProgressIndicator(
                         key: const Key('refreshing'),
-                        color: Colors.background.as.foreground.withOpacity(0.5),
+                        color: Colors.background.foreground.withOpacity(0.5),
                       )
                     : Opacity(
                         key: const Key('trigger'),

@@ -1,8 +1,6 @@
 export 'animation/hero_animations.dart';
 export 'color/color.dart';
-export 'color/color_shades.dart';
-export 'device/device.dart';
-export 'device/platform.dart';
+export 'platform/platform.dart';
 export 'dialog/dialog.dart';
 export 'layout/layout.dart';
 export 'style/inherited_style.dart';

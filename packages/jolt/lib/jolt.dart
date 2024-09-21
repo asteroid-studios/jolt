@@ -29,13 +29,5 @@ class Jolt {
   GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
   ///
-  static void initialise(void Function(Jolt) config) {
-    config(Jolt.instance);
-  }
-
-  ///
-  static JoltColor get color => JoltColor.instance;
-
-  ///
   static JoltDialog get dialog => JoltDialog.instance;
 }

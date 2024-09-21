@@ -1,11 +1,6 @@
 import 'dart:math';
 
-import 'package:boxy/boxy.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:jolt/jolt.dart';
-
-// TODO refactor using boxy
-// Basically child will get passed and then inflated?
 
 ///
 class Collapsible extends StatefulWidget {
@@ -14,8 +9,9 @@ class Collapsible extends StatefulWidget {
     required this.child,
     this.collapsed = false,
     this.collapsedSize = 0,
-    this.keepHeightWhenCollapsed = false,
-    this.alignment = Alignment.topLeft,
+    this.keepSizeWhenCollapsed = false,
+    this.allowScrollWhenCollapsed = false,
+    this.alignEndWhenCollapsed = false,
     this.axis = Axis.vertical,
     this.animationDuration = const Duration(milliseconds: 300),
     this.collapsedSizeOffset,
@@ -26,7 +22,13 @@ class Collapsible extends StatefulWidget {
   final bool collapsed;
 
   ///
-  final bool keepHeightWhenCollapsed;
+  final bool allowScrollWhenCollapsed;
+
+  ///
+  final bool alignEndWhenCollapsed;
+
+  ///
+  final bool keepSizeWhenCollapsed;
 
   ///
   final double collapsedSize;
@@ -42,9 +44,6 @@ class Collapsible extends StatefulWidget {
 
   ///
   final Duration animationDuration;
-
-  ///
-  final AlignmentGeometry alignment;
 
   @override
   State<Collapsible> createState() => CollapsibleState();
@@ -77,8 +76,6 @@ class CollapsibleState extends State<Collapsible> {
   double? _width;
   double? _height;
 
-  late GlobalKey _childKey;
-
   ///
   bool get collapsed => _collapsed;
 
@@ -87,7 +84,6 @@ class CollapsibleState extends State<Collapsible> {
     super.initState();
     _collapsed = widget.collapsed;
     _initialCollapsed = widget.collapsed;
-    _childKey = GlobalKey();
   }
 
   ///
@@ -122,8 +118,8 @@ class CollapsibleState extends State<Collapsible> {
     return _CollapsibleScope(
       state: this,
       child: SizedBox(
-        width: widget.keepHeightWhenCollapsed ? _width : null,
-        height: widget.keepHeightWhenCollapsed ? _height : null,
+        width: widget.keepSizeWhenCollapsed ? _width : null,
+        height: widget.keepSizeWhenCollapsed ? _height : null,
         child: AnimatedContainer(
           duration: widget.animationDuration,
           height: _collapsed && widget.axis == Axis.vertical
@@ -133,6 +129,10 @@ class CollapsibleState extends State<Collapsible> {
               ? collapsedAmount
               : _width,
           child: SingleChildScrollView(
+            reverse: widget.alignEndWhenCollapsed,
+            physics: widget.allowScrollWhenCollapsed
+                ? null
+                : const NeverScrollableScrollPhysics(),
             scrollDirection: widget.axis,
             child: MeasurableWidget(
               onChange: (Size size) {

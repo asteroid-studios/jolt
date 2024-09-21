@@ -34,8 +34,7 @@ class ColorsPage extends StatelessWidget {
                       padding: EdgeInsets.all(Spacing.md),
                       child: Text(
                         'Amber',
-                        style: Fonts.body.lg
-                            .colored(Colors.tailwind.amber.as.foreground),
+                        style: Fonts.body.lg.colored(Colors.tailwind.amber.foreground),
                       ),
                     ),
                     Container(
@@ -47,8 +46,7 @@ class ColorsPage extends StatelessWidget {
                       padding: EdgeInsets.all(Spacing.md),
                       child: Text(
                         'Rose',
-                        style: Fonts.body.lg
-                            .colored(Colors.tailwind.rose.as.foreground),
+                        style: Fonts.body.lg.colored(Colors.tailwind.rose.foreground),
                       ),
                     ),
                     Container(
@@ -60,8 +58,7 @@ class ColorsPage extends StatelessWidget {
                       padding: EdgeInsets.all(Spacing.md),
                       child: Text(
                         'Emerald',
-                        style: Fonts.body.lg
-                            .colored(Colors.tailwind.emerald.as.foreground),
+                        style: Fonts.body.lg.colored(Colors.tailwind.emerald.foreground),
                       ),
                     ),
                   ],

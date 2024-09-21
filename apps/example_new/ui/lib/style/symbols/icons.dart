@@ -20,7 +20,7 @@ typedef IconsThin = PhosphorIconsThin;
 typedef IconsLight = PhosphorIconsLight;
 
 ///
-extension IconsX on IconData {
+extension IconDataX on IconData {
   ///
   Icon get icon => Icon(this);
 }

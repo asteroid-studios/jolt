@@ -4,20 +4,19 @@ import 'package:ui/ui.dart';
 mixin BottomSheetRoute on Object implements JoltDialogRoute {
   ///
   @override
-  Duration get transitionDuration => DefaultDialogStyle.transitionDuration;
+  Duration get transitionDuration => Durations.medium;
 
   ///
   @override
-  bool get barrierDismissible => DefaultDialogStyle.barrierDismissible;
+  bool get barrierDismissible => true;
 
   ///
   @override
-  Color get barrierColor =>
-      disableBarrier ? Colors.transparent : DefaultDialogStyle.barrierColor;
+  Color get barrierColor => disableBarrier ? Colors.transparent : Colors.barrier;
 
   ///
   @override
-  bool get stackBarrier => DefaultDialogStyle.stackBarrier;
+  bool get stackBarrier => false;
 
   ///
   @override

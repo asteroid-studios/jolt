@@ -21,10 +21,10 @@ enum SpacingSize {
   ///
   lg(24),
 
-  ///
+  /// Spacing equal to: **32**
   xl(32),
 
-  ///
+  /// Spacing equal to: **40**
   xxl(40),
 
   ///

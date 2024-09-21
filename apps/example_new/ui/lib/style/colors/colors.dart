@@ -53,6 +53,9 @@ class Colors {
   static Color get error => _color.error;
 
   ///
+  static Color get barrier => _color.barrier;
+
+  ///
   static Brightness get brightness => _color.brightness;
 
   ///
@@ -60,4 +63,60 @@ class Colors {
 
   ///
   static bool get isLight => brightness == Brightness.light;
+}
+
+///
+extension ColorX on Color {
+  ///
+  Color dark(Color color) {
+    return Colors.isDark ? color : this;
+  }
+
+  ///
+  Color get foreground => isLight ? shade900 : shade50;
+
+  ///
+  Color get foregroundLight => (isMediumBrightness
+          ? isLight
+              ? shade700
+              : shade300
+          : shade500)
+      .withMaxSaturation(0.3);
+
+  ///
+  Color get active {
+    // TODO this not great
+    if (value == Colors.white.value || value == Colors.black.value) {
+      return weaken();
+    } else {
+      return strengthen();
+    }
+  }
+}
+
+///
+extension ColorWidgetX on Widget {
+  ///
+  Widget get foreground => Builder(
+        builder: (context) {
+          // TODO Fix up and use inherited surface color
+          final surfaceColor = Colors.surface;
+          return DefaultTextStyle(
+            style: TextStyle(color: surfaceColor.foreground),
+            child: this,
+          );
+        },
+      );
+
+  ///
+  Widget get foregroundLight => Builder(
+        builder: (context) {
+          // TODO Fix up and use inherited surface color
+          final surfaceColor = Colors.surface;
+          return DefaultTextStyle(
+            style: TextStyle(color: surfaceColor.foregroundLight),
+            child: this,
+          );
+        },
+      );
 }

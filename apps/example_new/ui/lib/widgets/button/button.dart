@@ -70,8 +70,7 @@ class Button extends StatelessWidget {
         ),
         padding: EdgeInsets.symmetric(
           vertical: padding,
-          horizontal:
-              horizontalPadding ?? (label != null ? Spacing.lg : padding),
+          horizontal: horizontalPadding ?? (label != null ? Spacing.lg : padding),
         ),
         child: IconTheme.merge(
           data: IconThemeData(

@@ -19,7 +19,7 @@ class WidgetsPage extends StatelessWidget {
           },
           child: Text(
             'Widgets',
-            style: Fonts.heading.colored(Colors.background.as.foreground),
+            style: Fonts.heading.colored(Colors.background.foreground),
           ),
         ),
       ),

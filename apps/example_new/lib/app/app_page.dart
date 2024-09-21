@@ -148,7 +148,7 @@ class AppPage extends HookWidget {
                             onTap: () {
                               Jolt.dialog.show<void>(
                                 Drawer(
-                                  crossAxisSize: 450.0.responsive(mobile: context.mediaQuery.size.width - 50),
+                                  crossAxisSize: (context.mediaQuery.size.width - 50).responsive(tablet: 450),
                                   title: 'Test',
                                 ),
                               );
@@ -156,7 +156,7 @@ class AppPage extends HookWidget {
                             color: Colors.transparent,
                             icon: Icon(
                               IconsBold.plus,
-                              color: Colors.primary.as.foreground,
+                              color: Colors.primary.foreground,
                             ),
                           ),
                         ],
@@ -178,7 +178,7 @@ class AppPage extends HookWidget {
                         child: Text(
                           'Floating',
                           style: Fonts.body.lg.bold.colored(
-                            Colors.primary.as.foreground,
+                            Colors.primary.foreground,
                           ),
                         ),
                       ),
@@ -191,7 +191,7 @@ class AppPage extends HookWidget {
                         color: Colors.transparent,
                         icon: Icon(
                           IconsBold.plus,
-                          color: Colors.primary.as.foreground,
+                          color: Colors.primary.foreground,
                         ),
                       ),
                     ],
@@ -226,6 +226,12 @@ class AppPage extends HookWidget {
                             style: Fonts.heading,
                           ),
                           const Gap.md(),
+                          Button(
+                            label: 'Test'.text,
+                            icon: const Icon(IconsBold.acorn),
+                            onTap: () {},
+                          ),
+                          const Gap.md(),
                           Container(
                             clipBehavior: Clip.antiAlias,
                             decoration: BoxDecoration(
@@ -235,7 +241,6 @@ class AppPage extends HookWidget {
                             child: Collapsible(
                               collapsedSize: 80,
                               collapsed: collapsed.value,
-                              alignment: Alignment.center,
                               child: Builder(
                                 builder: (context) {
                                   return GestureDetector(

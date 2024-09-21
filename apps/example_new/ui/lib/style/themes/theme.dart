@@ -17,6 +17,7 @@ final _defaultTertiaryDark = Colors.tailwind.grey.shade50;
 final _defaultError = Colors.tailwind.red;
 final _defaultWarning = Colors.tailwind.amber;
 final _defaultSuccess = Colors.tailwind.green;
+final _defaultBarrier = Colors.black.withOpacity(0.8);
 
 ///
 abstract class Theme {
@@ -25,9 +26,6 @@ abstract class Theme {
 
   ///
   ColorScheme get colorScheme;
-
-  ///
-  Typography get typography => const Typography();
 
   ///
   bool get isDark => colorScheme.isDark;
@@ -39,8 +37,6 @@ abstract class Theme {
   static Theme of(BuildContext context) {
     return ThemeProvider.of(context)?.theme ?? themes.first;
   }
-
-  // TODO add spacing, radius, breakpoints, etc.
 }
 
 ///
@@ -57,6 +53,7 @@ class ColorScheme {
     required this.error,
     required this.warning,
     required this.success,
+    required this.barrier,
   });
 
   ///
@@ -70,6 +67,7 @@ class ColorScheme {
     Color? error,
     Color? warning,
     Color? success,
+    Color? barrier,
   }) {
     return ColorScheme._(
       brightness: Brightness.light,
@@ -82,6 +80,7 @@ class ColorScheme {
       error: error ?? _defaultError,
       warning: warning ?? _defaultWarning,
       success: success ?? _defaultSuccess,
+      barrier: barrier ?? _defaultBarrier,
     );
   }
 
@@ -96,6 +95,7 @@ class ColorScheme {
     Color? error,
     Color? warning,
     Color? success,
+    Color? barrier,
   }) {
     return ColorScheme._(
       brightness: Brightness.dark,
@@ -108,6 +108,7 @@ class ColorScheme {
       error: error ?? _defaultError,
       warning: warning ?? _defaultWarning,
       success: success ?? _defaultSuccess,
+      barrier: barrier ?? _defaultBarrier,
     );
   }
 
@@ -142,6 +143,9 @@ class ColorScheme {
   final Color warning;
 
   ///
+  final Color barrier;
+
+  ///
   bool get isLight => brightness == Brightness.light;
 
   ///
@@ -154,4 +158,13 @@ class ColorScheme {
   }) {
     return isLight ? light : dark;
   }
+}
+
+///
+extension ThemesX on BuildContext {
+  ///
+  Theme get theme => Theme.of(this);
+
+  ///
+  ColorScheme get color => theme.colorScheme;
 }

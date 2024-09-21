@@ -23,14 +23,11 @@ class ThemeProvider extends StatefulWidget {
 
   ///
   static ThemeProviderState? of(BuildContext context) {
-    return context
-        .dependOnInheritedWidgetOfExactType<_ThemeProviderScope>()
-        ?.state;
+    return context.dependOnInheritedWidgetOfExactType<_ThemeProviderScope>()?.state;
   }
 
   ///
-  static Brightness get systemBrightness =>
-      SchedulerBinding.instance.platformDispatcher.platformBrightness;
+  static Brightness get systemBrightness => SchedulerBinding.instance.platformDispatcher.platformBrightness;
 
   ///
   static Theme get globalTheme => _GlobalThemeProvider.instance.theme;
@@ -59,10 +56,8 @@ class ThemeProviderState extends State<ThemeProvider> {
 
   @override
   void initState() {
-    _root =
-        context.getInheritedWidgetOfExactType<_ThemeProviderScope>() == null;
-    usingSystemTheme =
-        bool.tryParse(_storage.read(_useSystemKey) ?? '') ?? false;
+    _root = context.getInheritedWidgetOfExactType<_ThemeProviderScope>() == null;
+    usingSystemTheme = bool.tryParse(_storage.read(_useSystemKey) ?? '') ?? false;
     final themeId = _storage.read(_themeIdKey);
     if (widget.theme != null) {
       theme = widget.theme!;
@@ -127,8 +122,7 @@ class ThemeProviderState extends State<ThemeProvider> {
   }
 
   static Theme _getThemeById(String id) {
-    return themes.firstWhereOrNull((t) => t.id == id) ??
-        ThemeProvider.systemBrightness.defaultTheme;
+    return themes.firstWhereOrNull((t) => t.id == id) ?? ThemeProvider.systemBrightness.defaultTheme;
   }
 
   @override
@@ -136,15 +130,9 @@ class ThemeProviderState extends State<ThemeProvider> {
     return _ThemeProviderScope(
       state: this,
       child: Builder(
-        builder: (context) => IconTheme(
-          data: IconThemeData(
-            color: context.color.background.as.foreground,
-            size: Fonts.body.fontSize,
-          ),
-          child: DefaultTextStyle(
-            style: Fonts.body.colored(context.color.background.as.foreground),
-            child: widget.builder(context),
-          ),
+        builder: (context) => DefaultSymbolStyle(
+          style: Fonts.body.colored(context.color.background.foreground),
+          child: widget.builder(context),
         ),
       ),
     );
@@ -187,8 +175,7 @@ extension _ThemeProviderStateX on ThemeProviderState {
 }
 
 extension _DefaultThemeX on Brightness {
-  Theme get defaultTheme =>
-      this == Brightness.light ? DefaultThemeLight() : DefaultThemeDark();
+  Theme get defaultTheme => this == Brightness.light ? DefaultThemeLight() : DefaultThemeDark();
 
   bool get isDark => this == Brightness.dark;
 }

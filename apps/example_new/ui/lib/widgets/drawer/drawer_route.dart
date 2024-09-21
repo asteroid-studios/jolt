@@ -51,20 +51,19 @@ extension _DrawerDialogRoute on DrawerDialogRoute {
 mixin DrawerRoute on Object implements DrawerDialogRoute {
   ///
   @override
-  Duration get transitionDuration => DefaultDialogStyle.transitionDuration;
+  Duration get transitionDuration => Durations.medium;
 
   ///
   @override
-  bool get barrierDismissible => DefaultDialogStyle.barrierDismissible;
+  bool get barrierDismissible => true;
 
   ///
   @override
-  Color get barrierColor =>
-      disableBarrier ? Colors.transparent : DefaultDialogStyle.barrierColor;
+  Color get barrierColor => disableBarrier ? Colors.transparent : Colors.barrier;
 
   ///
   @override
-  bool get stackBarrier => DefaultDialogStyle.stackBarrier;
+  bool get stackBarrier => false;
 
   ///
   @override
@@ -127,36 +126,24 @@ class _DrawerSurface extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.background,
         borderRadius: BorderRadius.only(
-          topLeft: alignment == DrawerAlignment.right ||
-                  alignment == DrawerAlignment.bottom
+          topLeft: alignment == DrawerAlignment.right || alignment == DrawerAlignment.bottom
               ? const Radius.circular(16)
               : Radius.zero,
-          topRight: alignment == DrawerAlignment.left ||
-                  alignment == DrawerAlignment.bottom
+          topRight: alignment == DrawerAlignment.left || alignment == DrawerAlignment.bottom
               ? const Radius.circular(16)
               : Radius.zero,
-          bottomLeft: alignment == DrawerAlignment.right ||
-                  alignment == DrawerAlignment.top
+          bottomLeft: alignment == DrawerAlignment.right || alignment == DrawerAlignment.top
               ? const Radius.circular(16)
               : Radius.zero,
-          bottomRight: alignment == DrawerAlignment.left ||
-                  alignment == DrawerAlignment.top
+          bottomRight: alignment == DrawerAlignment.left || alignment == DrawerAlignment.top
               ? const Radius.circular(16)
               : Radius.zero,
         ),
         border: Border(
-          left: alignment == DrawerAlignment.right
-              ? BorderSide(color: Colors.outline)
-              : BorderSide.none,
-          right: alignment == DrawerAlignment.left
-              ? BorderSide(color: Colors.outline)
-              : BorderSide.none,
-          top: alignment == DrawerAlignment.bottom
-              ? BorderSide(color: Colors.outline)
-              : BorderSide.none,
-          bottom: alignment == DrawerAlignment.top
-              ? BorderSide(color: Colors.outline)
-              : BorderSide.none,
+          left: alignment == DrawerAlignment.right ? BorderSide(color: Colors.outline) : BorderSide.none,
+          right: alignment == DrawerAlignment.left ? BorderSide(color: Colors.outline) : BorderSide.none,
+          top: alignment == DrawerAlignment.bottom ? BorderSide(color: Colors.outline) : BorderSide.none,
+          bottom: alignment == DrawerAlignment.top ? BorderSide(color: Colors.outline) : BorderSide.none,
         ),
         boxShadow: [
           BoxShadow(

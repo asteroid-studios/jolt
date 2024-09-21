@@ -18,7 +18,7 @@ class Scrollbar extends StatelessWidget {
         bottom: scrollPadding.end + Spacing.xs,
       ),
       radius: const Radius.circular(10),
-      thumbColor: Colors.background.as.foreground.withOpacity(0.3),
+      thumbColor: Colors.background.foreground.withOpacity(0.3),
       trackColor: Colors.surface.withOpacity(0.1),
       trackBorderColor: Colors.transparent,
       thickness: 8,

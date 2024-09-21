@@ -13,34 +13,30 @@ class AnimatedDecoratedSliver extends ImplicitlyAnimatedWidget {
   });
 
   ///
-  final Widget sliver;
+  final Widget? sliver;
 
   ///
   final Decoration? decoration;
 
   @override
-  AnimatedWidgetBaseState<AnimatedDecoratedSliver> createState() =>
-      _AnimatedContainerState();
+  AnimatedWidgetBaseState<AnimatedDecoratedSliver> createState() => _AnimatedContainerState();
 }
 
-class _AnimatedContainerState
-    extends AnimatedWidgetBaseState<AnimatedDecoratedSliver> {
+class _AnimatedContainerState extends AnimatedWidgetBaseState<AnimatedDecoratedSliver> {
   DecorationTween? _decoration;
 
   @override
   void forEachTween(TweenVisitor<dynamic> visitor) {
-    _decoration = visitor(_decoration, widget.decoration,
-            (dynamic value) => DecorationTween(begin: value as Decoration))
-        as DecorationTween?;
+    _decoration =
+        visitor(_decoration, widget.decoration, (dynamic value) => DecorationTween(begin: value as Decoration))
+            as DecorationTween?;
   }
 
   @override
   Widget build(BuildContext context) {
     final animation = this.animation;
     return DecoratedSliver(
-      decoration: _decoration?.evaluate(animation) ??
-          widget.decoration ??
-          const BoxDecoration(),
+      decoration: _decoration?.evaluate(animation) ?? widget.decoration ?? const BoxDecoration(),
       sliver: widget.sliver,
     );
   }

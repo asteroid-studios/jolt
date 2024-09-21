@@ -1,6 +1,7 @@
 export 'animated_decorated_sliver/animated_decorated_sliver.dart';
 export 'blur/blur.dart';
 export 'collapsible/collapsible.dart';
+export 'animated_default_symbol_style/animated_default_symbol_style.dart';
 export 'hero_optional/hero_optional.dart';
 export 'load_more_indicator/load_more_indicator.dart';
 export 'measurable/measurable.dart';
