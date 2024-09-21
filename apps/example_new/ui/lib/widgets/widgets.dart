@@ -2,6 +2,7 @@ export 'app_bar/app_bar.dart';
 export 'bottom_sheet/bottom_sheet.dart';
 export 'bottom_sheet/bottom_sheet_route.dart';
 export 'button/button.dart';
+export 'button/button.style.dart';
 export 'dialog/dialog.dart';
 export 'dialog/dialog.style.dart';
 export 'dialog/dialog_route.dart';

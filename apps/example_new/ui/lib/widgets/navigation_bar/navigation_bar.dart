@@ -33,16 +33,16 @@ class NavigationBar extends StatelessWidget {
                 color: Colors.outline,
               ),
             ),
-            color: Colors.background.withOpacity(0.9),
+            color: Colors.background.withOpacity(0.8),
           ),
           child: Row(
             children: [
               // TODOdon't hard code these here
               Button(
-                onTap: () {},
+                style: Button.ghost,
                 icon: IconsFill.house.icon,
-                color: Colors.transparent,
                 size: Fonts.heading.fontSize,
+                onTap: () {},
               ),
               Button(
                 onTap: () {},
@@ -50,7 +50,7 @@ class NavigationBar extends StatelessWidget {
                   IconsDuotone.bell,
                   // color: Colors.background.foreground.withOpacity(0.9),
                 ),
-                color: Colors.transparent,
+                style: Button.ghost,
                 size: Fonts.heading.fontSize,
               ),
               Button(
@@ -59,7 +59,7 @@ class NavigationBar extends StatelessWidget {
                   IconsDuotone.userCircle,
                   // color: Colors.background.foreground.withOpacity(0.9),
                 ),
-                color: Colors.transparent,
+                style: Button.ghost,
                 size: Fonts.heading.fontSize,
               ),
             ].withExpanded(),

@@ -88,13 +88,12 @@ class _AppBarState extends State<AppBar> {
                   Hero(
                     tag: '',
                     // tag: visible ? 'AppBarBack' : null,
-                    flightShuttleBuilder:
-                        showBack ? null : flightShuttleFadeBuilder,
+                    flightShuttleBuilder: showBack ? null : flightShuttleFadeBuilder,
                     child: SizedBox(
                       height: 40,
                       child: showBack
                           ? Button(
-                              color: Colors.transparent,
+                              style: Button.ghost,
                               padding: Spacing.xs,
                               onTap: () => Navigator.of(context).maybePop(),
                               icon: Icon(

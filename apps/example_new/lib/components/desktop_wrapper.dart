@@ -80,7 +80,7 @@ class DesktopWrapper extends HookWidget {
                                   Button(
                                     size: Fonts.heading.sm.fontSize,
                                     icon: sidebarOpen.value ? IconsBold.x.icon : IconsDuotone.sidebar.icon,
-                                    color: Colors.transparent,
+                                    style: Button.ghost,
                                     onTap: () {
                                       sidebarOpen.value = !sidebarOpen.value;
                                     },
@@ -89,7 +89,7 @@ class DesktopWrapper extends HookWidget {
                                   Button(
                                     size: Fonts.heading.sm.fontSize,
                                     icon: IconsBold.caretLeft.icon,
-                                    color: Colors.transparent,
+                                    style: Button.ghost,
                                     onTap: router.back,
                                   )
                                 else
@@ -99,7 +99,7 @@ class DesktopWrapper extends HookWidget {
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     padding: Spacing.xxs,
                                     horizontalPadding: Spacing.sm,
-                                    color: Colors.transparent,
+                                    style: Button.ghost,
                                     label: Text(
                                       router.title(context),
                                       style: Fonts.heading.colored(Colors.background.foreground),
@@ -109,7 +109,7 @@ class DesktopWrapper extends HookWidget {
                                 Button(
                                   size: Fonts.heading.sm.fontSize,
                                   icon: IconsDuotone.gear.icon,
-                                  color: Colors.transparent,
+                                  style: Button.ghost,
                                   onTap: () {
                                     ThemeProvider.of(context)?.setSystemTheme();
                                   },
@@ -117,7 +117,7 @@ class DesktopWrapper extends HookWidget {
                                 Button(
                                   size: Fonts.heading.sm.fontSize,
                                   icon: Colors.isDark ? IconsDuotone.moon.icon : IconsDuotone.sun.icon,
-                                  color: Colors.transparent,
+                                  style: Button.ghost,
                                   onTap: () {
                                     ThemeProvider.of(context)?.toggleTheme();
                                   },

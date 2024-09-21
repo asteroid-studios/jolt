@@ -7,6 +7,7 @@ class Button extends StatelessWidget {
     this.label,
     this.icon,
     this.trailing,
+    this.style,
     this.onTap,
     this.color,
     this.selected = false,
@@ -44,30 +45,50 @@ class Button extends StatelessWidget {
   ///
   final MainAxisAlignment mainAxisAlignment;
 
+  ///
+  final StyleResolver<ButtonStyle>? style;
+
   // TODO remove
   final bool selected;
 
+  /// A transparent button
+  static StyleResolver<ButtonStyle> get ghost => (context) => ButtonStyle(
+        color: Colors.transparent,
+        foregroundColor: Colors.background.foreground,
+      );
+
+  ///
+  static StyleResolver<ButtonStyle> get outlined => (context) => ButtonStyle(
+        color: Colors.background,
+        border: Border.all(
+          strokeAlign: BorderSide.strokeAlignOutside,
+          color: Colors.outline,
+        ),
+      );
+
   @override
   Widget build(BuildContext context) {
-    final background = color ?? Colors.surface;
-
+    final buttonStyle = ButtonStyle.resolve(context, style);
+    // TODO move into style
     final padding = this.padding ?? Spacing.sm;
 
     return GestureDetector(
       onTap: onTap,
-      child: AnimatedContainer(
-        duration: surfaceDuration,
-        decoration: BoxDecoration(
-          color: background,
-          border: selected
-              ? Border.all(
-                  color: Colors.white,
-                  width: 1.2,
-                  strokeAlign: BorderSide.strokeAlignOutside,
-                )
-              : null,
-          borderRadius: BorderRadius.circular(8),
-        ),
+      child: Surface(
+        style: (context) {
+          return SurfaceStyle(
+            color: color ?? buttonStyle.color,
+            foregroundColor: buttonStyle.foregroundColor,
+            borderRadius: buttonStyle.borderRadius,
+            border: selected
+                ? Border.all(
+                    color: Colors.white,
+                    width: 1.2,
+                    strokeAlign: BorderSide.strokeAlignOutside,
+                  )
+                : buttonStyle.border,
+          );
+        },
         padding: EdgeInsets.symmetric(
           vertical: padding,
           horizontal: horizontalPadding ?? (label != null ? Spacing.lg : padding),

@@ -50,16 +50,14 @@ class _NavigationItemState extends State<NavigationItem> {
       children: [
         Button(
           horizontalPadding: Spacing.sm,
-          color: widget.active
-              ? Colors.primary.withOpacity(0.3)
-              : Colors.transparent,
+          color: widget.active ? Colors.primary.withOpacity(0.3) : null,
+          style: !widget.active ? Button.ghost : null,
           mainAxisAlignment: MainAxisAlignment.start,
           icon: widget.icon,
           label: Expanded(child: widget.label),
           trailing: widget.children.isNotEmpty
               ? Button(
-                  icon:
-                      collapsed ? Icons.caretRight.icon : Icons.caretDown.icon,
+                  icon: collapsed ? Icons.caretRight.icon : Icons.caretDown.icon,
                   size: Fonts.label.fontSize,
                   padding: Spacing.xxs,
                   color: Colors.transparent,

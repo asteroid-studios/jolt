@@ -153,7 +153,7 @@ class AppPage extends HookWidget {
                                 ),
                               );
                             },
-                            color: Colors.transparent,
+                            style: Button.ghost,
                             icon: Icon(
                               IconsBold.plus,
                               color: Colors.primary.foreground,
@@ -188,7 +188,7 @@ class AppPage extends HookWidget {
                             title: 'Test',
                           ));
                         },
-                        color: Colors.transparent,
+                        style: Button.ghost,
                         icon: Icon(
                           IconsBold.plus,
                           color: Colors.primary.foreground,
@@ -226,10 +226,37 @@ class AppPage extends HookWidget {
                             style: Fonts.heading,
                           ),
                           const Gap.md(),
-                          Button(
-                            label: 'Test'.text,
-                            icon: const Icon(IconsBold.acorn),
-                            onTap: () {},
+                          Row(
+                            children: [
+                              Button(
+                                label: 'Test'.text,
+                                color: Colors.primary,
+                                icon: const Icon(IconsBold.acorn),
+                                onTap: () {
+                                  print('Pressed');
+                                },
+                              ),
+                              Button(
+                                // style: Button.outlined,
+                                // color: Colors.primary.withOpacity(0.2),
+                                icon: const Icon(IconsBold.acorn),
+                                onTap: () {
+                                  print('Pressed');
+                                },
+                              ),
+                            ].withSeparator(const Gap.sm()),
+                          ),
+                          const Gap.md(),
+                          Surface(
+                            height: 100,
+                            style: (context) => SurfaceStyle(color: Colors.primary),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(Icons.hourglass),
+                                'Time'.text,
+                              ],
+                            ),
                           ),
                           const Gap.md(),
                           Container(

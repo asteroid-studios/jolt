@@ -73,7 +73,12 @@ extension ColorX on Color {
   }
 
   ///
-  Color get foreground => isLight ? shade900 : shade50;
+  Color get foreground {
+    if (opacity < 0.5) {
+      return Colors.background.foreground;
+    }
+    return (isLight ? shade900 : shade50).withOpacity(1);
+  }
 
   ///
   Color get foregroundLight => (isMediumBrightness
@@ -81,7 +86,8 @@ extension ColorX on Color {
               ? shade700
               : shade300
           : shade500)
-      .withMaxSaturation(0.3);
+      .withMaxSaturation(0.3)
+      .withOpacity(1);
 
   ///
   Color get active {
