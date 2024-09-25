@@ -3,7 +3,7 @@ import 'package:ui/ui.dart';
 
 /// Style a Surface widget
 @Style()
-class SurfaceStyle extends Surface {
+class SurfaceStyle {
   ///
   final Color? color;
 
@@ -41,5 +41,10 @@ class SurfaceStyle extends Surface {
       //         ),
       //       ],
     );
+  }
+
+  @override
+  String toString() {
+    return 'SurfaceStyle(\ncolor: $color,\nforegroundColor: $foregroundColor,\nborderRadius: $borderRadius,\n border: $border,\n boxShadow: $boxShadow,\n shape: $shape,\n padding: $padding\n)';
   }
 }

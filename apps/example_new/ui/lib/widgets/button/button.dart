@@ -80,7 +80,12 @@ class Button extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final buttonStyle = ButtonStyle.resolve(context, this, style);
+    final defaultStyle = ButtonStyle.defaultStyle(context, this);
+    final inherited = InheritedStyle.maybeOf<ButtonStyle, Button>(context, this);
+    final inline = this.style?.call(context, this);
+    // TODO issue where TextStyle merging fails to run properly
+    // Only an issue when merge is run from macro, if class runs its fine
+    final style = defaultStyle.resolve(context, inherited, inline);
 
     // TODO swap for interaction widget.
 
@@ -88,7 +93,7 @@ class Button extends StatelessWidget {
       onTap: onTap,
       child: Surface(
         style: (context, button) {
-          final style = SurfaceStyle(
+          return SurfaceStyle(
             color: color,
             padding: padding,
             border: selected
@@ -98,31 +103,14 @@ class Button extends StatelessWidget {
                     strokeAlign: BorderSide.strokeAlignOutside,
                   )
                 : null,
-          ).merge(buttonStyle.surfaceStyle);
-
-          if (label == null) {
-            print(style.padding);
-          }
-          return style;
-
-          // return SurfaceStyle(
-          //   color: color,
-          //   padding: padding,
-          //   border: selected
-          //       ? Border.all(
-          //           color: Colors.white,
-          //           width: 1.2,
-          //           strokeAlign: BorderSide.strokeAlignOutside,
-          //         )
-          //       : null,
-          // ).merge(buttonStyle.surfaceStyle);
+          ).merge(style.surfaceStyle);
         },
         child: IconTheme.merge(
           data: IconThemeData(
-            size: size ?? buttonStyle.iconSize ?? DefaultTextStyle.of(context).style.fontSize,
+            size: size ?? style.iconSize ?? DefaultTextStyle.of(context).style.fontSize,
           ),
           child: DefaultTextStyle.merge(
-            style: TextStyle(fontSize: size).merge(buttonStyle.labelStyle),
+            style: TextStyle(fontSize: size).merge(style.labelStyle),
             child: Stack(
               alignment: Alignment.center,
               children: [

@@ -5,7 +5,7 @@ import 'package:ui/ui.dart';
 
 ///
 @Style()
-class ButtonStyle<Button> {
+class ButtonStyle {
   ///
   final double? iconSize;
 
@@ -23,8 +23,13 @@ class ButtonStyle<Button> {
       surfaceStyle: SurfaceStyle(
         padding: EdgeInsets.symmetric(vertical: padding, horizontal: horizontal),
         color: Colors.primary,
-        // borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(50),
       ),
     );
+  }
+
+  @override
+  String toString() {
+    return 'ButtonStyle(\niconSize: $iconSize,\n labelStyle: $labelStyle,\n surfaceStyle: $surfaceStyle\n)';
   }
 }

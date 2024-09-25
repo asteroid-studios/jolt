@@ -3,7 +3,7 @@ import 'package:ui/ui.dart';
 
 /// Test
 @Style()
-class IconStyle<Icon> {
+class IconStyle {
   ///
   final double? size;
 

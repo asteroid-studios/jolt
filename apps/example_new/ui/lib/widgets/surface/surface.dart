@@ -45,7 +45,11 @@ class Surface extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final style = SurfaceStyle.resolve(context, this, this.style);
+    final style = SurfaceStyle.defaultStyle(context, this).resolve(
+      context,
+      InheritedStyle.maybeOf(context, this),
+      this.style?.call(context, this),
+    );
     final foreground = style.foregroundColor ?? style.color?.foreground;
 
     // if (isSliver) {
