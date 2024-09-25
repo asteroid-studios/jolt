@@ -107,7 +107,7 @@ extension ColorWidgetX on Widget {
         builder: (context) {
           // TODO Fix up and use inherited surface color
           final surfaceColor = Colors.surface;
-          return DefaultTextStyle(
+          return DefaultSymbolStyle(
             style: TextStyle(color: surfaceColor.foreground),
             child: this,
           );
@@ -119,7 +119,7 @@ extension ColorWidgetX on Widget {
         builder: (context) {
           // TODO Fix up and use inherited surface color
           final surfaceColor = Colors.surface;
-          return DefaultTextStyle(
+          return DefaultSymbolStyle(
             style: TextStyle(color: surfaceColor.foregroundLight),
             child: this,
           );

@@ -38,28 +38,25 @@ class NavigationBar extends StatelessWidget {
           child: Row(
             children: [
               // TODOdon't hard code these here
-              Button(
-                style: Button.ghost,
+              Button.ghost(
                 icon: IconsFill.house.icon,
                 size: Fonts.heading.fontSize,
                 onTap: () {},
               ),
-              Button(
+              Button.ghost(
                 onTap: () {},
                 icon: Icon(
                   IconsDuotone.bell,
                   // color: Colors.background.foreground.withOpacity(0.9),
                 ),
-                style: Button.ghost,
                 size: Fonts.heading.fontSize,
               ),
-              Button(
+              Button.ghost(
                 onTap: () {},
                 icon: Icon(
                   IconsDuotone.userCircle,
                   // color: Colors.background.foreground.withOpacity(0.9),
                 ),
-                style: Button.ghost,
                 size: Fonts.heading.fontSize,
               ),
             ].withExpanded(),

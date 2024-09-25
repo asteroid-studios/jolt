@@ -47,7 +47,7 @@ class Surface extends StatelessWidget {
   Widget build(BuildContext context) {
     final style = SurfaceStyle.defaultStyle(context, this).resolve(
       context,
-      InheritedStyle.maybeOf(context, this),
+      InheritedStyle.maybeOf(context),
       this.style?.call(context, this),
     );
     final foreground = style.foregroundColor ?? style.color?.foreground;

@@ -3,8 +3,8 @@ import 'package:jolt/jolt.dart';
 ///
 extension StyleWidgetX on Widget {
   ///
-  InheritedStyle<T, W> withStyle<T, W>(StyleResolver<T, W> style) =>
-      InheritedStyle<T, W>(
+  InheritedStyle<T> withStyle<T>(InheritedStyleResolver<T> style) =>
+      InheritedStyle<T>(
         style: style,
         child: this,
       );

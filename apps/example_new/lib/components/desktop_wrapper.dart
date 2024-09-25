@@ -77,47 +77,42 @@ class DesktopWrapper extends HookWidget {
                               children: [
                                 if (isHome) const Gap.sm() else const Gap.xxs(),
                                 if (!NavMenu.forceOpen && isHome)
-                                  Button(
+                                  Button.ghost(
                                     size: Fonts.heading.sm.fontSize,
                                     icon: sidebarOpen.value ? IconsBold.x.icon : IconsDuotone.sidebar.icon,
-                                    style: Button.ghost,
                                     onTap: () {
                                       sidebarOpen.value = !sidebarOpen.value;
                                     },
                                   )
                                 else if (!isHome)
-                                  Button(
+                                  Button.ghost(
                                     size: Fonts.heading.sm.fontSize,
                                     icon: IconsBold.caretLeft.icon,
-                                    style: Button.ghost,
                                     onTap: router.back,
                                   )
                                 else
                                   const Gap.md(),
                                 Expanded(
-                                  child: Button(
+                                  child: Button.ghost(
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     // padding: Spacing.xxs,
                                     // horizontalPadding: Spacing.sm,
-                                    style: Button.ghost,
                                     label: Text(
                                       router.title(context),
                                       style: Fonts.heading.colored(Colors.background.foreground),
                                     ),
                                   ),
                                 ),
-                                Button(
+                                Button.ghost(
                                   size: Fonts.heading.sm.fontSize,
                                   icon: IconsDuotone.gear.icon,
-                                  style: Button.ghost,
                                   onTap: () {
                                     ThemeProvider.of(context)?.setSystemTheme();
                                   },
                                 ),
-                                Button(
+                                Button.ghost(
                                   size: Fonts.heading.sm.fontSize,
                                   icon: Colors.isDark ? IconsDuotone.moon.icon : IconsDuotone.sun.icon,
-                                  style: Button.ghost,
                                   onTap: () {
                                     ThemeProvider.of(context)?.toggleTheme();
                                   },

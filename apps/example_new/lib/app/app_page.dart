@@ -43,7 +43,7 @@ class AppPage extends HookWidget {
         //     child: Row(
         //       mainAxisAlignment: MainAxisAlignment.end,
         //       children: [
-        //         Button(
+        //         Button.filled(
         //           size: Fonts.body.lg.fontSize,
         //           color: Colors.primary,
         //           icon: Icons.plus.icon,
@@ -68,7 +68,7 @@ class AppPage extends HookWidget {
               //   actions: [
               //     // if (!Platform.isMobile) const Gap.xs(),
               //     // if (!Platform.isMobile)
-              //     Button(
+              //     Button.filled(
               //       selected: true,
               //       icon: IconsDuotone.arrowClockwise.icon,
               //       onTap: () {
@@ -129,76 +129,74 @@ class AppPage extends HookWidget {
               // ),
               // const Gap.sm(),
 
-              // ThemeProvider(
-              //   theme: themes.last,
-              //   builder: (context) {
-              //     return Section(
-              //       pinned: true,
-              //       // floating: true,
-              //       blur: 5,
-              //       color: context.color.surface.withOpacity(.9),
-              //       child: Container(
-              //         padding: EdgeInsets.symmetric(vertical: Spacing.sm),
-              //         child: Row(
-              //           children: [
-              //             Expanded(
-              //               child: Text('Pinned', style: Fonts.body.lg.bold),
-              //             ),
-              //             Button(
-              //               onTap: () {
-              //                 Jolt.dialog.show<void>(
-              //                   Drawer(
-              //                     crossAxisSize: (context.mediaQuery.size.width - 50).responsive(tablet: 450),
-              //                     title: 'Test',
-              //                   ),
-              //                 );
-              //               },
-              //               style: Button.ghost,
-              //               icon: Icon(
-              //                 IconsBold.plus,
-              //                 color: Colors.primary.foreground,
-              //               ),
-              //             ),
-              //           ],
-              //         ),
-              //       ),
-              //     );
-              //   },
-              // ),
-              // Section(
-              //   // pinned: true,
-              //   floating: true,
-              //   blur: 5,
-              //   color: Colors.primary.withOpacity(.9),
-              //   child: Container(
-              //     padding: EdgeInsets.symmetric(vertical: Spacing.sm),
-              //     child: Row(
-              //       children: [
-              //         Expanded(
-              //           child: Text(
-              //             'Floating',
-              //             style: Fonts.body.lg.bold.colored(
-              //               Colors.primary.foreground,
-              //             ),
-              //           ),
-              //         ),
-              //         Button(
-              //           onTap: () {
-              //             Jolt.dialog.show(Dialog(
-              //               title: 'Test',
-              //             ));
-              //           },
-              //           style: Button.ghost,
-              //           icon: Icon(
-              //             IconsBold.plus,
-              //             color: Colors.primary.foreground,
-              //           ),
-              //         ),
-              //       ],
-              //     ),
-              //   ),
-              // ),
-              // const Gap.sm(),
+              ThemeProvider(
+                theme: themes.last,
+                builder: (context) {
+                  return Section(
+                    pinned: true,
+                    // floating: true,
+                    blur: 5,
+                    color: context.color.surface.withOpacity(.9),
+                    child: Container(
+                      padding: EdgeInsets.symmetric(vertical: Spacing.sm),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: Text('Pinned', style: Fonts.body.lg.bold),
+                          ),
+                          Button.ghost(
+                            onTap: () {
+                              Jolt.dialog.show<void>(
+                                Drawer(
+                                  crossAxisSize: (context.mediaQuery.size.width - 50).responsive(tablet: 450),
+                                  title: 'Test',
+                                ),
+                              );
+                            },
+                            icon: Icon(
+                              IconsBold.plus,
+                              color: Colors.primary.foreground,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
+                },
+              ),
+              Section(
+                // pinned: true,
+                floating: true,
+                blur: 5,
+                color: Colors.primary.withOpacity(.9),
+                child: Container(
+                  padding: EdgeInsets.symmetric(vertical: Spacing.sm),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Text(
+                          'Floating',
+                          style: Fonts.body.lg.bold.colored(
+                            Colors.primary.foreground,
+                          ),
+                        ),
+                      ),
+                      Button.ghost(
+                        onTap: () {
+                          Jolt.dialog.show(Dialog(
+                            title: 'Test',
+                          ));
+                        },
+                        icon: Icon(
+                          IconsBold.plus,
+                          color: Colors.primary.foreground,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              const Gap.sm(),
               ScrollGroup(
                 children: [
                   const Gap.md(),
@@ -228,33 +226,39 @@ class AppPage extends HookWidget {
                           const Gap.md(),
                           Row(
                             children: [
-                              Button(
-                                label: 'Test'.text,
-                                color: Colors.primary,
-                                icon: const Icon(IconsBold.acorn),
+                              Button.filled(
+                                // color: Colors.error,
+                                label: 'Book'.text,
+                                icon: const Icon(IconsBold.calendar),
                                 onTap: () {
                                   print('Pressed');
                                 },
-                              ),
-                              Button(
-                                style: Button.filled,
-                                // style: Button.outlined,
+                              )
+                                  // TODO this doesn't work because the one inside Surface overrides it.
+                                  // Need to implement important again
+                                  // Also don't like the extension format
+                                  .foregroundLight,
+                              Button.filled(
                                 // color: Colors.primary.withOpacity(0.2),
-                                icon: const Icon(IconsBold.acorn),
+                                icon: const Icon(IconsBold.calendar),
                                 onTap: () {
                                   print('Pressed');
                                 },
                               ),
-                              Button(
-                                style: Button.outlined,
-                                icon: const Icon(IconsBold.acorn),
+                              Button.outlined(
+                                icon: const Icon(IconsBold.calendar),
                                 onTap: () {
                                   print('Pressed');
                                 },
                               ),
-                              Button(
-                                style: Button.link,
-                                label: 'Link'.text,
+                              Button.ghost(
+                                icon: const Icon(IconsBold.calendar),
+                                onTap: () {
+                                  print('Pressed');
+                                },
+                              ),
+                              Button.link(
+                                label: 'Book'.text,
                                 onTap: () {
                                   print('Pressed');
                                 },

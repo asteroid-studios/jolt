@@ -22,11 +22,48 @@ class ButtonStyle {
     return ButtonStyle(
       surfaceStyle: SurfaceStyle(
         padding: EdgeInsets.symmetric(vertical: padding, horizontal: horizontal),
-        color: Colors.primary,
         borderRadius: BorderRadius.circular(50),
       ),
     );
   }
+
+  /// A filled button style
+  static StyleResolver<ButtonStyle, Button> get filled => defaultStyle;
+
+  /// An outlined button style
+  static StyleResolver<ButtonStyle, Button> get outlined => (context, button) {
+        return ButtonStyle(
+          surfaceStyle: SurfaceStyle(
+            color: Colors.background,
+            border: Border.all(
+              strokeAlign: BorderSide.strokeAlignOutside,
+              color: Colors.outline,
+            ),
+          ),
+        );
+      };
+
+  /// A ghost button style
+  static StyleResolver<ButtonStyle, Button> get ghost => (context, button) {
+        return ButtonStyle(
+          surfaceStyle: SurfaceStyle(
+            color: Colors.transparent,
+            foregroundColor: Colors.background.foreground,
+          ),
+        );
+      };
+
+  /// A button styled as a link
+  static StyleResolver<ButtonStyle, Button> get link => (context, button) {
+        return ButtonStyle(
+          // TODO only add on hover
+          labelStyle: const TextStyle(decoration: TextDecoration.underline),
+          surfaceStyle: SurfaceStyle(
+            color: Colors.transparent,
+            foregroundColor: Colors.background.foreground,
+          ),
+        );
+      };
 
   @override
   String toString() {

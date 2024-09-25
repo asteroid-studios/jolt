@@ -36,7 +36,10 @@ class Jolt {
 typedef StyleResolver<T, W> = T? Function(BuildContext context, W widget);
 
 ///
-class InheritedStyle<T, W> extends InheritedWidget {
+typedef InheritedStyleResolver<T> = T? Function(BuildContext context);
+
+///
+class InheritedStyle<T> extends InheritedWidget {
   ///
   const InheritedStyle({
     required this.style,
@@ -45,15 +48,15 @@ class InheritedStyle<T, W> extends InheritedWidget {
   });
 
   ///
-  final StyleResolver<T, W> style;
+  final InheritedStyleResolver<T> style;
 
   @override
-  bool updateShouldNotify(covariant InheritedStyle<T, W> oldWidget) {
+  bool updateShouldNotify(covariant InheritedStyle<T> oldWidget) {
     return oldWidget.style != style;
   }
 
   /// Helper method to access the nearest DefaultStyle in the widget tree
-  static T? maybeOf<T, W>(BuildContext context, W widget) => context
-      .dependOnInheritedWidgetOfExactType<InheritedStyle<T, W>>()
-      ?.style(context, widget);
+  static T? maybeOf<T>(BuildContext context) => context
+      .dependOnInheritedWidgetOfExactType<InheritedStyle<T>>()
+      ?.style(context);
 }

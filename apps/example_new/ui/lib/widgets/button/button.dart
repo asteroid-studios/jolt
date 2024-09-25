@@ -2,12 +2,12 @@ import 'package:ui/ui.dart';
 
 ///
 class Button extends StatelessWidget {
-  ///
+  /// A default
   const Button({
     this.label,
     this.icon,
-    this.style,
     this.onTap,
+    this.style,
     this.color,
     this.trailing,
     this.selected = false,
@@ -15,7 +15,67 @@ class Button extends StatelessWidget {
     this.size,
     this.padding,
     super.key,
-  });
+  }) : type = ButtonType.filled;
+
+  /// A button with a transparent background
+  const Button.ghost({
+    this.label,
+    this.icon,
+    this.onTap,
+    this.style,
+    this.color,
+    this.trailing,
+    this.selected = false,
+    this.mainAxisAlignment = MainAxisAlignment.center,
+    this.size,
+    this.padding,
+    super.key,
+  }) : type = ButtonType.ghost;
+
+  /// A button with an outlined border
+  const Button.outlined({
+    this.label,
+    this.icon,
+    this.onTap,
+    this.style,
+    this.color,
+    this.trailing,
+    this.selected = false,
+    this.mainAxisAlignment = MainAxisAlignment.center,
+    this.size,
+    this.padding,
+    super.key,
+  }) : type = ButtonType.outlined;
+
+  /// A button styled as a link
+  const Button.link({
+    this.label,
+    this.icon,
+    this.onTap,
+    this.style,
+    this.color,
+    this.trailing,
+    this.selected = false,
+    this.mainAxisAlignment = MainAxisAlignment.center,
+    this.size,
+    this.padding,
+    super.key,
+  }) : type = ButtonType.link;
+
+  /// A button with a filled background
+  const Button.filled({
+    this.label,
+    this.icon,
+    this.onTap,
+    this.style,
+    this.color,
+    this.trailing,
+    this.selected = false,
+    this.mainAxisAlignment = MainAxisAlignment.center,
+    this.size,
+    this.padding,
+    super.key,
+  }) : type = ButtonType.filled;
 
   ///
   final Widget? label;
@@ -39,6 +99,9 @@ class Button extends StatelessWidget {
   final MainAxisAlignment mainAxisAlignment;
 
   ///
+  final ButtonType type;
+
+  ///
   final StyleResolver<ButtonStyle, Button>? style;
 
   final EdgeInsetsGeometry? padding;
@@ -46,46 +109,17 @@ class Button extends StatelessWidget {
   // TODO remove
   final bool selected;
 
-  /// Regular filled button, default style
-  static StyleResolver<ButtonStyle, Button> get filled => (context, button) => null;
-
-  /// A button styled as a link
-  static StyleResolver<ButtonStyle, Button> get link => (context, button) => ButtonStyle(
-        // TODO only add on hover
-        labelStyle: const TextStyle(decoration: TextDecoration.underline),
-        surfaceStyle: SurfaceStyle(
-          color: Colors.transparent,
-          foregroundColor: Colors.background.foreground,
-        ),
-      );
-
-  /// A transparent button
-  static StyleResolver<ButtonStyle, Button> get ghost => (context, button) => ButtonStyle(
-        surfaceStyle: SurfaceStyle(
-          color: Colors.transparent,
-          foregroundColor: Colors.background.foreground,
-        ),
-      );
-
-  ///
-  static StyleResolver<ButtonStyle, Button> get outlined => (context, button) => ButtonStyle(
-        surfaceStyle: SurfaceStyle(
-          color: Colors.background,
-          border: Border.all(
-            strokeAlign: BorderSide.strokeAlignOutside,
-            color: Colors.outline,
-          ),
-        ),
-      );
-
   @override
   Widget build(BuildContext context) {
     final defaultStyle = ButtonStyle.defaultStyle(context, this);
-    final inherited = InheritedStyle.maybeOf<ButtonStyle, Button>(context, this);
-    final inline = this.style?.call(context, this);
+    final inherited = InheritedStyle.maybeOf<ButtonStyle>(context);
+    final styleFromType = _styles()[type]?.call(context, this);
+    final inline = styleFromType?.merge(this.style?.call(context, this));
     // TODO issue where TextStyle merging fails to run properly
     // Only an issue when merge is run from macro, if class runs its fine
     final style = defaultStyle.resolve(context, inherited, inline);
+    // TODO inherited styles not working, probably because of the <T,W>
+    print(inherited?.surfaceStyle?.color?.toHex8());
 
     // TODO swap for interaction widget.
 
@@ -93,7 +127,7 @@ class Button extends StatelessWidget {
       onTap: onTap,
       child: Surface(
         style: (context, button) {
-          return SurfaceStyle(
+          return style.surfaceStyle?.merge(SurfaceStyle(
             color: color,
             padding: padding,
             border: selected
@@ -103,7 +137,7 @@ class Button extends StatelessWidget {
                     strokeAlign: BorderSide.strokeAlignOutside,
                   )
                 : null,
-          ).merge(style.surfaceStyle);
+          ));
         },
         child: IconTheme.merge(
           data: IconThemeData(
@@ -133,3 +167,25 @@ class Button extends StatelessWidget {
     );
   }
 }
+
+///
+enum ButtonType {
+  /// A filled button
+  filled,
+
+  /// An outlined button
+  outlined,
+
+  /// A transparent button
+  ghost,
+
+  /// A button styled as a link
+  link,
+}
+
+Map<ButtonType, StyleResolver<ButtonStyle, Button>> _styles() => {
+      ButtonType.filled: ButtonStyle.filled,
+      ButtonType.outlined: ButtonStyle.outlined,
+      ButtonType.ghost: ButtonStyle.ghost,
+      ButtonType.link: ButtonStyle.link,
+    };
