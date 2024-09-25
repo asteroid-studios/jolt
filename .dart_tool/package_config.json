@@ -248,7 +248,10 @@
       "languageVersion": "3.3"
     }
   ],
-  "generated": "2024-04-09T04:47:06.616976Z",
+  "generated": "2024-09-25T01:30:03.735633Z",
   "generator": "pub",
-  "generatorVersion": "3.3.0"
+  "generatorVersion": "3.6.0-216.1.beta",
+  "flutterRoot": "file:///Users/kanewickman/fvm/versions/beta",
+  "flutterVersion": "3.26.0-0.1.pre",
+  "pubCache": "file:///Users/kanewickman/.pub-cache"
 }

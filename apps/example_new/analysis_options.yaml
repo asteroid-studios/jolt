@@ -5,3 +5,8 @@ linter:
     public_member_api_docs: false
     avoid_print: true
     lines_longer_than_80_chars: false
+
+analyzer:
+  enable-experiment:
+    - enhanced-parts
+    - macros

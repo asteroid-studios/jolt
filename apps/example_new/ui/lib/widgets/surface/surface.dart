@@ -1,7 +1,5 @@
 import 'package:ui/ui.dart';
 
-const surfaceDuration = Durations.medium;
-
 ///
 class Surface extends StatelessWidget {
   /// A widget similar to AnimatedContainer but with two additional features
@@ -25,7 +23,7 @@ class Surface extends StatelessWidget {
   // const Surface.sliver({this.child, this.style, super.key}) : isSliver = true;
 
   ///
-  final StyleResolver<SurfaceStyle>? style;
+  final StyleResolver<SurfaceStyle, Surface>? style;
 
   ///
   final Widget? child;
@@ -47,8 +45,8 @@ class Surface extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final style = SurfaceStyle.resolve(context, this.style);
-    final foreground = style.foregroundColor ?? style.color.foreground;
+    final style = SurfaceStyle.resolve(context, this, this.style);
+    final foreground = style.foregroundColor ?? style.color?.foreground;
 
     // if (isSliver) {
     //   return AnimatedDecoratedSliver(
@@ -59,16 +57,18 @@ class Surface extends StatelessWidget {
     // }
 
     return AnimatedContainer(
-      duration: style.animationDuration,
-      padding: padding,
+      duration: Durations.themeChange,
+      width: width,
+      height: height,
+      padding: padding ?? style.padding,
       margin: margin,
       decoration: BoxDecoration(
         color: style.color,
         borderRadius: style.borderRadius,
         border: style.border,
+        shape: style.shape ?? BoxShape.rectangle,
+        boxShadow: style.color?.a == 0 ? null : style.boxShadow,
       ),
-      width: width,
-      height: height,
       child: DefaultSymbolStyle(
         style: TextStyle(color: foreground),
         child: child ?? const SizedBox.shrink(),

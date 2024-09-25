@@ -94,7 +94,7 @@ class _AppBarState extends State<AppBar> {
                       child: showBack
                           ? Button(
                               style: Button.ghost,
-                              padding: Spacing.xs,
+                              // padding: Spacing.xs,
                               onTap: () => Navigator.of(context).maybePop(),
                               icon: Icon(
                                 IconsBold.caretLeft,

@@ -7,6 +7,7 @@ import 'package:ui/ui.dart';
 
 void main() {
   usePathUrlStrategy();
+
   runApp(const App());
   if (Platform.isDesktop) {
     // doWhenWindowReady(() {
@@ -363,4 +364,3 @@ void main() {
 //   // @override
 //   // double? get crossAxisSize => 400;
 // }
-

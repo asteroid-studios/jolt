@@ -1,7 +1,8 @@
 {
-  "cSpell.words": ["scrollbars", "xxxs"],
+  "cSpell.words": ["clazz", "scrollbars", "xxxs"],
   "editor.codeActionsOnSave": {
     "source.fixAll": "never"
   },
-  "dart.lineLength": 120
+  "dart.lineLength": 120,
+  "dart.flutterSdkPath": ".fvm/versions/master"
 }

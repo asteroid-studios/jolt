@@ -4,12 +4,16 @@
     {
       "name": "debug",
       "request": "launch",
-      "type": "dart"
+      "type": "dart",
+      "program": "lib/main.dart",
+      "toolArgs": ["--enable-experiment=macros,enhanced-parts"]
     },
     {
       "name": "debug web",
       "request": "launch",
       "type": "dart",
+      "program": "lib/main.dart",
+      "toolArgs": ["--enable-experiment=macros,enhanced-parts"],
       "args": ["-d", "chrome"]
     }
   ]

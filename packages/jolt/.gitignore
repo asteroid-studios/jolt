@@ -32,3 +32,6 @@ build/
 # Ignore generated files in lib
 *.g.dart
 *.fr.dart
+
+# FVM Version Cache
+.fvm/

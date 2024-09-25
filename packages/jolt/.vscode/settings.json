@@ -8,5 +8,6 @@
     "tweenanim",
     "xxxs",
     "zindex"
-  ]
+  ],
+  "dart.flutterSdkPath": ".fvm/versions/master"
 }

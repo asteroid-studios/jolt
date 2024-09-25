@@ -52,7 +52,7 @@ class AppPage extends HookWidget {
         //     ),
         //   ),
         // ),
-        // bottomBar: NavigationBar(floating: Platform.isMobile),
+        // bottomBar: NavigationBar(floating: true),
         content: Scrollbar(
           child: ScrollArea(
             // TODO Fix because of https://linear.app/asteroid-studios/issue/AST-91/refresh-doesnt-work-on-android
@@ -94,7 +94,7 @@ class AppPage extends HookWidget {
                     collapsed.value = !collapsed.value;
                   },
                   child: AnimatedContainer(
-                    duration: surfaceDuration,
+                    duration: Durations.themeChange,
                     width: double.infinity,
                     margin: EdgeInsets.only(top: Spacing.xs),
                     padding: EdgeInsets.symmetric(
@@ -129,75 +129,75 @@ class AppPage extends HookWidget {
               // ),
               // const Gap.sm(),
 
-              ThemeProvider(
-                theme: themes.last,
-                builder: (context) {
-                  return Section(
-                    pinned: true,
-                    // floating: true,
-                    blur: 5,
-                    color: context.color.surface.withOpacity(.9),
-                    child: Container(
-                      padding: EdgeInsets.symmetric(vertical: Spacing.sm),
-                      child: Row(
-                        children: [
-                          Expanded(
-                            child: Text('Pinned', style: Fonts.body.lg.bold),
-                          ),
-                          Button(
-                            onTap: () {
-                              Jolt.dialog.show<void>(
-                                Drawer(
-                                  crossAxisSize: (context.mediaQuery.size.width - 50).responsive(tablet: 450),
-                                  title: 'Test',
-                                ),
-                              );
-                            },
-                            style: Button.ghost,
-                            icon: Icon(
-                              IconsBold.plus,
-                              color: Colors.primary.foreground,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  );
-                },
-              ),
-              Section(
-                // pinned: true,
-                floating: true,
-                blur: 5,
-                color: Colors.primary.withOpacity(.9),
-                child: Container(
-                  padding: EdgeInsets.symmetric(vertical: Spacing.sm),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: Text(
-                          'Floating',
-                          style: Fonts.body.lg.bold.colored(
-                            Colors.primary.foreground,
-                          ),
-                        ),
-                      ),
-                      Button(
-                        onTap: () {
-                          Jolt.dialog.show(Dialog(
-                            title: 'Test',
-                          ));
-                        },
-                        style: Button.ghost,
-                        icon: Icon(
-                          IconsBold.plus,
-                          color: Colors.primary.foreground,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
+              // ThemeProvider(
+              //   theme: themes.last,
+              //   builder: (context) {
+              //     return Section(
+              //       pinned: true,
+              //       // floating: true,
+              //       blur: 5,
+              //       color: context.color.surface.withOpacity(.9),
+              //       child: Container(
+              //         padding: EdgeInsets.symmetric(vertical: Spacing.sm),
+              //         child: Row(
+              //           children: [
+              //             Expanded(
+              //               child: Text('Pinned', style: Fonts.body.lg.bold),
+              //             ),
+              //             Button(
+              //               onTap: () {
+              //                 Jolt.dialog.show<void>(
+              //                   Drawer(
+              //                     crossAxisSize: (context.mediaQuery.size.width - 50).responsive(tablet: 450),
+              //                     title: 'Test',
+              //                   ),
+              //                 );
+              //               },
+              //               style: Button.ghost,
+              //               icon: Icon(
+              //                 IconsBold.plus,
+              //                 color: Colors.primary.foreground,
+              //               ),
+              //             ),
+              //           ],
+              //         ),
+              //       ),
+              //     );
+              //   },
+              // ),
+              // Section(
+              //   // pinned: true,
+              //   floating: true,
+              //   blur: 5,
+              //   color: Colors.primary.withOpacity(.9),
+              //   child: Container(
+              //     padding: EdgeInsets.symmetric(vertical: Spacing.sm),
+              //     child: Row(
+              //       children: [
+              //         Expanded(
+              //           child: Text(
+              //             'Floating',
+              //             style: Fonts.body.lg.bold.colored(
+              //               Colors.primary.foreground,
+              //             ),
+              //           ),
+              //         ),
+              //         Button(
+              //           onTap: () {
+              //             Jolt.dialog.show(Dialog(
+              //               title: 'Test',
+              //             ));
+              //           },
+              //           style: Button.ghost,
+              //           icon: Icon(
+              //             IconsBold.plus,
+              //             color: Colors.primary.foreground,
+              //           ),
+              //         ),
+              //       ],
+              //     ),
+              //   ),
+              // ),
               // const Gap.sm(),
               ScrollGroup(
                 children: [
@@ -237,9 +237,24 @@ class AppPage extends HookWidget {
                                 },
                               ),
                               Button(
+                                style: Button.filled,
                                 // style: Button.outlined,
                                 // color: Colors.primary.withOpacity(0.2),
                                 icon: const Icon(IconsBold.acorn),
+                                onTap: () {
+                                  print('Pressed');
+                                },
+                              ),
+                              Button(
+                                style: Button.outlined,
+                                icon: const Icon(IconsBold.acorn),
+                                onTap: () {
+                                  print('Pressed');
+                                },
+                              ),
+                              Button(
+                                style: Button.link,
+                                label: 'Link'.text,
                                 onTap: () {
                                   print('Pressed');
                                 },
@@ -249,7 +264,7 @@ class AppPage extends HookWidget {
                           const Gap.md(),
                           Surface(
                             height: 100,
-                            style: (context) => SurfaceStyle(color: Colors.primary),
+                            style: (context, surface) => SurfaceStyle(color: Colors.primary),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [

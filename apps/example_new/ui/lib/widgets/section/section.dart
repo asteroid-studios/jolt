@@ -2,6 +2,10 @@ import 'dart:math';
 
 import 'package:ui/ui.dart';
 
+// TODO change this to an enum and have different constructors for each type
+// TODO switch to use the new widgets for pinned floating and resizing.
+// TODO Test combining floating and resizing.
+
 ///
 class Section extends StatelessWidget {
   ///
@@ -109,7 +113,7 @@ class Section extends StatelessWidget {
       }
 
       return AnimatedDecoratedSliver(
-        duration: surfaceDuration,
+        duration: Durations.themeChange,
         decoration: decoration ?? BoxDecoration(color: color),
         sliver: SliverPadding(
           padding: padding,
@@ -119,7 +123,7 @@ class Section extends StatelessWidget {
     }
 
     section = AnimatedContainer(
-      duration: surfaceDuration,
+      duration: Durations.themeChange,
       decoration: decoration ?? BoxDecoration(color: color),
       child: Padding(
         padding: padding,

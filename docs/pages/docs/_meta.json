@@ -1,5 +1,5 @@
 {
-  "index": { 
+  "index": {
     "title": "Introduction",
     "theme": {
       "breadcrumb": false
@@ -8,6 +8,7 @@
   "getting-started": "Getting Started",
   "style": "Style",
   "accessibility": "Accessibility",
+  "layout": "Layout",
   "responsiveness": "Responsiveness",
   "contributing": "Contributing",
   "best-practices": "Best Practices",

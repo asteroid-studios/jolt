@@ -4,7 +4,7 @@ version: 0.0.1
 publish_to: none
 
 environment:
-  sdk: ">=3.3.0 <4.0.0"
+  sdk: ">=3.6.0-0 <4.0.0"
   flutter: ">=3.0.0"
 
 dependencies:
@@ -15,6 +15,7 @@ dependencies:
   flutter_animate: ^4.5.0
   gap: ^3.0.1
   jolt:
+  macros: ^0.1.0-main
   native_storage: ^0.1.3
   phosphor_flutter: ^2.0.1
   sliver_tools: ^0.2.12
@@ -24,6 +25,14 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   very_good_analysis: ^5.1.0
+
+dependency_overrides:
+  # Not yet published.
+  _fe_analyzer_shared:
+    git:
+      url: https://github.com/dart-lang/sdk.git
+      path: pkg/_fe_analyzer_shared
+      ref: main
 
 flutter:
   uses-material-design: false

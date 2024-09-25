@@ -4,7 +4,7 @@ publish_to: "none"
 version: 0.0.1+1
 
 environment:
-  sdk: ">=3.3.0 <4.0.0"
+  sdk: ">=3.6.0-0 <4.0.0"
 
 dependencies:
   auto_route: ^8.0.0
@@ -15,6 +15,8 @@ dependencies:
   flutter_hooks: ^0.20.5
   flutter_web_plugins:
     sdk: flutter
+  macros: ^0.1.0-main
+  json: ^0.20.2
   ui:
     path: ui
 
@@ -32,6 +34,12 @@ dependency_overrides:
       url: https://github.com/kane-knowby/auto_route_library.git
       path: auto_route
       ref: master
+  # Not yet published.
+  _fe_analyzer_shared:
+    git:
+      url: https://github.com/dart-lang/sdk.git
+      path: pkg/_fe_analyzer_shared
+      ref: main
 
 flutter:
   uses-material-design: false

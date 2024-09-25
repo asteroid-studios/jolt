@@ -49,7 +49,7 @@ class _NavigationItemState extends State<NavigationItem> {
     return Column(
       children: [
         Button(
-          horizontalPadding: Spacing.sm,
+          // horizontalPadding: Spacing.sm,
           color: widget.active ? Colors.primary.withOpacity(0.3) : null,
           style: !widget.active ? Button.ghost : null,
           mainAxisAlignment: MainAxisAlignment.start,
@@ -59,7 +59,7 @@ class _NavigationItemState extends State<NavigationItem> {
               ? Button(
                   icon: collapsed ? Icons.caretRight.icon : Icons.caretDown.icon,
                   size: Fonts.label.fontSize,
-                  padding: Spacing.xxs,
+                  // padding: Spacing.xxs,
                   color: Colors.transparent,
                   onTap: () => setState(() => collapsed = !collapsed),
                 )
