@@ -37,6 +37,7 @@ macro class Style implements  ClassDeclarationsMacro {
       // TODO just a workaround until I can determine if field type has a merge method
       if(field.identifier.name == 'resolver') {        
         // TODO create a new function which calls functions in order.
+        mergeString.write('\n\t\t\t${field.identifier.name}: (style) {\n\t\t\t\treturn style?.resolver?.call(resolver?.call(this));\n\t\t\t}');
       }
      else if(mergeableFields.contains(field.identifier.name)) {        
         mergeString.write('\n\t\t\t${field.identifier.name}: ${field.identifier.name}?.merge(style?.${field.identifier.name}) ??  style?.${field.identifier.name},');
