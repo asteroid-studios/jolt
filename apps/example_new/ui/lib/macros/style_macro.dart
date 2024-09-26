@@ -1,6 +1,9 @@
 import 'dart:async';
 
+import 'package:macro_util/macro_util.dart';
 import 'package:macros/macros.dart';
+
+final _dartCore = Uri.parse('dart:core');
 
 ///
 macro class Style implements  ClassDeclarationsMacro {
@@ -13,7 +16,11 @@ macro class Style implements  ClassDeclarationsMacro {
     ClassDeclaration clazz, 
     MemberDeclarationBuilder builder,
   ) async {
+    final classIdentifier = clazz.identifier;
+     final print = await builder.resolveIdentifier(_dartCore, 'print');
     final name = clazz.identifier.name;
+     final fieldsData = await builder.introspectFields(clazz);
+    //  final ids = await ResolvedIdentifiers.resolve(builder);
     final fields = await builder.fieldsOf(clazz);
     final fieldsString = StringBuffer();    
     final mergeString = StringBuffer();    
@@ -28,7 +35,10 @@ macro class Style implements  ClassDeclarationsMacro {
       }
       fieldsString.write( 'this.${field.identifier.name},');
       // TODO just a workaround until I can determine if field type has a merge method
-      if(mergeableFields.contains(field.identifier.name)) {        
+      if(field.identifier.name == 'resolver') {        
+        // TODO create a new function which calls functions in order.
+      }
+     else if(mergeableFields.contains(field.identifier.name)) {        
         mergeString.write('\n\t\t\t${field.identifier.name}: ${field.identifier.name}?.merge(style?.${field.identifier.name}) ??  style?.${field.identifier.name},');
       }else {
         mergeString.write('\n\t\t\t${field.identifier.name}:  style?.${field.identifier.name} ?? ${field.identifier.name},');
@@ -36,6 +46,7 @@ macro class Style implements  ClassDeclarationsMacro {
     }
     if(fields.isNotEmpty) {
       fieldsString.write('\n');
+      // fieldsString.write('\n\t\tthis.resolver,\n');
       mergeString.write('\n');
     }
     final buildContext = await builder.resolveIdentifier(
@@ -50,6 +61,16 @@ macro class Style implements  ClassDeclarationsMacro {
         // Default constructor
         '\t/// Default comment for style constructor\n',
         '\tconst $name({$fieldsString\t});',
+
+        // TODO this don't work yet
+        // Define resolver
+        // '\n\n\t/// Comment for resolver\n',
+        // '\tfinal ',
+        // classIdentifier,
+        // '? Function(',
+        // classIdentifier,
+        // '? style)? resolver;',
+
         // Merge function
         '\n\n\t/// Comment for merge method\n',
         '\t$name merge($name? style) {',
@@ -77,12 +98,28 @@ macro class Style implements  ClassDeclarationsMacro {
         // inheritedStyle,
         'inheritedStyle).merge(inlineStyle);\n\t}',
 
-        // TODO issue where this is there but not called
+        // TODO think issues stem from not importing stuff.
+        // TODO issue where this is there but not called, think I should reference freezed to see how done
         // To String
         // '\n\n\t@override\n\tString toString() {\n\t\treturn \'$name(',
         // fields.map((field) => '${field.identifier.name}: \$${field.identifier.name}').join(', '),
         // ')\';\n\t}',
+
+        // Copy with
+        // TODO cannot resolve identifiers yet, come back to copy with
+//         '\n\n\t$name copyWith({\n',
+//         fields.map((field)  {
+// final type = fieldsData[field.identifier.name]?.fieldDeclaration.type;
+//           // final type = builder.resolveIdentifier(field.type.li, name) field.type;
+//           return '\t\t${type}${field.type.isNullable ? '?' : ''} ${field.identifier.name}';          
+//         }).join(', \n'),
+//         '\n\t}){\n\t\treturn $name(\n',
+//         fields.map((field) => '\t\t\t${field.identifier.name}: ${field.identifier.name} ?? this.${field.identifier.name}').join(', \n'),
+//         '\n\t\t);',
+//         '\n\t}',
       ]),
     );
   }
+  
+  
 }

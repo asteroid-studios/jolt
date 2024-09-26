@@ -111,23 +111,20 @@ class Button extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final defaultStyle = ButtonStyle.defaultStyle(context, this);
-    final inherited = InheritedStyle.maybeOf<ButtonStyle>(context);
-    final styleFromType = _styles()[type]?.call(context, this);
-    final inline = styleFromType?.merge(this.style?.call(context, this));
-    // TODO issue where TextStyle merging fails to run properly
-    // Only an issue when merge is run from macro, if class runs its fine
-    final style = defaultStyle.resolve(context, inherited, inline);
-
-    // TODO swap for interaction widget.
-
     return Interaction(
+      onTap: onTap,
       builder: (context, state) {
-        return GestureDetector(
-          onTap: onTap,
-          child: Surface(
-            style: (context, button) {
-              return style.surfaceStyle?.merge(SurfaceStyle(
+        // TODO issue where TextStyle merging fails to run properly
+        // Only an issue when merge is run from macro, if class runs its fine
+        final defaultStyle = ButtonStyle.defaultStyle(context, this);
+        final inheritedStyle = InheritedStyle.maybeOf<ButtonStyle>(context);
+        final typeStyle = ButtonStyle.fromType(type).call(context, this);
+        final inlineStyle = typeStyle?.merge(this.style?.call(context, this));
+        final style = defaultStyle.resolve(context, inheritedStyle, inlineStyle);
+        return Surface(
+          style: (context, button) {
+            return style.surfaceStyle?.merge(
+              SurfaceStyle(
                 color: color,
                 padding: padding,
                 border: selected
@@ -137,30 +134,30 @@ class Button extends StatelessWidget {
                         strokeAlign: BorderSide.strokeAlignOutside,
                       )
                     : null,
-              ));
-            },
-            child: IconTheme.merge(
-              data: IconThemeData(
-                size: size ?? style.iconSize ?? DefaultTextStyle.of(context).style.fontSize,
               ),
-              child: DefaultTextStyle.merge(
-                style: TextStyle(fontSize: size).merge(style.labelStyle),
-                child: Stack(
-                  alignment: Alignment.center,
-                  children: [
-                    const RotatedBox(quarterTurns: 1, child: Text('')),
-                    const Text(''),
-                    Row(
-                      mainAxisAlignment: mainAxisAlignment,
-                      children: [
-                        if (icon != null) icon!,
-                        if (icon != null && label != null && style.dividerIconLabel != null) style.dividerIconLabel!,
-                        if (label != null) label!,
-                        if (trailing != null) trailing!,
-                      ],
-                    ),
-                  ],
-                ),
+            );
+          },
+          child: IconTheme.merge(
+            data: IconThemeData(
+              size: size ?? style.iconSize ?? DefaultTextStyle.of(context).style.fontSize,
+            ),
+            child: DefaultTextStyle.merge(
+              style: TextStyle(fontSize: size).merge(style.labelStyle),
+              child: Stack(
+                alignment: Alignment.center,
+                children: [
+                  const RotatedBox(quarterTurns: 1, child: Text('')),
+                  const Text(''),
+                  Row(
+                    mainAxisAlignment: mainAxisAlignment,
+                    children: [
+                      if (icon != null) icon!,
+                      if (icon != null && label != null && style.dividerIconLabel != null) style.dividerIconLabel!,
+                      if (label != null) label!,
+                      if (trailing != null) trailing!,
+                    ],
+                  ),
+                ],
               ),
             ),
           ),
@@ -169,25 +166,3 @@ class Button extends StatelessWidget {
     );
   }
 }
-
-///
-enum ButtonType {
-  /// A filled button
-  filled,
-
-  /// An outlined button
-  outlined,
-
-  /// A transparent button
-  ghost,
-
-  /// A button styled as a link
-  link,
-}
-
-Map<ButtonType, StyleResolver<ButtonStyle, Button>> _styles() => {
-      ButtonType.filled: ButtonStyle.filled,
-      ButtonType.outlined: ButtonStyle.outlined,
-      ButtonType.ghost: ButtonStyle.ghost,
-      ButtonType.link: ButtonStyle.link,
-    };

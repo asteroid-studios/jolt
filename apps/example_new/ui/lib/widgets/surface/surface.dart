@@ -45,11 +45,14 @@ class Surface extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final style = SurfaceStyle.defaultStyle(context, this).resolve(
+    final preStyle = SurfaceStyle.defaultStyle(context, this).resolve(
       context,
       InheritedStyle.maybeOf(context),
       this.style?.call(context, this),
     );
+    // TODO clean up as part of resolve
+    // Needs to iterate through all resolvers in order
+    final style = preStyle.resolver?.call(preStyle) ?? preStyle;
     final foreground = style.foregroundColor ?? style.color?.foreground;
 
     // if (isSliver) {
@@ -67,7 +70,7 @@ class Surface extends StatelessWidget {
       padding: padding ?? style.padding,
       margin: margin,
       decoration: BoxDecoration(
-        color: style.color?.withValues(alpha: style.alpha ?? style.color?.a ?? 1.0),
+        color: style.color,
         borderRadius: style.borderRadius,
         border: style.border,
         shape: style.shape ?? BoxShape.rectangle,

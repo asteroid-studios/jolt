@@ -437,6 +437,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.2.0"
+  macro_util:
+    dependency: transitive
+    description:
+      name: macro_util
+      sha256: dc090cba9b8a5249fbac32b7df88d9e7f979a235c2fe925623b2134680b723de
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.1.0-13.dev"
   macros:
     dependency: "direct main"
     description:

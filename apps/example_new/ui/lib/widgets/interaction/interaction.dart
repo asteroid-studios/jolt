@@ -1,11 +1,21 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
 ///
 class Interaction extends StatefulWidget {
   ///
-  const Interaction({required this.builder, super.key});
+  const Interaction({
+    required this.builder,
+    this.onTap,
+    super.key,
+  });
 
+  ///
   final Widget Function(BuildContext context, InteractionState state) builder;
+
+  ///
+  final FutureOr<void> Function()? onTap;
 
   ///
   static InteractionState of(BuildContext context) {
@@ -30,12 +40,15 @@ class InteractionState extends State<Interaction> {
 
   @override
   Widget build(BuildContext context) {
-    final child = widget.builder(context, this);
+    final child = Builder(builder: (context) => widget.builder(context, this));
     return MouseRegion(
       onEnter: (_) => setState(() => hovered = true),
       onExit: (_) => setState(() => hovered = false),
       child: FocusableActionDetector(
-        child: child,
+        child: GestureDetector(
+          onTap: widget.onTap,
+          child: child,
+        ),
       ),
     );
   }
