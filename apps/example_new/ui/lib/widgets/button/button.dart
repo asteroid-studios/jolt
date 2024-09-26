@@ -118,52 +118,54 @@ class Button extends StatelessWidget {
     // TODO issue where TextStyle merging fails to run properly
     // Only an issue when merge is run from macro, if class runs its fine
     final style = defaultStyle.resolve(context, inherited, inline);
-    // TODO inherited styles not working, probably because of the <T,W>
-    print(inherited?.surfaceStyle?.color?.toHex8());
 
     // TODO swap for interaction widget.
 
-    return GestureDetector(
-      onTap: onTap,
-      child: Surface(
-        style: (context, button) {
-          return style.surfaceStyle?.merge(SurfaceStyle(
-            color: color,
-            padding: padding,
-            border: selected
-                ? Border.all(
-                    color: Colors.white,
-                    width: 1.2,
-                    strokeAlign: BorderSide.strokeAlignOutside,
-                  )
-                : null,
-          ));
-        },
-        child: IconTheme.merge(
-          data: IconThemeData(
-            size: size ?? style.iconSize ?? DefaultTextStyle.of(context).style.fontSize,
-          ),
-          child: DefaultTextStyle.merge(
-            style: TextStyle(fontSize: size).merge(style.labelStyle),
-            child: Stack(
-              alignment: Alignment.center,
-              children: [
-                const RotatedBox(quarterTurns: 1, child: Text('')),
-                const Text(''),
-                Row(
-                  mainAxisAlignment: mainAxisAlignment,
+    return Interaction(
+      builder: (context, state) {
+        return GestureDetector(
+          onTap: onTap,
+          child: Surface(
+            style: (context, button) {
+              return style.surfaceStyle?.merge(SurfaceStyle(
+                color: color,
+                padding: padding,
+                border: selected
+                    ? Border.all(
+                        color: Colors.white,
+                        width: 1.2,
+                        strokeAlign: BorderSide.strokeAlignOutside,
+                      )
+                    : null,
+              ));
+            },
+            child: IconTheme.merge(
+              data: IconThemeData(
+                size: size ?? style.iconSize ?? DefaultTextStyle.of(context).style.fontSize,
+              ),
+              child: DefaultTextStyle.merge(
+                style: TextStyle(fontSize: size).merge(style.labelStyle),
+                child: Stack(
+                  alignment: Alignment.center,
                   children: [
-                    if (icon != null) icon!,
-                    if (icon != null && label != null) const Gap.xs(),
-                    if (label != null) label!,
-                    if (trailing != null) trailing!,
+                    const RotatedBox(quarterTurns: 1, child: Text('')),
+                    const Text(''),
+                    Row(
+                      mainAxisAlignment: mainAxisAlignment,
+                      children: [
+                        if (icon != null) icon!,
+                        if (icon != null && label != null && style.dividerIconLabel != null) style.dividerIconLabel!,
+                        if (label != null) label!,
+                        if (trailing != null) trailing!,
+                      ],
+                    ),
                   ],
                 ),
-              ],
+              ),
             ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 }

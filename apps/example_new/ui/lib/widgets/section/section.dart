@@ -113,7 +113,7 @@ class Section extends StatelessWidget {
       }
 
       return AnimatedDecoratedSliver(
-        duration: Durations.themeChange,
+        duration: Durations.themeTransition,
         decoration: decoration ?? BoxDecoration(color: color),
         sliver: SliverPadding(
           padding: padding,
@@ -123,7 +123,7 @@ class Section extends StatelessWidget {
     }
 
     section = AnimatedContainer(
-      duration: Durations.themeChange,
+      duration: Durations.themeTransition,
       decoration: decoration ?? BoxDecoration(color: color),
       child: Padding(
         padding: padding,

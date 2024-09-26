@@ -7,6 +7,11 @@ class SurfaceStyle {
   ///
   final Color? color;
 
+  /// The alpha channel of the color.
+  ///
+  /// A value of 0.0 means this color is fully transparent. A value of 1.0 means this color is fully opaque.
+  final double? alpha;
+
   ///
   final Color? foregroundColor;
 

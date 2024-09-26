@@ -56,7 +56,7 @@ class DesktopWrapper extends HookWidget {
                     child: GestureDetector(
                       onTap: ScrollToTopNotifier.startScroll,
                       child: AnimatedContainer(
-                        duration: Durations.themeChange,
+                        duration: Durations.themeTransition,
                         padding: EdgeInsets.only(
                           top: context.mediaQuery.viewPadding.top + Spacing.xs,
                           bottom: Spacing.xs,

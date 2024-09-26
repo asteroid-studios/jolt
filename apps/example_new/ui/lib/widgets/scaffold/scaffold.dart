@@ -137,7 +137,7 @@ class ScaffoldState extends State<Scaffold> {
         padding: EdgeInsets.only(
           bottom: widget.safeAreaBottom ? context.mediaQuery.padding.bottom : 0,
         ),
-        duration: Durations.themeChange,
+        duration: Durations.themeTransition,
         color: background,
         child: Column(
           children: [
@@ -145,7 +145,7 @@ class ScaffoldState extends State<Scaffold> {
             //   GestureDetector(
             //     onTap: scrollToTop,
             //     child: AnimatedContainer(
-            //       duration: Durations.themeChange,
+            //       duration: Durations.themeTransition,
             //       color: widget.backgroundStatusBar ?? background,
             //       height: context.mediaQuery.padding.top,
             //     ),

@@ -61,13 +61,13 @@ class Surface extends StatelessWidget {
     // }
 
     return AnimatedContainer(
-      duration: Durations.themeChange,
+      duration: Durations.themeTransition,
       width: width,
       height: height,
       padding: padding ?? style.padding,
       margin: margin,
       decoration: BoxDecoration(
-        color: style.color,
+        color: style.color?.withValues(alpha: style.alpha ?? style.color?.a ?? 1.0),
         borderRadius: style.borderRadius,
         border: style.border,
         shape: style.shape ?? BoxShape.rectangle,

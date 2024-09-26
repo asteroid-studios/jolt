@@ -9,6 +9,9 @@ class ButtonStyle {
   ///
   final double? iconSize;
 
+  /// The gap to show between the icon and label
+  final Widget? dividerIconLabel;
+
   ///
   final TextStyle? labelStyle;
 
@@ -20,6 +23,8 @@ class ButtonStyle {
     final padding = Spacing.sm;
     final horizontal = button.label != null ? padding * 2 : padding;
     return ButtonStyle(
+      labelStyle: Fonts.body.w600,
+      dividerIconLabel: Gap.xs(),
       surfaceStyle: SurfaceStyle(
         padding: EdgeInsets.symmetric(vertical: padding, horizontal: horizontal),
         borderRadius: BorderRadius.circular(50),
@@ -34,7 +39,7 @@ class ButtonStyle {
   static StyleResolver<ButtonStyle, Button> get outlined => (context, button) {
         return ButtonStyle(
           surfaceStyle: SurfaceStyle(
-            color: Colors.background,
+            alpha: 0,
             border: Border.all(
               strokeAlign: BorderSide.strokeAlignOutside,
               color: Colors.outline,
@@ -47,7 +52,7 @@ class ButtonStyle {
   static StyleResolver<ButtonStyle, Button> get ghost => (context, button) {
         return ButtonStyle(
           surfaceStyle: SurfaceStyle(
-            color: Colors.transparent,
+            alpha: 0,
             foregroundColor: Colors.background.foreground,
           ),
         );
@@ -59,7 +64,7 @@ class ButtonStyle {
           // TODO only add on hover
           labelStyle: const TextStyle(decoration: TextDecoration.underline),
           surfaceStyle: SurfaceStyle(
-            color: Colors.transparent,
+            alpha: 0,
             foregroundColor: Colors.background.foreground,
           ),
         );

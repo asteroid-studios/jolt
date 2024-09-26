@@ -94,7 +94,7 @@ class AppPage extends HookWidget {
                     collapsed.value = !collapsed.value;
                   },
                   child: AnimatedContainer(
-                    duration: Durations.themeChange,
+                    duration: Durations.themeTransition,
                     width: double.infinity,
                     margin: EdgeInsets.only(top: Spacing.xs),
                     padding: EdgeInsets.symmetric(
@@ -227,8 +227,8 @@ class AppPage extends HookWidget {
                           Row(
                             children: [
                               Button.filled(
-                                // color: Colors.error,
-                                label: 'Book'.text,
+                                color: Colors.primary,
+                                // label: 'Book'.text,
                                 icon: const Icon(IconsBold.calendar),
                                 onTap: () {
                                   print('Pressed');
@@ -247,6 +247,7 @@ class AppPage extends HookWidget {
                               ),
                               Button.outlined(
                                 icon: const Icon(IconsBold.calendar),
+                                label: 'Book'.text,
                                 onTap: () {
                                   print('Pressed');
                                 },

@@ -1,4 +1,3 @@
-export 'animation/durations.dart';
 export 'breakpoints/breakpoint.dart';
 export 'breakpoints/breakpoint.extensions.dart';
 export 'colors/color_swatch.dart';
@@ -6,6 +5,7 @@ export 'colors/colors.dart';
 export 'colors/tailwind_colors.dart';
 export 'dimensions/border_radius.dart';
 export 'dimensions/spacing.dart';
+export 'durations/durations.dart';
 export 'symbols/default_symbol_style.dart';
 export 'symbols/fonts.dart';
 export 'symbols/icons.dart';
