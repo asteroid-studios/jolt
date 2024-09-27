@@ -239,7 +239,7 @@ class AppPage extends HookWidget {
                                   // Also don't like the extension format
                                   .foregroundLight,
                               Button.filled(
-                                color: Colors.tailwind.rose.shade200,
+                                color: Colors.secondary.shade100,
                                 icon: const Icon(IconsBold.calendar),
                                 onTap: () {
                                   print('Pressed');

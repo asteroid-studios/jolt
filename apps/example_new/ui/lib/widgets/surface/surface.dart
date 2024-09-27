@@ -62,7 +62,7 @@ class Surface extends StatelessWidget {
     //   );
     // }
 
-    return AnimatedContainer(
+    final surface = AnimatedContainer(
       duration: Durations.themeTransition,
       width: width,
       height: height,
@@ -71,7 +71,6 @@ class Surface extends StatelessWidget {
       decoration: BoxDecoration(
         color: style.color,
         borderRadius: style.borderRadius,
-        border: style.border,
         shape: style.shape ?? BoxShape.rectangle,
         boxShadow: style.color?.a == 0 ? null : style.boxShadow,
       ),
@@ -80,5 +79,30 @@ class Surface extends StatelessWidget {
         child: child ?? const SizedBox.shrink(),
       ),
     );
+
+    if (style.border?.isEmpty ?? true) return surface;
+
+    print('NOT EMPTY');
+
+    final borders = style.border?.map(
+          (border) => Positioned.fill(
+            top: -border.top.gap,
+            left: -border.left.gap,
+            right: -border.right.gap,
+            bottom: -border.bottom.gap,
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: border.borderRadius ?? style.borderRadius,
+                border: Border.all(
+                  color: border.top.color ?? Colors.outline,
+                  width: border.top.width,
+                ),
+              ),
+            ),
+          ),
+        ) ??
+        [];
+
+    return Stack(clipBehavior: Clip.none, children: [surface, ...borders]);
   }
 }

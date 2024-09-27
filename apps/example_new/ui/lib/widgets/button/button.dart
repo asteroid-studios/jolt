@@ -125,13 +125,6 @@ class Button extends StatelessWidget {
               SurfaceStyle(
                 color: color,
                 padding: padding,
-                border: selected
-                    ? Border.all(
-                        color: Colors.white,
-                        width: 1.2,
-                        strokeAlign: BorderSide.strokeAlignOutside,
-                      )
-                    : null,
               ),
             );
           },

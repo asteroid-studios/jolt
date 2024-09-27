@@ -33,12 +33,15 @@ class ButtonStyle {
           return style?.merge(
             SurfaceStyle(
               color: interaction.hovered ? style.color?.darken() : style.color,
-              // TODO weird bug with border width animating
               border: interaction.focused
-                  ? Border.all(
-                      color: Colors.tertiary,
-                      strokeAlign: BorderSide.strokeAlignOutside,
-                    )
+                  ? (style.border
+                    ?..add(
+                      SurfaceBorder.all(
+                        color: Colors.tertiary,
+                        gap: 3,
+                        width: 2,
+                      ),
+                    ))
                   : style.border,
             ),
           );
@@ -67,10 +70,7 @@ class ButtonStyle {
                 ),
               );
             },
-            border: Border.all(
-              strokeAlign: BorderSide.strokeAlignOutside,
-              color: Colors.outline,
-            ),
+            border: [SurfaceBorder.all()],
           ),
         );
       };
@@ -108,7 +108,7 @@ class ButtonStyle {
               return style?.merge(
                 SurfaceStyle(
                   color: style.color?.withValues(alpha: 0),
-                  border: Border.all(color: Colors.transparent, width: 0),
+                  border: [],
                 ),
               );
             },

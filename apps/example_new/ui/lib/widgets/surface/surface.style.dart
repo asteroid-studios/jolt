@@ -14,7 +14,7 @@ class SurfaceStyle {
   final BorderRadiusGeometry? borderRadius;
 
   ///
-  final BoxBorder? border;
+  final List<SurfaceBorder>? border;
 
   ///
   final List<BoxShadow>? boxShadow;
@@ -38,6 +38,7 @@ class SurfaceStyle {
     return SurfaceStyle(
       color: Colors.surface,
       borderRadius: BorderRadius.circular(8),
+      border: [],
       // color: darkMode ? Colors.surface : Colors.background,
       // boxShadow: darkMode
       //     ? []

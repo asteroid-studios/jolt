@@ -23,4 +23,5 @@ export 'scrollbar/scrollbar.dart';
 export 'section/section.dart';
 export 'surface/surface.dart';
 export 'surface/surface.style.dart';
+export 'surface/surface_border.dart';
 export 'theme/theme_provider.dart';
