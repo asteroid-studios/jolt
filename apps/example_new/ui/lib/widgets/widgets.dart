@@ -21,6 +21,8 @@ export 'navigation_item/navigation_item.dart';
 export 'scaffold/scaffold.dart';
 export 'scrollbar/scrollbar.dart';
 export 'section/section.dart';
+export 'splash/splash.dart';
+export 'splash/splash.style.dart';
 export 'surface/surface.dart';
 export 'surface/surface.style.dart';
 export 'surface/surface_border.dart';

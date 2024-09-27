@@ -11,6 +11,7 @@ class Surface extends StatelessWidget {
   /// from Interaction widget like hover, focus, etc.
   const Surface({
     this.child,
+    this.backgroundChild,
     this.style,
     this.height,
     this.width,
@@ -27,6 +28,9 @@ class Surface extends StatelessWidget {
 
   ///
   final Widget? child;
+
+  ///
+  final Widget? backgroundChild;
 
   ///
   final bool isSliver;
@@ -54,33 +58,30 @@ class Surface extends StatelessWidget {
     final style = preStyle.resolver?.call(preStyle) ?? preStyle;
     final foreground = style.foregroundColor ?? style.color?.foreground;
 
-    // if (isSliver) {
-    //   return AnimatedDecoratedSliver(
-    //     duration: surfaceStyle.animationDuration,
-    //     decoration: surfaceStyle.decoration,
-    //     sliver: child,
-    //   );
-    // }
+    final background = backgroundChild;
+    final child = Padding(
+      padding: padding ?? style.padding ?? EdgeInsets.zero,
+      child: DefaultSymbolStyle(
+        style: TextStyle(color: foreground),
+        child: this.child ?? const SizedBox.shrink(),
+      ),
+    );
 
     final surface = AnimatedContainer(
       duration: Durations.themeTransition,
       width: width,
       height: height,
-      padding: padding ?? style.padding,
       margin: margin,
+      clipBehavior: background != null ? Clip.hardEdge : Clip.none,
       decoration: BoxDecoration(
         color: style.color,
         borderRadius: style.borderRadius,
         shape: style.shape ?? BoxShape.rectangle,
         boxShadow: style.color?.a == 0 ? null : style.boxShadow,
       ),
-      child: DefaultSymbolStyle(
-        style: TextStyle(color: foreground),
-        child: child ?? const SizedBox.shrink(),
-      ),
+      // TODO add inherited surface color here so children can use it
+      child: background != null ? Stack(children: [background, child]) : child,
     );
-
-    if (style.border?.isEmpty ?? true) return surface;
 
     final borders = style.border?.map(
           (border) => Positioned.fill(

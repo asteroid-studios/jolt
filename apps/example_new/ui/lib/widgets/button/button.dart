@@ -131,6 +131,7 @@ class Button extends StatelessWidget {
               ),
             );
           },
+          backgroundChild: const Splash(),
           child: IconTheme.merge(
             data: IconThemeData(
               size: size ?? style.iconSize ?? DefaultTextStyle.of(context).style.fontSize,

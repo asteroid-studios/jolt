@@ -41,7 +41,17 @@ class InteractionState extends State<Interaction> {
   ///
   bool focused = false;
 
+  ///
   FocusNode focusNode = FocusNode();
+
+  ///
+  StreamController<PointerDownEvent> pointerDownEvents = StreamController.broadcast();
+
+  @override
+  void dispose() {
+    pointerDownEvents.close();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -56,9 +66,12 @@ class InteractionState extends State<Interaction> {
           onTap: () {
             widget.onTap?.call();
             // TODO make this an option, should default to false
-            focusNode.requestFocus();
+            // focusNode.requestFocus();
           },
-          child: child,
+          child: Listener(
+            onPointerDown: (event) => pointerDownEvents.add(event),
+            child: child,
+          ),
         ),
       ),
     );
