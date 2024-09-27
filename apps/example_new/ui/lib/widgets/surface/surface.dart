@@ -90,7 +90,8 @@ class Surface extends StatelessWidget {
             right: -border.right.gap,
             bottom: -border.bottom.gap,
             child: IgnorePointer(
-              child: Container(
+              child: AnimatedContainer(
+                duration: Durations.themeTransition,
                 decoration: BoxDecoration(
                   borderRadius: (border.borderRadius ?? style.borderRadius)?.add(BorderRadius.circular(border.top.gap)),
                   border: Border.all(

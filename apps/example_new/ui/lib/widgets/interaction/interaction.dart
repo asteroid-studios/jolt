@@ -94,6 +94,7 @@ class InteractionState extends State<Interaction> {
 
     //
     Future<void> handlePressing(PointerDownEvent event) async {
+      // TODO when using action, eg enter or space bar, simulate a button press to trigger splash
       pointerDownEvents.add(event);
       _pressingTimer?.cancel();
       setState(() => _pressedTime = DateTime.now());
