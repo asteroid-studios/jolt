@@ -109,6 +109,9 @@ class Button extends StatelessWidget {
   // TODO remove
   final bool selected;
 
+  // TODO loading indicator
+  // TODO splash
+
   @override
   Widget build(BuildContext context) {
     return Interaction(

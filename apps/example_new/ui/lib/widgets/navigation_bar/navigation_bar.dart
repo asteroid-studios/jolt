@@ -17,6 +17,21 @@ class NavigationBar extends StatelessWidget {
     final scrollDirection = Scaffold.maybeOf(context)?.scrollDirection;
     final isScrolling = scrollDirection == ScrollDirection.reverse;
 
+    final navBarItemStyle = (context, widget) {
+      return ButtonStyle(
+        iconSize: Fonts.heading.fontSize,
+        surfaceStyle: SurfaceStyle(
+          resolver: (style) {
+            return style?.merge(SurfaceStyle(
+              color: style.color?.withValues(alpha: 0),
+              border: [],
+              borderRadius: BorderRadius.circular(0),
+            ));
+          },
+        ),
+      );
+    };
+
     return Collapsible(
       collapsed: isScrolling && floating,
       child: Blur(
@@ -38,26 +53,26 @@ class NavigationBar extends StatelessWidget {
           child: Row(
             children: [
               // TODOdon't hard code these here
-              Button.ghost(
+              Button(
+                style: navBarItemStyle,
                 icon: IconsFill.house.icon,
-                size: Fonts.heading.fontSize,
                 onTap: () {},
               ),
-              Button.ghost(
+              Button(
                 onTap: () {},
                 icon: Icon(
                   IconsDuotone.bell,
                   // color: Colors.background.foreground.withOpacity(0.9),
                 ),
-                size: Fonts.heading.fontSize,
+                style: navBarItemStyle,
               ),
-              Button.ghost(
+              Button(
                 onTap: () {},
                 icon: Icon(
                   IconsDuotone.userCircle,
                   // color: Colors.background.foreground.withOpacity(0.9),
                 ),
-                size: Fonts.heading.fontSize,
+                style: navBarItemStyle,
               ),
             ].withExpanded(),
           ),

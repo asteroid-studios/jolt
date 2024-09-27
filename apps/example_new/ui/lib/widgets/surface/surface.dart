@@ -88,12 +88,14 @@ class Surface extends StatelessWidget {
             left: -border.left.gap,
             right: -border.right.gap,
             bottom: -border.bottom.gap,
-            child: Container(
-              decoration: BoxDecoration(
-                borderRadius: (border.borderRadius ?? style.borderRadius)?.add(BorderRadius.circular(border.top.gap)),
-                border: Border.all(
-                  color: border.top.color ?? Colors.outline,
-                  width: border.top.width,
+            child: IgnorePointer(
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: (border.borderRadius ?? style.borderRadius)?.add(BorderRadius.circular(border.top.gap)),
+                  border: Border.all(
+                    color: border.top.color ?? Colors.outline,
+                    width: border.top.width,
+                  ),
                 ),
               ),
             ),

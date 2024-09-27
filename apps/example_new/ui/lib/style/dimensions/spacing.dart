@@ -1,3 +1,5 @@
+// TODO change this to macros with comments based on values.
+
 ///
 enum SpacingSize {
   ///

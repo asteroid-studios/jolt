@@ -34,8 +34,7 @@ class JoltDialogRoute {
 }
 
 Future<T?> _show<T>(BuildContext context, Widget modal) async {
-  final route =
-      modal is JoltDialogRoute ? modal as JoltDialogRoute : JoltDialogRoute();
+  final route = modal is JoltDialogRoute ? modal as JoltDialogRoute : JoltDialogRoute();
   Jolt.dialog._updateCurrent(route);
   final parent = Jolt.dialog.parent;
   return Navigator.of(context).push<T>(
@@ -47,10 +46,9 @@ Future<T?> _show<T>(BuildContext context, Widget modal) async {
       transitionDuration: route.transitionDuration,
       transitionBuilder: route.transitionBuilder,
       barrierDismissible: route.barrierDismissible,
-      barrierColor:
-          (parent == null || route.stackBarrier) && !route.disableBarrier
-              ? route.barrierColor
-              : const Color(0x00000000),
+      barrierColor: (parent == null || route.stackBarrier) && !route.disableBarrier
+          ? route.barrierColor
+          : const Color(0x00000000),
       // anchorPoint: anchorPoint,
     ),
   );
@@ -67,8 +65,7 @@ class JoltDialog {
   static final instance = JoltDialog._();
 
   ///
-  JoltDialogRoute? get parent =>
-      _stack.length <= 1 ? null : _stack.elementAtOrNull(_stack.length - 2);
+  JoltDialogRoute? get parent => _stack.length <= 1 ? null : _stack.elementAtOrNull(_stack.length - 2);
 
   final List<JoltDialogRoute> _stack = [];
 
@@ -84,6 +81,9 @@ class JoltDialog {
 
   ///
   Future<T?> show<T>(Widget modal) async {
+    // TODO I'd like to be able to force dialog to take whole screen
+    // Need to maybe use another Navigator, or use an overlay portal or something
+    // Could go back to using overlay portal, just need to work out animating in and out.
     final context = Jolt.instance.navigatorKey.currentContext;
     if (context == null) {
       throw StateError('No context found on Jolt.instance.navigatorKey');

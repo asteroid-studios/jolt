@@ -55,6 +55,7 @@ class InteractionState extends State<Interaction> {
         child: GestureDetector(
           onTap: () {
             widget.onTap?.call();
+            // TODO make this an option, should default to false
             focusNode.requestFocus();
           },
           child: child,

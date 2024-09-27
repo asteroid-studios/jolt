@@ -23,10 +23,10 @@ class Dialog<T> extends StatelessWidget with DialogRoute {
   final double width;
 
   ///
-  final String? title;
+  final Widget? title;
 
   ///
-  final String? content;
+  final Widget? content;
 
   ///
   final Widget? child;
@@ -43,63 +43,33 @@ class Dialog<T> extends StatelessWidget with DialogRoute {
         mainAxisSize: MainAxisSize.min,
         children: [
           if (title != null)
-            Text(
-              title!,
-              style: Fonts.heading.colored(Colors.surface.foreground),
+            DefaultSymbolStyle(
+              style: Fonts.heading.sm,
+              child: title!,
             ),
-          if (content != null)
-            Text(
-              content!,
-              style: Fonts.body.colored(Colors.surface.foregroundLight),
-            ),
+          const Gap.xxs(),
+          if (content != null) content!.foregroundLight,
           if (child != null) child!,
-          SizedBox(height: 20),
+          const Gap.lg(),
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               // TODO add buttons
-              GestureDetector(
+              Button.outlined(
+                label: 'Cancel'.text,
                 onTap: () {
                   final value = onCancel?.call();
                   Navigator.of(context).pop(value);
                 },
-                child: Container(
-                  padding: EdgeInsets.symmetric(vertical: 8, horizontal: 24),
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      strokeAlign: BorderSide.strokeAlignCenter,
-                      color: Colors.outline,
-                    ),
-                    // color: Colors.surface,
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: Text(
-                    'Cancel',
-                    style: Fonts.body.colored(Colors.surface.foreground),
-                  ),
-                ),
               ),
-              SizedBox(width: 20),
-              GestureDetector(
+              const Gap.sm(),
+              Button.filled(
+                color: Colors.error,
+                label: 'Delete'.text,
                 onTap: () {
                   final value = onConfirm?.call();
                   // Navigator.of(context).pop(value);
                 },
-                child: Container(
-                  padding: EdgeInsets.symmetric(vertical: 8, horizontal: 24),
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      strokeAlign: BorderSide.strokeAlignCenter,
-                      color: Colors.error,
-                    ),
-                    color: Colors.error,
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: Text(
-                    'Delete',
-                    style: Fonts.body.colored(Colors.error.foreground),
-                  ),
-                ),
               ),
             ],
           ),

@@ -63,7 +63,7 @@ class ButtonStyle {
               final interaction = Interaction.of(context);
               return style?.merge(
                 SurfaceStyle(
-                  color: interaction.hovered || interaction.focused
+                  color: interaction.hovered
                       // TODO this should get parent color and darken
                       ? style.color?.withValues(alpha: 0.5)
                       : style.color?.withValues(alpha: 0),
@@ -83,7 +83,7 @@ class ButtonStyle {
               final interaction = Interaction.of(context);
               return style?.merge(
                 SurfaceStyle(
-                  color: interaction.hovered || interaction.focused
+                  color: interaction.hovered
                       // TODO this should get parent color and darken
                       ? style.color?.withValues(alpha: 0.5)
                       : style.color?.withValues(alpha: 0),
@@ -104,6 +104,9 @@ class ButtonStyle {
             decoration: interaction.hovered || interaction.focused ? TextDecoration.underline : null,
           ),
           surfaceStyle: SurfaceStyle(
+            borderRadius: BorderRadius.circular(0),
+            padding: EdgeInsets.all(Spacing.sm),
+            foregroundColor: Colors.background.foreground,
             resolver: (style) {
               return style?.merge(
                 SurfaceStyle(
@@ -112,8 +115,6 @@ class ButtonStyle {
                 ),
               );
             },
-            padding: EdgeInsets.all(Spacing.sm),
-            foregroundColor: Colors.background.foreground,
           ),
         );
       };

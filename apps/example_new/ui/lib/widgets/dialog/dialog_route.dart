@@ -51,25 +51,25 @@ class _DialogSurface extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // TODO replace with DialogStyle
-    return Container(
-      margin: const EdgeInsets.all(16),
-      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 24),
-      decoration: BoxDecoration(
-        color: Colors.background,
-        borderRadius: BorderRadius.circular(8),
-        border: Border.all(
-          strokeAlign: BorderSide.strokeAlignCenter,
-          color: Colors.outline,
-        ),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.2),
-            blurRadius: 32,
-            offset: const Offset(0, 4),
-          ),
-        ],
+    return Padding(
+      padding: EdgeInsets.all(Spacing.md),
+      child: Surface(
+        padding: EdgeInsets.all(Spacing.lg),
+        style: (context, surface) {
+          return SurfaceStyle(
+            color: Colors.background,
+            border: [SurfaceBorder.all()],
+            // boxShadow: [
+            //   BoxShadow(
+            //     color: Colors.black.withOpacity(0.2),
+            //     blurRadius: 32,
+            //     offset: const Offset(0, 4),
+            //   ),
+            // ],
+          );
+        },
+        child: child,
       ),
-      child: child,
     );
   }
 }

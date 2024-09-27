@@ -183,9 +183,12 @@ class AppPage extends HookWidget {
                       ),
                       Button.ghost(
                         onTap: () {
-                          Jolt.dialog.show(Dialog(
-                            title: 'Test',
-                          ));
+                          Jolt.dialog.show(
+                            Dialog(
+                              title: 'Are you sure?'.text,
+                              content: 'You are about to delete the universe'.text,
+                            ),
+                          );
                         },
                         icon: Icon(
                           IconsBold.plus,
