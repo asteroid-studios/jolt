@@ -37,7 +37,7 @@ class SurfaceStyle {
     // final darkMode = context.theme.isDark;
     return SurfaceStyle(
       color: Colors.surface,
-      borderRadius: BorderRadius.circular(8),
+      borderRadius: BorderRadius.circular(6),
       border: [],
       // color: darkMode ? Colors.surface : Colors.background,
       // boxShadow: darkMode

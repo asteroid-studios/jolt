@@ -26,6 +26,8 @@ class ButtonStyle {
       labelStyle: Fonts.body.w600,
       dividerIconLabel: Gap.xs(),
       surfaceStyle: SurfaceStyle(
+        padding: EdgeInsets.symmetric(vertical: padding, horizontal: horizontal),
+        // borderRadius: BorderRadius.circular(50),
         // TODO need to support copywith
         resolver: (style) {
           // TODO this kind of code will get repeated a lot, should create a default surface style resolver somewhere.
@@ -38,7 +40,7 @@ class ButtonStyle {
                     ?..add(
                       SurfaceBorder.all(
                         color: Colors.tertiary,
-                        gap: 3,
+                        gap: 4,
                         width: 2,
                       ),
                     ))
@@ -46,8 +48,6 @@ class ButtonStyle {
             ),
           );
         },
-        padding: EdgeInsets.symmetric(vertical: padding, horizontal: horizontal),
-        borderRadius: BorderRadius.circular(50),
       ),
     );
   }

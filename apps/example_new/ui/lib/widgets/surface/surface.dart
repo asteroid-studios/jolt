@@ -82,8 +82,6 @@ class Surface extends StatelessWidget {
 
     if (style.border?.isEmpty ?? true) return surface;
 
-    print('NOT EMPTY');
-
     final borders = style.border?.map(
           (border) => Positioned.fill(
             top: -border.top.gap,
@@ -92,7 +90,7 @@ class Surface extends StatelessWidget {
             bottom: -border.bottom.gap,
             child: Container(
               decoration: BoxDecoration(
-                borderRadius: border.borderRadius ?? style.borderRadius,
+                borderRadius: (border.borderRadius ?? style.borderRadius)?.add(BorderRadius.circular(border.top.gap)),
                 border: Border.all(
                   color: border.top.color ?? Colors.outline,
                   width: border.top.width,
