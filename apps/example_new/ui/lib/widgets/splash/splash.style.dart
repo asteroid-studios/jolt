@@ -26,4 +26,14 @@ class SplashStyle {
       color: Colors.background.foreground,
     );
   }
+
+  ///
+  static SplashStyle centered(BuildContext context, SplashState splash) {
+    return SplashStyle(
+      offset: Offset(splash.size.width / 2, splash.size.height / 2),
+      // TODO replace with inherited background color.
+      color: Colors.background.foreground,
+      maximumOpacity: 0.03,
+    );
+  }
 }

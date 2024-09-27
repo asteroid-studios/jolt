@@ -110,20 +110,22 @@ class Button extends StatelessWidget {
   final bool selected;
 
   // TODO loading indicator
-  // TODO splash
 
   @override
   Widget build(BuildContext context) {
+    ButtonStyle buttonStyle(BuildContext ctx) {
+      final defaultStyle = ButtonStyle.defaultStyle(ctx, this);
+      final typeStyle = ButtonStyle.fromType(type).call(ctx, this);
+      final inlineStyle = typeStyle?.merge(style?.call(ctx, this));
+      return defaultStyle.resolve(ctx, inlineStyle);
+    }
+
     return Interaction(
       onTap: onTap,
       builder: (context, state) {
-        final defaultStyle = ButtonStyle.defaultStyle(context, this);
-        final typeStyle = ButtonStyle.fromType(type).call(context, this);
-        final inlineStyle = typeStyle?.merge(this.style?.call(context, this));
-        final style = defaultStyle.resolve(context, inlineStyle);
-
+        final style = buttonStyle(context);
         return Surface(
-          style: (context, button) {
+          style: (context, surface) {
             return style.surfaceStyle?.merge(
               SurfaceStyle(
                 color: color,
@@ -131,12 +133,12 @@ class Button extends StatelessWidget {
               ),
             );
           },
-          backgroundChild: const Splash(),
+          backgroundChild: style.splash?.call(),
           child: IconTheme.merge(
             data: IconThemeData(
               size: size ?? style.iconSize ?? DefaultTextStyle.of(context).style.fontSize,
             ),
-            child: DefaultTextStyle.merge(
+            child: DefaultSymbolStyle(
               style: TextStyle(fontSize: size).merge(style.labelStyle),
               child: Stack(
                 alignment: Alignment.center,

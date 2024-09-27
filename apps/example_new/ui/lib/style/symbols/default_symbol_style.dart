@@ -22,7 +22,7 @@ class DefaultSymbolStyle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AnimatedDefaultSymbolStyle(
-      duration: Durations.medium,
+      duration: Durations.themeTransition,
       style: style,
       merge: merge,
       child: child,

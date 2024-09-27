@@ -18,6 +18,9 @@ class ButtonStyle {
   /// Style the surface used for the button
   final SurfaceStyle? surfaceStyle;
 
+  /// Add a splash effect to the button
+  final Widget? Function()? splash;
+
   /// Default style for all Buttons
   static ButtonStyle defaultStyle(BuildContext context, Button button) {
     final padding = Spacing.sm;
@@ -25,6 +28,7 @@ class ButtonStyle {
     return ButtonStyle(
       labelStyle: Fonts.body.w600,
       dividerIconLabel: Gap.xs(),
+      splash: Splash.new,
       surfaceStyle: SurfaceStyle(
         padding: EdgeInsets.symmetric(vertical: padding, horizontal: horizontal),
         // borderRadius: BorderRadius.circular(50),
@@ -78,6 +82,7 @@ class ButtonStyle {
   /// A ghost button style
   static StyleResolver<ButtonStyle, Button> get ghost => (context, button) {
         return ButtonStyle(
+          splash: () => Splash(style: SplashStyle.centered),
           surfaceStyle: SurfaceStyle(
             resolver: (style) {
               final interaction = Interaction.of(context);
@@ -101,10 +106,11 @@ class ButtonStyle {
         return ButtonStyle(
           // TODO change to resolver
           labelStyle: TextStyle(
-            decoration: interaction.hovered || interaction.focused ? TextDecoration.underline : null,
+            decoration:
+                interaction.hovered || interaction.focused || interaction.pressing ? TextDecoration.underline : null,
           ),
+          splash: () => Splash(style: SplashStyle.centered),
           surfaceStyle: SurfaceStyle(
-            borderRadius: BorderRadius.circular(0),
             padding: EdgeInsets.all(Spacing.sm),
             foregroundColor: Colors.background.foreground,
             resolver: (style) {

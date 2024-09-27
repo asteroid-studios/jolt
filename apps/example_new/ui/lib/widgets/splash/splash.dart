@@ -6,7 +6,10 @@ import 'package:ui/ui.dart';
 ///
 class Splash extends StatefulWidget {
   ///
-  const Splash({super.key});
+  const Splash({this.style, super.key});
+
+  ///
+  final StyleResolver<SplashStyle, SplashState>? style;
 
   ///
   @override
@@ -21,29 +24,27 @@ class SplashState extends State<Splash> with SingleTickerProviderStateMixin {
   ///
   Size size = Size.zero;
 
+  late SplashStyle _style;
   late StreamSubscription<PointerDownEvent> _subscription;
   late AnimationController _controller;
 
   @override
   void initState() {
     super.initState();
+    _controller = AnimationController(vsync: this);
     _subscription = Interaction.of(context).pointerDownEvents.stream.listen((event) {
       if (_controller.isAnimating) _controller.reset();
       if (!mounted) return;
-      final style = SplashStyle.defaultStyle(context, this);
       size = context.findRenderObject()?.paintBounds.size ?? Size.zero;
       offset = Offset(event.localPosition.dx, event.localPosition.dy / 2);
       _controller
           .animateTo(
             1,
             curve: Curves.ease,
-            duration: style.duration ?? const Duration(milliseconds: 900),
+            duration: _style.duration ?? const Duration(milliseconds: 900),
           )
           .then((value) => _controller.reset());
     });
-    _controller = AnimationController(
-      vsync: this,
-    );
   }
 
   @override
@@ -55,20 +56,31 @@ class SplashState extends State<Splash> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    final style = SplashStyle.defaultStyle(context, this);
-    final scale = style.scale ?? 1;
-    final maxOpacity = style.maximumOpacity ?? 0.1;
+    final defaultStyle = SplashStyle.defaultStyle(context, this);
+    final inlineStyle = widget.style?.call(context, this);
+    _style = defaultStyle.resolve(context, inlineStyle);
+    final scale = _style.scale ?? 1;
+    final maxOpacity = _style.maximumOpacity ?? 0.1;
+    final interaction = Interaction.of(context);
 
     return Positioned.fill(
       child: AnimatedBuilder(
         animation: _controller,
         builder: (context, child) {
+          var value = _controller.value;
+          if (!_controller.isAnimating && interaction.pressing) {
+            value = 1;
+          }
           return CustomPaint(
             painter: _RipplePainter(
-              offset: style.offset ?? offset,
-              circleRadius: _controller.value * max(size.width, size.height) * scale,
-              fillColor: style.color?.withValues(
-                alpha: 1 - max(1 - maxOpacity, _controller.value),
+              offset: _style.offset ?? offset,
+              circleRadius: value * max(size.width, size.height) * scale,
+              fillColor: _style.color?.withValues(
+                alpha: 1 -
+                    max(
+                      1 - maxOpacity,
+                      interaction.pressing ? 0 : _controller.value,
+                    ),
               ),
             ),
           );

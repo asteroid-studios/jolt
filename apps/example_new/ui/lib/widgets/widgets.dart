@@ -16,6 +16,7 @@ export 'indicators/circular_progress_indicator/circular_progress_indicator.dart'
 export 'indicators/load_more_indicator/load_more_indicator.dart';
 export 'indicators/refresh_indicator/refresh_indicator.dart';
 export 'interaction/interaction.dart';
+export 'interaction/interaction.style.dart';
 export 'navigation_bar/navigation_bar.dart';
 export 'navigation_item/navigation_item.dart';
 export 'scaffold/scaffold.dart';
