@@ -13,6 +13,7 @@ class AnimatedDefaultSymbolStyle extends ImplicitlyAnimatedWidget {
     required this.child,
     required super.duration,
     this.style,
+    this.iconSize,
     this.merge = true,
     super.curve,
     super.onEnd,
@@ -27,6 +28,9 @@ class AnimatedDefaultSymbolStyle extends ImplicitlyAnimatedWidget {
 
   ///
   final TextStyle? style;
+
+  ///
+  final double? iconSize;
 
   @override
   AnimatedWidgetBaseState<AnimatedDefaultSymbolStyle> createState() =>
@@ -58,7 +62,7 @@ class _AnimatedContainerState
         child: IconTheme.merge(
           data: IconThemeData(
             color: style.color,
-            size: style.fontSize,
+            size: widget.iconSize ?? style.fontSize,
           ),
           child: widget.child,
         ),
@@ -70,7 +74,7 @@ class _AnimatedContainerState
       child: IconTheme(
         data: IconThemeData(
           color: style.color,
-          size: style.fontSize,
+          size: widget.iconSize ?? style.fontSize,
         ),
         child: widget.child,
       ),

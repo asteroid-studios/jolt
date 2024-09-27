@@ -113,17 +113,15 @@ class Button extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ButtonStyle buttonStyle(BuildContext ctx) {
-      final defaultStyle = ButtonStyle.defaultStyle(ctx, this);
-      final typeStyle = ButtonStyle.fromType(type).call(ctx, this);
-      final inlineStyle = typeStyle?.merge(style?.call(ctx, this));
-      return defaultStyle.resolve(ctx, inlineStyle);
-    }
-
     return Interaction(
       onTap: onTap,
       builder: (context, state) {
-        final style = buttonStyle(context);
+        final defaultStyle = ButtonStyle.defaultStyle(context, this);
+        final typeStyle = ButtonStyle.fromType(type).call(context, this);
+        final inlineStyle = typeStyle?.merge(this.style?.call(context, this));
+        final style = defaultStyle.resolve(context, inlineStyle);
+        final labelStyle = TextStyle(fontSize: size);
+
         return Surface(
           style: (context, surface) {
             return style.surfaceStyle?.merge(
@@ -134,28 +132,24 @@ class Button extends StatelessWidget {
             );
           },
           backgroundChild: style.splash?.call(),
-          child: IconTheme.merge(
-            data: IconThemeData(
-              size: size ?? style.iconSize ?? DefaultTextStyle.of(context).style.fontSize,
-            ),
-            child: DefaultSymbolStyle(
-              style: TextStyle(fontSize: size).merge(style.labelStyle),
-              child: Stack(
-                alignment: Alignment.center,
-                children: [
-                  const RotatedBox(quarterTurns: 1, child: Text('')),
-                  const Text(''),
-                  Row(
-                    mainAxisAlignment: mainAxisAlignment,
-                    children: [
-                      if (icon != null) icon!,
-                      if (icon != null && label != null && style.dividerIconLabel != null) style.dividerIconLabel!,
-                      if (label != null) label!,
-                      if (trailing != null) trailing!,
-                    ],
-                  ),
-                ],
-              ),
+          child: DefaultSymbolStyle(
+            iconSize: style.iconSize,
+            style: style.labelStyle?.merge(labelStyle) ?? labelStyle,
+            child: Stack(
+              alignment: Alignment.center,
+              children: [
+                const RotatedBox(quarterTurns: 1, child: Text('')),
+                const Text(''),
+                Row(
+                  mainAxisAlignment: mainAxisAlignment,
+                  children: [
+                    if (icon != null) icon!,
+                    if (icon != null && label != null && style.dividerIconLabel != null) style.dividerIconLabel!,
+                    if (label != null) label!,
+                    if (trailing != null) trailing!,
+                  ],
+                ),
+              ],
             ),
           ),
         );

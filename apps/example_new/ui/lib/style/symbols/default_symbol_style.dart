@@ -7,6 +7,7 @@ class DefaultSymbolStyle extends StatelessWidget {
     required this.child,
     required this.style,
     this.merge = true,
+    this.iconSize,
     super.key,
   });
 
@@ -19,12 +20,16 @@ class DefaultSymbolStyle extends StatelessWidget {
   /// Whether to merge the style with the parent style.
   final bool merge;
 
+  ///
+  final double? iconSize;
+
   @override
   Widget build(BuildContext context) {
     return AnimatedDefaultSymbolStyle(
       duration: Durations.themeTransition,
       style: style,
       merge: merge,
+      iconSize: iconSize,
       child: child,
     );
   }
