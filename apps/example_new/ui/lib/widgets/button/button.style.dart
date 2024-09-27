@@ -31,7 +31,16 @@ class ButtonStyle {
           // TODO this kind of code will get repeated a lot, should create a default surface style resolver somewhere.
           final interaction = Interaction.of(context);
           return style?.merge(
-            SurfaceStyle(color: interaction.hovered ? style.color?.darken() : style.color),
+            SurfaceStyle(
+              color: interaction.hovered ? style.color?.darken() : style.color,
+              // TODO weird bug with border width animating
+              border: interaction.focused
+                  ? Border.all(
+                      color: Colors.tertiary,
+                      strokeAlign: BorderSide.strokeAlignOutside,
+                    )
+                  : style.border,
+            ),
           );
         },
         padding: EdgeInsets.symmetric(vertical: padding, horizontal: horizontal),
@@ -51,7 +60,10 @@ class ButtonStyle {
               final interaction = Interaction.of(context);
               return style?.merge(
                 SurfaceStyle(
-                  color: interaction.hovered ? style.color?.darken() : style.color?.withValues(alpha: 0),
+                  color: interaction.hovered || interaction.focused
+                      // TODO this should get parent color and darken
+                      ? style.color?.withValues(alpha: 0.5)
+                      : style.color?.withValues(alpha: 0),
                 ),
               );
             },
@@ -71,7 +83,10 @@ class ButtonStyle {
               final interaction = Interaction.of(context);
               return style?.merge(
                 SurfaceStyle(
-                  color: interaction.hovered ? style.color?.darken() : style.color?.withValues(alpha: 0),
+                  color: interaction.hovered || interaction.focused
+                      // TODO this should get parent color and darken
+                      ? style.color?.withValues(alpha: 0.5)
+                      : style.color?.withValues(alpha: 0),
                 ),
               );
             },
@@ -85,12 +100,15 @@ class ButtonStyle {
         final interaction = Interaction.of(context);
         return ButtonStyle(
           // TODO change to resolver
-          labelStyle: TextStyle(decoration: interaction.hovered ? TextDecoration.underline : null),
+          labelStyle: TextStyle(
+            decoration: interaction.hovered || interaction.focused ? TextDecoration.underline : null,
+          ),
           surfaceStyle: SurfaceStyle(
             resolver: (style) {
               return style?.merge(
                 SurfaceStyle(
                   color: style.color?.withValues(alpha: 0),
+                  border: Border.all(color: Colors.transparent, width: 0),
                 ),
               );
             },

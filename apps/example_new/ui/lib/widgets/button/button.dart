@@ -114,13 +114,11 @@ class Button extends StatelessWidget {
     return Interaction(
       onTap: onTap,
       builder: (context, state) {
-        // TODO issue where TextStyle merging fails to run properly
-        // Only an issue when merge is run from macro, if class runs its fine
         final defaultStyle = ButtonStyle.defaultStyle(context, this);
-        final inheritedStyle = InheritedStyle.maybeOf<ButtonStyle>(context);
         final typeStyle = ButtonStyle.fromType(type).call(context, this);
         final inlineStyle = typeStyle?.merge(this.style?.call(context, this));
-        final style = defaultStyle.resolve(context, inheritedStyle, inlineStyle);
+        final style = defaultStyle.resolve(context, inlineStyle);
+
         return Surface(
           style: (context, button) {
             return style.surfaceStyle?.merge(

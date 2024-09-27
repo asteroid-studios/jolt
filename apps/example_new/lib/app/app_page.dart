@@ -259,7 +259,10 @@ class AppPage extends HookWidget {
                                 },
                               ),
                               Button.link(
-                                label: 'Book'.text,
+                                // style: (context, button) => ButtonStyle(
+                                //   labelStyle: TextStyle(fontSize: 40),
+                                // ),
+                                label: 'Link'.text,
                                 onTap: () {
                                   print('Pressed');
                                 },

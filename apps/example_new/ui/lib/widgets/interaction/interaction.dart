@@ -38,6 +38,11 @@ class InteractionState extends State<Interaction> {
   ///
   bool hovered = false;
 
+  ///
+  bool focused = false;
+
+  FocusNode focusNode = FocusNode();
+
   @override
   Widget build(BuildContext context) {
     final child = Builder(builder: (context) => widget.builder(context, this));
@@ -45,8 +50,13 @@ class InteractionState extends State<Interaction> {
       onEnter: (_) => setState(() => hovered = true),
       onExit: (_) => setState(() => hovered = false),
       child: FocusableActionDetector(
+        focusNode: focusNode,
+        onFocusChange: (value) => setState(() => focused = value),
         child: GestureDetector(
-          onTap: widget.onTap,
+          onTap: () {
+            widget.onTap?.call();
+            focusNode.requestFocus();
+          },
           child: child,
         ),
       ),

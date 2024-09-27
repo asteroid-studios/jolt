@@ -47,7 +47,6 @@ class Surface extends StatelessWidget {
   Widget build(BuildContext context) {
     final preStyle = SurfaceStyle.defaultStyle(context, this).resolve(
       context,
-      InheritedStyle.maybeOf(context),
       this.style?.call(context, this),
     );
     // TODO clean up as part of resolve
