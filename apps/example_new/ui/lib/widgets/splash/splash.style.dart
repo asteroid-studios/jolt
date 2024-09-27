@@ -24,6 +24,8 @@ class SplashStyle {
     return SplashStyle(
       // TODO replace with inherited background color.
       color: Colors.background.foreground,
+      // TODO replace isDark with inherited background color darkness.
+      maximumOpacity: context.theme.isDark ? 0.1 : 0.03,
     );
   }
 
@@ -31,9 +33,6 @@ class SplashStyle {
   static SplashStyle centered(BuildContext context, SplashState splash) {
     return SplashStyle(
       offset: Offset(splash.size.width / 2, splash.size.height / 2),
-      // TODO replace with inherited background color.
-      color: Colors.background.foreground,
-      maximumOpacity: 0.03,
     );
   }
 }
