@@ -69,8 +69,8 @@ class ButtonStyle {
                 SurfaceStyle(
                   color: interaction.hovered
                       // TODO this should get parent color and darken
-                      ? style.color?.withValues(alpha: 0.5)
-                      : style.color?.withValues(alpha: 0),
+                      ? style.color?.withOpacity(0.5)
+                      : style.color?.withOpacity(0),
                 ),
               );
             },
@@ -90,8 +90,8 @@ class ButtonStyle {
                 SurfaceStyle(
                   color: interaction.hovered
                       // TODO this should get parent color and darken
-                      ? style.color?.withValues(alpha: 0.5)
-                      : style.color?.withValues(alpha: 0),
+                      ? style.color?.withOpacity(0.5)
+                      : style.color?.withOpacity(0),
                 ),
               );
             },
@@ -116,7 +116,7 @@ class ButtonStyle {
             resolver: (style) {
               return style?.merge(
                 SurfaceStyle(
-                  color: style.color?.withValues(alpha: 0),
+                  color: style.color?.withOpacity(0),
                   border: [],
                 ),
               );

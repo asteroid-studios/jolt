@@ -9,5 +9,5 @@
     "xxxs",
     "zindex"
   ],
-  "dart.flutterSdkPath": ".fvm/versions/master"
+  "dart.flutterSdkPath": ".fvm/versions/stable"
 }

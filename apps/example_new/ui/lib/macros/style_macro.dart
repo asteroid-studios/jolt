@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:macro_util/macro_util.dart';
 import 'package:macros/macros.dart';
 
 final _dartCore = Uri.parse('dart:core');
@@ -18,7 +17,6 @@ macro class Style implements  ClassDeclarationsMacro {
   ) async {
     final classIdentifier = clazz.identifier;
     final name = clazz.identifier.name;
-     final fieldsData = await builder.introspectFields(clazz);
     //  final ids = await ResolvedIdentifiers.resolve(builder);
     final fields = await builder.fieldsOf(clazz);
     final fieldsString = StringBuffer();    

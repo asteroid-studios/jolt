@@ -75,8 +75,8 @@ class SplashState extends State<Splash> with SingleTickerProviderStateMixin {
             painter: _RipplePainter(
               offset: _style.offset ?? offset,
               circleRadius: value * max(size.width, size.height) * scale,
-              fillColor: _style.color?.withValues(
-                alpha: 1 -
+              fillColor: _style.color?.withOpacity(
+                1 -
                     max(
                       1 - maxOpacity,
                       interaction.pressing ? 0 : _controller.value,

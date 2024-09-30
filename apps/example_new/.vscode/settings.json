@@ -1,8 +1,13 @@
 {
-  "cSpell.words": ["clazz", "mergeable", "scrollbars", "xxxs"],
+  "cSpell.words": [
+    "clazz",
+    "mergeable",
+    "scrollbars",
+    "xxxs"
+  ],
   "editor.codeActionsOnSave": {
     "source.fixAll": "never"
   },
   "dart.lineLength": 120,
-  "dart.flutterSdkPath": ".fvm/versions/master"
+  "dart.flutterSdkPath": ".fvm/versions/stable"
 }

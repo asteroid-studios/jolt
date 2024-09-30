@@ -8,5 +8,4 @@ linter:
 
 analyzer:
   enable-experiment:
-    - enhanced-parts
     - macros

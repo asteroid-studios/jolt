@@ -1,4 +1,4 @@
 {
   "dart.runPubGetOnPubspecChanges": "never",
-  "dart.flutterSdkPath": ".fvm/versions/beta"
+  "dart.flutterSdkPath": ".fvm/versions/stable"
 }

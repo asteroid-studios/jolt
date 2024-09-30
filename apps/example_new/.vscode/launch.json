@@ -6,14 +6,14 @@
       "request": "launch",
       "type": "dart",
       "program": "lib/main.dart",
-      "toolArgs": ["--enable-experiment=macros,enhanced-parts"]
+      "toolArgs": ["--enable-experiment=macros"]
     },
     {
       "name": "debug web",
       "request": "launch",
       "type": "dart",
       "program": "lib/main.dart",
-      "toolArgs": ["--enable-experiment=macros,enhanced-parts"],
+      "toolArgs": ["--enable-experiment=macros"],
       "args": ["-d", "chrome"]
     }
   ]

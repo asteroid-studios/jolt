@@ -77,7 +77,7 @@ class Surface extends StatelessWidget {
         color: style.color,
         borderRadius: style.borderRadius,
         shape: style.shape ?? BoxShape.rectangle,
-        boxShadow: style.color?.a == 0 ? null : style.boxShadow,
+        boxShadow: style.color?.opacity == 0 ? null : style.boxShadow,
       ),
       // TODO add inherited surface color here so children can use it
       child: background != null ? Stack(children: [background, child]) : child,

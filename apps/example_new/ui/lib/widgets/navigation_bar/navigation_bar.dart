@@ -23,7 +23,7 @@ class NavigationBar extends StatelessWidget {
         surfaceStyle: SurfaceStyle(
           resolver: (style) {
             return style?.merge(SurfaceStyle(
-              color: style.color?.withValues(alpha: 0),
+              color: style.color?.withOpacity(0),
               border: [],
               borderRadius: BorderRadius.circular(0),
             ));
