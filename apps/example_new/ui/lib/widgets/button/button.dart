@@ -10,7 +10,6 @@ class Button extends StatelessWidget {
     this.style,
     this.color,
     this.trailing,
-    this.selected,
     this.mainAxisAlignment = MainAxisAlignment.center,
     this.size,
     this.padding,
@@ -24,7 +23,6 @@ class Button extends StatelessWidget {
     this.onTap,
     this.style,
     this.trailing,
-    this.selected,
     this.mainAxisAlignment = MainAxisAlignment.center,
     this.size,
     this.padding,
@@ -39,7 +37,6 @@ class Button extends StatelessWidget {
     this.onTap,
     this.style,
     this.trailing,
-    this.selected,
     this.mainAxisAlignment = MainAxisAlignment.center,
     this.size,
     this.padding,
@@ -54,7 +51,6 @@ class Button extends StatelessWidget {
     this.onTap,
     this.style,
     this.trailing,
-    this.selected,
     this.mainAxisAlignment = MainAxisAlignment.center,
     this.size,
     this.padding,
@@ -70,7 +66,6 @@ class Button extends StatelessWidget {
     this.style,
     this.color,
     this.trailing,
-    this.selected,
     this.mainAxisAlignment = MainAxisAlignment.center,
     this.size,
     this.padding,
@@ -107,9 +102,6 @@ class Button extends StatelessWidget {
   ///
   final EdgeInsetsGeometry? padding;
 
-  ///
-  final bool? selected;
-
   // TODO loading indicator
   // TODO tooltip
   // TODO disabled state, as part of interaction.
@@ -123,7 +115,8 @@ class Button extends StatelessWidget {
         final defaultStyle = ButtonStyle.defaultStyle(context, this);
         final typeStyle = ButtonStyle.fromType(type).call(context, this);
         final inlineStyle = typeStyle?.merge(this.style?.call(context, this));
-        final style = defaultStyle.resolve(context, inlineStyle);
+        final preStyle = defaultStyle.resolve(context, inlineStyle);
+        final style = preStyle.resolver?.call(preStyle, context) ?? preStyle;
         final labelStyle = TextStyle(fontSize: size);
 
         return Surface(

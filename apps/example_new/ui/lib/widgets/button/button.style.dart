@@ -25,20 +25,27 @@ class ButtonStyle {
   static ButtonStyle defaultStyle(BuildContext context, Button button) {
     final padding = Spacing.sm;
     final horizontal = button.label != null ? padding * 2 : padding;
+    final disabled = button.onTap == null;
+
     return ButtonStyle(
       labelStyle: Fonts.body.w600,
       dividerIconLabel: Gap.xs(),
-      splash: Splash.new,
+      splash: disabled ? null : Splash.new,
       surfaceStyle: SurfaceStyle(
         padding: EdgeInsets.symmetric(vertical: padding, horizontal: horizontal),
         borderRadius: BorderRadius.circular(50),
         // TODO need to support copywith
-        resolver: (style) {
+        resolver: (style, context) {
           // TODO this kind of code will get repeated a lot, should create a default surface style resolver somewhere.
           final interaction = Interaction.of(context);
           return style?.merge(
             SurfaceStyle(
-              color: interaction.hovered && button.selected == null ? style.color?.darken() : style.color,
+              foregroundOpacity: disabled ? 0.3 : null,
+              color: disabled
+                  ? style.color?.withOpacity(0.3)
+                  : interaction.hovered
+                      ? style.color?.weaken()
+                      : style.color,
               border: interaction.focused
                   ? (style.border
                     ?..add(
@@ -61,20 +68,16 @@ class ButtonStyle {
 
   /// An outlined button style
   static StyleResolver<ButtonStyle, Button> get outlined => (context, button) {
-        final selected = button.selected;
         return ButtonStyle(
-          splash: () => selected != null ? null : Splash(),
           surfaceStyle: SurfaceStyle(
-            resolver: (style) {
+            resolver: (style, context) {
               final interaction = Interaction.of(context);
               return style?.merge(
                 SurfaceStyle(
-                  color: selected ?? false
-                      ? null
-                      : interaction.hovered
-                          // TODO this should get parent color and darken
-                          ? style.color?.withOpacity(0.5)
-                          : style.color?.withOpacity(0),
+                  color: interaction.hovered
+                      // TODO this should get parent color and darken
+                      ? style.color?.withOpacity(0.5)
+                      : style.color?.withOpacity(0),
                 ),
               );
             },
@@ -85,24 +88,20 @@ class ButtonStyle {
 
   /// A ghost button style
   static StyleResolver<ButtonStyle, Button> get ghost => (context, button) {
-        final selected = button.selected;
         return ButtonStyle(
-          splash: () => selected != null ? null : Splash(style: SplashStyle.centered),
+          splash: () => Splash(style: SplashStyle.centered),
           surfaceStyle: SurfaceStyle(
-            resolver: (style) {
+            resolver: (style, context) {
               final interaction = Interaction.of(context);
               return style?.merge(
                 SurfaceStyle(
-                  color: selected ?? false
-                      ? null
-                      : interaction.hovered
-                          // TODO this should get parent color and darken
-                          ? style.color?.withOpacity(0.5)
-                          : style.color?.withOpacity(0),
+                  color: interaction.hovered
+                      // TODO this should get parent color and darken
+                      ? style.color?.withOpacity(0.5)
+                      : style.color?.withOpacity(0),
                 ),
               );
             },
-            foregroundColor: Colors.background.foreground,
           ),
         );
       };
@@ -111,16 +110,21 @@ class ButtonStyle {
   static StyleResolver<ButtonStyle, Button> get link => (context, button) {
         final interaction = Interaction.of(context);
         return ButtonStyle(
-          // TODO change to resolver
-          labelStyle: TextStyle(
-            decoration:
-                interaction.hovered || interaction.focused || interaction.pressing ? TextDecoration.underline : null,
-          ),
+          resolver: (style, context) {
+            return style?.merge(
+              ButtonStyle(
+                labelStyle: style.labelStyle?.copyWith(
+                  decoration: interaction.hovered || interaction.focused || interaction.pressing
+                      ? TextDecoration.underline
+                      : null,
+                ),
+              ),
+            );
+          },
           splash: () => Splash(style: SplashStyle.centered),
           surfaceStyle: SurfaceStyle(
             padding: EdgeInsets.all(Spacing.sm),
-            foregroundColor: Colors.background.foreground,
-            resolver: (style) {
+            resolver: (style, context) {
               return style?.merge(
                 SurfaceStyle(
                   color: style.color?.withOpacity(0),

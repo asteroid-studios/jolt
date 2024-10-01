@@ -8,7 +8,7 @@ class Toggle extends StatefulWidget {
     this.label,
     this.icon,
     this.initialValue = false,
-    this.type = ToggleType.ghost,
+    this.type = ToggleType.outlined,
     super.key,
   });
 
@@ -31,7 +31,9 @@ class Toggle extends StatefulWidget {
   State<Toggle> createState() => ToggleState();
 }
 
+///
 class ToggleState extends State<Toggle> {
+  ///
   late bool selected;
 
   @override
@@ -43,17 +45,17 @@ class ToggleState extends State<Toggle> {
   @override
   Widget build(BuildContext context) {
     // TODO add the inline style etc and resolve
-    final style = ToggleStyle.defaultStyle(context, this);
+    final preStyle = ToggleStyle.defaultStyle(context, this);
+    // TODO check resolver is working
+    final style = preStyle.resolver?.call(preStyle, context) ?? preStyle;
 
     return Button(
       style: (context, button) {
         final buttonStyle = ToggleStyle.fromType(widget.type);
         return buttonStyle.call(context, button)?.merge(style.buttonStyle);
       },
-      // TODO lower opacity when not selected but also hovered.
-      label: widget.label != null ? Opacity(opacity: 1, child: widget.label) : null,
-      icon: widget.icon != null ? Opacity(opacity: 1, child: widget.icon) : null,
-      selected: selected,
+      label: widget.label,
+      icon: widget.icon,
       onTap: () => setState(() => selected = !selected),
     );
   }

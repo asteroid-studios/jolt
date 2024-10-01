@@ -93,14 +93,9 @@ class DesktopWrapper extends HookWidget {
                                 else
                                   const Gap.md(),
                                 Expanded(
-                                  child: Button.ghost(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    // padding: Spacing.xxs,
-                                    // horizontalPadding: Spacing.sm,
-                                    label: Text(
-                                      router.title(context),
-                                      style: Fonts.heading.colored(Colors.background.foreground),
-                                    ),
+                                  child: Text(
+                                    router.title(context),
+                                    style: Fonts.heading.colored(Colors.background.foreground),
                                   ),
                                 ),
                                 Button.ghost(

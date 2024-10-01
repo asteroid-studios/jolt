@@ -249,6 +249,9 @@ class AppPage extends HookWidget {
                                   print('Pressed');
                                 },
                               ),
+                              Button.filled(
+                                label: 'Disabled'.text,
+                              ),
                               Button.outlined(
                                 icon: const Icon(IconsBold.calendar),
                                 label: 'Book'.text,
@@ -282,7 +285,7 @@ class AppPage extends HookWidget {
                                   Row(
                                     children: [
                                       Toggle(
-                                        type: ToggleType.outlined,
+                                        type: ToggleType.ghost,
                                         onChanged: (value) {},
                                         icon: Icons.textAUnderline.icon,
                                       ),
@@ -303,8 +306,8 @@ class AppPage extends HookWidget {
                                     label: 'Submit'.text,
                                     onTap: () {
                                       final value = form.submit();
-                                      // print(value.email);
-                                      // print(TestForm.firstNameKey);
+                                      print(value.email);
+                                      print(TestForm.firstNameKey);
                                     },
                                   ),
                                 ],

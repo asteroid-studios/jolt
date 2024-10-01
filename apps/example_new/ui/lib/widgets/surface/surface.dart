@@ -64,15 +64,21 @@ class Surface extends StatelessWidget {
     );
     // TODO clean up as part of resolve
     // Needs to iterate through all resolvers in order
-    final style = preStyle.resolver?.call(preStyle) ?? preStyle;
+    final style = preStyle.resolver?.call(preStyle, context) ?? preStyle;
     final foreground = style.foregroundColor ?? style.color?.foreground;
 
     final background = backgroundChild;
+    final childWidget = this.child ?? const SizedBox.shrink();
     final child = Padding(
       padding: padding ?? style.padding ?? EdgeInsets.zero,
       child: DefaultSymbolStyle(
         style: TextStyle(color: foreground),
-        child: this.child ?? const SizedBox.shrink(),
+        child: style.foregroundOpacity != null
+            ? Opacity(
+                opacity: style.foregroundOpacity!,
+                child: childWidget,
+              )
+            : childWidget,
       ),
     );
 

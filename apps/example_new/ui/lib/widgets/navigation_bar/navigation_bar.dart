@@ -21,7 +21,7 @@ class NavigationBar extends StatelessWidget {
       return ButtonStyle(
         iconSize: Fonts.heading.fontSize,
         surfaceStyle: SurfaceStyle(
-          resolver: (style) {
+          resolver: (style, context) {
             return style?.merge(SurfaceStyle(
               color: style.color?.withOpacity(0),
               border: [],

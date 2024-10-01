@@ -5,13 +5,17 @@ final _dartCore = Uri.parse('dart:core');
 ///
 extension MacroDeclarationX on MemberDeclarationBuilder {
   ///
-  Future<void> declareConstructor(ClassDeclaration clazz) async {
+  Future<void> declareConstructor(
+    ClassDeclaration clazz, {
+    bool isStyle = false,
+  }) async {
     final name = clazz.identifier.name;
     final fields = await fieldsOf(clazz);
     declareInType(
       DeclarationCode.fromParts([
         '\n\t/// Default comment for constructor\n',
         '\tconst $name({',
+        if (isStyle) '\n\t\tthis.resolver,',
         for (final field in fields)
           DeclarationCode.fromParts(
             [
@@ -117,29 +121,30 @@ extension MacroDeclarationX on MemberDeclarationBuilder {
     final name = clazz.identifier.name;
     // TODO just a workaround until I can determine if field type has a merge method
     final mergeableFields = ['surfaceStyle', 'labelStyle'];
+    final resolver = DeclarationCode.fromParts([
+      '\n\t\t\tresolver: (resolvedStyle, context) {',
+      '\n\t\t\t\tfinal resolved = resolver?.call(resolvedStyle, context);',
+      '\n\t\t\t\tfinal styleResolved =  style?.resolver?.call(resolved, context);',
+      '\n\t\t\t\treturn styleResolved ?? resolved ?? resolvedStyle;',
+      '\n\t\t\t},',
+    ]);
     final fields = (await fieldsOf(clazz)).map((field) {
-      final code = field.type.code;
-      return field.identifier.name == 'resolver'
-          ? [
-              '\n\t\t\t${field.identifier.name}: (resolvedStyle) {',
-              '\n\t\t\t\tfinal resolved = ${field.identifier.name}?.call(resolvedStyle);',
-              '\n\t\t\t\tfinal styleResolved =  style?.resolver?.call(resolved);',
-              '\n\t\t\t\treturn styleResolved ?? resolved ?? resolvedStyle;',
-              '\n\t\t\t},',
-            ]
-          : mergeableFields.contains(field.identifier.name)
-              ? [
-                  '\n\t\t\t${field.identifier.name}: ${field.identifier.name}?.merge(style?.${field.identifier.name}) ??  style?.${field.identifier.name},',
-                ]
-              : [
-                  '\n\t\t\t${field.identifier.name}:  style?.${field.identifier.name} ?? ${field.identifier.name},',
-                ];
+      return DeclarationCode.fromParts(
+        mergeableFields.contains(field.identifier.name)
+            ? [
+                '\n\t\t\t${field.identifier.name}: ${field.identifier.name}?.merge(style?.${field.identifier.name}) ??  style?.${field.identifier.name},',
+              ]
+            : [
+                '\n\t\t\t${field.identifier.name}:  style?.${field.identifier.name} ?? ${field.identifier.name},',
+              ],
+      );
     }).toList();
     declareInType(
       DeclarationCode.fromParts([
         '\n\t/// Comment for merge method\n',
         '\t$name merge($name? style) {',
         '\n\t\treturn $name(',
+        resolver,
         ...fields,
         '\n\t\t);',
         '\n\t}',

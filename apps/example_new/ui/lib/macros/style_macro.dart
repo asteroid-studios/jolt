@@ -17,16 +17,20 @@ macro class Style implements  ClassDeclarationsMacro {
     ClassDeclaration clazz, 
     MemberDeclarationBuilder builder,
   ) async {
-  
+     final buildContext =
+        await builder.resolveIdentifier(Uri.parse('package:flutter/src/widgets/framework.dart'), 'BuildContext');
     builder.declareInType(DeclarationCode.fromParts([
         // TODO this don't work yet
         // Define resolver
-        // '\n\n\t/// Comment for resolver\n',
-        // '\tfinal ',
-        // classIdentifier,
-        // '? Function(',
-        // classIdentifier,
-        // '? style)? resolver;',      
+        '\n\n\t/// Comment for resolver\n',
+        '\tfinal ',
+        clazz.identifier,
+        '? Function(\n\t\t',
+        clazz.identifier,
+        '? style,\n\t\t',
+        buildContext,
+        ' context,',
+        '\n\t)? resolver;',      
         // TODO think issues stem from not importing stuff.
         // TODO issue where this is there but not called, think I should reference freezed to see how done
         // To String
@@ -48,47 +52,12 @@ macro class Style implements  ClassDeclarationsMacro {
       ]),
     );
 
-    await builder.declareConstructor(clazz);
+    await builder.declareConstructor(clazz, isStyle: true);
+    await builder.declareMerge(clazz);
     await builder.declareResolve(clazz);
     // await builder.declareToJson(clazz);
     // await builder.declareFromJson(clazz);
 
-    await _buildMerge(clazz, builder);
-  }
-
-  
-  // TODO copyWith. Will have same issue as merge
-  Future<void> _buildMerge( 
-    ClassDeclaration clazz, 
-    MemberDeclarationBuilder builder,
-  ) async {
-    final name = clazz.identifier.name;
-    final fields = await builder.fieldsOf(clazz);
-    // TODO just a workaround until I can determine if field type has a merge method
-    final mergeableFields = ['surfaceStyle','labelStyle'];
-    // final print = await builder.resolveIdentifier(_dartCore, 'print');
-    builder.declareInType(
-      DeclarationCode.fromParts([
-        '\n\t/// Comment for merge method\n',
-        '\t$name merge($name? style) {',
-        '\n\t\treturn $name(',
-        for(final field in fields) 
-          DeclarationCode.fromParts(
-            field.identifier.name == 'resolver' ? [
-              '\n\t\t\t${field.identifier.name}: (resolvedStyle) {',
-              '\n\t\t\t\tfinal resolved = ${field.identifier.name}?.call(resolvedStyle);',
-              '\n\t\t\t\tfinal styleResolved =  style?.resolver?.call(resolved);',
-              '\n\t\t\t\treturn styleResolved ?? resolved ?? resolvedStyle;',
-              '\n\t\t\t},',
-            ] : mergeableFields.contains(field.identifier.name) ? [
-              '\n\t\t\t${field.identifier.name}: ${field.identifier.name}?.merge(style?.${field.identifier.name}) ??  style?.${field.identifier.name},',
-            ] : [
-              '\n\t\t\t${field.identifier.name}:  style?.${field.identifier.name} ?? ${field.identifier.name},',
-            ],
-          ),        
-        '\n\t\t);',
-        '\n\t}',
-      ]),
-    );
+    // await _buildMerge(clazz, builder);
   }
 }

@@ -73,6 +73,11 @@ extension ColorX on Color {
   }
 
   ///
+  Color get hovered {
+    return weaken();
+  }
+
+  ///
   Color get foreground {
     if (opacity < 0.5) {
       return Colors.background.foreground;
