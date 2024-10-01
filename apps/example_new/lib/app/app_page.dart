@@ -298,7 +298,8 @@ class AppPage extends HookWidget {
                                       Toggle(
                                         type: ToggleType.outlined,
                                         onChanged: (value) {},
-                                        icon: Icons.textAa.icon,
+                                        // icon: Icons.textAa.icon,
+                                        label: 'Label'.text,
                                       ),
                                     ],
                                   ),

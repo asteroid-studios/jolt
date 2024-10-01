@@ -28,7 +28,7 @@ class ButtonStyle {
     final disabled = button.onTap == null;
 
     return ButtonStyle(
-      labelStyle: Fonts.body.w600,
+      // labelStyle: Fonts.body.w600,
       dividerIconLabel: Gap.xs(),
       splash: disabled ? null : Splash.new,
       surfaceStyle: SurfaceStyle(

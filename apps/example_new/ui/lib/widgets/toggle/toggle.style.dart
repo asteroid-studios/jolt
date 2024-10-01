@@ -33,12 +33,8 @@ class ToggleStyle {
                       foregroundOpacity: !toggle.selected ? style.unselectedHoverOpacity : null,
                       // foregroundOpacity: interaction.hovered && !toggle.selected ? defaultUnselectedHoverOpacity : null,
                       color: toggle.selected ? selectedColor : surfaceStyle.color,
-                      border: toggle.selected
-                          ? (surfaceStyle.border
-                            ?..add(SurfaceBorder.all(
-                              color: selectedColor?.weaken(),
-                            )))
-                          : null,
+                      border:
+                          toggle.selected ? (surfaceStyle.border?..add(SurfaceBorder.all(color: selectedColor))) : null,
                     ),
                   );
                 },
