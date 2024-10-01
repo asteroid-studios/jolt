@@ -10,7 +10,7 @@ class Button extends StatelessWidget {
     this.style,
     this.color,
     this.trailing,
-    this.selected = false,
+    this.selected,
     this.mainAxisAlignment = MainAxisAlignment.center,
     this.size,
     this.padding,
@@ -23,14 +23,14 @@ class Button extends StatelessWidget {
     this.icon,
     this.onTap,
     this.style,
-    this.color,
     this.trailing,
-    this.selected = false,
+    this.selected,
     this.mainAxisAlignment = MainAxisAlignment.center,
     this.size,
     this.padding,
     super.key,
-  }) : type = ButtonType.ghost;
+  })  : color = null,
+        type = ButtonType.ghost;
 
   /// A button with an outlined border
   const Button.outlined({
@@ -38,14 +38,14 @@ class Button extends StatelessWidget {
     this.icon,
     this.onTap,
     this.style,
-    this.color,
     this.trailing,
-    this.selected = false,
+    this.selected,
     this.mainAxisAlignment = MainAxisAlignment.center,
     this.size,
     this.padding,
     super.key,
-  }) : type = ButtonType.outlined;
+  })  : color = null,
+        type = ButtonType.outlined;
 
   /// A button styled as a link
   const Button.link({
@@ -53,14 +53,14 @@ class Button extends StatelessWidget {
     this.icon,
     this.onTap,
     this.style,
-    this.color,
     this.trailing,
-    this.selected = false,
+    this.selected,
     this.mainAxisAlignment = MainAxisAlignment.center,
     this.size,
     this.padding,
     super.key,
-  }) : type = ButtonType.link;
+  })  : color = null,
+        type = ButtonType.link;
 
   /// A button with a filled background
   const Button.filled({
@@ -70,7 +70,7 @@ class Button extends StatelessWidget {
     this.style,
     this.color,
     this.trailing,
-    this.selected = false,
+    this.selected,
     this.mainAxisAlignment = MainAxisAlignment.center,
     this.size,
     this.padding,
@@ -104,12 +104,16 @@ class Button extends StatelessWidget {
   ///
   final StyleResolver<ButtonStyle, Button>? style;
 
+  ///
   final EdgeInsetsGeometry? padding;
 
-  // TODO remove
-  final bool selected;
+  ///
+  final bool? selected;
 
   // TODO loading indicator
+  // TODO tooltip
+  // TODO disabled state, as part of interaction.
+  // TODO select, which would be like toggle https://ui.shadcn.com/docs/components/toggle-group
 
   @override
   Widget build(BuildContext context) {

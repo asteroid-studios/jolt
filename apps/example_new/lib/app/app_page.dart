@@ -2,6 +2,7 @@ import 'package:example_new/utils/router/router.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:ui/ui.dart';
 import 'package:flutter/material.dart' as mat;
+import 'package:ui/widgets/form/test.dart';
 
 final GlobalKey<mat.RefreshIndicatorState> _refreshIndicatorKey = GlobalKey<mat.RefreshIndicatorState>();
 
@@ -271,6 +272,44 @@ class AppPage extends HookWidget {
                                 },
                               ),
                             ].withSeparator(const Gap.sm()),
+                          ),
+                          const Gap.md(),
+                          Form(
+                            form: (json) => TestForm.fromJson(json),
+                            builder: (builder, form) {
+                              return Column(
+                                children: [
+                                  Row(
+                                    children: [
+                                      Toggle(
+                                        type: ToggleType.outlined,
+                                        onChanged: (value) {},
+                                        icon: Icons.textAUnderline.icon,
+                                      ),
+                                      const Gap.sm(),
+                                      Toggle(
+                                        onChanged: (value) {},
+                                        icon: Icons.textAUnderline.icon,
+                                      ),
+                                      const Gap.sm(),
+                                      Toggle(
+                                        onChanged: (value) {},
+                                        icon: Icons.textAa.icon,
+                                      ),
+                                    ],
+                                  ),
+                                  const Gap.sm(),
+                                  Button(
+                                    label: 'Submit'.text,
+                                    onTap: () {
+                                      final value = form.submit();
+                                      // print(value.email);
+                                      // print(TestForm.firstNameKey);
+                                    },
+                                  ),
+                                ],
+                              );
+                            },
                           ),
                           const Gap.md(),
                           Surface(

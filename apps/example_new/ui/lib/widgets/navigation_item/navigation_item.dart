@@ -49,7 +49,7 @@ class _NavigationItemState extends State<NavigationItem> {
     return Column(
       children: [
         Button(
-          padding: !widget.active ? EdgeInsets.symmetric(horizontal: 0, vertical: Spacing.sm) : null,
+          // padding: !widget.active ? EdgeInsets.symmetric(horizontal: 0, vertical: Spacing.sm) : null,
           color: widget.active ? Colors.primary.withOpacity(0.3) : null,
           style: !widget.active ? ButtonStyle.ghost : null,
           mainAxisAlignment: MainAxisAlignment.start,

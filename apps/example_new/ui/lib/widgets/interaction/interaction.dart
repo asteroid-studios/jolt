@@ -87,7 +87,7 @@ class InteractionState extends State<Interaction> {
         final elapsed = DateTime.now().difference(timePressed);
         final remaining = minPress - elapsed;
         _pressingTimer = Timer(Duration(milliseconds: max(0, remaining.inMilliseconds)), () {
-          if (pressing) setState(() => _pressedTime = null);
+          if (pressing && mounted) setState(() => _pressedTime = null);
         });
       }
     }

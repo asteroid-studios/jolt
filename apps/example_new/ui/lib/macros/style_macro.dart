@@ -1,6 +1,8 @@
 import 'dart:async';
 
 import 'package:macros/macros.dart';
+import 'package:ui/macros/form_macro.dart';
+import 'package:ui/macros/macro_helpers.dart';
 
 final _dartCore = Uri.parse('dart:core');
 
@@ -15,31 +17,8 @@ macro class Style implements  ClassDeclarationsMacro {
     ClassDeclaration clazz, 
     MemberDeclarationBuilder builder,
   ) async {
-    final classIdentifier = clazz.identifier;
-    final name = clazz.identifier.name;
-    //  final ids = await ResolvedIdentifiers.resolve(builder);
-    final fields = await builder.fieldsOf(clazz);
-    final fieldsString = StringBuffer();    
   
-    for(final field in fields) {
-      fieldsString.write( '\n\t\t');
-      if(!field.type.isNullable) {
-        throw Exception('All fields must be nullable in a Style class');
-      }
-      fieldsString.write( 'this.${field.identifier.name},');
-    }
-    if(fields.isNotEmpty) {
-      fieldsString.write('\n');
-      // fieldsString.write('\n\t\tthis.resolver,\n');
-    }
- 
- 
-    
     builder.declareInType(DeclarationCode.fromParts([
-        // Default constructor
-        '\t/// Default comment for style constructor\n',
-        '\tconst $name({$fieldsString\t});',
-
         // TODO this don't work yet
         // Define resolver
         // '\n\n\t/// Comment for resolver\n',
@@ -48,14 +27,12 @@ macro class Style implements  ClassDeclarationsMacro {
         // '? Function(',
         // classIdentifier,
         // '? style)? resolver;',      
-
         // TODO think issues stem from not importing stuff.
         // TODO issue where this is there but not called, think I should reference freezed to see how done
         // To String
         // '\n\n\t@override\n\tString toString() {\n\t\treturn \'$name(',
         // fields.map((field) => '${field.identifier.name}: \$${field.identifier.name}').join(', '),
         // ')\';\n\t}',
-
         // Copy with
         // TODO cannot resolve identifiers yet, come back to copy with
 //         '\n\n\t$name copyWith({\n',
@@ -71,39 +48,14 @@ macro class Style implements  ClassDeclarationsMacro {
       ]),
     );
 
-    await _buildResolve(clazz,builder);
+    await builder.declareConstructor(clazz);
+    await builder.declareResolve(clazz);
+    // await builder.declareToJson(clazz);
+    // await builder.declareFromJson(clazz);
+
     await _buildMerge(clazz, builder);
   }
 
-  Future<void> _buildResolve( 
-    ClassDeclaration clazz, 
-    MemberDeclarationBuilder builder,
-  ) async {
-    final buildContext = await builder.resolveIdentifier(
-      Uri.parse('package:flutter/src/widgets/framework.dart'), 
-      'BuildContext',
-    );
-    final print = await builder.resolveIdentifier(_dartCore, 'print');
-    final name = clazz.identifier.name;
-    final inheritedStyle = await builder.resolveIdentifier(
-      Uri.parse('package:jolt/jolt.dart'), 
-      'InheritedStyle',
-    );  
-    builder.declareInType(
-      DeclarationCode.fromParts([
-        '\n\n\t/// Comment for resolve method\n',
-        '\t$name resolve(\n\t\t',
-        buildContext,
-        ' context,\n',
-        '\t\t$name? inlineStyle,',
-        '\n\t) {\n',
-        '\t\treturn merge(',
-        inheritedStyle,
-        // inheritedStyle,
-        '.maybeOf<$name>(context)).merge(inlineStyle);\n\t}',
-      ]),
-    );
-  }
   
   // TODO copyWith. Will have same issue as merge
   Future<void> _buildMerge( 
