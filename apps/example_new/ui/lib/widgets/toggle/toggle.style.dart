@@ -17,12 +17,12 @@ class ToggleStyle {
   static ToggleStyle defaultStyle(BuildContext context, ToggleState toggle) {
     return ToggleStyle(
       unselectedHoverOpacity: 0.5,
-      selectedColor: Colors.surface,
-      // selectedColor: Colors.primary.withOpacity(0.2),
+      selectedColor: Colors.primary,
       resolver: (style, context) {
         return style?.merge(
           ToggleStyle(
             buttonStyle: ButtonStyle(
+              splash: () => const SizedBox(),
               surfaceStyle: SurfaceStyle(
                 borderRadius: BorderRadius.circular(8),
                 resolver: (surfaceStyle, context) {
@@ -36,8 +36,7 @@ class ToggleStyle {
                       border: toggle.selected
                           ? (surfaceStyle.border
                             ?..add(SurfaceBorder.all(
-                              color: selectedColor,
-                              width: 2,
+                              color: selectedColor?.weaken(),
                             )))
                           : null,
                     ),
@@ -54,6 +53,8 @@ class ToggleStyle {
   ///
   static StyleResolver<ButtonStyle, Button> fromType(ToggleType type) {
     switch (type) {
+      case ToggleType.filled:
+        return ButtonStyle.filled;
       case ToggleType.outlined:
         return ButtonStyle.outlined;
       case ToggleType.ghost:
@@ -69,4 +70,7 @@ enum ToggleType {
 
   ///
   ghost,
+
+  ///
+  filled,
 }

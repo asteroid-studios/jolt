@@ -8,7 +8,7 @@ class Toggle extends StatefulWidget {
     this.label,
     this.icon,
     this.initialValue = false,
-    this.type = ToggleType.outlined,
+    this.type = ToggleType.filled,
     super.key,
   });
 
@@ -20,6 +20,8 @@ class Toggle extends StatefulWidget {
 
   ///
   final ToggleType type;
+
+  // TODO add inline style
 
   ///
   final Widget? label;
@@ -46,7 +48,6 @@ class ToggleState extends State<Toggle> {
   Widget build(BuildContext context) {
     // TODO add the inline style etc and resolve
     final preStyle = ToggleStyle.defaultStyle(context, this);
-    // TODO check resolver is working
     final style = preStyle.resolver?.call(preStyle, context) ?? preStyle;
 
     return Button(

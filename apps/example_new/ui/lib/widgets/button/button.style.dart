@@ -44,7 +44,7 @@ class ButtonStyle {
               color: disabled
                   ? style.color?.withOpacity(0.3)
                   : interaction.hovered
-                      ? style.color?.weaken()
+                      ? style.color?.weaken(5)
                       : style.color,
               border: interaction.focused
                   ? (style.border

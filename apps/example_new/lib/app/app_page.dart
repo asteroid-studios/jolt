@@ -292,10 +292,11 @@ class AppPage extends HookWidget {
                                       const Gap.sm(),
                                       Toggle(
                                         onChanged: (value) {},
-                                        icon: Icons.textAUnderline.icon,
+                                        icon: Icons.textAlignLeft.icon,
                                       ),
                                       const Gap.sm(),
                                       Toggle(
+                                        type: ToggleType.outlined,
                                         onChanged: (value) {},
                                         icon: Icons.textAa.icon,
                                       ),
