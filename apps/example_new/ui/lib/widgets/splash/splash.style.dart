@@ -21,11 +21,11 @@ class SplashStyle {
 
   ///
   static SplashStyle defaultStyle(BuildContext context, SplashState splash) {
+    final background = Surface.of(context).color;
+    final isDark = background?.isDark ?? false;
     return SplashStyle(
-      // TODO replace with inherited background color.
-      color: Colors.background.foreground,
-      // TODO replace isDark with inherited background color darkness.
-      maximumOpacity: context.theme.isDark ? 0.1 : 0.03,
+      color: background?.foreground,
+      maximumOpacity: isDark ? 0.1 : 0.05,
     );
   }
 

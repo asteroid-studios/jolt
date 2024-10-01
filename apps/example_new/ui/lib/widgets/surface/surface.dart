@@ -47,6 +47,15 @@ class Surface extends StatelessWidget {
   ///
   final EdgeInsetsGeometry? margin;
 
+  ///
+  static SurfaceStyle of(BuildContext context) {
+    final style = context.dependOnInheritedWidgetOfExactType<_SurfaceScope>()?.style;
+    // This method will mainly be used to get
+    // the color of the parent surface for widgets
+    // So we can just return Colors.background as the default
+    return style ?? SurfaceStyle(color: Colors.background);
+  }
+
   @override
   Widget build(BuildContext context) {
     final preStyle = SurfaceStyle.defaultStyle(context, this).resolve(
@@ -79,7 +88,6 @@ class Surface extends StatelessWidget {
         shape: style.shape ?? BoxShape.rectangle,
         boxShadow: style.color?.opacity == 0 ? null : style.boxShadow,
       ),
-      // TODO add inherited surface color here so children can use it
       child: background != null ? Stack(children: [background, child]) : child,
     );
 
@@ -105,6 +113,21 @@ class Surface extends StatelessWidget {
         ) ??
         [];
 
-    return Stack(clipBehavior: Clip.none, children: [surface, ...borders]);
+    return _SurfaceScope(
+      style: style,
+      child: Stack(clipBehavior: Clip.none, children: [surface, ...borders]),
+    );
   }
+}
+
+class _SurfaceScope extends InheritedWidget {
+  const _SurfaceScope({
+    required this.style,
+    required super.child,
+  });
+
+  final SurfaceStyle style;
+
+  @override
+  bool updateShouldNotify(_SurfaceScope oldWidget) => true;
 }

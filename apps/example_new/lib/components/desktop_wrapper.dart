@@ -152,60 +152,64 @@ class DesktopWrapper extends HookWidget {
       ),
     );
 
-    return Platform.whenGroup(
-      page,
-      web: page,
-      desktop: WindowBorder(
-        color: Colors.primary,
-        child: Column(
-          children: [
-            AnimatedContainer(
-              duration: const Duration(milliseconds: 200),
-              width: double.infinity,
-              color: Colors.surface,
-              child: Stack(
-                children: [
-                  Positioned.fill(
-                    child: Center(
-                      child: Text(
-                        'Jolt',
-                        style: Fonts.body.colored(Colors.background.foreground),
+    return GestureDetector(
+      // TODO this isnt working right, disables focus comepetely
+      // onTap: () => FocusScope.of(context).unfocus(),
+      child: Platform.whenGroup(
+        page,
+        web: page,
+        desktop: WindowBorder(
+          color: Colors.primary,
+          child: Column(
+            children: [
+              AnimatedContainer(
+                duration: const Duration(milliseconds: 200),
+                width: double.infinity,
+                color: Colors.surface,
+                child: Stack(
+                  children: [
+                    Positioned.fill(
+                      child: Center(
+                        child: Text(
+                          'Jolt',
+                          style: Fonts.body.colored(Colors.background.foreground),
+                        ),
                       ),
                     ),
-                  ),
-                  Positioned.fill(child: MoveWindow()),
-                  Align(
-                    alignment: Platform.when(
-                      Alignment.centerRight,
-                      windows: Alignment.centerRight,
-                    ),
-                    child: GestureDetector(
-                      onTap: () {
-                        ThemeProvider.of(context)?.toggleTheme();
-                      },
-                      child: AnimatedContainer(
-                        duration: const Duration(milliseconds: 200),
-                        decoration: BoxDecoration(
-                          color: Colors.surface.weaken(),
-                          borderRadius: const BorderRadius.only(
-                            bottomLeft: Radius.circular(8),
-                            topLeft: Radius.circular(8),
+                    Positioned.fill(child: MoveWindow()),
+                    Align(
+                      alignment: Platform.when(
+                        Alignment.centerRight,
+                        windows: Alignment.centerRight,
+                      ),
+                      child: GestureDetector(
+                        onTap: () {
+                          ThemeProvider.of(context)?.toggleTheme();
+                        },
+                        child: AnimatedContainer(
+                          duration: const Duration(milliseconds: 200),
+                          decoration: BoxDecoration(
+                            color: Colors.surface.weaken(),
+                            borderRadius: const BorderRadius.only(
+                              bottomLeft: Radius.circular(8),
+                              topLeft: Radius.circular(8),
+                            ),
+                          ),
+                          padding: const EdgeInsets.all(10),
+                          child: Icon(
+                            // TODOreplace with a dropdown with light dark and system
+                            Colors.isDark ? IconsDuotone.moon : IconsDuotone.sun,
+                            color: Colors.background.foreground,
                           ),
                         ),
-                        padding: const EdgeInsets.all(10),
-                        child: Icon(
-                          // TODOreplace with a dropdown with light dark and system
-                          Colors.isDark ? IconsDuotone.moon : IconsDuotone.sun,
-                          color: Colors.background.foreground,
-                        ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-            Expanded(child: page),
-          ],
+              Expanded(child: page),
+            ],
+          ),
         ),
       ),
     );
