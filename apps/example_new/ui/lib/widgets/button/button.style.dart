@@ -28,7 +28,7 @@ class ButtonStyle {
     final disabled = button.onTap == null;
 
     return ButtonStyle(
-      // labelStyle: Fonts.body.w600,
+      labelStyle: Fonts.body,
       dividerIconLabel: Gap.xs(),
       splash: disabled ? null : Splash.new,
       surfaceStyle: SurfaceStyle(
@@ -111,15 +111,11 @@ class ButtonStyle {
         final interaction = Interaction.of(context);
         return ButtonStyle(
           resolver: (style, context) {
-            return style?.merge(
-              ButtonStyle(
-                labelStyle: style.labelStyle?.copyWith(
-                  decoration: interaction.hovered || interaction.focused || interaction.pressing
-                      ? TextDecoration.underline
-                      : null,
-                ),
-              ),
+            final linkStyle = TextStyle(
+              decoration:
+                  interaction.hovered || interaction.focused || interaction.pressing ? TextDecoration.underline : null,
             );
+            return style?.merge(ButtonStyle(labelStyle: style.labelStyle?.merge(linkStyle) ?? linkStyle));
           },
           splash: () => Splash(style: SplashStyle.centered),
           surfaceStyle: SurfaceStyle(
