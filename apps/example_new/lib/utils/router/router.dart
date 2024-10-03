@@ -1,6 +1,7 @@
 import 'package:example_new/app/app_page.dart';
 import 'package:example_new/app/change_log_page.dart';
 import 'package:example_new/app/contact_page.dart';
+import 'package:example_new/app/docs_page.dart';
 import 'package:example_new/app/home_page.dart';
 import 'package:example_new/app/settings_page.dart';
 import 'package:example_new/app/widgets/buttons_page.dart';
@@ -20,6 +21,11 @@ final router = GoRouter(
                 GoRoute(path: 'buttons', builder: (context, state) => const ButtonsPage()),
               ],
             ),
+          ],
+        ),
+        StatefulShellBranch(
+          routes: [
+            GoRoute(path: '/docs', builder: (context, state) => const DocsPage()),
           ],
         ),
         StatefulShellBranch(

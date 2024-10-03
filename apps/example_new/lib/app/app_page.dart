@@ -14,6 +14,7 @@ class AppPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final branches = [
       (Icons.house.icon, IconsFill.house.icon),
+      (Icons.codeBlock.icon, IconsFill.codeBlock.icon),
       (Icons.paintRoller.icon, IconsFill.paintRoller.icon),
       (Icons.log.icon, IconsFill.log.icon),
       (Icons.userCircleDashed.icon, IconsFill.userCircleDashed.icon),
@@ -22,37 +23,35 @@ class AppPage extends StatelessWidget {
     return Column(
       children: [
         const DesktopWindowBar(),
-        Expanded(
-          // TODO remove padding after adding scaffold and sections
-          child: Padding(
-            padding: const EdgeInsets.all(16),
-            child: navigationShell,
-          ),
-        ),
+        Expanded(child: navigationShell),
         // TODO divider
         const Surface(height: 1, width: double.infinity),
         Row(
-          children: branches
-              .mapIndexed(
-                (index, icon) {
-                  final selected = index == navigationShell.currentIndex;
-                  return Button(
-                    size: Fonts.heading.fontSize,
-                    style: (context, button) => ButtonStyle(
-                      splash: () => null,
-                      surfaceStyle: SurfaceStyle(
-                        color: Colors.background,
-                        foregroundOpacity: selected ? 1 : 0.5,
-                        borderRadius: BorderRadius.circular(0),
+          children: [
+            const Gap.md(),
+            ...branches
+                .mapIndexed(
+                  (index, icon) {
+                    final selected = index == navigationShell.currentIndex;
+                    return Button(
+                      size: Fonts.heading.fontSize,
+                      style: (context, button) => ButtonStyle(
+                        splash: () => null,
+                        surfaceStyle: SurfaceStyle(
+                          color: Colors.background,
+                          foregroundOpacity: selected ? 1 : 0.5,
+                          borderRadius: BorderRadius.circular(0),
+                        ),
                       ),
-                    ),
-                    icon: selected ? icon.$2 : icon.$1,
-                    onTap: () => navigationShell.goBranch(index, initialLocation: selected),
-                  );
-                },
-              )
-              .toList()
-              .withExpanded(),
+                      icon: selected ? icon.$2 : icon.$1,
+                      onTap: () => navigationShell.goBranch(index, initialLocation: selected),
+                    );
+                  },
+                )
+                .toList()
+                .withExpanded(),
+            const Gap.md(),
+          ],
         ),
       ],
     );

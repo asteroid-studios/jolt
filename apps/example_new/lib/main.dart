@@ -6,6 +6,7 @@ import 'package:ui/ui.dart';
 // import 'package:ui/ui.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   usePathUrlStrategy();
 
   runApp(const App());
