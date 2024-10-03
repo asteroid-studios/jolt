@@ -1,10 +1,5 @@
 # melos_managed_dependency_overrides: jolt,ui,auto_route
 dependency_overrides:
-  auto_route:
-    git:
-      url: https://github.com/kane-knowby/auto_route_library.git
-      ref: master
-      path: auto_route
   jolt:
     path: ../../packages/jolt
   ui:

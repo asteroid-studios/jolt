@@ -15,6 +15,8 @@ class Surface extends StatelessWidget {
     this.style,
     this.height,
     this.width,
+    this.color,
+    this.borderRadius,
     this.padding,
     this.margin,
     super.key,
@@ -42,6 +44,12 @@ class Surface extends StatelessWidget {
   final double? height;
 
   ///
+  final Color? color;
+
+  ///
+  final BorderRadiusGeometry? borderRadius;
+
+  ///
   final EdgeInsetsGeometry? padding;
 
   ///
@@ -58,10 +66,15 @@ class Surface extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final preStyle = SurfaceStyle.defaultStyle(context, this).resolve(
-      context,
-      this.style?.call(context, this),
-    );
+    final preStyle = SurfaceStyle.defaultStyle(context, this)
+        .resolve(
+          context,
+          this.style?.call(context, this),
+        )
+        .merge(
+          // TODO change to copywith
+          SurfaceStyle(color: color, borderRadius: borderRadius),
+        );
 
     // TODO clean up as part of resolve
     // Needs to iterate through all resolvers in order
