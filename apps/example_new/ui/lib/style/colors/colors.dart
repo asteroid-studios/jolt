@@ -74,7 +74,15 @@ extension ColorX on Color {
 
   ///
   Color get hovered {
-    return weaken();
+    final hsl = toHSLColor();
+    // TODO this needs some love
+    // print(hsl.lightness);
+    if (hsl.lightness < 0.1) {
+      return hsl.withLightness(hsl.lightness + 0.15).toColor();
+    } else if (hsl.lightness > 0.9) {
+      return hsl.withLightness(hsl.lightness - 0.1).toColor();
+    }
+    return hsl.withLightness(hsl.lightness - 0.05).toColor();
   }
 
   ///

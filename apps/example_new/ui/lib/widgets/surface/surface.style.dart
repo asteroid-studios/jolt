@@ -49,4 +49,31 @@ class SurfaceStyle {
   String toString() {
     return 'SurfaceStyle(\ncolor: $color,\nforegroundColor: $foregroundColor,\nborderRadius: $borderRadius,\n border: $border,\n boxShadow: $boxShadow,\n shape: $shape,\n padding: $padding\n)';
   }
+
+  /// Comment for merge method
+  SurfaceStyle mergeAlt(SurfaceStyle? style) {
+    return SurfaceStyle(
+      resolver: (resolvedStyle, context) {
+        final originalStyle = resolver?.call(resolvedStyle, context);
+        final newStyle = style?.resolver?.call(originalStyle, context);
+        return newStyle;
+      },
+      color: style?.color ?? color,
+      foregroundColor: style?.foregroundColor ?? foregroundColor,
+      foregroundOpacity: style?.foregroundOpacity ?? foregroundOpacity,
+      borderRadius: style?.borderRadius ?? borderRadius,
+      border: style?.border ?? border,
+      boxShadow: style?.boxShadow ?? boxShadow,
+      shape: style?.shape ?? shape,
+      padding: style?.padding ?? padding,
+    );
+  }
+
+  /// Comment for resolve method
+  SurfaceStyle resolveAlt(
+    BuildContext context,
+    SurfaceStyle? inlineStyle,
+  ) {
+    return mergeAlt(InheritedStyle.maybeOf<SurfaceStyle>(context)).mergeAlt(inlineStyle);
+  }
 }

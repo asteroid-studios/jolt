@@ -9,9 +9,8 @@ class AutoRouteDialogRoute extends CustomRoute {
     super.usesPathAsKey,
     bool disableBarrier = false,
   }) : super(
-          customRouteBuilder:
-              <T>(BuildContext context, Widget child, AutoRoutePage<T> page) =>
-                  _DialogRoute(page, disableBarrier: disableBarrier),
+          customRouteBuilder: <T>(BuildContext context, Widget child, AutoRoutePage<T> page) =>
+              _DialogRoute(page, disableBarrier: disableBarrier),
         );
 }
 

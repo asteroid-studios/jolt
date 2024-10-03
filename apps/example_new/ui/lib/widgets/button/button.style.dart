@@ -44,7 +44,7 @@ class ButtonStyle {
               color: disabled
                   ? style.color?.withOpacity(0.3)
                   : interaction.hovered
-                      ? style.color?.weaken(5)
+                      ? style.color?.hovered
                       : style.color,
               border: interaction.focused
                   ? (style.border
@@ -64,20 +64,19 @@ class ButtonStyle {
   }
 
   /// A filled button style
-  static StyleResolver<ButtonStyle, Button> get filled => defaultStyle;
+  // Found the culprit! this is merging another resolver in!!
+  static StyleResolver<ButtonStyle, Button> get filled => (context, button) => ButtonStyle();
 
   /// An outlined button style
   static StyleResolver<ButtonStyle, Button> get outlined => (context, button) {
+        final surfaceColor = Surface.of(context).color;
         return ButtonStyle(
           surfaceStyle: SurfaceStyle(
             resolver: (style, context) {
               final interaction = Interaction.of(context);
               return style?.merge(
                 SurfaceStyle(
-                  color: interaction.hovered
-                      // TODO this should get parent color and darken
-                      ? style.color?.withOpacity(0.5)
-                      : style.color?.withOpacity(0),
+                  color: interaction.hovered ? surfaceColor?.hovered : surfaceColor?.withOpacity(0),
                 ),
               );
             },
@@ -88,6 +87,7 @@ class ButtonStyle {
 
   /// A ghost button style
   static StyleResolver<ButtonStyle, Button> get ghost => (context, button) {
+        final surfaceColor = Surface.of(context).color;
         return ButtonStyle(
           splash: () => Splash(style: SplashStyle.centered),
           surfaceStyle: SurfaceStyle(
@@ -95,10 +95,7 @@ class ButtonStyle {
               final interaction = Interaction.of(context);
               return style?.merge(
                 SurfaceStyle(
-                  color: interaction.hovered
-                      // TODO this should get parent color and darken
-                      ? style.color?.withOpacity(0.5)
-                      : style.color?.withOpacity(0),
+                  color: interaction.hovered ? surfaceColor?.hovered : surfaceColor?.withOpacity(0),
                 ),
               );
             },
@@ -108,6 +105,7 @@ class ButtonStyle {
 
   /// A button styled as a link
   static StyleResolver<ButtonStyle, Button> get link => (context, button) {
+        final surfaceColor = Surface.of(context).color;
         final interaction = Interaction.of(context);
         return ButtonStyle(
           resolver: (style, context) {
@@ -123,7 +121,7 @@ class ButtonStyle {
             resolver: (style, context) {
               return style?.merge(
                 SurfaceStyle(
-                  color: style.color?.withOpacity(0),
+                  color: surfaceColor?.withOpacity(0),
                   border: [],
                 ),
               );

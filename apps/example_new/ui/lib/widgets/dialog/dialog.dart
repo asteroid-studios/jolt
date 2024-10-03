@@ -67,7 +67,7 @@ class Dialog<T> extends StatelessWidget with DialogRoute {
                 color: Colors.error,
                 label: 'Delete'.text,
                 onTap: () {
-                  final value = onConfirm?.call();
+                  // final value = onConfirm?.call();
                   // Navigator.of(context).pop(value);
                 },
               ),

@@ -1,4 +1,5 @@
 import 'package:ui/macros/form_macro.dart';
+// ignore: unused_import
 import 'package:ui/ui.dart';
 // import 'package:flutter/material.dart' as mat;
 
@@ -22,27 +23,27 @@ class TestForm {
   final String? email;
 }
 
-void test() {
-  final form = Form.unsafe(
-    initialValue: {},
-    builder: (context, state) {
-      return Container();
-    },
-  );
+// void test() {
+//   final form = Form.unsafe(
+//     initialValue: {},
+//     builder: (context, state) {
+//       return Container();
+//     },
+//   );
 
-  final test = TestForm.fromJson({});
+//   final test = TestForm.fromJson({});
 
-  final safeForm = Form(
-    form: (json) => TestForm.fromJson(json),
-    builder: (context, state) {
-      return Container();
-    },
-  );
+//   final safeForm = Form(
+//     form: (json) => TestForm.fromJson(json),
+//     builder: (context, state) {
+//       return Container();
+//     },
+//   );
 
-  // TODO Possible alternative syntax
-  // final safeFormAlt = TestForm(
-  //   builder: (context, state) {
-  //     return Container();
-  //   },
-  // );
-}
+//   // TODO Possible alternative syntax
+//   // final safeFormAlt = TestForm(
+//   //   builder: (context, state) {
+//   //     return Container();
+//   //   },
+//   // );
+// }

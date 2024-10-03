@@ -91,13 +91,18 @@ class Section extends StatelessWidget {
       bottom: verticalPadding,
     );
 
-    var section = child;
+    final sectionChild = SurfaceScope(
+      style: SurfaceStyle(color: color),
+      child: child,
+    );
+
+    Widget section = sectionChild;
 
     if (!pinned && !floating) {
       if (fillRemaining) {
         section = SliverFillRemaining(
           hasScrollBody: false,
-          child: child,
+          child: sectionChild,
         );
       }
 
@@ -107,7 +112,7 @@ class Section extends StatelessWidget {
           viewportFraction: fillMainAxisFraction,
           delegate: SliverChildBuilderDelegate(
             childCount: 1,
-            (context, index) => child,
+            (context, index) => sectionChild,
           ),
         );
       }
@@ -127,7 +132,7 @@ class Section extends StatelessWidget {
       decoration: decoration ?? BoxDecoration(color: color),
       child: Padding(
         padding: padding,
-        child: child,
+        child: sectionChild,
       ),
     );
 

@@ -18,7 +18,7 @@ class BottomSheet extends StatelessWidget with BottomSheetRoute {
       children: [
         GestureDetector(
           onTap: () {
-            context.show(Drawer());
+            context.show<void>(Drawer());
           },
           child: Text(
             title ?? 'Bottom sheet',

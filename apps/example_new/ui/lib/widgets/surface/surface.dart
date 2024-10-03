@@ -49,11 +49,11 @@ class Surface extends StatelessWidget {
 
   ///
   static SurfaceStyle of(BuildContext context) {
-    final style = context.dependOnInheritedWidgetOfExactType<_SurfaceScope>()?.style;
+    final style = context.dependOnInheritedWidgetOfExactType<SurfaceScope>()?.style;
     // This method will mainly be used to get
     // the color of the parent surface for widgets
     // So we can just return Colors.background as the default
-    return style ?? SurfaceStyle(color: Colors.background);
+    return SurfaceStyle(color: Colors.background).merge(style);
   }
 
   @override
@@ -62,10 +62,16 @@ class Surface extends StatelessWidget {
       context,
       this.style?.call(context, this),
     );
+
     // TODO clean up as part of resolve
     // Needs to iterate through all resolvers in order
     final style = preStyle.resolver?.call(preStyle, context) ?? preStyle;
     final foreground = style.foregroundColor ?? style.color?.foreground;
+
+    // TODO test initial build count, currently 2 should be 1
+    // if (style.color == Colors.tailwind.green) {
+    //   print('Surface Built');
+    // }
 
     final background = backgroundChild;
     final childWidget = this.child ?? const SizedBox.shrink();
@@ -119,15 +125,17 @@ class Surface extends StatelessWidget {
         ) ??
         [];
 
-    return _SurfaceScope(
+    return SurfaceScope(
       style: style,
       child: Stack(clipBehavior: Clip.none, children: [surface, ...borders]),
     );
   }
 }
 
-class _SurfaceScope extends InheritedWidget {
-  const _SurfaceScope({
+///
+class SurfaceScope extends InheritedWidget {
+  ///
+  const SurfaceScope({
     required this.style,
     required super.child,
   });
@@ -135,5 +143,5 @@ class _SurfaceScope extends InheritedWidget {
   final SurfaceStyle style;
 
   @override
-  bool updateShouldNotify(_SurfaceScope oldWidget) => true;
+  bool updateShouldNotify(SurfaceScope oldWidget) => true;
 }

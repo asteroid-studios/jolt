@@ -9,9 +9,8 @@ class AutoRouteDrawerRoute extends CustomRoute {
     super.usesPathAsKey,
     bool disableBarrier = false,
   }) : super(
-          customRouteBuilder:
-              <T>(BuildContext context, Widget child, AutoRoutePage<T> page) =>
-                  _DrawerRoute(page, disableBarrier: disableBarrier),
+          customRouteBuilder: <T>(BuildContext context, Widget child, AutoRoutePage<T> page) =>
+              _DrawerRoute(page, disableBarrier: disableBarrier),
         );
 }
 

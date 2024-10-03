@@ -1,4 +1,5 @@
 import 'package:example_new/components/desktop_wrapper.dart';
+import 'package:example_new/utils/router/go_router.dart';
 import 'package:example_new/utils/router/router.dart';
 import 'package:flutter/material.dart' as material;
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -25,6 +26,7 @@ class App extends HookWidget {
             material.DefaultWidgetsLocalizations.delegate,
           ],
           debugShowCheckedModeBanner: false,
+          // routerConfig: appRouter,
           routerConfig: router.routerConfig,
           builder: (context, child) => DesktopWrapper.builder(child, router),
         ),

@@ -36,7 +36,7 @@ class Drawer extends StatelessWidget with DrawerRoute {
           children: [
             GestureDetector(
               onTap: () {
-                context.show(Drawer());
+                context.show<void>(const Drawer());
               },
               child: Text(
                 'Drawer',

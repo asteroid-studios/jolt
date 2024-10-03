@@ -42,7 +42,7 @@ extension MacroDeclarationX on MemberDeclarationBuilder {
 
   ///
   Future<void> declareToJson(ClassDeclaration clazz) async {
-    final name = clazz.identifier.name;
+    // final name = clazz.identifier.name;
     final map = await resolveIdentifier(_dartCore, 'Map');
     final string = await resolveIdentifier(_dartCore, 'String');
     final dynamicType = await resolveIdentifier(_dartCore, 'dynamic');
@@ -119,11 +119,13 @@ extension MacroDeclarationX on MemberDeclarationBuilder {
   ///
   Future<void> declareMerge(ClassDeclaration clazz) async {
     final name = clazz.identifier.name;
+    // final print = await resolveIdentifier(_dartCore, 'print');
+
     // TODO just a workaround until I can determine if field type has a merge method
     final mergeableFields = ['surfaceStyle', 'labelStyle'];
     final resolver = DeclarationCode.fromParts([
-      '\n\t\t\tresolver: (resolvedStyle, context) {',
-      '\n\t\t\t\tfinal resolved = resolver?.call(resolvedStyle, context);',
+      '\n\t\t\tresolver: (resolvedStyle, context) {\n\t\t\t\t',
+      'final resolved = resolver?.call(resolvedStyle, context);',
       '\n\t\t\t\tfinal styleResolved =  style?.resolver?.call(resolved, context);',
       '\n\t\t\t\treturn styleResolved ?? resolved ?? resolvedStyle;',
       '\n\t\t\t},',

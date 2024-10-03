@@ -1,10 +1,8 @@
 import 'dart:async';
 
 import 'package:macros/macros.dart';
-import 'package:ui/macros/form_macro.dart';
 import 'package:ui/macros/macro_helpers.dart';
 
-final _dartCore = Uri.parse('dart:core');
 
 ///
 macro class Style implements  ClassDeclarationsMacro {

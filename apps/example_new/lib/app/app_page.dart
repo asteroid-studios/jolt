@@ -1,3 +1,4 @@
+// import 'package:example_new/utils/macros/route_macro.dart';
 import 'package:example_new/utils/router/router.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:ui/ui.dart';
@@ -7,6 +8,12 @@ import 'package:ui/widgets/form/test.dart';
 final GlobalKey<mat.RefreshIndicatorState> _refreshIndicatorKey = GlobalKey<mat.RefreshIndicatorState>();
 
 // TODOthis page will provide some information about jolt and links to docs, discord etc
+
+// @TypedGoRoute(
+//   path: '/',
+// )
+// class AppRoute<AppPage> {}
+
 @RoutePage()
 class AppPage extends HookWidget {
   const AppPage({super.key});
@@ -184,8 +191,8 @@ class AppPage extends HookWidget {
                       ),
                       Button.ghost(
                         onTap: () {
-                          Jolt.dialog.show(
-                            Dialog(
+                          Jolt.dialog.show<void>(
+                            Dialog<void>(
                               title: 'Are you sure?'.text,
                               content: 'You are about to delete the universe'.text,
                             ),
@@ -232,11 +239,10 @@ class AppPage extends HookWidget {
                             children: [
                               Button.filled(
                                 color: Colors.primary,
+                                // color: Colors.tailwind.green,
                                 // label: 'Book'.text,
                                 icon: const Icon(IconsBold.calendar),
-                                onTap: () {
-                                  print('Pressed');
-                                },
+                                onTap: () {},
                               )
                                   // TODO this doesn't work because the one inside Surface overrides it.
                                   // Need to implement important again
@@ -245,9 +251,12 @@ class AppPage extends HookWidget {
                               Button.filled(
                                 color: Colors.secondary.shade100,
                                 icon: const Icon(IconsBold.calendar),
-                                onTap: () {
-                                  print('Pressed');
-                                },
+                                onTap: () {},
+                              ),
+                              Button.filled(
+                                color: Colors.tertiary,
+                                icon: const Icon(IconsBold.calendar),
+                                onTap: () {},
                               ),
                               Button.filled(
                                 label: 'Disabled'.text,
@@ -255,24 +264,18 @@ class AppPage extends HookWidget {
                               Button.outlined(
                                 icon: const Icon(IconsBold.calendar),
                                 label: 'Book'.text,
-                                onTap: () {
-                                  print('Pressed');
-                                },
+                                onTap: () {},
                               ),
                               Button.ghost(
                                 icon: const Icon(IconsBold.calendar),
-                                onTap: () {
-                                  print('Pressed');
-                                },
+                                onTap: () {},
                               ),
                               Button.link(
                                 // style: (context, button) => ButtonStyle(
                                 //   labelStyle: TextStyle(fontSize: 40),
                                 // ),
                                 label: 'Link'.text,
-                                onTap: () {
-                                  print('Pressed');
-                                },
+                                onTap: () {},
                               ),
                             ].withSeparator(const Gap.sm()),
                           ),
@@ -307,9 +310,9 @@ class AppPage extends HookWidget {
                                   Button(
                                     label: 'Submit'.text,
                                     onTap: () {
-                                      final value = form.submit();
-                                      print(value.email);
-                                      print(TestForm.firstNameKey);
+                                      // final value = form.submit();
+                                      // print(value.email);
+                                      // print(TestForm.firstNameKey);
                                     },
                                   ),
                                 ],

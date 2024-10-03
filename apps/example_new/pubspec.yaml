@@ -15,6 +15,7 @@ dependencies:
   flutter_hooks: ^0.20.5
   flutter_web_plugins:
     sdk: flutter
+  go_router: ^14.2.8
   macros: ^0.1.2-main.4
   ui:
     path: ui
