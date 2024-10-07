@@ -8,7 +8,4 @@ class Durations {
 
   ///
   static const Duration slow = Duration(milliseconds: 500);
-
-  ///
-  static const Duration themeTransition = Duration(milliseconds: 150);
 }

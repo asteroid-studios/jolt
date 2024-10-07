@@ -137,7 +137,8 @@ class ScaffoldState extends State<Scaffold> {
         padding: EdgeInsets.only(
           bottom: widget.safeAreaBottom ? context.mediaQuery.padding.bottom : 0,
         ),
-        duration: Durations.themeTransition,
+        duration: Theme.transitionDuration,
+        curve: Theme.transitionCurve,
         color: background,
         child: Column(
           children: [

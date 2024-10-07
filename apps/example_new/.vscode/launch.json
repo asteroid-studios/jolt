@@ -14,7 +14,12 @@
       "type": "dart",
       "program": "lib/main.dart",
       "toolArgs": ["--enable-experiment=macros"],
-      "args": ["-d", "chrome"]
+      "args": [
+        "-d",
+        "chrome"
+        // TODO currently not working with webview
+        // "--wasm"
+      ]
     }
   ]
 }

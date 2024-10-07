@@ -36,7 +36,8 @@ class NavigationBar extends StatelessWidget {
       collapsed: isScrolling && floating,
       child: Blur(
         child: AnimatedContainer(
-          duration: Durations.themeTransition,
+          duration: Theme.transitionDuration,
+          curve: Theme.transitionCurve,
           padding: EdgeInsets.only(
             bottom: context.mediaQuery.padding.bottom,
             left: Spacing.sm,

@@ -102,7 +102,8 @@ class Surface extends StatelessWidget {
     );
 
     final surface = AnimatedContainer(
-      duration: Durations.themeTransition,
+      duration: Theme.transitionDuration,
+      curve: Theme.transitionCurve,
       width: width,
       height: height,
       margin: margin,
@@ -124,7 +125,8 @@ class Surface extends StatelessWidget {
             bottom: -border.bottom.gap,
             child: IgnorePointer(
               child: AnimatedContainer(
-                duration: Durations.themeTransition,
+                curve: Curves.ease,
+                duration: Theme.transitionDuration,
                 decoration: BoxDecoration(
                   borderRadius: (border.borderRadius ?? style.borderRadius)?.add(BorderRadius.circular(border.top.gap)),
                   border: Border.all(

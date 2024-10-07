@@ -84,13 +84,18 @@ class HomeShell extends HookWidget {
                 ),
               if (showDocs.value || !context.breakpoint.isMobile)
                 Expanded(
-                  child: InAppWebView(
-                    // TODO keep an eye on https://github.com/flutter/flutter/issues/110381
-                    keepAlive: InAppWebViewKeepAlive(),
-                    initialUrlRequest: URLRequest(
-                      url: WebUri(url),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      border: Border(left: BorderSide(color: Colors.outline)),
                     ),
-                    onWebViewCreated: (controller) => webController.value = controller,
+                    child: InAppWebView(
+                      // TODO keep an eye on https://github.com/flutter/flutter/issues/110381
+                      keepAlive: InAppWebViewKeepAlive(),
+                      initialUrlRequest: URLRequest(
+                        url: WebUri(url),
+                      ),
+                      onWebViewCreated: (controller) => webController.value = controller,
+                    ),
                   ),
                 ),
             ],

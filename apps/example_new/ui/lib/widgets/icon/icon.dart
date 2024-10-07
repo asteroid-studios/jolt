@@ -55,22 +55,20 @@ class Icon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final iconTheme = IconTheme.of(context);
-    // final sizeScale =
-    //     ignoreIconScaleFactor ? 1.0 : context.mediaQuery.textScaleFactor;
-    // final size = (this.size ?? iconTheme.size ?? 16) * sizeScale;
+    final scaledSize = MediaQuery.textScalerOf(context).scale(size ?? iconTheme.size ?? 16);
     final color = this.color ?? iconTheme.color;
 
-    Widget iconWidget = icon is PhosphorIconData
+    final iconWidget = icon is PhosphorIconData
         ? PhosphorIcon(
             icon as PhosphorIconData,
             color: color,
-            size: size,
+            size: scaledSize,
             semanticLabel: semanticLabel,
           )
         : widgets.Icon(
             icon,
             color: color,
-            size: size,
+            size: scaledSize,
             semanticLabel: semanticLabel,
           );
 

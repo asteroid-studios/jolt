@@ -37,6 +37,12 @@ abstract class Theme {
   static Theme of(BuildContext context) {
     return ThemeProvider.of(context)?.theme ?? themes.first;
   }
+
+  ///
+  static const Duration transitionDuration = Duration(milliseconds: 500);
+
+  ///
+  static const Curve transitionCurve = Curves.ease;
 }
 
 ///
