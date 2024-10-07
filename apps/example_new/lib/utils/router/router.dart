@@ -19,13 +19,13 @@ final router = GoRouter(
               routes: [
                 GoRoute(
                   path: HomePage.path,
-                  name: HomePage.routeName,
-                  builder: (context, state) => const HomePage(),
+                  name: HomePage.name,
+                  builder: HomePage.builder,
                   routes: [
                     GoRoute(
                       path: ButtonsPage.path,
-                      name: ButtonsPage.routeName,
-                      builder: (context, state) => const ButtonsPage(),
+                      name: ButtonsPage.name,
+                      builder: ButtonsPage.builder,
                     ),
                   ],
                 ),
@@ -37,8 +37,8 @@ final router = GoRouter(
           routes: [
             GoRoute(
               path: SettingsPage.path,
-              name: SettingsPage.routeName,
-              builder: (context, state) => const SettingsPage(),
+              name: SettingsPage.name,
+              builder: SettingsPage.builder,
             ),
           ],
         ),
@@ -46,8 +46,8 @@ final router = GoRouter(
           routes: [
             GoRoute(
               path: ChangeLogPage.path,
-              name: ChangeLogPage.routeName,
-              builder: (context, state) => const ChangeLogPage(),
+              name: ChangeLogPage.name,
+              builder: ChangeLogPage.builder,
             ),
           ],
         ),
@@ -55,8 +55,8 @@ final router = GoRouter(
           routes: [
             GoRoute(
               path: ContactPage.path,
-              name: ContactPage.routeName,
-              builder: (context, state) => const ContactPage(),
+              name: ContactPage.name,
+              builder: ContactPage.builder,
             ),
           ],
         ),
