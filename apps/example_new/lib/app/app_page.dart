@@ -14,7 +14,6 @@ class AppPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final branches = [
       (Icons.house.icon, IconsFill.house.icon),
-      (Icons.codeBlock.icon, IconsFill.codeBlock.icon),
       (Icons.paintRoller.icon, IconsFill.paintRoller.icon),
       (Icons.log.icon, IconsFill.log.icon),
       (Icons.userCircleDashed.icon, IconsFill.userCircleDashed.icon),
@@ -34,6 +33,7 @@ class AppPage extends StatelessWidget {
                   (index, icon) {
                     final selected = index == navigationShell.currentIndex;
                     return Button(
+                      expanded: true,
                       size: Fonts.heading.fontSize,
                       style: (context, button) => ButtonStyle(
                         splash: () => null,

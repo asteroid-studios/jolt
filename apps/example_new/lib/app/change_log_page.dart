@@ -1,6 +1,8 @@
+import 'package:example_new/utils/macros/route_macro.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:ui/ui.dart';
 
+@TypeSafeRoute(path: '/change-log')
 class ChangeLogPage extends StatelessWidget {
   const ChangeLogPage({super.key});
 
@@ -11,7 +13,7 @@ class ChangeLogPage extends StatelessWidget {
     // Refresh every time open tab
     return InAppWebView(
       // TODO replace with jolt when published
-      initialUrlRequest: URLRequest(url: WebUri("https://pub.dev/packages/go_router/changelog")),
+      initialUrlRequest: URLRequest(url: WebUri('https://pub.dev/packages/go_router/changelog')),
     );
   }
 }

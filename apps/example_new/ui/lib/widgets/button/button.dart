@@ -10,6 +10,7 @@ class Button extends StatelessWidget {
     this.style,
     this.color,
     this.trailing,
+    this.expanded = false,
     this.mainAxisAlignment = MainAxisAlignment.center,
     this.size,
     this.padding,
@@ -23,6 +24,7 @@ class Button extends StatelessWidget {
     this.onTap,
     this.style,
     this.trailing,
+    this.expanded = false,
     this.mainAxisAlignment = MainAxisAlignment.center,
     this.size,
     this.padding,
@@ -37,6 +39,7 @@ class Button extends StatelessWidget {
     this.onTap,
     this.style,
     this.trailing,
+    this.expanded = false,
     this.mainAxisAlignment = MainAxisAlignment.center,
     this.size,
     this.padding,
@@ -51,6 +54,7 @@ class Button extends StatelessWidget {
     this.onTap,
     this.style,
     this.trailing,
+    this.expanded = false,
     this.mainAxisAlignment = MainAxisAlignment.center,
     this.size,
     this.padding,
@@ -66,6 +70,7 @@ class Button extends StatelessWidget {
     this.style,
     this.color,
     this.trailing,
+    this.expanded = false,
     this.mainAxisAlignment = MainAxisAlignment.center,
     this.size,
     this.padding,
@@ -89,6 +94,9 @@ class Button extends StatelessWidget {
 
   ///
   final Color? color;
+
+  ///
+  final bool expanded;
 
   ///
   final MainAxisAlignment mainAxisAlignment;
@@ -138,6 +146,7 @@ class Button extends StatelessWidget {
                 const RotatedBox(quarterTurns: 1, child: Text('')),
                 const Text(''),
                 Row(
+                  mainAxisSize: expanded ? MainAxisSize.max : MainAxisSize.min,
                   mainAxisAlignment: mainAxisAlignment,
                   children: [
                     if (icon != null) icon!,
