@@ -3,10 +3,12 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:ui/ui.dart';
 
 import '../helpers/golden_test_widget.dart';
+import '../helpers/hover_widget.dart';
 
 Text get defaultLabel => 'Complete'.text;
 Icon get defaultIcon => IconsBold.check.icon;
 void Function() get defaultOnTap => () {};
+const hoveredButtonKey = Key('hovered');
 
 void main() {
   group('Button tests', () {
@@ -90,31 +92,49 @@ void main() {
         ],
       ),
     );
-    // TODO hovering now working
-    // goldenTest(
-    //   'Hovered',
-    //   fileName: 'hovered_button',
-    //   whilePerforming: (WidgetTester tester) async {
-    //     final length = find.byType(Button).evaluate().length;
-    //     for (var i = 0; i < length; i++) {
-    //       await tester.startGesture(
-    //         tester.getCenter(
-    //           find.byType(Button).at(i),
-    //           warnIfMissed: true,
-    //           callee: 'pressAll',
-    //         ),
-    //         // kind: PointerDeviceKind.trackpad,
-    //       );
-    //     }
-    //   },
-    //   builder: () => GoldenTest(
-    //     children: [
-    //       GoldenTestScenario(
-    //         name: 'hovered',
-    //         child: Button.filled(label: defaultLabel, onTap: defaultOnTap),
-    //       ),
-    //     ],
-    //   ),
-    // );
+    goldenTest(
+      'Hovered light theme',
+      fileName: 'hovered_light_button',
+      whilePerforming: hover(find.byKey(hoveredButtonKey)),
+      builder: () => GoldenTest(
+        themes: [DefaultThemeLight()],
+        children: [
+          GoldenTestScenario(
+            name: 'Not hovered',
+            child: Button.filled(label: defaultLabel, onTap: defaultOnTap),
+          ),
+          GoldenTestScenario(
+            name: 'Hovered',
+            child: Button.filled(
+              key: hoveredButtonKey,
+              label: defaultLabel,
+              onTap: defaultOnTap,
+            ),
+          ),
+        ],
+      ),
+    );
+    goldenTest(
+      'Hovered dark theme',
+      fileName: 'hovered_dark_button',
+      whilePerforming: hover(find.byKey(hoveredButtonKey)),
+      builder: () => GoldenTest(
+        themes: [DefaultThemeDark()],
+        children: [
+          GoldenTestScenario(
+            name: 'Not hovered',
+            child: Button.filled(label: defaultLabel, onTap: defaultOnTap),
+          ),
+          GoldenTestScenario(
+            name: 'Hovered',
+            child: Button.filled(
+              key: hoveredButtonKey,
+              label: defaultLabel,
+              onTap: defaultOnTap,
+            ),
+          ),
+        ],
+      ),
+    );
   });
 }

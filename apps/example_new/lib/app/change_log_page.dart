@@ -2,7 +2,9 @@ import 'package:example_new/utils/macros/route_macro.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:ui/ui.dart';
 
-@TypeSafeRoute(path: '/change-log')
+// @TypeSafeRoute(path: '/change-log')
+// TODO stupid bug is back, with - doesnt work
+@TypeSafeRoute(path: '/changelog')
 class ChangeLogPage extends StatelessWidget {
   const ChangeLogPage({super.key});
 

@@ -12,6 +12,7 @@ class Button extends StatelessWidget {
     this.trailing,
     this.expanded = false,
     this.mainAxisAlignment = MainAxisAlignment.center,
+    this.identifier,
     this.size,
     this.padding,
     super.key,
@@ -26,6 +27,7 @@ class Button extends StatelessWidget {
     this.trailing,
     this.expanded = false,
     this.mainAxisAlignment = MainAxisAlignment.center,
+    this.identifier,
     this.size,
     this.padding,
     super.key,
@@ -41,6 +43,7 @@ class Button extends StatelessWidget {
     this.trailing,
     this.expanded = false,
     this.mainAxisAlignment = MainAxisAlignment.center,
+    this.identifier,
     this.size,
     this.padding,
     super.key,
@@ -56,6 +59,7 @@ class Button extends StatelessWidget {
     this.trailing,
     this.expanded = false,
     this.mainAxisAlignment = MainAxisAlignment.center,
+    this.identifier,
     this.size,
     this.padding,
     super.key,
@@ -72,6 +76,7 @@ class Button extends StatelessWidget {
     this.trailing,
     this.expanded = false,
     this.mainAxisAlignment = MainAxisAlignment.center,
+    this.identifier,
     this.size,
     this.padding,
     super.key,
@@ -97,6 +102,9 @@ class Button extends StatelessWidget {
 
   ///
   final bool expanded;
+
+  ///
+  final String? identifier;
 
   ///
   final MainAxisAlignment mainAxisAlignment;
@@ -128,6 +136,7 @@ class Button extends StatelessWidget {
         final labelStyle = TextStyle(fontSize: size);
 
         return Surface(
+          identifier: identifier,
           style: (context, surface) {
             return style.surfaceStyle?.merge(
               SurfaceStyle(

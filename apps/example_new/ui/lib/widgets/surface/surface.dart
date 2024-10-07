@@ -11,6 +11,7 @@ class Surface extends StatelessWidget {
   /// from Interaction widget like hover, focus, etc.
   const Surface({
     this.child,
+    this.identifier,
     this.backgroundChild,
     this.style,
     this.height,
@@ -30,6 +31,9 @@ class Surface extends StatelessWidget {
 
   ///
   final Widget? child;
+
+  ///
+  final String? identifier;
 
   ///
   final Widget? backgroundChild;
@@ -140,9 +144,13 @@ class Surface extends StatelessWidget {
         ) ??
         [];
 
-    return SurfaceScope(
-      style: style,
-      child: Stack(clipBehavior: Clip.none, children: [surface, ...borders]),
+    return Semantics(
+      identifier: identifier,
+      label: identifier,
+      child: SurfaceScope(
+        style: style,
+        child: Stack(clipBehavior: Clip.none, children: [surface, ...borders]),
+      ),
     );
   }
 }
