@@ -1,7 +1,7 @@
 import 'package:alchemist/alchemist.dart' as alchemist;
-import 'package:flutter/material.dart' as material;
 import 'package:alchemist/src/golden_test_scenario_constraints.dart' as c;
 import 'package:change_case/change_case.dart';
+import 'package:flutter/material.dart' as material;
 import 'package:flutter_test/flutter_test.dart';
 import 'package:meta/meta.dart';
 import 'package:ui/ui.dart';
@@ -145,13 +145,12 @@ class GoldenTestScenario extends StatelessWidget {
 
 extension WidgetTesterX on WidgetTester {
   // TODO better way than using material.
+  // Just using for navigation basically as seems easiest way to check taps
   Future<void> pumpWidgetInApp(Widget Function(BuildContext context) widget) async {
     await pumpWidget(
       material.MaterialApp(
         home: material.Scaffold(
-          body: Builder(
-            builder: widget,
-          ),
+          body: Builder(builder: widget),
         ),
       ),
     );

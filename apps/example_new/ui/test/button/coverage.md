@@ -1,5 +1,7 @@
 # Button test coverage
 
+## Completed
+
 - [x] Filled
 - [x] Outlined
 - [x] Ghost
@@ -12,6 +14,11 @@
 - [x] Focused state
 - [x] Colors (Primary, error etc)
 - [x] Expanded
-- [x] SurfaceStyle modification
+- [x] Inline and inherited styling
 - [x] OnTap
-- [ ] Splash?
+
+## Future
+
+- [ ] Tooltip
+- [ ] Indicator
+- [ ] Splash

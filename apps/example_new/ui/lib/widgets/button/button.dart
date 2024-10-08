@@ -118,10 +118,8 @@ class Button extends StatelessWidget {
   ///
   final EdgeInsetsGeometry? padding;
 
-  // TODO loading indicator
+  // TODO show indicator
   // TODO tooltip
-  // TODO disabled state, as part of interaction.
-  // TODO select, which would be like toggle https://ui.shadcn.com/docs/components/toggle-group
 
   @override
   Widget build(BuildContext context) {
