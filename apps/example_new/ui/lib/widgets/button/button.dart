@@ -127,7 +127,7 @@ class Button extends StatelessWidget {
   Widget build(BuildContext context) {
     return Interaction(
       onTap: onTap,
-      builder: (context, state) {
+      builder: (context) {
         final defaultStyle = ButtonStyle.defaultStyle(context, this);
         final typeStyle = ButtonStyle.fromType(type).call(context, this);
         final inlineStyle = typeStyle?.merge(this.style?.call(context, this));

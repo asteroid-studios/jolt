@@ -3,7 +3,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:ui/ui.dart';
 
 import '../helpers/golden_test_widget.dart';
-import '../helpers/hover_widget.dart';
 
 Text get defaultLabel => 'Complete'.text;
 Icon get defaultIcon => IconsBold.check.icon;
@@ -33,6 +32,27 @@ void main() {
             name: 'Disabled',
             child: Button.filled(label: defaultLabel, icon: defaultIcon),
           ),
+          GoldenTestScenario(
+            name: 'Hovered',
+            child: MockInteraction(
+              state: const InteractionState(hovered: true),
+              child: Button.filled(label: defaultLabel, icon: defaultIcon, onTap: defaultOnTap),
+            ),
+          ),
+          GoldenTestScenario(
+            name: 'Focused',
+            child: MockInteraction(
+              state: const InteractionState(focused: true),
+              child: Button.filled(label: defaultLabel, icon: defaultIcon, onTap: defaultOnTap),
+            ),
+          ),
+          GoldenTestScenario(
+            name: 'Hovered and focused',
+            child: MockInteraction(
+              state: const InteractionState(focused: true, hovered: true),
+              child: Button.filled(label: defaultLabel, icon: defaultIcon, onTap: defaultOnTap),
+            ),
+          ),
         ],
       ),
     );
@@ -56,6 +76,27 @@ void main() {
           GoldenTestScenario(
             name: 'Disabled',
             child: Button.outlined(label: defaultLabel, icon: defaultIcon),
+          ),
+          GoldenTestScenario(
+            name: 'Hovered',
+            child: MockInteraction(
+              state: const InteractionState(hovered: true),
+              child: Button.outlined(label: defaultLabel, icon: defaultIcon, onTap: defaultOnTap),
+            ),
+          ),
+          GoldenTestScenario(
+            name: 'Focused',
+            child: MockInteraction(
+              state: const InteractionState(focused: true),
+              child: Button.outlined(label: defaultLabel, icon: defaultIcon, onTap: defaultOnTap),
+            ),
+          ),
+          GoldenTestScenario(
+            name: 'Hovered and focused',
+            child: MockInteraction(
+              state: const InteractionState(focused: true, hovered: true),
+              child: Button.outlined(label: defaultLabel, icon: defaultIcon, onTap: defaultOnTap),
+            ),
           ),
         ],
       ),
@@ -81,6 +122,27 @@ void main() {
             name: 'Disabled',
             child: Button.ghost(label: defaultLabel, icon: defaultIcon),
           ),
+          GoldenTestScenario(
+            name: 'Hovered',
+            child: MockInteraction(
+              state: const InteractionState(hovered: true),
+              child: Button.ghost(label: defaultLabel, icon: defaultIcon, onTap: defaultOnTap),
+            ),
+          ),
+          GoldenTestScenario(
+            name: 'Focused',
+            child: MockInteraction(
+              state: const InteractionState(focused: true),
+              child: Button.ghost(label: defaultLabel, icon: defaultIcon, onTap: defaultOnTap),
+            ),
+          ),
+          GoldenTestScenario(
+            name: 'Hovered and focused',
+            child: MockInteraction(
+              state: const InteractionState(focused: true, hovered: true),
+              child: Button.ghost(label: defaultLabel, icon: defaultIcon, onTap: defaultOnTap),
+            ),
+          ),
         ],
       ),
     );
@@ -105,92 +167,25 @@ void main() {
             name: 'Disabled',
             child: Button.link(label: defaultLabel, icon: defaultIcon),
           ),
-        ],
-      ),
-    );
-    goldenTest(
-      'Filled button hovered',
-      fileName: 'filled_button_hovered',
-      whilePerforming: hover(find.byKey(hoveredButtonKey)),
-      builder: () => GoldenTest(
-        themes: [DefaultThemeLight()],
-        children: [
-          GoldenTestScenario(
-            name: 'Not hovered',
-            child: Button.filled(label: defaultLabel, onTap: defaultOnTap),
-          ),
           GoldenTestScenario(
             name: 'Hovered',
-            child: Button.filled(
-              key: hoveredButtonKey,
-              label: defaultLabel,
-              onTap: defaultOnTap,
+            child: MockInteraction(
+              state: const InteractionState(hovered: true),
+              child: Button.link(label: defaultLabel, icon: defaultIcon, onTap: defaultOnTap),
             ),
           ),
-        ],
-      ),
-    );
-    goldenTest(
-      'Outlined button hovered',
-      fileName: 'outlined_button_hovered',
-      whilePerforming: hover(find.byKey(hoveredButtonKey)),
-      builder: () => GoldenTest(
-        themes: [DefaultThemeLight()],
-        children: [
           GoldenTestScenario(
-            name: 'Not hovered',
-            child: Button.outlined(label: defaultLabel, onTap: defaultOnTap),
-          ),
-          GoldenTestScenario(
-            name: 'Hovered',
-            child: Button.outlined(
-              key: hoveredButtonKey,
-              label: defaultLabel,
-              onTap: defaultOnTap,
+            name: 'Focused',
+            child: MockInteraction(
+              state: const InteractionState(focused: true),
+              child: Button.link(label: defaultLabel, icon: defaultIcon, onTap: defaultOnTap),
             ),
           ),
-        ],
-      ),
-    );
-    goldenTest(
-      'Ghost button hovered',
-      fileName: 'ghost_button_hovered',
-      whilePerforming: hover(find.byKey(hoveredButtonKey)),
-      builder: () => GoldenTest(
-        themes: [DefaultThemeLight()],
-        children: [
           GoldenTestScenario(
-            name: 'Not hovered',
-            child: Button.ghost(label: defaultLabel, onTap: defaultOnTap),
-          ),
-          GoldenTestScenario(
-            name: 'Hovered',
-            child: Button.ghost(
-              key: hoveredButtonKey,
-              label: defaultLabel,
-              onTap: defaultOnTap,
-            ),
-          ),
-        ],
-      ),
-    );
-    goldenTest(
-      'Link button hovered',
-      fileName: 'link_button_hovered',
-      whilePerforming: hover(find.byKey(hoveredButtonKey)),
-      builder: () => GoldenTest(
-        themes: [DefaultThemeLight()],
-        children: [
-          GoldenTestScenario(
-            name: 'Not hovered',
-            child: Button.link(label: defaultLabel, onTap: defaultOnTap),
-          ),
-          GoldenTestScenario(
-            name: 'Hovered',
-            child: Button.link(
-              key: hoveredButtonKey,
-              label: defaultLabel,
-              onTap: defaultOnTap,
+            name: 'Hovered and focused',
+            child: MockInteraction(
+              state: const InteractionState(focused: true, hovered: true),
+              child: Button.link(label: defaultLabel, icon: defaultIcon, onTap: defaultOnTap),
             ),
           ),
         ],

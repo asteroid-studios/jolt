@@ -25,31 +25,34 @@ class SplashState extends State<Splash> with SingleTickerProviderStateMixin {
   Size size = Size.zero;
 
   late SplashStyle _style;
-  late StreamSubscription<PointerDownEvent> _subscription;
+  late StreamSubscription<PointerDownEvent>? _subscription;
   late AnimationController _controller;
 
   @override
   void initState() {
     super.initState();
     _controller = AnimationController(vsync: this);
-    _subscription = Interaction.of(context).pointerDownEvents.stream.listen((event) {
-      if (_controller.isAnimating) _controller.reset();
+    WidgetsBinding.instance.addPersistentFrameCallback((_) {
       if (!mounted) return;
-      size = context.findRenderObject()?.paintBounds.size ?? Size.zero;
-      offset = Offset(event.localPosition.dx, event.localPosition.dy / 2);
-      _controller
-          .animateTo(
-            1,
-            curve: Curves.ease,
-            duration: _style.duration ?? const Duration(milliseconds: 900),
-          )
-          .then((value) => _controller.reset());
+      _subscription = Interaction.of(context).pointerDownEvents?.stream.listen((event) {
+        if (!mounted) return;
+        if (_controller.isAnimating) _controller.reset();
+        size = context.findRenderObject()?.paintBounds.size ?? Size.zero;
+        offset = Offset(event.localPosition.dx, event.localPosition.dy / 2);
+        _controller
+            .animateTo(
+              1,
+              curve: Curves.ease,
+              duration: _style.duration ?? const Duration(milliseconds: 900),
+            )
+            .then((value) => _controller.reset());
+      });
     });
   }
 
   @override
   void dispose() {
-    _subscription.cancel();
+    _subscription?.cancel();
     _controller.dispose();
     super.dispose();
   }
