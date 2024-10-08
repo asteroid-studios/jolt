@@ -29,6 +29,10 @@ void main() {
             name: 'Label and icon',
             child: Button.filled(label: defaultLabel, icon: defaultIcon, onTap: defaultOnTap),
           ),
+          GoldenTestScenario(
+            name: 'Disabled',
+            child: Button.filled(label: defaultLabel, icon: defaultIcon),
+          ),
         ],
       ),
     );
@@ -48,6 +52,10 @@ void main() {
           GoldenTestScenario(
             name: 'Label and icon',
             child: Button.outlined(label: defaultLabel, icon: defaultIcon, onTap: defaultOnTap),
+          ),
+          GoldenTestScenario(
+            name: 'Disabled',
+            child: Button.outlined(label: defaultLabel, icon: defaultIcon),
           ),
         ],
       ),
@@ -69,6 +77,10 @@ void main() {
             name: 'Label and icon',
             child: Button.ghost(label: defaultLabel, icon: defaultIcon, onTap: defaultOnTap),
           ),
+          GoldenTestScenario(
+            name: 'Disabled',
+            child: Button.ghost(label: defaultLabel, icon: defaultIcon),
+          ),
         ],
       ),
     );
@@ -89,12 +101,16 @@ void main() {
             name: 'Label and icon',
             child: Button.link(label: defaultLabel, icon: defaultIcon, onTap: defaultOnTap),
           ),
+          GoldenTestScenario(
+            name: 'Disabled',
+            child: Button.link(label: defaultLabel, icon: defaultIcon),
+          ),
         ],
       ),
     );
     goldenTest(
-      'Hovered light theme',
-      fileName: 'hovered_light_button',
+      'Filled button hovered',
+      fileName: 'filled_button_hovered',
       whilePerforming: hover(find.byKey(hoveredButtonKey)),
       builder: () => GoldenTest(
         themes: [DefaultThemeLight()],
@@ -115,19 +131,63 @@ void main() {
       ),
     );
     goldenTest(
-      'Hovered dark theme',
-      fileName: 'hovered_dark_button',
+      'Outlined button hovered',
+      fileName: 'outlined_button_hovered',
       whilePerforming: hover(find.byKey(hoveredButtonKey)),
       builder: () => GoldenTest(
-        themes: [DefaultThemeDark()],
+        themes: [DefaultThemeLight()],
         children: [
           GoldenTestScenario(
             name: 'Not hovered',
-            child: Button.filled(label: defaultLabel, onTap: defaultOnTap),
+            child: Button.outlined(label: defaultLabel, onTap: defaultOnTap),
           ),
           GoldenTestScenario(
             name: 'Hovered',
-            child: Button.filled(
+            child: Button.outlined(
+              key: hoveredButtonKey,
+              label: defaultLabel,
+              onTap: defaultOnTap,
+            ),
+          ),
+        ],
+      ),
+    );
+    goldenTest(
+      'Ghost button hovered',
+      fileName: 'ghost_button_hovered',
+      whilePerforming: hover(find.byKey(hoveredButtonKey)),
+      builder: () => GoldenTest(
+        themes: [DefaultThemeLight()],
+        children: [
+          GoldenTestScenario(
+            name: 'Not hovered',
+            child: Button.ghost(label: defaultLabel, onTap: defaultOnTap),
+          ),
+          GoldenTestScenario(
+            name: 'Hovered',
+            child: Button.ghost(
+              key: hoveredButtonKey,
+              label: defaultLabel,
+              onTap: defaultOnTap,
+            ),
+          ),
+        ],
+      ),
+    );
+    goldenTest(
+      'Link button hovered',
+      fileName: 'link_button_hovered',
+      whilePerforming: hover(find.byKey(hoveredButtonKey)),
+      builder: () => GoldenTest(
+        themes: [DefaultThemeLight()],
+        children: [
+          GoldenTestScenario(
+            name: 'Not hovered',
+            child: Button.link(label: defaultLabel, onTap: defaultOnTap),
+          ),
+          GoldenTestScenario(
+            name: 'Hovered',
+            child: Button.link(
               key: hoveredButtonKey,
               label: defaultLabel,
               onTap: defaultOnTap,
