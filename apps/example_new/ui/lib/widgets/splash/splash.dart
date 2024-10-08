@@ -25,7 +25,7 @@ class SplashState extends State<Splash> with SingleTickerProviderStateMixin {
   Size size = Size.zero;
 
   late SplashStyle _style;
-  late StreamSubscription<PointerDownEvent>? _subscription;
+  StreamSubscription<PointerDownEvent>? _subscription;
   late AnimationController _controller;
 
   @override

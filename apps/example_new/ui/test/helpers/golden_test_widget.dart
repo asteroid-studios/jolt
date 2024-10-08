@@ -1,4 +1,5 @@
 import 'package:alchemist/alchemist.dart' as alchemist;
+import 'package:flutter/material.dart' as material;
 import 'package:alchemist/src/golden_test_scenario_constraints.dart' as c;
 import 'package:change_case/change_case.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -137,6 +138,21 @@ class GoldenTestScenario extends StatelessWidget {
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+extension WidgetTesterX on WidgetTester {
+  // TODO better way than using material.
+  Future<void> pumpWidgetInApp(Widget Function(BuildContext context) widget) async {
+    await pumpWidget(
+      material.MaterialApp(
+        home: material.Scaffold(
+          body: Builder(
+            builder: widget,
+          ),
+        ),
       ),
     );
   }

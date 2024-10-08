@@ -10,6 +10,24 @@ const hoveredButtonKey = Key('hovered');
 
 void main() {
   group('Button tests', () {
+    testWidgets('onTap button method', (tester) async {
+      const dialogKey = Key('dialog');
+      await tester.pumpWidgetInApp(
+        (context) => Button(
+          label: defaultLabel,
+          icon: defaultIcon,
+          onTap: () => showGeneralDialog<void>(
+            context: context,
+            pageBuilder: (context, _, __) => Container(key: dialogKey),
+          ),
+        ),
+      );
+      final button = find.byType(Button);
+      expect(button, findsOneWidget);
+      await tester.tap(button);
+      await tester.pumpAndSettle();
+      expect(find.byKey(dialogKey), findsOneWidget);
+    });
     goldenTest(
       'Filled button',
       children: () => [

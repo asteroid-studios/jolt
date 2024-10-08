@@ -13,5 +13,5 @@
 - [x] Colors (Primary, error etc)
 - [x] Expanded
 - [x] SurfaceStyle modification
-- [ ] OnTap
-- [ ] Splash
+- [x] OnTap
+- [ ] Splash?
