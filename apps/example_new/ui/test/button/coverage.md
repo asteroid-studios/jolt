@@ -9,7 +9,8 @@
 - [x] Label and icon
 - [x] Disabled
 - [x] Hover state
+- [x] Colors (Primary, error etc)
+- [x] Expanded
 - [ ] OnTap
 - [ ] Splash
-- [ ] Expanded
 - [ ] SurfaceStyle modification

@@ -196,5 +196,121 @@ void main() {
         ],
       ),
     );
+    goldenTest(
+      'Expanded button',
+      fileName: 'expanded_button',
+      builder: () => GoldenTest(
+        children: [
+          GoldenTestScenario(
+            name: 'Not expanded',
+            child: SizedBox(
+              width: 200,
+              child: Center(
+                child: Button.filled(label: defaultLabel, onTap: defaultOnTap),
+              ),
+            ),
+          ),
+          GoldenTestScenario(
+            name: 'Expanded',
+            child: SizedBox(
+              width: 200,
+              child: Center(
+                child: Button.filled(
+                  label: defaultLabel,
+                  onTap: defaultOnTap,
+                  expanded: true,
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+    goldenTest(
+      'Colored buttons',
+      fileName: 'colored_buttons',
+      builder: () => GoldenTest(
+        children: [
+          GoldenTestScenario(
+            name: 'Surface',
+            child: Builder(
+              builder: (context) => Button.filled(
+                label: defaultLabel,
+                onTap: defaultOnTap,
+                color: context.color.surface,
+              ),
+            ),
+          ),
+          GoldenTestScenario(
+            name: 'Primary',
+            child: Builder(
+              builder: (context) {
+                return Button.filled(
+                  label: defaultLabel,
+                  onTap: defaultOnTap,
+                  color: context.color.primary,
+                );
+              },
+            ),
+          ),
+          GoldenTestScenario(
+            name: 'Secondary',
+            child: Builder(
+              builder: (context) {
+                return Button.filled(
+                  label: defaultLabel,
+                  onTap: defaultOnTap,
+                  color: context.color.secondary,
+                );
+              },
+            ),
+          ),
+          GoldenTestScenario(
+            name: 'Tertiary',
+            child: Builder(
+              builder: (context) => Button.filled(
+                label: defaultLabel,
+                onTap: defaultOnTap,
+                color: context.color.tertiary,
+              ),
+            ),
+          ),
+          GoldenTestScenario(
+            name: 'Error',
+            child: Builder(
+              builder: (context) => Button.filled(
+                label: defaultLabel,
+                onTap: defaultOnTap,
+                color: context.color.error,
+              ),
+            ),
+          ),
+          GoldenTestScenario(
+            name: 'Warning',
+            child: Builder(
+              builder: (context) {
+                return Button.filled(
+                  label: defaultLabel,
+                  onTap: defaultOnTap,
+                  color: context.color.warning,
+                );
+              },
+            ),
+          ),
+          GoldenTestScenario(
+            name: 'Success',
+            child: Builder(
+              builder: (context) {
+                return Button.filled(
+                  label: defaultLabel,
+                  onTap: defaultOnTap,
+                  color: context.color.success,
+                );
+              },
+            ),
+          ),
+        ],
+      ),
+    );
   });
 }
