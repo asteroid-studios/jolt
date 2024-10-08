@@ -1,25 +1,104 @@
-import 'package:alchemist/alchemist.dart';
+import 'package:alchemist/alchemist.dart' as alchemist;
+import 'package:alchemist/src/golden_test_scenario_constraints.dart' as c;
+import 'package:change_case/change_case.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:meta/meta.dart';
 import 'package:ui/ui.dart';
 
-const goldenSpacing = 24.0;
+@isTest
+Future<void> goldenTest(
+  String name, {
+  required List<Widget> Function() children,
+  Future<Future<void> Function()?> Function(WidgetTester)? whilePerforming,
+}) async {
+  await alchemist.goldenTest(
+    name,
+    fileName: name.toSnakeCase(),
+    whilePerforming: whilePerforming,
+    builder: () => GoldenTest(
+      name,
+      children: children(),
+    ),
+  );
+}
 
 class GoldenTest extends StatelessWidget {
-  const GoldenTest({
+  const GoldenTest(
+    this.name, {
     required this.children,
     this.scenarioConstraints,
     this.columnWidthBuilder,
     this.columns,
+    super.key,
+  });
+
+  final String name;
+  final List<Widget> children;
+  final BoxConstraints? scenarioConstraints;
+  final TableColumnWidth? Function(int)? columnWidthBuilder;
+  final int? columns;
+
+  static Color get background => Colors.tailwind.sky.shade800;
+  static Color get borderColor => Colors.tailwind.sky.shade700;
+
+  @override
+  Widget build(BuildContext context) {
+    return DefaultTextStyle(
+      style: Fonts.body.copyWith(color: background.foreground),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+            child: Text(name, style: const TextStyle(fontSize: 22, fontWeight: FontWeight.w700)),
+          ),
+          Container(
+            decoration: BoxDecoration(
+              border: Border(top: BorderSide(color: borderColor)),
+            ),
+            child: alchemist.GoldenTestGroup(
+              columnWidthBuilder: columnWidthBuilder,
+              scenarioConstraints: scenarioConstraints,
+              columns: columns ?? 2,
+              children: children,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+///
+class GoldenTestScenario extends StatelessWidget {
+  ///
+  const GoldenTestScenario({
+    required this.title,
+    required this.builder,
+    this.subtitle,
+    this.constraints,
+    this.backgroundColor,
     this.themes,
     super.key,
   });
 
-  final List<GoldenTestScenario> children;
-  final BoxConstraints? scenarioConstraints;
-  final TableColumnWidth? Function(int)? columnWidthBuilder;
-  final int? columns;
+  ///
+  final String title;
+
+  ///
+  final String? subtitle;
+
+  ///
   final List<Theme>? themes;
 
-  static Color get background => Colors.tailwind.sky.shade700;
+  final Color Function(BuildContext context)? backgroundColor;
+
+  ///
+  final Widget Function(BuildContext context) builder;
+
+  /// Constraints to apply to the widget built by [builder]
+  final BoxConstraints? constraints;
 
   @override
   Widget build(BuildContext context) {
@@ -29,48 +108,35 @@ class GoldenTest extends StatelessWidget {
           DefaultThemeDark(),
         ];
 
-    return DefaultTextStyle(
-      style: Fonts.body.copyWith(color: background.foreground),
-      child: Padding(
-        padding: const EdgeInsets.only(
-          left: goldenSpacing,
-          right: goldenSpacing,
-          top: goldenSpacing,
-        ),
-        child: GoldenTestGroup(
-          columnWidthBuilder: columnWidthBuilder,
-          scenarioConstraints: scenarioConstraints,
-          columns: columns ?? 1,
-          children: children
-              .map(
-                (s) => GoldenTestScenario.builder(
-                  name: s.name,
-                  constraints: s.constraints,
-                  builder: (context) {
-                    final child = s.builder(context);
-                    return Padding(
-                      padding: const EdgeInsets.only(bottom: goldenSpacing),
-                      child: Row(
-                        children: themes
-                            .map(
-                              (theme) => ThemeProvider(
-                                theme: theme,
-                                builder: (context) => Surface(
-                                  padding: const EdgeInsets.all(goldenSpacing),
-                                  color: context.color.background,
-                                  child: child,
-                                ),
-                              ),
-                            )
-                            .toList()
-                            .withSeparator(const Gap.sm()),
+    return Padding(
+      padding: const EdgeInsets.only(left: 24, right: 24, bottom: 24, top: 16),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(title, style: const TextStyle(fontSize: 18)),
+          if (subtitle != null) const Gap.xxs(),
+          if (subtitle != null) Text(subtitle!, style: const TextStyle(fontSize: 12)),
+          const Gap.sm(),
+          ConstrainedBox(
+            constraints: constraints ?? c.GoldenTestScenarioConstraints.maybeOf(context) ?? const BoxConstraints(),
+            child: Row(
+              children: themes
+                  .map(
+                    (theme) => ThemeProvider(
+                      theme: theme,
+                      builder: (context) => Surface(
+                        padding: const EdgeInsets.all(24),
+                        color: backgroundColor?.call(context) ?? context.color.background,
+                        child: Builder(builder: builder),
                       ),
-                    );
-                  },
-                ),
-              )
-              .toList(),
-        ),
+                    ),
+                  )
+                  .toList()
+                  .withSeparator(const Gap.sm()),
+            ),
+          ),
+        ],
       ),
     );
   }

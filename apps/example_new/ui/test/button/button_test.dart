@@ -1,4 +1,3 @@
-import 'package:alchemist/alchemist.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:ui/ui.dart';
 
@@ -13,299 +12,333 @@ void main() {
   group('Button tests', () {
     goldenTest(
       'Filled button',
-      fileName: 'filled_button',
-      builder: () => GoldenTest(
-        children: [
-          GoldenTestScenario(
-            name: 'Label',
-            child: Button.filled(label: defaultLabel, onTap: defaultOnTap),
-          ),
-          GoldenTestScenario(
-            name: 'Icon',
-            child: Button.filled(icon: defaultIcon, onTap: defaultOnTap),
-          ),
-          GoldenTestScenario(
-            name: 'Label and icon',
+      children: () => [
+        GoldenTestScenario(
+          title: 'Label',
+          builder: (_) => Button.filled(label: defaultLabel, onTap: defaultOnTap),
+        ),
+        GoldenTestScenario(
+          title: 'Icon',
+          builder: (_) => Button.filled(icon: defaultIcon, onTap: defaultOnTap),
+        ),
+        GoldenTestScenario(
+          title: 'Label and icon',
+          builder: (_) => Button.filled(label: defaultLabel, icon: defaultIcon, onTap: defaultOnTap),
+        ),
+        GoldenTestScenario(
+          title: 'Empty',
+          builder: (_) => Button.filled(onTap: defaultOnTap),
+        ),
+        GoldenTestScenario(
+          title: 'Disabled',
+          builder: (_) => Button.filled(label: defaultLabel, icon: defaultIcon),
+        ),
+        GoldenTestScenario(
+          title: 'Hovered',
+          builder: (_) => MockInteraction(
+            state: const InteractionState(hovered: true),
             child: Button.filled(label: defaultLabel, icon: defaultIcon, onTap: defaultOnTap),
           ),
-          GoldenTestScenario(
-            name: 'Disabled',
-            child: Button.filled(label: defaultLabel, icon: defaultIcon),
+        ),
+        GoldenTestScenario(
+          title: 'Focused',
+          builder: (_) => MockInteraction(
+            state: const InteractionState(focused: true),
+            child: Button.filled(label: defaultLabel, icon: defaultIcon, onTap: defaultOnTap),
           ),
-          GoldenTestScenario(
-            name: 'Hovered',
-            child: MockInteraction(
-              state: const InteractionState(hovered: true),
-              child: Button.filled(label: defaultLabel, icon: defaultIcon, onTap: defaultOnTap),
-            ),
+        ),
+        GoldenTestScenario(
+          title: 'Hovered and focused',
+          builder: (_) => MockInteraction(
+            state: const InteractionState(focused: true, hovered: true),
+            child: Button.filled(label: defaultLabel, icon: defaultIcon, onTap: defaultOnTap),
           ),
-          GoldenTestScenario(
-            name: 'Focused',
-            child: MockInteraction(
-              state: const InteractionState(focused: true),
-              child: Button.filled(label: defaultLabel, icon: defaultIcon, onTap: defaultOnTap),
-            ),
-          ),
-          GoldenTestScenario(
-            name: 'Hovered and focused',
-            child: MockInteraction(
-              state: const InteractionState(focused: true, hovered: true),
-              child: Button.filled(label: defaultLabel, icon: defaultIcon, onTap: defaultOnTap),
-            ),
-          ),
-        ],
-      ),
+        ),
+      ],
     );
     goldenTest(
       'Outlined button',
-      fileName: 'outlined_button',
-      builder: () => GoldenTest(
-        children: [
-          GoldenTestScenario(
-            name: 'Label',
-            child: Button.outlined(label: defaultLabel, onTap: defaultOnTap),
-          ),
-          GoldenTestScenario(
-            name: 'Icon',
-            child: Button.outlined(icon: defaultIcon, onTap: defaultOnTap),
-          ),
-          GoldenTestScenario(
-            name: 'Label and icon',
+      children: () => [
+        GoldenTestScenario(
+          title: 'Label',
+          builder: (_) => Button.outlined(label: defaultLabel, onTap: defaultOnTap),
+        ),
+        GoldenTestScenario(
+          title: 'Icon',
+          builder: (_) => Button.outlined(icon: defaultIcon, onTap: defaultOnTap),
+        ),
+        GoldenTestScenario(
+          title: 'Label and icon',
+          builder: (_) => Button.outlined(label: defaultLabel, icon: defaultIcon, onTap: defaultOnTap),
+        ),
+        GoldenTestScenario(
+          title: 'Empty',
+          builder: (_) => Button.outlined(onTap: defaultOnTap),
+        ),
+        GoldenTestScenario(
+          title: 'Disabled',
+          builder: (_) => Button.outlined(label: defaultLabel, icon: defaultIcon),
+        ),
+        GoldenTestScenario(
+          title: 'Hovered',
+          builder: (_) => MockInteraction(
+            state: const InteractionState(hovered: true),
             child: Button.outlined(label: defaultLabel, icon: defaultIcon, onTap: defaultOnTap),
           ),
-          GoldenTestScenario(
-            name: 'Disabled',
-            child: Button.outlined(label: defaultLabel, icon: defaultIcon),
+        ),
+        GoldenTestScenario(
+          title: 'Focused',
+          builder: (_) => MockInteraction(
+            state: const InteractionState(focused: true),
+            child: Button.outlined(label: defaultLabel, icon: defaultIcon, onTap: defaultOnTap),
           ),
-          GoldenTestScenario(
-            name: 'Hovered',
-            child: MockInteraction(
-              state: const InteractionState(hovered: true),
-              child: Button.outlined(label: defaultLabel, icon: defaultIcon, onTap: defaultOnTap),
-            ),
+        ),
+        GoldenTestScenario(
+          title: 'Hovered and focused',
+          builder: (_) => MockInteraction(
+            state: const InteractionState(focused: true, hovered: true),
+            child: Button.outlined(label: defaultLabel, icon: defaultIcon, onTap: defaultOnTap),
           ),
-          GoldenTestScenario(
-            name: 'Focused',
-            child: MockInteraction(
-              state: const InteractionState(focused: true),
-              child: Button.outlined(label: defaultLabel, icon: defaultIcon, onTap: defaultOnTap),
-            ),
-          ),
-          GoldenTestScenario(
-            name: 'Hovered and focused',
-            child: MockInteraction(
-              state: const InteractionState(focused: true, hovered: true),
-              child: Button.outlined(label: defaultLabel, icon: defaultIcon, onTap: defaultOnTap),
-            ),
-          ),
-        ],
-      ),
+        ),
+      ],
     );
     goldenTest(
       'Ghost button',
-      fileName: 'ghost_button',
-      builder: () => GoldenTest(
-        children: [
-          GoldenTestScenario(
-            name: 'Label',
-            child: Button.ghost(label: defaultLabel, onTap: defaultOnTap),
-          ),
-          GoldenTestScenario(
-            name: 'Icon',
-            child: Button.ghost(icon: defaultIcon, onTap: defaultOnTap),
-          ),
-          GoldenTestScenario(
-            name: 'Label and icon',
+      children: () => [
+        GoldenTestScenario(
+          title: 'Label',
+          builder: (_) => Button.ghost(label: defaultLabel, onTap: defaultOnTap),
+        ),
+        GoldenTestScenario(
+          title: 'Icon',
+          builder: (_) => Button.ghost(icon: defaultIcon, onTap: defaultOnTap),
+        ),
+        GoldenTestScenario(
+          title: 'Label and icon',
+          builder: (_) => Button.ghost(label: defaultLabel, icon: defaultIcon, onTap: defaultOnTap),
+        ),
+        GoldenTestScenario(
+          title: 'Empty',
+          builder: (_) => Button.ghost(onTap: defaultOnTap),
+        ),
+        GoldenTestScenario(
+          title: 'Disabled',
+          builder: (_) => Button.ghost(label: defaultLabel, icon: defaultIcon),
+        ),
+        GoldenTestScenario(
+          title: 'Hovered',
+          builder: (_) => MockInteraction(
+            state: const InteractionState(hovered: true),
             child: Button.ghost(label: defaultLabel, icon: defaultIcon, onTap: defaultOnTap),
           ),
-          GoldenTestScenario(
-            name: 'Disabled',
-            child: Button.ghost(label: defaultLabel, icon: defaultIcon),
+        ),
+        GoldenTestScenario(
+          title: 'Focused',
+          builder: (_) => MockInteraction(
+            state: const InteractionState(focused: true),
+            child: Button.ghost(label: defaultLabel, icon: defaultIcon, onTap: defaultOnTap),
           ),
-          GoldenTestScenario(
-            name: 'Hovered',
-            child: MockInteraction(
-              state: const InteractionState(hovered: true),
-              child: Button.ghost(label: defaultLabel, icon: defaultIcon, onTap: defaultOnTap),
-            ),
+        ),
+        GoldenTestScenario(
+          title: 'Hovered and focused',
+          builder: (_) => MockInteraction(
+            state: const InteractionState(focused: true, hovered: true),
+            child: Button.ghost(label: defaultLabel, icon: defaultIcon, onTap: defaultOnTap),
           ),
-          GoldenTestScenario(
-            name: 'Focused',
-            child: MockInteraction(
-              state: const InteractionState(focused: true),
-              child: Button.ghost(label: defaultLabel, icon: defaultIcon, onTap: defaultOnTap),
-            ),
-          ),
-          GoldenTestScenario(
-            name: 'Hovered and focused',
-            child: MockInteraction(
-              state: const InteractionState(focused: true, hovered: true),
-              child: Button.ghost(label: defaultLabel, icon: defaultIcon, onTap: defaultOnTap),
-            ),
-          ),
-        ],
-      ),
+        ),
+      ],
     );
     goldenTest(
       'Link button',
-      fileName: 'link_button',
-      builder: () => GoldenTest(
-        children: [
-          GoldenTestScenario(
-            name: 'Label',
-            child: Button.link(label: defaultLabel, onTap: defaultOnTap),
-          ),
-          GoldenTestScenario(
-            name: 'Icon',
-            child: Button.link(icon: defaultIcon, onTap: defaultOnTap),
-          ),
-          GoldenTestScenario(
-            name: 'Label and icon',
+      children: () => [
+        GoldenTestScenario(
+          title: 'Label',
+          builder: (_) => Button.link(label: defaultLabel, onTap: defaultOnTap),
+        ),
+        GoldenTestScenario(
+          title: 'Icon',
+          builder: (_) => Button.link(icon: defaultIcon, onTap: defaultOnTap),
+        ),
+        GoldenTestScenario(
+          title: 'Label and icon',
+          builder: (_) => Button.link(label: defaultLabel, icon: defaultIcon, onTap: defaultOnTap),
+        ),
+        GoldenTestScenario(
+          title: 'Empty',
+          builder: (_) => Button.link(onTap: defaultOnTap),
+        ),
+        GoldenTestScenario(
+          title: 'Disabled',
+          builder: (_) => Button.link(label: defaultLabel, icon: defaultIcon),
+        ),
+        GoldenTestScenario(
+          title: 'Hovered',
+          builder: (_) => MockInteraction(
+            state: const InteractionState(hovered: true),
             child: Button.link(label: defaultLabel, icon: defaultIcon, onTap: defaultOnTap),
           ),
-          GoldenTestScenario(
-            name: 'Disabled',
-            child: Button.link(label: defaultLabel, icon: defaultIcon),
+        ),
+        GoldenTestScenario(
+          title: 'Focused',
+          builder: (_) => MockInteraction(
+            state: const InteractionState(focused: true),
+            child: Button.link(label: defaultLabel, icon: defaultIcon, onTap: defaultOnTap),
           ),
-          GoldenTestScenario(
-            name: 'Hovered',
-            child: MockInteraction(
-              state: const InteractionState(hovered: true),
-              child: Button.link(label: defaultLabel, icon: defaultIcon, onTap: defaultOnTap),
-            ),
+        ),
+        GoldenTestScenario(
+          title: 'Hovered and focused',
+          builder: (_) => MockInteraction(
+            state: const InteractionState(focused: true, hovered: true),
+            child: Button.link(label: defaultLabel, icon: defaultIcon, onTap: defaultOnTap),
           ),
-          GoldenTestScenario(
-            name: 'Focused',
-            child: MockInteraction(
-              state: const InteractionState(focused: true),
-              child: Button.link(label: defaultLabel, icon: defaultIcon, onTap: defaultOnTap),
-            ),
-          ),
-          GoldenTestScenario(
-            name: 'Hovered and focused',
-            child: MockInteraction(
-              state: const InteractionState(focused: true, hovered: true),
-              child: Button.link(label: defaultLabel, icon: defaultIcon, onTap: defaultOnTap),
-            ),
-          ),
-        ],
-      ),
+        ),
+      ],
     );
     goldenTest(
       'Expanded button',
-      fileName: 'expanded_button',
-      builder: () => GoldenTest(
-        children: [
+      children: () => [
+        GoldenTestScenario(
+          title: 'Not expanded',
+          builder: (_) => SizedBox(
+            width: 200,
+            child: Center(
+              child: Button.filled(label: defaultLabel, onTap: defaultOnTap),
+            ),
+          ),
+        ),
+        GoldenTestScenario(
+          title: 'Expanded',
+          builder: (_) => SizedBox(
+            width: 200,
+            child: Center(
+              child: Button.filled(
+                label: defaultLabel,
+                onTap: defaultOnTap,
+                expanded: true,
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+    goldenTest(
+      'Custom styling',
+      children: () {
+        ButtonStyle inheritedStyle(BuildContext context) => ButtonStyle(
+              surfaceStyle: SurfaceStyle(
+                border: [SurfaceBorder.all(color: context.color.primary, width: 2)],
+                borderRadius: const BorderRadius.only(topLeft: Radius.circular(20), bottomRight: Radius.circular(20)),
+              ),
+            );
+        ButtonStyle inlineStyle(BuildContext context, Button widget) => ButtonStyle(
+              surfaceStyle: SurfaceStyle(
+                border: [SurfaceBorder.all(color: context.color.tertiary, width: 2)],
+                color: Colors.primary,
+              ),
+            );
+        return [
           GoldenTestScenario(
-            name: 'Not expanded',
-            child: SizedBox(
-              width: 200,
-              child: Center(
-                child: Button.filled(label: defaultLabel, onTap: defaultOnTap),
+            title: 'Inherited style',
+            builder: (_) => InheritedStyle(
+              style: inheritedStyle,
+              child: Button(
+                label: defaultLabel,
+                onTap: defaultOnTap,
               ),
             ),
           ),
           GoldenTestScenario(
-            name: 'Expanded',
-            child: SizedBox(
-              width: 200,
-              child: Center(
-                child: Button.filled(
-                  label: defaultLabel,
-                  onTap: defaultOnTap,
-                  expanded: true,
-                ),
+            title: 'Inline style',
+            builder: (_) => Button(
+              label: defaultLabel,
+              onTap: defaultOnTap,
+              style: inlineStyle,
+            ),
+          ),
+          // Inline styles override and combine with inherited styles.
+          GoldenTestScenario(
+            title: 'Inherited and inline style',
+            builder: (_) => InheritedStyle(
+              style: inheritedStyle,
+              child: Button(
+                label: defaultLabel,
+                onTap: defaultOnTap,
+                style: inlineStyle,
               ),
             ),
           ),
-        ],
-      ),
+        ];
+      },
     );
     goldenTest(
       'Colored buttons',
-      fileName: 'colored_buttons',
-      builder: () => GoldenTest(
-        children: [
-          GoldenTestScenario(
-            name: 'Surface',
-            child: Builder(
-              builder: (context) => Button.filled(
-                label: defaultLabel,
-                onTap: defaultOnTap,
-                color: context.color.surface,
-              ),
-            ),
+      children: () => [
+        GoldenTestScenario(
+          title: 'Background',
+          backgroundColor: (context) => context.color.surface,
+          builder: (context) => Button.filled(
+            label: defaultLabel,
+            onTap: defaultOnTap,
+            color: context.color.background,
           ),
-          GoldenTestScenario(
-            name: 'Primary',
-            child: Builder(
-              builder: (context) {
-                return Button.filled(
-                  label: defaultLabel,
-                  onTap: defaultOnTap,
-                  color: context.color.primary,
-                );
-              },
-            ),
+        ),
+        GoldenTestScenario(
+          title: 'Surface',
+          builder: (context) => Button.filled(
+            label: defaultLabel,
+            onTap: defaultOnTap,
+            color: context.color.surface,
           ),
-          GoldenTestScenario(
-            name: 'Secondary',
-            child: Builder(
-              builder: (context) {
-                return Button.filled(
-                  label: defaultLabel,
-                  onTap: defaultOnTap,
-                  color: context.color.secondary,
-                );
-              },
-            ),
+        ),
+        GoldenTestScenario(
+          title: 'Primary',
+          builder: (context) => Button.filled(
+            label: defaultLabel,
+            onTap: defaultOnTap,
+            color: context.color.primary,
           ),
-          GoldenTestScenario(
-            name: 'Tertiary',
-            child: Builder(
-              builder: (context) => Button.filled(
-                label: defaultLabel,
-                onTap: defaultOnTap,
-                color: context.color.tertiary,
-              ),
-            ),
+        ),
+        GoldenTestScenario(
+          title: 'Secondary',
+          builder: (context) => Button.filled(
+            label: defaultLabel,
+            onTap: defaultOnTap,
+            color: context.color.secondary,
           ),
-          GoldenTestScenario(
-            name: 'Error',
-            child: Builder(
-              builder: (context) => Button.filled(
-                label: defaultLabel,
-                onTap: defaultOnTap,
-                color: context.color.error,
-              ),
-            ),
+        ),
+        GoldenTestScenario(
+          title: 'Tertiary',
+          builder: (context) => Button.filled(
+            label: defaultLabel,
+            onTap: defaultOnTap,
+            color: context.color.tertiary,
           ),
-          GoldenTestScenario(
-            name: 'Warning',
-            child: Builder(
-              builder: (context) {
-                return Button.filled(
-                  label: defaultLabel,
-                  onTap: defaultOnTap,
-                  color: context.color.warning,
-                );
-              },
-            ),
+        ),
+        GoldenTestScenario(
+          title: 'Error',
+          builder: (context) => Button.filled(
+            label: defaultLabel,
+            onTap: defaultOnTap,
+            color: context.color.error,
           ),
-          GoldenTestScenario(
-            name: 'Success',
-            child: Builder(
-              builder: (context) {
-                return Button.filled(
-                  label: defaultLabel,
-                  onTap: defaultOnTap,
-                  color: context.color.success,
-                );
-              },
-            ),
+        ),
+        GoldenTestScenario(
+          title: 'Warning',
+          builder: (context) => Button.filled(
+            label: defaultLabel,
+            onTap: defaultOnTap,
+            color: context.color.warning,
           ),
-        ],
-      ),
+        ),
+        GoldenTestScenario(
+          title: 'Success',
+          builder: (context) => Button.filled(
+            label: defaultLabel,
+            onTap: defaultOnTap,
+            color: context.color.success,
+          ),
+        ),
+      ],
     );
   });
 }

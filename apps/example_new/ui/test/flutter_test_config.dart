@@ -23,7 +23,7 @@ Future<void> testExecutable(FutureOr<void> Function() testMain) async {
     config: AlchemistConfig(
       goldenTestTheme: GoldenTestTheme(
         backgroundColor: GoldenTest.background,
-        borderColor: GoldenTest.background,
+        borderColor: GoldenTest.borderColor,
       ),
     ),
     run: testMain,

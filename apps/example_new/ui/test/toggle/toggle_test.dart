@@ -1,6 +1,5 @@
 // ignore_for_file: avoid_redundant_argument_values
 
-import 'package:alchemist/alchemist.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:ui/ui.dart';
 
@@ -14,53 +13,47 @@ void main() {
     () {
       goldenTest(
         'Filled toggle',
-        fileName: 'toggle_filled',
-        builder: () => GoldenTest(
-          children: [
-            GoldenTestScenario(
-              name: 'Unselected',
-              child: Toggle(
-                icon: defaultIcon,
-                type: ToggleType.filled,
-                onChanged: (_) {},
-              ),
+        children: () => [
+          GoldenTestScenario(
+            title: 'Unselected',
+            builder: (_) => Toggle(
+              icon: defaultIcon,
+              type: ToggleType.filled,
+              onChanged: (_) {},
             ),
-            GoldenTestScenario(
-              name: 'Selected',
-              child: Toggle(
-                icon: defaultIcon,
-                type: ToggleType.filled,
-                initialValue: true,
-                onChanged: (_) {},
-              ),
+          ),
+          GoldenTestScenario(
+            title: 'Selected',
+            builder: (_) => Toggle(
+              icon: defaultIcon,
+              type: ToggleType.filled,
+              initialValue: true,
+              onChanged: (_) {},
             ),
-          ],
-        ),
+          ),
+        ],
       );
       goldenTest(
         'Outlined toggle',
-        fileName: 'toggle_outlined',
-        builder: () => GoldenTest(
-          children: [
-            GoldenTestScenario(
-              name: 'Unselected',
-              child: Toggle(
-                icon: defaultIcon,
-                type: ToggleType.outlined,
-                onChanged: (_) {},
-              ),
+        children: () => [
+          GoldenTestScenario(
+            title: 'Unselected',
+            builder: (_) => Toggle(
+              icon: defaultIcon,
+              type: ToggleType.outlined,
+              onChanged: (_) {},
             ),
-            GoldenTestScenario(
-              name: 'Selected',
-              child: Toggle(
-                icon: defaultIcon,
-                type: ToggleType.outlined,
-                initialValue: true,
-                onChanged: (_) {},
-              ),
+          ),
+          GoldenTestScenario(
+            title: 'Selected',
+            builder: (_) => Toggle(
+              icon: defaultIcon,
+              type: ToggleType.outlined,
+              initialValue: true,
+              onChanged: (_) {},
             ),
-          ],
-        ),
+          ),
+        ],
       );
     },
   );
