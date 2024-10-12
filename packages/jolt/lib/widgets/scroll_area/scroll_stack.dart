@@ -66,7 +66,6 @@ class _ScrollStackDelegate extends BoxyDelegate {
     this.start,
     this.end,
     super.relayout,
-    super.repaint,
   });
 
   ///

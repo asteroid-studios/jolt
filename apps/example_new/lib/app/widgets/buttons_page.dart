@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:example_new/utils/macros/route_macro.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
@@ -14,28 +12,26 @@ class ButtonsPage extends HookWidget {
     void onTap() {}
 
     return Scaffold(
-      topBar: ClipRect(
-        child: BackdropFilter(
-          filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
-          child: Surface(
-            padding: EdgeInsets.all(8),
-            color: Colors.background.withOpacity(0.9),
-            borderRadius: BorderRadius.circular(0),
-            child: Row(
-              children: [
-                Expanded(
-                  child: Text(
-                    'Buttons',
-                    style: Fonts.heading,
-                  ),
-                ),
-                Button(
-                  label: 'back'.text,
-                  onTap: () => context.pop(),
-                ),
-              ],
+      topBar: Surface(
+        padding: EdgeInsets.all(Spacing.sm),
+        style: (context, widget) => SurfaceStyle(
+          color: Colors.background.withOpacity(0.9),
+          borderRadius: BorderRadius.circular(0),
+          blur: 5,
+        ),
+        child: Row(
+          children: [
+            Expanded(
+              child: Text(
+                'Buttons',
+                style: Fonts.heading,
+              ),
             ),
-          ),
+            Button(
+              label: 'back'.text,
+              onTap: () => context.pop(),
+            ),
+          ],
         ),
       ),
       builder: (context) => ScrollArea.fill(

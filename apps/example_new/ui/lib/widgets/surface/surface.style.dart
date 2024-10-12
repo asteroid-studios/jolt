@@ -28,6 +28,9 @@ class SurfaceStyle {
   ///
   final EdgeInsetsGeometry? padding;
 
+  ///
+  final double? blur;
+
   /// Default style for all surfaces
   static SurfaceStyle defaultStyle(BuildContext context, Surface surface) {
     return SurfaceStyle(

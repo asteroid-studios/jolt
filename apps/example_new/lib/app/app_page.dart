@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:collection/collection.dart';
 import 'package:example_new/components/desktop_window_bar.dart';
 import 'package:go_router/go_router.dart';
@@ -41,40 +39,36 @@ class BottomMenu extends StatelessWidget {
       (Icons.log.icon, IconsFill.log.icon),
       (Icons.userCircleDashed.icon, IconsFill.userCircleDashed.icon),
     ];
-    return ClipRect(
-      child: BackdropFilter(
-        filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
-        child: Surface(
-          style: (context, _) => SurfaceStyle(
-            color: Colors.background.withOpacity(0.9),
-            borderRadius: BorderRadius.circular(0),
-            border: [SurfaceBorder(top: SurfaceBorderSide(color: Colors.outline))],
-          ),
-          padding: EdgeInsets.symmetric(horizontal: Spacing.md),
-          child: Row(
-            children: branches
-                .mapIndexed(
-                  (index, icon) {
-                    final selected = index == navigationShell.currentIndex;
-                    return Button.ghost(
-                      expanded: true,
-                      size: Fonts.heading.fontSize,
-                      style: (context, button) => ButtonStyle(
-                        splash: () => null,
-                        surfaceStyle: SurfaceStyle(
-                          foregroundOpacity: selected ? 1 : 0.5,
-                          borderRadius: BorderRadius.circular(0),
-                        ),
-                      ),
-                      icon: selected ? icon.$2 : icon.$1,
-                      onTap: () => navigationShell.goBranch(index, initialLocation: selected),
-                    );
-                  },
-                )
-                .toList()
-                .withExpanded(),
-          ),
-        ),
+    return Surface(
+      style: (context, _) => SurfaceStyle(
+        blur: 5,
+        color: Colors.background.withOpacity(0.9),
+        borderRadius: BorderRadius.circular(0),
+        border: [SurfaceBorder(top: SurfaceBorderSide(color: Colors.outline))],
+      ),
+      padding: EdgeInsets.symmetric(horizontal: Spacing.md),
+      child: Row(
+        children: branches
+            .mapIndexed(
+              (index, icon) {
+                final selected = index == navigationShell.currentIndex;
+                return Button.ghost(
+                  expanded: true,
+                  size: Fonts.heading.fontSize,
+                  style: (context, button) => ButtonStyle(
+                    splash: () => null,
+                    surfaceStyle: SurfaceStyle(
+                      foregroundOpacity: selected ? 1 : 0.5,
+                      borderRadius: BorderRadius.circular(0),
+                    ),
+                  ),
+                  icon: selected ? icon.$2 : icon.$1,
+                  onTap: () => navigationShell.goBranch(index, initialLocation: selected),
+                );
+              },
+            )
+            .toList()
+            .withExpanded(),
       ),
     );
   }

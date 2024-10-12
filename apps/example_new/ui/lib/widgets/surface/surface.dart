@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:ui/ui.dart';
 
 ///
@@ -105,7 +107,7 @@ class Surface extends StatelessWidget {
       ),
     );
 
-    final surface = AnimatedContainer(
+    Widget surface = AnimatedContainer(
       duration: Theme.transitionDuration,
       curve: Theme.transitionCurve,
       width: width,
@@ -120,6 +122,16 @@ class Surface extends StatelessWidget {
       ),
       child: background != null ? Stack(children: [background, child]) : child,
     );
+
+    if (style.blur != null) {
+      surface = ClipRRect(
+        borderRadius: style.borderRadius ?? BorderRadius.zero,
+        child: BackdropFilter(
+          filter: ImageFilter.blur(sigmaX: style.blur!, sigmaY: style.blur!),
+          child: surface,
+        ),
+      );
+    }
 
     final borders = style.border?.map(
           (border) => Positioned.fill(

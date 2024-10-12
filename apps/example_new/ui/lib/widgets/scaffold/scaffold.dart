@@ -2,8 +2,6 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:ui/ui.dart';
 
-// TODOuse a better implementation using CustomMultiChildLayout
-// https://api.flutter.dev/flutter/widgets/CustomMultiChildLayout-class.html
 ///
 class Scaffold extends StatefulWidget {
   ///

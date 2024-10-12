@@ -27,22 +27,26 @@ class ScrollArea extends CustomScrollView {
   }) : super(slivers: children);
 
   ///
-  static Widget fill({required Widget child}) {
-    return Builder(
-      builder: (context) {
-        return ScrollArea(
-          ignoreEndPadding: true,
-          children: [
-            SliverFillRemaining(
-              hasScrollBody: false,
-              child: Padding(
+  factory ScrollArea.fill({
+    required Widget child,
+    Axis? scrollDirection,
+  }) {
+    return ScrollArea(
+      scrollDirection: scrollDirection ?? Axis.vertical,
+      ignoreEndPadding: true,
+      children: [
+        SliverFillRemaining(
+          hasScrollBody: false,
+          child: Builder(
+            builder: (context) {
+              return Padding(
                 padding: EdgeInsets.only(bottom: ScrollPadding.of(context).end),
                 child: child,
-              ),
-            ),
-          ],
-        );
-      },
+              );
+            },
+          ),
+        ),
+      ],
     );
   }
 
@@ -93,6 +97,7 @@ class _FixedExtentDelegate extends SliverPersistentHeaderDelegate {
 
   @override
   bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) {
-    return maxExtent != oldDelegate.maxExtent || minExtent != oldDelegate.minExtent;
+    return maxExtent != oldDelegate.maxExtent ||
+        minExtent != oldDelegate.minExtent;
   }
 }

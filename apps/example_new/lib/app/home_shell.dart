@@ -22,7 +22,7 @@ class HomeShell extends HookWidget {
 
     ToggleStyle style(context, toggle) {
       return ToggleStyle(
-        selectedColor: Colors.surface,
+        selectedColor: Colors.tertiary,
       );
     }
 
@@ -45,63 +45,66 @@ class HomeShell extends HookWidget {
       [],
     );
 
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        if (context.breakpoint.isMobile)
-          Row(
-            children: [
-              // TODO make toggle group instead
-              Toggle(
-                initialValue: true,
-                expanded: true,
-                type: ToggleType.ghost,
-                style: style,
-                label: 'Widgets'.text,
-                onChanged: (p0) {
-                  showDocs.value = false;
-                },
+    return ScrollStack(
+      end: context.breakpoint.isMobile
+          ? Surface(
+              padding: EdgeInsets.all(Spacing.sm),
+              style: (context, _) => SurfaceStyle(
+                blur: 5,
+                borderRadius: BorderRadius.circular(0),
+                color: Colors.background.withOpacity(0.9),
               ),
-              Toggle(
-                expanded: true,
-                type: ToggleType.ghost,
-                style: style,
-                label: 'Docs'.text,
-                onChanged: (p0) {
-                  showDocs.value = true;
-                },
-              ),
-            ].withExpanded().withSeparator(const Gap.sm()),
-          ),
-        Expanded(
-          child: Row(
-            children: [
-              if (!showDocs.value || !context.breakpoint.isMobile)
-                Expanded(
-                  flex: 2,
-                  child: child,
-                ),
-              if (showDocs.value || !context.breakpoint.isMobile)
-                Expanded(
-                  child: Container(
-                    decoration: BoxDecoration(
-                      border: Border(left: BorderSide(color: Colors.outline)),
-                    ),
-                    child: InAppWebView(
-                      // TODO keep an eye on https://github.com/flutter/flutter/issues/110381
-                      keepAlive: InAppWebViewKeepAlive(),
-                      initialUrlRequest: URLRequest(
-                        url: WebUri(url),
-                      ),
-                      onWebViewCreated: (controller) => webController.value = controller,
-                    ),
+              child: Row(
+                children: [
+                  // TODO make toggle group instead
+                  Toggle(
+                    initialValue: true,
+                    expanded: true,
+                    type: ToggleType.ghost,
+                    style: style,
+                    label: 'Widgets'.text,
+                    onChanged: (p0) {
+                      showDocs.value = false;
+                    },
                   ),
+                  Toggle(
+                    expanded: true,
+                    type: ToggleType.ghost,
+                    style: style,
+                    label: 'Docs'.text,
+                    onChanged: (p0) {
+                      showDocs.value = true;
+                    },
+                  ),
+                ].withExpanded().withSeparator(const Gap.sm()),
+              ),
+            )
+          : null,
+      child: Row(
+        children: [
+          if (!showDocs.value || !context.breakpoint.isMobile)
+            Expanded(
+              flex: 2,
+              child: child,
+            ),
+          if (showDocs.value || !context.breakpoint.isMobile)
+            Expanded(
+              child: Container(
+                decoration: BoxDecoration(
+                  border: Border(left: BorderSide(color: Colors.outline)),
                 ),
-            ],
-          ),
-        ),
-      ],
+                child: InAppWebView(
+                  // TODO keep an eye on https://github.com/flutter/flutter/issues/110381
+                  keepAlive: InAppWebViewKeepAlive(),
+                  initialUrlRequest: URLRequest(
+                    url: WebUri(url),
+                  ),
+                  onWebViewCreated: (controller) => webController.value = controller,
+                ),
+              ),
+            ),
+        ],
+      ),
     );
   }
 }
