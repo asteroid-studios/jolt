@@ -2,14 +2,12 @@ import 'package:boxy/boxy.dart';
 import 'package:jolt/jolt.dart';
 
 ///
-class ScrollStack extends StatelessWidget {
+class ScrollStack extends StatefulWidget {
   ///
   const ScrollStack({
     required this.child,
     this.start,
     this.end,
-    this.relayout,
-    this.repaint,
     this.axis = Axis.vertical,
     super.key,
   });
@@ -26,24 +24,36 @@ class ScrollStack extends StatelessWidget {
   ///
   final Axis axis;
 
-  ///
-  final Listenable? relayout;
+  @override
+  State<ScrollStack> createState() => _ScrollStackState();
+}
 
-  ///
-  final Listenable? repaint;
+class _ScrollStackState extends State<ScrollStack> {
+  final notifier = _ScrollStackNotifier();
+
+  @override
+  void didUpdateWidget(covariant ScrollStack oldWidget) {
+    if (oldWidget != widget) notifier.updateState();
+    super.didUpdateWidget(oldWidget);
+  }
 
   @override
   Widget build(BuildContext context) {
     return CustomBoxy(
       delegate: _ScrollStackDelegate(
-        child,
-        axis,
-        start: start,
-        end: end,
-        relayout: relayout,
-        repaint: repaint,
+        widget.child,
+        widget.axis,
+        start: widget.start,
+        end: widget.end,
+        relayout: notifier,
       ),
     );
+  }
+}
+
+class _ScrollStackNotifier with ChangeNotifier {
+  void updateState() {
+    notifyListeners();
   }
 }
 
