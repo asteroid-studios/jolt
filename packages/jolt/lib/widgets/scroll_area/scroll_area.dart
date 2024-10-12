@@ -26,6 +26,26 @@ class ScrollArea extends CustomScrollView {
     this.ignoreEndPadding = false,
   }) : super(slivers: children);
 
+  ///
+  static Widget fill({required Widget child}) {
+    return Builder(
+      builder: (context) {
+        return ScrollArea(
+          ignoreEndPadding: true,
+          children: [
+            SliverFillRemaining(
+              hasScrollBody: false,
+              child: Padding(
+                padding: EdgeInsets.only(bottom: ScrollPadding.of(context).end),
+                child: child,
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   /// If true, the end padding will be ignored
   ///
   /// Useful if you are using a fillRemaining at the end of the view
@@ -34,6 +54,7 @@ class ScrollArea extends CustomScrollView {
   @override
   List<Widget> buildSlivers(BuildContext context) {
     final padding = ScrollPadding.of(context);
+    final slivers = super.buildSlivers(context);
 
     return [
       if (padding.start > 0)
@@ -41,7 +62,7 @@ class ScrollArea extends CustomScrollView {
           pinned: true,
           delegate: _FixedExtentDelegate(padding.start),
         ),
-      ...super.buildSlivers(context).map((child) => JoltSliver(child: child)),
+      ...slivers.map((child) => JoltSliver(child: child)),
       if (padding.end > 0 && !ignoreEndPadding)
         SliverPersistentHeader(
           delegate: _FixedExtentDelegate(padding.end),
@@ -72,7 +93,6 @@ class _FixedExtentDelegate extends SliverPersistentHeaderDelegate {
 
   @override
   bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) {
-    return maxExtent != oldDelegate.maxExtent ||
-        minExtent != oldDelegate.minExtent;
+    return maxExtent != oldDelegate.maxExtent || minExtent != oldDelegate.minExtent;
   }
 }

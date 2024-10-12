@@ -1,34 +1,46 @@
+import 'dart:ui';
+
 import 'package:example_new/utils/macros/route_macro.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ui/ui.dart';
 
 @TypeSafeRoute(path: 'button')
-class ButtonsPage extends StatelessWidget {
+class ButtonsPage extends HookWidget {
   const ButtonsPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     void onTap() {}
 
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Row(
-          children: [
-            Expanded(
-              child: Text(
-                'Buttons',
-                style: Fonts.heading,
-              ),
+    return Scaffold(
+      topBar: ClipRect(
+        child: BackdropFilter(
+          filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
+          child: Surface(
+            padding: EdgeInsets.all(8),
+            color: Colors.background.withOpacity(0.9),
+            borderRadius: BorderRadius.circular(0),
+            child: Row(
+              children: [
+                Expanded(
+                  child: Text(
+                    'Buttons',
+                    style: Fonts.heading,
+                  ),
+                ),
+                Button(
+                  label: 'back'.text,
+                  onTap: () => context.pop(),
+                ),
+              ],
             ),
-            Button(
-              label: 'back'.text,
-              onTap: () => context.pop(),
-            ),
-          ],
+          ),
         ),
-        const Gap.sm(),
-        Expanded(
+      ),
+      builder: (context) => ScrollArea.fill(
+        child: Padding(
+          padding: const EdgeInsets.all(16),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -87,10 +99,10 @@ class ButtonsPage extends StatelessWidget {
                 label: 'Warning'.text,
                 onTap: onTap,
               ),
-            ].withSeparator(Gap.sm()),
+            ].withSeparator(const Gap.sm()),
           ),
         ),
-      ],
+      ),
     );
   }
 }

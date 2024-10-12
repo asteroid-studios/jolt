@@ -59,6 +59,30 @@ class Gap extends StatelessWidget {
         spacing = SpacingSize.hero;
 
   ///
+  /// TODO Gap.max
+  // const Gap.max({super.key})
+  //     : size = null,
+  //       spacing = SpacingSize.hero;
+
+  ///
+  static Widget scrollStart() {
+    return Builder(
+      builder: (context) {
+        return Gap(ScrollPadding.of(context).start);
+      },
+    );
+  }
+
+  ///
+  static Widget scrollEnd() {
+    return Builder(
+      builder: (context) {
+        return Gap(ScrollPadding.of(context).end);
+      },
+    );
+  }
+
+  ///
   final double? size;
 
   ///

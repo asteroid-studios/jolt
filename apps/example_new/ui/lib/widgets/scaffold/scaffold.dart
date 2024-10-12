@@ -8,7 +8,7 @@ import 'package:ui/ui.dart';
 class Scaffold extends StatefulWidget {
   ///
   const Scaffold({
-    required this.content,
+    required this.builder,
     this.topBar,
     this.bottomBar,
     this.sidebarLeft,
@@ -21,7 +21,7 @@ class Scaffold extends StatefulWidget {
   });
 
   ///
-  final Widget content;
+  final Widget Function(BuildContext context) builder;
 
   ///
   final Widget? sidebarLeft;
@@ -178,7 +178,7 @@ class ScaffoldState extends State<Scaffold> {
                           child: ScrollStack(
                             start: widget.topBar,
                             end: widget.bottomBar,
-                            child: widget.content,
+                            child: Builder(builder: widget.builder),
                           ),
                         ),
                         if (widget.sidebarRight != null) widget.sidebarRight!,
