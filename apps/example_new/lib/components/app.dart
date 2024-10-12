@@ -8,10 +8,6 @@ class App extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    // final router = useMemoized(
-    //   () => AppRouter(navigatorKey: Jolt.instance.navigatorKey),
-    // );
-
     return ThemeProvider(
       builder: (context) => HeroControllerScope(
         controller: HeroController(),
@@ -23,14 +19,7 @@ class App extends HookWidget {
             material.DefaultWidgetsLocalizations.delegate,
           ],
           debugShowCheckedModeBanner: false,
-          // routerConfig: router.routerConfig,
           routerConfig: router,
-          builder: (context, child) => Surface(
-            borderRadius: BorderRadius.zero,
-            color: Colors.background,
-            child: child,
-          ),
-          // builder: (context, child) => DesktopWrapper.builder(child, router),
         ),
       ),
     );

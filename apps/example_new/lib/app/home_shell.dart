@@ -64,7 +64,7 @@ class HomeShell extends HookWidget {
           ? Surface(
               padding: EdgeInsets.symmetric(horizontal: Spacing.md, vertical: Spacing.xxs),
               style: (context, _) => SurfaceStyle(
-                blur: 5,
+                blur: Theme.blurIntensity,
                 borderRadius: BorderRadius.circular(0),
                 color: Colors.outline.withOpacity(0.9),
               ),
@@ -101,6 +101,7 @@ class HomeShell extends HookWidget {
               flex: 2,
               child: child,
             ),
+          // TODO Use an indexed stack here to step the flickering when completely reloading the webview
           if (showDocs.value || !context.breakpoint.isMobile)
             Expanded(
               child: Container(

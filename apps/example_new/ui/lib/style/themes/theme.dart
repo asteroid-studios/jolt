@@ -42,6 +42,9 @@ abstract class Theme {
   static const Duration transitionDuration = Duration(milliseconds: 500);
 
   ///
+  static const double blurIntensity = 10;
+
+  ///
   static const Curve transitionCurve = Curves.ease;
 }
 

@@ -12,22 +12,24 @@ class AppPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MediaQuery(
-      data: context.mediaQuery.copyWith(
-        textScaler: TextScaler.linear(Platform.isMobile ? 1.1 : 1),
-      ),
-      child: Column(
-        children: [
-          const DesktopWindowBar(),
-          // TODO once top bar is implemented, remove this
-          SizedBox(height: context.mediaQuery.viewPadding.top),
-          Expanded(
-            child: ScrollStack(
-              end: BottomMenu(navigationShell),
-              child: navigationShell,
+    return Surface(
+      borderRadius: BorderRadius.zero,
+      color: context.color.background,
+      child: MediaQuery(
+        data: context.mediaQuery.copyWith(
+          textScaler: TextScaler.linear(Platform.isMobile ? 1.1 : 1),
+        ),
+        child: Column(
+          children: [
+            const DesktopWindowBar(),
+            Expanded(
+              child: ScrollStack(
+                end: BottomMenu(navigationShell),
+                child: navigationShell,
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -48,8 +50,8 @@ class BottomMenu extends StatelessWidget {
     ];
     return Surface(
       style: (context, _) => SurfaceStyle(
-        blur: 5,
-        color: Colors.background.withOpacity(0.9),
+        blur: Theme.blurIntensity,
+        color: context.color.background.withOpacity(0.9),
         borderRadius: BorderRadius.circular(0),
         border: [SurfaceBorder(top: SurfaceBorderSide(color: Colors.outline))],
       ),

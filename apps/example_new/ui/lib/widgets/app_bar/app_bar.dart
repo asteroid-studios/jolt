@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:ui/ui.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
@@ -160,7 +162,7 @@ class _AppBarState extends State<AppBar> {
     // ),
 
     return Section(
-      blur: 5,
+      blur: Theme.blurIntensity,
       fullWidth: widget.fullWidth,
       decoration: BoxDecoration(
         color: background.withOpacity(0.9),
@@ -194,33 +196,41 @@ class TempAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Surface(
-      padding: EdgeInsets.symmetric(vertical: Spacing.xs),
-      style: (context, widget) => SurfaceStyle(
-        color: Colors.background.withOpacity(0.9),
-        borderRadius: BorderRadius.circular(0),
-        blur: 5,
-      ),
-      child: Row(
-        children: [
-          if (showBack)
-            Button.ghost(
-              icon: IconsBold.caretLeft.icon,
-              onTap: () => Navigator.of(context).maybePop(),
-            )
-          else
-            const Gap.md(),
-          Expanded(
-            child: Padding(
-              padding: EdgeInsets.symmetric(vertical: Spacing.xs),
-              child: Text(
-                title ?? '',
-                style: Fonts.heading,
+    return GestureDetector(
+      onTap: () {
+        Scaffold.maybeOf(context)?.scrollToTop();
+      },
+      child: Surface(
+        padding: EdgeInsets.only(
+          top: max(context.mediaQuery.viewPadding.top, Spacing.xs),
+          bottom: Spacing.xs,
+        ),
+        style: (context, widget) => SurfaceStyle(
+          color: context.color.background.withOpacity(0.9),
+          borderRadius: BorderRadius.circular(0),
+          blur: Theme.blurIntensity,
+        ),
+        child: Row(
+          children: [
+            if (showBack)
+              Button.ghost(
+                icon: IconsBold.caretLeft.icon,
+                onTap: () => Navigator.of(context).maybePop(),
+              )
+            else
+              const Gap.md(),
+            Expanded(
+              child: Padding(
+                padding: EdgeInsets.symmetric(vertical: Spacing.xs),
+                child: Text(
+                  title ?? '',
+                  style: Fonts.heading,
+                ),
               ),
             ),
-          ),
-          if (trailing != null) trailing! else const Gap.md(),
-        ],
+            if (trailing != null) trailing! else const Gap.md(),
+          ],
+        ),
       ),
     );
   }

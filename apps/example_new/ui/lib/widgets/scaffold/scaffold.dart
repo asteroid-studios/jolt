@@ -11,8 +11,6 @@ class Scaffold extends StatefulWidget {
     this.bottomBar,
     this.sidebarLeft,
     this.sidebarRight,
-    this.safeAreaTop = true,
-    this.safeAreaBottom = false,
     this.background,
     this.backgroundStatusBar,
     super.key,
@@ -40,12 +38,6 @@ class Scaffold extends StatefulWidget {
   ///
   /// Useful if you want to match the status bar with your app bar
   final Color? backgroundStatusBar;
-
-  ///
-  final bool safeAreaTop;
-
-  ///
-  final bool safeAreaBottom;
 
   @override
   State<Scaffold> createState() => ScaffoldState();
@@ -123,69 +115,32 @@ class ScaffoldState extends State<Scaffold> {
 
   @override
   Widget build(BuildContext context) {
-    final background = widget.background ?? Colors.background;
-    final backgroundBrightness = background.isDark ? Brightness.dark : Brightness.light;
-
-    return AnnotatedRegion(
-      value: SystemUiOverlayStyle(
-        statusBarBrightness: backgroundBrightness,
-        statusBarIconBrightness: backgroundBrightness,
-      ),
-      child: AnimatedContainer(
-        padding: EdgeInsets.only(
-          bottom: widget.safeAreaBottom ? context.mediaQuery.padding.bottom : 0,
-        ),
-        duration: Theme.transitionDuration,
-        curve: Theme.transitionCurve,
-        color: background,
-        child: Column(
+    return NotificationListener<UserScrollNotification>(
+      onNotification: (notification) {
+        final direction = notification.direction;
+        if (direction == ScrollDirection.idle || direction == scrollDirection) {
+          return true;
+        }
+        final pixels = notification.metrics.pixels;
+        if (direction == ScrollDirection.reverse && pixels < -50) {
+          return true;
+        }
+        setState(() => scrollDirection = direction);
+        return true;
+      },
+      child: _ScaffoldScope(
+        state: this,
+        child: Row(
           children: [
-            // if (widget.safeAreaTop)
-            //   GestureDetector(
-            //     onTap: scrollToTop,
-            //     child: AnimatedContainer(
-            //       duration: Durations.themeTransition,
-            //       color: widget.backgroundStatusBar ?? background,
-            //       height: context.mediaQuery.padding.top,
-            //     ),
-            //   ),
+            if (widget.sidebarLeft != null) widget.sidebarLeft!,
             Expanded(
-              child: MediaQuery.removePadding(
-                context: context,
-                removeTop: widget.safeAreaTop,
-                removeBottom: widget.safeAreaBottom,
-                child: NotificationListener<UserScrollNotification>(
-                  onNotification: (notification) {
-                    final direction = notification.direction;
-                    if (direction == ScrollDirection.idle || direction == scrollDirection) {
-                      return true;
-                    }
-                    final pixels = notification.metrics.pixels;
-                    if (direction == ScrollDirection.reverse && pixels < -50) {
-                      return true;
-                    }
-                    setState(() => scrollDirection = direction);
-                    return true;
-                  },
-                  child: _ScaffoldScope(
-                    state: this,
-                    child: Row(
-                      children: [
-                        if (widget.sidebarLeft != null) widget.sidebarLeft!,
-                        Expanded(
-                          child: ScrollStack(
-                            start: widget.topBar,
-                            end: widget.bottomBar,
-                            child: Builder(builder: widget.builder),
-                          ),
-                        ),
-                        if (widget.sidebarRight != null) widget.sidebarRight!,
-                      ],
-                    ),
-                  ),
-                ),
+              child: ScrollStack(
+                start: widget.topBar,
+                end: widget.bottomBar,
+                child: Builder(builder: widget.builder),
               ),
             ),
+            if (widget.sidebarRight != null) widget.sidebarRight!,
           ],
         ),
       ),

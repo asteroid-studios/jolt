@@ -67,7 +67,7 @@ class Surface extends StatelessWidget {
     // This method will mainly be used to get
     // the color of the parent surface for widgets
     // So we can just return Colors.background as the default
-    return SurfaceStyle(color: Colors.background).merge(style);
+    return SurfaceStyle(color: context.color.background).merge(style);
   }
 
   @override
