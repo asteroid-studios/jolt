@@ -209,7 +209,7 @@ class TempAppBar extends StatelessWidget {
               onTap: () => Navigator.of(context).maybePop(),
             )
           else
-            const Gap.sm(),
+            const Gap.md(),
           Expanded(
             child: Padding(
               padding: EdgeInsets.symmetric(vertical: Spacing.xs),
@@ -219,8 +219,7 @@ class TempAppBar extends StatelessWidget {
               ),
             ),
           ),
-          if (trailing != null) trailing!,
-          const Gap.sm(),
+          if (trailing != null) trailing! else const Gap.md(),
         ],
       ),
     );

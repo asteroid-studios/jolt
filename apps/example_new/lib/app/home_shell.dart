@@ -22,7 +22,21 @@ class HomeShell extends HookWidget {
 
     ToggleStyle style(context, toggle) {
       return ToggleStyle(
-        selectedColor: Colors.surface,
+        selectedColor: Colors.background,
+        // resolver: (style, context) {
+        //   return style?.merge(
+        //     ToggleStyle(
+        //       buttonStyle: ButtonStyle(
+        //         surfaceStyle: SurfaceStyle(borderRadius: BorderRadius.zero),
+        //       ),
+        //     ),
+        //   );
+        // },
+        // buttonStyle: ButtonStyle(
+        //   surfaceStyle: SurfaceStyle(
+        //     resolver: (style, context) => style?.merge(const SurfaceStyle(borderRadius: BorderRadius.zero)),
+        //   ),
+        // ),
       );
     }
 
@@ -48,11 +62,11 @@ class HomeShell extends HookWidget {
     return ScrollStack(
       end: context.breakpoint.isMobile
           ? Surface(
-              padding: EdgeInsets.all(Spacing.sm),
+              padding: EdgeInsets.symmetric(horizontal: Spacing.md, vertical: Spacing.xxs),
               style: (context, _) => SurfaceStyle(
                 blur: 5,
                 borderRadius: BorderRadius.circular(0),
-                color: Colors.background.withOpacity(0.9),
+                color: Colors.outline.withOpacity(0.9),
               ),
               child: Row(
                 children: [
@@ -76,7 +90,7 @@ class HomeShell extends HookWidget {
                       showDocs.value = true;
                     },
                   ),
-                ].withExpanded().withSeparator(const Gap.sm()),
+                ].withExpanded(),
               ),
             )
           : null,
