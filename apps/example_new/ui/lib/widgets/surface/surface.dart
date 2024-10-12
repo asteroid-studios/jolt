@@ -145,9 +145,11 @@ class Surface extends StatelessWidget {
                 duration: Theme.transitionDuration,
                 decoration: BoxDecoration(
                   borderRadius: (border.borderRadius ?? style.borderRadius)?.add(BorderRadius.circular(border.top.gap)),
-                  border: Border.all(
-                    color: border.top.color ?? Colors.outline,
-                    width: border.top.width,
+                  border: Border(
+                    top: BorderSide(color: border.top.color ?? Colors.outline, width: border.top.width),
+                    left: BorderSide(color: border.left.color ?? Colors.outline, width: border.left.width),
+                    right: BorderSide(color: border.right.color ?? Colors.outline, width: border.right.width),
+                    bottom: BorderSide(color: border.bottom.color ?? Colors.outline, width: border.bottom.width),
                   ),
                 ),
               ),

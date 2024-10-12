@@ -1,6 +1,5 @@
 import 'package:example_new/utils/macros/route_macro.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:go_router/go_router.dart';
 import 'package:ui/ui.dart';
 
 @TypeSafeRoute(path: 'button')
@@ -12,28 +11,7 @@ class ButtonsPage extends HookWidget {
     void onTap() {}
 
     return Scaffold(
-      topBar: Surface(
-        padding: EdgeInsets.all(Spacing.sm),
-        style: (context, widget) => SurfaceStyle(
-          color: Colors.background.withOpacity(0.9),
-          borderRadius: BorderRadius.circular(0),
-          blur: 5,
-        ),
-        child: Row(
-          children: [
-            Expanded(
-              child: Text(
-                'Buttons',
-                style: Fonts.heading,
-              ),
-            ),
-            Button(
-              label: 'back'.text,
-              onTap: () => context.pop(),
-            ),
-          ],
-        ),
-      ),
+      topBar: const TempAppBar(title: 'Buttons'),
       builder: (context) => ScrollArea.fill(
         child: Padding(
           padding: const EdgeInsets.all(16),
@@ -52,6 +30,9 @@ class ButtonsPage extends HookWidget {
               Button.filled(
                 icon: Icons.check.icon,
                 onTap: onTap,
+              ),
+              Button.filled(
+                label: 'Disabled'.text,
               ),
               Button.outlined(
                 label: 'Outlined'.text,

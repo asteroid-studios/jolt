@@ -22,7 +22,7 @@ class HomeShell extends HookWidget {
 
     ToggleStyle style(context, toggle) {
       return ToggleStyle(
-        selectedColor: Colors.tertiary,
+        selectedColor: Colors.surface,
       );
     }
 

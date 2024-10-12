@@ -4,7 +4,7 @@ import 'package:ui/ui.dart';
 ///
 @Style()
 class SplashStyle {
-  /// Defaults to 900 milliseconds
+  /// Defaults to Theme.transitionDuration
   final Duration? duration;
 
   /// Defaults to 0.1

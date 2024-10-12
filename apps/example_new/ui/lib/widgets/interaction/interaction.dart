@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:math';
 
+import 'package:flutter/services.dart';
 import 'package:ui/ui.dart';
 
 ///
@@ -9,6 +10,7 @@ class Interaction extends StatefulWidget {
   const Interaction({
     required this.builder,
     this.onTap,
+    this.hapticFeedback = false,
     this.cursor = SystemMouseCursors.click,
     this.requestFocusOnTap = false,
     this.minPressingDuration = const Duration(milliseconds: 300),
@@ -29,6 +31,9 @@ class Interaction extends StatefulWidget {
 
   ///
   final bool requestFocusOnTap;
+
+  ///
+  final bool hapticFeedback;
 
   ///
   static InteractionState of(BuildContext context) {
@@ -111,10 +116,13 @@ class _InteractionState extends State<Interaction> {
         focusNode: focusNode,
         onFocusChange: (value) => setState(() => focused = value),
         child: GestureDetector(
-          onTap: () {
-            widget.onTap?.call();
-            if (widget.requestFocusOnTap) focusNode.requestFocus();
-          },
+          onTap: widget.onTap != null
+              ? () {
+                  if (widget.hapticFeedback) HapticFeedback.lightImpact();
+                  widget.onTap!();
+                  if (widget.requestFocusOnTap) focusNode.requestFocus();
+                }
+              : null,
           child: Listener(
             onPointerDown: handlePressing,
             onPointerUp: cancelPressing,

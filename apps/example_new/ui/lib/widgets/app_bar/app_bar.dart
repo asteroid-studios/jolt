@@ -177,3 +177,52 @@ class _AppBarState extends State<AppBar> {
     );
   }
 }
+
+///
+class TempAppBar extends StatelessWidget {
+  ///
+  const TempAppBar({this.title, this.showBack = true, this.trailing, super.key});
+
+  ///
+  final String? title;
+
+  ///
+  final bool showBack;
+
+  ///
+  final Widget? trailing;
+
+  @override
+  Widget build(BuildContext context) {
+    return Surface(
+      padding: EdgeInsets.symmetric(vertical: Spacing.xs),
+      style: (context, widget) => SurfaceStyle(
+        color: Colors.background.withOpacity(0.9),
+        borderRadius: BorderRadius.circular(0),
+        blur: 5,
+      ),
+      child: Row(
+        children: [
+          if (showBack)
+            Button.ghost(
+              icon: IconsBold.caretLeft.icon,
+              onTap: () => Navigator.of(context).maybePop(),
+            )
+          else
+            const Gap.sm(),
+          Expanded(
+            child: Padding(
+              padding: EdgeInsets.symmetric(vertical: Spacing.xs),
+              child: Text(
+                title ?? '',
+                style: Fonts.heading,
+              ),
+            ),
+          ),
+          if (trailing != null) trailing!,
+          const Gap.sm(),
+        ],
+      ),
+    );
+  }
+}

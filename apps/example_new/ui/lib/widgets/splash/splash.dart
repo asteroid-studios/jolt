@@ -43,7 +43,7 @@ class SplashState extends State<Splash> with SingleTickerProviderStateMixin {
             .animateTo(
               1,
               curve: Curves.ease,
-              duration: _style.duration ?? const Duration(milliseconds: 900),
+              duration: _style.duration ?? Theme.transitionDuration,
             )
             .then((value) => _controller.reset());
       });

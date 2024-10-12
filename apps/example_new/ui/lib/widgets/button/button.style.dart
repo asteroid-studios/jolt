@@ -88,14 +88,15 @@ class ButtonStyle {
   /// A ghost button style
   static StyleResolver<ButtonStyle, Button> get ghost => (context, button) {
         final surfaceColor = Surface.of(context).color;
+        final disabled = button.onTap == null;
         return ButtonStyle(
-          splash: () => Splash(style: SplashStyle.centered),
+          splash: () => disabled ? null : Splash(style: SplashStyle.centered),
           surfaceStyle: SurfaceStyle(
             resolver: (style, context) {
               final interaction = Interaction.of(context);
               return style?.merge(
                 SurfaceStyle(
-                  color: interaction.hovered ? surfaceColor?.hovered : surfaceColor?.withOpacity(0),
+                  color: !disabled && interaction.hovered ? surfaceColor?.hovered : surfaceColor?.withOpacity(0),
                 ),
               );
             },
@@ -117,7 +118,6 @@ class ButtonStyle {
           },
           splash: () => Splash(style: SplashStyle.centered),
           surfaceStyle: SurfaceStyle(
-            padding: EdgeInsets.all(Spacing.sm),
             resolver: (style, context) {
               return style?.merge(
                 SurfaceStyle(

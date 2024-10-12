@@ -13,26 +13,29 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Text(
-          'Widgets',
-          style: Fonts.heading,
-        ),
-        Button(
-          label: 'Buttons'.text,
-          onTap: () => ButtonsPage.go(context),
-        ),
-        Button(
-          label: 'Forms'.text,
-          onTap: () => ButtonsPage.go(context),
-        ),
-        Button(
-          label: 'Toggles'.text,
-          onTap: () => ButtonsPage.go(context),
-        ),
-      ].withSeparator(const Gap.sm()),
+    return Scaffold(
+      topBar: const TempAppBar(title: 'Widgets', showBack: false),
+      builder: (context) {
+        return ScrollArea.fill(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Button(
+                label: 'Buttons'.text,
+                onTap: () => ButtonsPage.go(context),
+              ),
+              Button(
+                label: 'Forms'.text,
+                onTap: () => ButtonsPage.go(context),
+              ),
+              Button(
+                label: 'Toggles'.text,
+                onTap: () => ButtonsPage.go(context),
+              ),
+            ].withSeparator(const Gap.sm()),
+          ),
+        );
+      },
     );
   }
 }
