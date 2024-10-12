@@ -1,5 +1,12 @@
 {
-  "cSpell.words": ["clazz", "inappwebview", "mergeable", "scrollbars", "xxxs"],
+  "cSpell.words": [
+    "clazz",
+    "inappwebview",
+    "mergeable",
+    "relayout",
+    "scrollbars",
+    "xxxs"
+  ],
   "editor.codeActionsOnSave": {
     "source.fixAll": "never"
   },

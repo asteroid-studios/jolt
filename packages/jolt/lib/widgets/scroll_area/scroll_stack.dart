@@ -8,6 +8,8 @@ class ScrollStack extends StatelessWidget {
     required this.child,
     this.start,
     this.end,
+    this.relayout,
+    this.repaint,
     this.axis = Axis.vertical,
     super.key,
   });
@@ -24,6 +26,12 @@ class ScrollStack extends StatelessWidget {
   ///
   final Axis axis;
 
+  ///
+  final Listenable? relayout;
+
+  ///
+  final Listenable? repaint;
+
   @override
   Widget build(BuildContext context) {
     return CustomBoxy(
@@ -32,6 +40,8 @@ class ScrollStack extends StatelessWidget {
         axis,
         start: start,
         end: end,
+        relayout: relayout,
+        repaint: repaint,
       ),
     );
   }
@@ -40,7 +50,14 @@ class ScrollStack extends StatelessWidget {
 ///
 class _ScrollStackDelegate extends BoxyDelegate {
   ///
-  _ScrollStackDelegate(this.child, this.axis, {this.start, this.end});
+  _ScrollStackDelegate(
+    this.child,
+    this.axis, {
+    this.start,
+    this.end,
+    super.relayout,
+    super.repaint,
+  });
 
   ///
   final Widget child;
@@ -98,6 +115,7 @@ class _ScrollStackDelegate extends BoxyDelegate {
       ),
     );
     final childSize = child.layout(constraints);
+    child.position(Offset.zero);
 
     // Inflate the start and end widgets on top of the stack
     final startWidget = start != null ? inflate(start!) : null;

@@ -176,7 +176,6 @@ class ScaffoldState extends State<Scaffold> {
                         if (widget.sidebarLeft != null) widget.sidebarLeft!,
                         Expanded(
                           child: ScrollStack(
-                            // loadBottomAsStackDuringCalculation: true,
                             start: widget.topBar,
                             end: widget.bottomBar,
                             child: widget.content,

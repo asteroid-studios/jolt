@@ -12,48 +12,64 @@ class AppPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return Column(
+      children: [
+        const DesktopWindowBar(),
+        Expanded(
+          child: ScrollStack(
+            relayout: GoRouter.of(context).routerDelegate,
+            end: BottomMenu(navigationShell),
+            child: navigationShell,
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class BottomMenu extends StatelessWidget {
+  const BottomMenu(this.navigationShell, {super.key});
+
+  final StatefulNavigationShell navigationShell;
+
+  @override
+  Widget build(BuildContext context) {
     final branches = [
       (Icons.house.icon, IconsFill.house.icon),
       (Icons.paintRoller.icon, IconsFill.paintRoller.icon),
       (Icons.log.icon, IconsFill.log.icon),
       (Icons.userCircleDashed.icon, IconsFill.userCircleDashed.icon),
     ];
-
-    return Column(
-      children: [
-        const DesktopWindowBar(),
-        Expanded(child: navigationShell),
-        // TODO divider
-        const Surface(height: 1, width: double.infinity),
-        Row(
-          children: [
-            const Gap.md(),
-            ...branches
-                .mapIndexed(
-                  (index, icon) {
-                    final selected = index == navigationShell.currentIndex;
-                    return Button(
-                      expanded: true,
-                      size: Fonts.heading.fontSize,
-                      style: (context, button) => ButtonStyle(
-                        splash: () => null,
-                        surfaceStyle: SurfaceStyle(
-                          color: Colors.background,
-                          foregroundOpacity: selected ? 1 : 0.5,
-                          borderRadius: BorderRadius.circular(0),
-                        ),
-                      ),
-                      icon: selected ? icon.$2 : icon.$1,
-                      onTap: () => navigationShell.goBranch(index, initialLocation: selected),
-                    );
-                  },
-                )
-                .toList()
-                .withExpanded(),
-            const Gap.md(),
-          ],
-        ),
-      ],
+    return Surface(
+      style: (context, _) => SurfaceStyle(
+        color: Colors.background,
+        borderRadius: BorderRadius.circular(0),
+        border: [SurfaceBorder(top: SurfaceBorderSide(color: Colors.outline))],
+      ),
+      padding: EdgeInsets.symmetric(horizontal: Spacing.md),
+      child: Row(
+        children: branches
+            .mapIndexed(
+              (index, icon) {
+                final selected = index == navigationShell.currentIndex;
+                return Button.ghost(
+                  expanded: true,
+                  size: Fonts.heading.fontSize,
+                  style: (context, button) => ButtonStyle(
+                    splash: () => null,
+                    surfaceStyle: SurfaceStyle(
+                      foregroundOpacity: selected ? 1 : 0.5,
+                      borderRadius: BorderRadius.circular(0),
+                    ),
+                  ),
+                  icon: selected ? icon.$2 : icon.$1,
+                  onTap: () => navigationShell.goBranch(index, initialLocation: selected),
+                );
+              },
+            )
+            .toList()
+            .withExpanded(),
+      ),
     );
   }
 }
