@@ -2,13 +2,13 @@ import 'package:boxy/boxy.dart';
 import 'package:jolt/jolt.dart';
 
 ///
-class ScrollStack extends StatefulWidget {
+class ScrollStack extends StatelessWidget {
   ///
   const ScrollStack({
     required this.child,
-    this.top,
-    this.bottom,
-    this.loadBottomAsStackDuringCalculation = false,
+    this.start,
+    this.end,
+    this.axis = Axis.vertical,
     super.key,
   });
 
@@ -16,114 +16,112 @@ class ScrollStack extends StatefulWidget {
   final Widget child;
 
   ///
-  final Widget? top;
+  final Widget? start;
 
   ///
-  final Widget? bottom;
+  final Widget? end;
 
-  /// If you are not nesting multiple ScrollStacks throughout your widget tree,
-  /// you will have the smoothest loading by setting
-  /// [loadBottomAsStackDuringCalculation] to true
   ///
-  /// This means that the bottom widget will be stacked instead of loading
-  /// like a column during the calculation phase.
-  final bool loadBottomAsStackDuringCalculation;
-
-  @override
-  State<ScrollStack> createState() => _ScrollStackState();
-}
-
-class _ScrollStackState extends State<ScrollStack> {
-  double startPadding = 0;
-  double endPadding = 0;
-  bool loaded = false;
+  final Axis axis;
 
   @override
   Widget build(BuildContext context) {
     return CustomBoxy(
-      delegate: ScrollStackDelegate(),
-      children: [
-        BoxyId(
-          id: '#child',
-          data: (
-            (double start, double end) {
-              if (start == startPadding && end == endPadding) return;
-              startPadding = start;
-              endPadding = end;
-              loaded = true;
-              WidgetsBinding.instance.addPostFrameCallback((_) {
-                setState(() {});
-              });
-            },
-            loaded,
-          ),
-          child: ScrollPadding(
-            start: startPadding,
-            end: endPadding,
-            context: context,
-            child: widget.child,
-          ),
-        ),
-        if (widget.top != null) BoxyId(id: '#top', child: widget.top!),
-        if (widget.bottom != null)
-          BoxyId(
-            id: '#bottom',
-            data: widget.loadBottomAsStackDuringCalculation,
-            child: widget.bottom!,
-          ),
-      ],
+      delegate: _ScrollStackDelegate(
+        child,
+        axis,
+        start: start,
+        end: end,
+      ),
     );
   }
 }
 
 ///
-class ScrollStackDelegate extends BoxyDelegate {
+class _ScrollStackDelegate extends BoxyDelegate {
+  ///
+  _ScrollStackDelegate(this.child, this.axis, {this.start, this.end});
+
+  ///
+  final Widget child;
+
+  ///
+  final Axis axis;
+
+  ///
+  final Widget? start;
+
+  ///
+  final Widget? end;
+
   @override
   Size layout() {
-    final top = getChildOrNull('#top');
-    final topSize = top?.layout(constraints);
-    final topHeight = topSize?.height ?? 0;
-    final bottom = getChildOrNull('#bottom');
-    final bottomSize = bottom?.layout(constraints);
-    final bottomHeight = bottomSize?.height ?? 0;
-    final alwaysStackBottom = bottom?.parentData as bool? ?? false;
-    final child = getChild('#child');
-    final data = child.parentData as (
-      void Function(double start, double end),
-      bool loaded
-    );
-    data.$1(topSize?.height ?? 0, bottomSize?.height ?? 0);
-    final loaded = data.$2;
-
-    // Before actually loaded, layout like a column
-    if (!loaded) {
-      final childSize = child.layout(
-        BoxConstraints(
-          maxHeight: constraints.maxHeight -
-              topHeight -
-              (alwaysStackBottom ? 0 : bottomHeight),
-          maxWidth: constraints.maxWidth,
-        ),
-      );
-      top?.position(Offset.zero);
-      child.position(Offset(0, topHeight));
-      bottom?.position(
-        Offset(
-          0,
-          topHeight + childSize.height - (alwaysStackBottom ? bottomHeight : 0),
-        ),
-      );
-      return Size(childSize.width, constraints.maxHeight);
+    // If top and bottom are null, just layout the child normally
+    if (start == null && end == null) {
+      final child = inflate(this.child);
+      final size = child.layout(constraints);
+      child.position(Offset.zero);
+      return size;
     }
 
-    // After loaded and scroll padding is available, layout as stack
-    final childSize = child.layout(constraints);
-    child.position(Offset.zero);
-    final scrollPadding = ScrollPadding.of(child.context);
-    top?.position(Offset(0, scrollPadding.start));
-    bottom?.position(
-      Offset(0, childSize.height - bottomHeight - scrollPadding.end),
+    final isVertical = axis == Axis.vertical;
+
+    // First we need to layout the start and end to get the size
+    final minConstraints = constraints.copyWith(minHeight: 0, minWidth: 0);
+    final tempStartWidget = start != null ? inflate(start!) : null;
+    final tempEndWidget = end != null ? inflate(end!) : null;
+    final startSize = tempStartWidget?.layout(minConstraints);
+    final endSize = tempEndWidget?.layout(minConstraints);
+    final startMainAxisSize =
+        isVertical ? startSize?.height ?? 0 : startSize?.width ?? 0;
+    final endMainAxisSize =
+        isVertical ? endSize?.height ?? 0 : endSize?.width ?? 0;
+
+    // Context will be used to get the context parents scroll padding
+    final context = tempStartWidget?.context ?? tempEndWidget?.context;
+    if (context == null) {
+      throw Exception('Start or end widget must have a context');
+    }
+
+    // We ignore the temporary start and end widgets
+    // because we want to paint them on top of the child
+    tempStartWidget?.ignore();
+    tempEndWidget?.ignore();
+
+    // Inflate the child with the scroll padding
+    final child = inflate(
+      ScrollPadding(
+        start: startMainAxisSize,
+        end: endMainAxisSize,
+        context: context,
+        child: this.child,
+      ),
     );
+    final childSize = child.layout(constraints);
+
+    // Inflate the start and end widgets on top of the stack
+    final startWidget = start != null ? inflate(start!) : null;
+    final endWidget = end != null ? inflate(end!) : null;
+    startWidget?.layout(minConstraints);
+    endWidget?.layout(minConstraints);
+
+    // Position the start and end using existing scroll padding
+    final scrollPadding = ScrollPadding.of(context);
+    startWidget?.position(
+      Offset(
+        isVertical ? 0 : scrollPadding.start,
+        isVertical ? scrollPadding.start : 0,
+      ),
+    );
+    final endOffset = childSize.height - endMainAxisSize - scrollPadding.end;
+    endWidget?.position(
+      Offset(
+        isVertical ? 0 : endOffset,
+        isVertical ? endOffset : 0,
+      ),
+    );
+
+    // Return the child size
     return childSize;
   }
 }
