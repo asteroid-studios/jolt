@@ -115,33 +115,37 @@ class ScaffoldState extends State<Scaffold> {
 
   @override
   Widget build(BuildContext context) {
-    return NotificationListener<UserScrollNotification>(
-      onNotification: (notification) {
-        final direction = notification.direction;
-        if (direction == ScrollDirection.idle || direction == scrollDirection) {
+    return Surface(
+      borderRadius: BorderRadius.circular(0),
+      color: context.color.background,
+      child: NotificationListener<UserScrollNotification>(
+        onNotification: (notification) {
+          final direction = notification.direction;
+          if (direction == ScrollDirection.idle || direction == scrollDirection) {
+            return true;
+          }
+          final pixels = notification.metrics.pixels;
+          if (direction == ScrollDirection.reverse && pixels < -50) {
+            return true;
+          }
+          setState(() => scrollDirection = direction);
           return true;
-        }
-        final pixels = notification.metrics.pixels;
-        if (direction == ScrollDirection.reverse && pixels < -50) {
-          return true;
-        }
-        setState(() => scrollDirection = direction);
-        return true;
-      },
-      child: _ScaffoldScope(
-        state: this,
-        child: Row(
-          children: [
-            if (widget.sidebarLeft != null) widget.sidebarLeft!,
-            Expanded(
-              child: ScrollStack(
-                start: widget.topBar,
-                end: widget.bottomBar,
-                child: Builder(builder: widget.builder),
+        },
+        child: _ScaffoldScope(
+          state: this,
+          child: Row(
+            children: [
+              if (widget.sidebarLeft != null) widget.sidebarLeft!,
+              Expanded(
+                child: ScrollStack(
+                  start: widget.topBar,
+                  end: widget.bottomBar,
+                  child: Builder(builder: widget.builder),
+                ),
               ),
-            ),
-            if (widget.sidebarRight != null) widget.sidebarRight!,
-          ],
+              if (widget.sidebarRight != null) widget.sidebarRight!,
+            ],
+          ),
         ),
       ),
     );

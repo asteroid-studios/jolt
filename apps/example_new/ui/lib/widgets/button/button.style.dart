@@ -108,15 +108,17 @@ class ButtonStyle {
   static StyleResolver<ButtonStyle, Button> get link => (context, button) {
         final surfaceColor = Surface.of(context).color;
         final interaction = Interaction.of(context);
+        final disabled = button.onTap == null;
         return ButtonStyle(
+          splash: () => disabled ? null : Splash(style: SplashStyle.centered),
           resolver: (style, context) {
             final linkStyle = TextStyle(
-              decoration:
-                  interaction.hovered || interaction.focused || interaction.pressing ? TextDecoration.underline : null,
+              decoration: !disabled && (interaction.hovered || interaction.focused || interaction.pressing)
+                  ? TextDecoration.underline
+                  : null,
             );
             return style?.merge(ButtonStyle(labelStyle: style.labelStyle?.merge(linkStyle) ?? linkStyle));
           },
-          splash: () => Splash(style: SplashStyle.centered),
           surfaceStyle: SurfaceStyle(
             resolver: (style, context) {
               return style?.merge(

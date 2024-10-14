@@ -2,7 +2,7 @@ import 'package:example_new/utils/macros/route_macro.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:ui/ui.dart';
 
-@TypeSafeRoute(path: '/changelog')
+@TypeSafeRoute(path: '/changelogs')
 class ChangeLogPage extends StatelessWidget {
   const ChangeLogPage({super.key});
 

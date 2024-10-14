@@ -4,11 +4,15 @@ import 'package:example_new/components/app.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
 import 'package:ui/ui.dart';
 // import 'package:ui/ui.dart';
+// import 'package:flutter/foundation.dart';
+// import 'package:flutter/scheduler.dart' show timeDilation;
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   usePathUrlStrategy();
-
+  // if (kDebugMode) {
+  // timeDilation = 10.0;
+  // }
   runApp(const App());
   if (Platform.isDesktop) {
     // doWhenWindowReady(() {

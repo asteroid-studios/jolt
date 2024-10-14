@@ -11,7 +11,10 @@ class App extends HookWidget {
     return ThemeProvider(
       builder: (context) => HeroControllerScope(
         controller: HeroController(),
-        child: WidgetsApp.router(
+        // Material app needed for now for route animations
+        child: material.MaterialApp.router(
+          // Needed for material app
+          builder: (context, child) => material.Scaffold(body: child),
           color: Colors.primary,
           locale: const Locale('en'),
           localizationsDelegates: const [

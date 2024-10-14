@@ -96,28 +96,30 @@ class HomeShell extends HookWidget {
           : null,
       child: Row(
         children: [
-          if (!showDocs.value || !context.breakpoint.isMobile)
-            Expanded(
-              flex: 2,
-              child: child,
+          AnimatedContainer(
+            duration: Duration.zero,
+            width: (!showDocs.value || !context.breakpoint.isMobile) ? context.mediaQuery.size.width : 0,
+            decoration: BoxDecoration(
+              border: Border(left: BorderSide(color: Colors.outline)),
             ),
-          // TODO Use an indexed stack here to step the flickering when completely reloading the webview
-          if (showDocs.value || !context.breakpoint.isMobile)
-            Expanded(
-              child: Container(
-                decoration: BoxDecoration(
-                  border: Border(left: BorderSide(color: Colors.outline)),
-                ),
-                child: InAppWebView(
-                  // TODO keep an eye on https://github.com/flutter/flutter/issues/110381
-                  keepAlive: InAppWebViewKeepAlive(),
-                  initialUrlRequest: URLRequest(
-                    url: WebUri(url),
+            child: child,
+          ),
+          Expanded(
+            child: Column(
+              children: [
+                Gap(context.mediaQuery.viewPadding.top),
+                Expanded(
+                  child: InAppWebView(
+                    // TODO keep an eye on https://github.com/flutter/flutter/issues/110381
+                    keepAlive: InAppWebViewKeepAlive(),
+                    initialUrlRequest: URLRequest(url: WebUri(url)),
+                    onWebViewCreated: (controller) => webController.value = controller,
                   ),
-                  onWebViewCreated: (controller) => webController.value = controller,
                 ),
-              ),
+                Gap.scrollEnd(),
+              ],
             ),
+          ),
         ],
       ),
     );

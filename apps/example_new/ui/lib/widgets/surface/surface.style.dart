@@ -34,7 +34,7 @@ class SurfaceStyle {
   /// Default style for all surfaces
   static SurfaceStyle defaultStyle(BuildContext context, Surface surface) {
     return SurfaceStyle(
-      color: Colors.surface,
+      color: context.color.surface,
       borderRadius: BorderRadius.circular(6),
       border: [],
       // boxShadow: darkMode

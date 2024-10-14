@@ -6,9 +6,14 @@ import 'package:ui/ui.dart';
 // TODOthis page will provide some information about jolt and links to docs, discord etc
 
 class AppPage extends StatelessWidget {
-  const AppPage({required this.navigationShell, super.key});
+  const AppPage({
+    required this.navigationShell,
+    required this.children,
+    super.key,
+  });
 
   final StatefulNavigationShell navigationShell;
+  final List<Widget> children;
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +30,10 @@ class AppPage extends StatelessWidget {
             Expanded(
               child: ScrollStack(
                 end: BottomMenu(navigationShell),
-                child: navigationShell,
+                child: AnimatedBranchContainer(
+                  currentIndex: navigationShell.currentIndex,
+                  children: children,
+                ),
               ),
             ),
           ],
@@ -33,6 +41,40 @@ class AppPage extends StatelessWidget {
       ),
     );
   }
+}
+
+class AnimatedBranchContainer extends StatelessWidget {
+  const AnimatedBranchContainer({
+    required this.currentIndex,
+    required this.children,
+    super.key,
+  });
+
+  final int currentIndex;
+  final List<Widget> children;
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: children.mapIndexed(
+        (int index, Widget navigator) {
+          return AnimatedOpacity(
+            opacity: index == currentIndex ? 1 : 0,
+            duration: const Duration(milliseconds: 100),
+            child: _branchNavigatorWrapper(index, navigator),
+          );
+        },
+      ).toList(),
+    );
+  }
+
+  Widget _branchNavigatorWrapper(int index, Widget navigator) => IgnorePointer(
+        ignoring: index != currentIndex,
+        child: TickerMode(
+          enabled: index == currentIndex,
+          child: navigator,
+        ),
+      );
 }
 
 class BottomMenu extends StatelessWidget {

@@ -9,8 +9,14 @@ import 'package:go_router/go_router.dart';
 
 final router = GoRouter(
   routes: [
-    StatefulShellRoute.indexedStack(
-      builder: (context, state, navigationShell) => AppPage(navigationShell: navigationShell),
+    StatefulShellRoute(
+      navigatorContainerBuilder: (context, navigationShell, children) {
+        return AppPage(
+          navigationShell: navigationShell,
+          children: children,
+        );
+      },
+      builder: (context, state, navigationShell) => navigationShell,
       branches: [
         StatefulShellBranch(
           routes: [
