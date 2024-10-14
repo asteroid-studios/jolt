@@ -132,6 +132,7 @@ extension MacroDeclarationX on MemberDeclarationBuilder {
     ]);
     final fields = (await fieldsOf(clazz)).map((field) {
       return DeclarationCode.fromParts(
+        // TODO I think this isn't right because it will only merge it's own style, not children styles.
         mergeableFields.contains(field.identifier.name)
             ? [
                 '\n\t\t\t${field.identifier.name}: ${field.identifier.name}?.merge(style?.${field.identifier.name}) ??  style?.${field.identifier.name},',
@@ -153,4 +154,71 @@ extension MacroDeclarationX on MemberDeclarationBuilder {
       ]),
     );
   }
+
+  ///
+  Future<void> declareCopyWith(
+    ClassDeclaration clazz, {
+    bool isStyle = false,
+  }) async {
+    final buildContext =
+        await resolveIdentifier(Uri.parse('package:flutter/src/widgets/framework.dart'), 'BuildContext');
+    final fields = await fieldsOf(clazz);
+    final constructorFields = fields
+        .map(
+          (field) => DeclarationCode.fromParts([
+            newLine(2),
+            if (field.type.isNullable) '' else 'required ',
+            field.type.code,
+            ' ${field.identifier.name},',
+          ]),
+        )
+        .toList();
+
+    if (isStyle) {
+      constructorFields.add(
+        DeclarationCode.fromParts([
+          newLine(2),
+          clazz.identifier,
+          '? Function(',
+          clazz.identifier,
+          '? style, ',
+          buildContext,
+          ' context)? resolver,',
+        ]),
+      );
+    }
+
+    declareInType(
+      DeclarationCode.fromParts([
+        newLine(),
+        '///',
+        newLine(),
+        clazz.identifier,
+        ' copyWith(',
+        if (fields.isNotEmpty) '{',
+        ...constructorFields,
+        newLine(),
+        if (fields.isNotEmpty) '}',
+        ') {',
+        newLine(2),
+        'return ',
+        clazz.identifier,
+        '(',
+        ...fields.map(
+          (field) => DeclarationCode.fromParts([
+            newLine(3),
+            '${field.identifier.name}: ${field.identifier.name} ?? this.${field.identifier.name},',
+          ]),
+        ),
+        if (isStyle) newLine(3),
+        if (isStyle) 'resolver: resolver ?? this.resolver,',
+        newLine(2),
+        ');',
+        '\n\t}',
+      ]),
+    );
+  }
 }
+
+/// Returns a new line with the given level of indentation.
+String newLine([int? level]) => '\n${'\t' * (level ?? 1)}';

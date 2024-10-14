@@ -22,7 +22,13 @@ class HomeShell extends HookWidget {
 
     ToggleStyle style(context, toggle) {
       return ToggleStyle(
-        selectedColor: Colors.background,
+        selectedColor: Colors.surface,
+        // TODO why would setting button style here overide default toggle button style without merging?
+        // buttonStyle: ButtonStyle(
+        // surfaceStyle: SurfaceStyle(
+        //   borderRadius: BorderRadius.circular(0),
+        // ),
+        // ),
         // resolver: (style, context) {
         //   return style?.merge(
         //     ToggleStyle(
@@ -62,11 +68,11 @@ class HomeShell extends HookWidget {
     return ScrollStack(
       end: context.breakpoint.isMobile
           ? Surface(
-              padding: EdgeInsets.symmetric(horizontal: Spacing.md, vertical: Spacing.xxs),
+              padding: EdgeInsets.symmetric(horizontal: Spacing.md, vertical: Spacing.xs),
               style: (context, _) => SurfaceStyle(
                 blur: Theme.blurIntensity,
                 borderRadius: BorderRadius.circular(0),
-                color: Colors.outline.withOpacity(0.9),
+                color: Colors.background.withOpacity(0.9),
               ),
               child: Row(
                 children: [
@@ -99,25 +105,29 @@ class HomeShell extends HookWidget {
           AnimatedContainer(
             duration: Duration.zero,
             width: (!showDocs.value || !context.breakpoint.isMobile) ? context.mediaQuery.size.width : 0,
-            decoration: BoxDecoration(
-              border: Border(left: BorderSide(color: Colors.outline)),
-            ),
             child: child,
           ),
           Expanded(
-            child: Column(
-              children: [
-                Gap(context.mediaQuery.viewPadding.top),
-                Expanded(
-                  child: InAppWebView(
-                    // TODO keep an eye on https://github.com/flutter/flutter/issues/110381
-                    keepAlive: InAppWebViewKeepAlive(),
-                    initialUrlRequest: URLRequest(url: WebUri(url)),
-                    onWebViewCreated: (controller) => webController.value = controller,
+            child: Container(
+              decoration: context.breakpoint.isMobile
+                  ? null
+                  : BoxDecoration(
+                      border: Border(left: BorderSide(color: Colors.outline)),
+                    ),
+              child: Column(
+                children: [
+                  Gap(context.mediaQuery.viewPadding.top),
+                  Expanded(
+                    child: InAppWebView(
+                      // TODO keep an eye on https://github.com/flutter/flutter/issues/110381
+                      keepAlive: InAppWebViewKeepAlive(),
+                      initialUrlRequest: URLRequest(url: WebUri(url)),
+                      onWebViewCreated: (controller) => webController.value = controller,
+                    ),
                   ),
-                ),
-                Gap.scrollEnd(),
-              ],
+                  Gap.scrollEnd(),
+                ],
+              ),
             ),
           ),
         ],

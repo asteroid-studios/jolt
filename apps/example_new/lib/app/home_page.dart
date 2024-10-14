@@ -1,4 +1,5 @@
 import 'package:example_new/app/widgets/buttons_page.dart';
+import 'package:example_new/app/widgets/toggle_page.dart';
 import 'package:example_new/utils/macros/route_macro.dart';
 import 'package:ui/ui.dart';
 
@@ -48,7 +49,7 @@ class _HomePageState extends State<HomePage> {
                 HomeCard(
                   title: 'Toggle',
                   category: 'Interaction',
-                  onTap: () => ButtonsPage.go(context),
+                  onTap: () => TogglePage.go(context),
                   color: Colors.tailwind.amber,
                 ),
               ].withSeparator(

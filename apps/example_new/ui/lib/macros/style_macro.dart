@@ -53,6 +53,7 @@ macro class Style implements  ClassDeclarationsMacro {
     await builder.declareConstructor(clazz, isStyle: true);
     await builder.declareMerge(clazz);
     await builder.declareResolve(clazz);
+    await builder.declareCopyWith(clazz, isStyle: true);
     // await builder.declareToJson(clazz);
     // await builder.declareFromJson(clazz);
 

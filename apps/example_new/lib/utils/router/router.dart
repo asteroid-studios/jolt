@@ -5,6 +5,7 @@ import 'package:example_new/app/home_page.dart';
 import 'package:example_new/app/home_shell.dart';
 import 'package:example_new/app/settings_page.dart';
 import 'package:example_new/app/widgets/buttons_page.dart';
+import 'package:example_new/app/widgets/toggle_page.dart';
 import 'package:go_router/go_router.dart';
 
 final router = GoRouter(
@@ -32,6 +33,11 @@ final router = GoRouter(
                       path: ButtonsPage.path,
                       name: ButtonsPage.name,
                       builder: ButtonsPage.builder,
+                    ),
+                    GoRoute(
+                      path: TogglePage.path,
+                      name: TogglePage.name,
+                      builder: TogglePage.builder,
                     ),
                   ],
                 ),

@@ -97,7 +97,10 @@ class Surface extends StatelessWidget {
     final child = Padding(
       padding: padding ?? style.padding ?? EdgeInsets.zero,
       child: DefaultSymbolStyle(
-        style: TextStyle(color: foreground),
+        style: TextStyle(
+          color: foreground,
+          decorationColor: foreground,
+        ),
         child: style.foregroundOpacity != null
             ? Opacity(
                 opacity: style.foregroundOpacity!,

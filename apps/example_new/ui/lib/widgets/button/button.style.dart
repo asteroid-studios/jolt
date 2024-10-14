@@ -34,29 +34,26 @@ class ButtonStyle {
       surfaceStyle: SurfaceStyle(
         padding: EdgeInsets.symmetric(vertical: padding, horizontal: horizontal),
         borderRadius: BorderRadius.circular(50),
-        // TODO need to support copywith
         resolver: (style, context) {
           // TODO this kind of code will get repeated a lot, should create a default surface style resolver somewhere.
           final interaction = Interaction.of(context);
-          return style?.merge(
-            SurfaceStyle(
-              foregroundOpacity: disabled ? 0.3 : null,
-              color: disabled
-                  ? style.color?.withOpacity(0.3)
-                  : interaction.hovered
-                      ? style.color?.hovered
-                      : style.color,
-              border: interaction.focused
-                  ? (style.border
-                    ?..add(
-                      SurfaceBorder.all(
-                        color: Colors.tertiary,
-                        gap: 4,
-                        width: 2,
-                      ),
-                    ))
-                  : style.border,
-            ),
+          return style?.copyWith(
+            foregroundOpacity: disabled ? 0.3 : null,
+            color: disabled
+                ? style.color?.withOpacity(0.3)
+                : interaction.hovered
+                    ? style.color?.hovered
+                    : style.color,
+            border: interaction.focused
+                ? (style.border
+                  ?..add(
+                    SurfaceBorder.all(
+                      color: Colors.tertiary,
+                      gap: 4,
+                      width: 2,
+                    ),
+                  ))
+                : style.border,
           );
         },
       ),
@@ -94,10 +91,8 @@ class ButtonStyle {
           surfaceStyle: SurfaceStyle(
             resolver: (style, context) {
               final interaction = Interaction.of(context);
-              return style?.merge(
-                SurfaceStyle(
-                  color: !disabled && interaction.hovered ? surfaceColor?.hovered : surfaceColor?.withOpacity(0),
-                ),
+              return style?.copyWith(
+                color: !disabled && interaction.hovered ? surfaceColor?.hovered : surfaceColor?.withOpacity(0),
               );
             },
           ),
@@ -121,11 +116,9 @@ class ButtonStyle {
           },
           surfaceStyle: SurfaceStyle(
             resolver: (style, context) {
-              return style?.merge(
-                SurfaceStyle(
-                  color: surfaceColor?.withOpacity(0),
-                  border: [],
-                ),
+              return style?.copyWith(
+                color: surfaceColor?.withOpacity(0),
+                border: [],
               );
             },
           ),

@@ -18,34 +18,24 @@ class ToggleStyle {
     return ToggleStyle(
       unselectedHoverOpacity: 0.4,
       selectedColor: Colors.primary,
-      // TODO why can't I set these here?
-      // buttonStyle: ButtonStyle(
-      //   splash: () => const SizedBox(),
-      //   surfaceStyle: SurfaceStyle(
-      //     borderRadius: BorderRadius.circular(8),
-      //   ),
-      // ),
+      buttonStyle: ButtonStyle(
+        splash: () => const SizedBox(),
+        surfaceStyle: SurfaceStyle(
+          borderRadius: BorderRadius.circular(8),
+        ),
+      ),
       resolver: (style, context) {
-        return style?.merge(
-          ToggleStyle(
-            buttonStyle: ButtonStyle(
-              splash: () => const SizedBox(),
-              surfaceStyle: SurfaceStyle(
-                resolver: (surfaceStyle, context) {
-                  // final interaction = Interaction.of(context);
-                  final selectedColor = style.selectedColor;
-                  return surfaceStyle?.merge(
-                    SurfaceStyle(
-                      foregroundOpacity: !toggle.selected ? style.unselectedHoverOpacity : null,
-                      // foregroundOpacity: interaction.hovered && !toggle.selected ? defaultUnselectedHoverOpacity : null,
-                      color: toggle.selected ? selectedColor : surfaceStyle.color,
-                      borderRadius: BorderRadius.circular(8),
-                      border:
-                          toggle.selected ? (surfaceStyle.border?..add(SurfaceBorder.all(color: selectedColor))) : null,
-                    ),
-                  );
-                },
-              ),
+        final selectedColor = style?.selectedColor;
+        return style?.copyWith(
+          buttonStyle: style.buttonStyle?.copyWith(
+            surfaceStyle: style.buttonStyle?.surfaceStyle?.copyWith(
+              resolver: (surfaceStyle, context) {
+                return surfaceStyle?.copyWith(
+                  foregroundOpacity: !toggle.selected ? style.unselectedHoverOpacity : null,
+                  color: toggle.selected ? selectedColor : surfaceStyle.color,
+                  border: toggle.selected ? (surfaceStyle.border?..add(SurfaceBorder.all(color: selectedColor))) : null,
+                );
+              },
             ),
           ),
         );
