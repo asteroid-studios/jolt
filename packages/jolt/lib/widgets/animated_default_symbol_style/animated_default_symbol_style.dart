@@ -33,12 +33,10 @@ class AnimatedDefaultSymbolStyle extends ImplicitlyAnimatedWidget {
   final double? iconSize;
 
   @override
-  AnimatedWidgetBaseState<AnimatedDefaultSymbolStyle> createState() =>
-      _AnimatedContainerState();
+  AnimatedWidgetBaseState<AnimatedDefaultSymbolStyle> createState() => _AnimatedContainerState();
 }
 
-class _AnimatedContainerState
-    extends AnimatedWidgetBaseState<AnimatedDefaultSymbolStyle> {
+class _AnimatedContainerState extends AnimatedWidgetBaseState<AnimatedDefaultSymbolStyle> {
   TextStyleTween? _style;
 
   @override
@@ -53,8 +51,7 @@ class _AnimatedContainerState
   @override
   Widget build(BuildContext context) {
     final animation = this.animation;
-    final style =
-        _style?.evaluate(animation) ?? widget.style ?? const TextStyle();
+    final style = _style?.evaluate(animation) ?? widget.style ?? const TextStyle();
 
     if (widget.merge) {
       return DefaultTextStyle.merge(

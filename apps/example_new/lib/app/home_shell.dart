@@ -20,31 +20,7 @@ class HomeShell extends HookWidget {
     // TODO: this is a hack until I fix docs to match routes
     final url = 'https://flutterjolt.dev/widgets${state.fullPath}'.replaceAll('/button', '/interaction/button');
 
-    ToggleStyle style(context, toggle) {
-      return ToggleStyle(
-        selectedColor: Colors.surface,
-        // TODO why would setting button style here overide default toggle button style without merging?
-        // buttonStyle: ButtonStyle(
-        // surfaceStyle: SurfaceStyle(
-        //   borderRadius: BorderRadius.circular(0),
-        // ),
-        // ),
-        // resolver: (style, context) {
-        //   return style?.merge(
-        //     ToggleStyle(
-        //       buttonStyle: ButtonStyle(
-        //         surfaceStyle: SurfaceStyle(borderRadius: BorderRadius.zero),
-        //       ),
-        //     ),
-        //   );
-        // },
-        // buttonStyle: ButtonStyle(
-        //   surfaceStyle: SurfaceStyle(
-        //     resolver: (style, context) => style?.merge(const SurfaceStyle(borderRadius: BorderRadius.zero)),
-        //   ),
-        // ),
-      );
-    }
+    ToggleStyle style(context, toggle) => ToggleStyle(selectedColor: Colors.background);
 
     useEffect(
       () {
@@ -66,40 +42,50 @@ class HomeShell extends HookWidget {
     );
 
     return ScrollStack(
-      end: context.breakpoint.isMobile
-          ? Surface(
-              padding: EdgeInsets.symmetric(horizontal: Spacing.md, vertical: Spacing.xs),
-              style: (context, _) => SurfaceStyle(
-                blur: Theme.blurIntensity,
-                borderRadius: BorderRadius.circular(0),
-                color: Colors.background.withOpacity(0.9),
-              ),
-              child: Row(
-                children: [
-                  // TODO make toggle group instead
-                  Toggle(
-                    initialValue: true,
-                    expanded: true,
-                    type: ToggleType.ghost,
-                    style: style,
-                    label: 'Widgets'.text,
-                    onChanged: (p0) {
-                      showDocs.value = false;
-                    },
-                  ),
-                  Toggle(
-                    expanded: true,
-                    type: ToggleType.ghost,
-                    style: style,
-                    label: 'Docs'.text,
-                    onChanged: (p0) {
-                      showDocs.value = true;
-                    },
-                  ),
-                ].withExpanded(),
-              ),
-            )
-          : null,
+      end: AnimatedSwitcher(
+        duration: Duration.zero,
+        child: context.breakpoint.isMobile && state.fullPath != '/'
+            ? Surface(
+                padding: const EdgeInsets.all(3),
+                margin: EdgeInsets.symmetric(horizontal: Spacing.sm, vertical: Spacing.xs),
+                style: (context, widget) => SurfaceStyle(
+                  borderRadius: BorderRadius.circular(11),
+                  boxShadow: [
+                    BoxShadow(
+                      blurRadius: 24,
+                      spreadRadius: 32,
+                      offset: const Offset(0, 32),
+                      color: Colors.background.withOpacity(0.95),
+                    ),
+                  ],
+                ),
+                child: Row(
+                  children: [
+                    // TODO make toggle group instead
+                    Toggle(
+                      initialValue: true,
+                      expanded: true,
+                      type: ToggleType.ghost,
+                      style: style,
+                      label: 'Widgets'.text,
+                      onChanged: (p0) {
+                        showDocs.value = false;
+                      },
+                    ),
+                    Toggle(
+                      expanded: true,
+                      type: ToggleType.ghost,
+                      style: style,
+                      label: 'Docs'.text,
+                      onChanged: (p0) {
+                        showDocs.value = true;
+                      },
+                    ),
+                  ].withExpanded(),
+                ),
+              )
+            : SizedBox(),
+      ),
       child: Row(
         children: [
           AnimatedContainer(

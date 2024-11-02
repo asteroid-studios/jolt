@@ -77,10 +77,7 @@ class Surface extends StatelessWidget {
           context,
           this.style?.call(context, this),
         )
-        .merge(
-          // TODO change to copywith
-          SurfaceStyle(color: color, borderRadius: borderRadius),
-        );
+        .copyWith(color: color, borderRadius: borderRadius);
 
     // TODO clean up as part of resolve
     // Needs to iterate through all resolvers in order

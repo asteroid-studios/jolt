@@ -105,7 +105,7 @@ class ButtonStyle {
         final interaction = Interaction.of(context);
         final disabled = button.onTap == null;
         return ButtonStyle(
-          splash: () => disabled ? null : Splash(style: SplashStyle.centered),
+          splash: () => null,
           resolver: (style, context) {
             final linkStyle = TextStyle(
               decoration: !disabled && (interaction.hovered || interaction.focused || interaction.pressing)

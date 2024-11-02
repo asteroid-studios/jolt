@@ -14,9 +14,12 @@ final _defaultPrimary = Colors.tailwind.violet;
 final _defaultSecondary = _defaultPrimary.shade300;
 final _defaultTertiaryLight = Colors.tailwind.grey.shade950;
 final _defaultTertiaryDark = Colors.tailwind.grey.shade50;
-final _defaultError = Colors.tailwind.red;
-final _defaultWarning = Colors.tailwind.amber;
-final _defaultSuccess = Colors.tailwind.green;
+final _defaultErrorLight = Colors.tailwind.rose;
+final _defaultWarningLight = Colors.tailwind.orange;
+final _defaultSuccessLight = Colors.tailwind.emerald;
+final _defaultErrorDark = Colors.tailwind.rose.shade400;
+final _defaultWarningDark = Colors.tailwind.orange.shade400;
+final _defaultSuccessDark = Colors.tailwind.emerald.shade400;
 final _defaultBarrier = Colors.black.withOpacity(0.8);
 
 ///
@@ -86,9 +89,9 @@ class ColorScheme {
       primary: primary ?? _defaultPrimary,
       secondary: secondary ?? _defaultSecondary,
       tertiary: tertiary ?? _defaultTertiaryLight,
-      error: error ?? _defaultError,
-      warning: warning ?? _defaultWarning,
-      success: success ?? _defaultSuccess,
+      error: error ?? _defaultErrorLight,
+      warning: warning ?? _defaultWarningLight,
+      success: success ?? _defaultSuccessLight,
       barrier: barrier ?? _defaultBarrier,
     );
   }
@@ -114,9 +117,9 @@ class ColorScheme {
       primary: primary ?? _defaultPrimary,
       secondary: secondary ?? _defaultSecondary,
       tertiary: tertiary ?? _defaultTertiaryDark,
-      error: error ?? _defaultError,
-      warning: warning ?? _defaultWarning,
-      success: success ?? _defaultSuccess,
+      error: error ?? _defaultErrorDark,
+      warning: warning ?? _defaultWarningDark,
+      success: success ?? _defaultSuccessDark,
       barrier: barrier ?? _defaultBarrier,
     );
   }

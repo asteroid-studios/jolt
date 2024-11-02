@@ -4,11 +4,11 @@ import 'package:example_new/app/contact_page.dart';
 import 'package:example_new/app/home_page.dart';
 import 'package:example_new/app/home_shell.dart';
 import 'package:example_new/app/settings_page.dart';
-import 'package:example_new/app/widgets/buttons_page.dart';
-import 'package:example_new/app/widgets/toggle_page.dart';
+import 'package:example_new/app/widgets/widgets.dart';
 import 'package:go_router/go_router.dart';
 
 final router = GoRouter(
+  initialLocation: '/home',
   routes: [
     StatefulShellRoute(
       navigatorContainerBuilder: (context, navigationShell, children) {
@@ -30,14 +30,34 @@ final router = GoRouter(
                   builder: HomePage.builder,
                   routes: [
                     GoRoute(
-                      path: ButtonsPage.path,
-                      name: ButtonsPage.name,
-                      builder: ButtonsPage.builder,
+                      path: ButtonPage.path,
+                      name: ButtonPage.name,
+                      builder: ButtonPage.builder,
+                    ),
+                    GoRoute(
+                      path: CardPage.path,
+                      name: CardPage.name,
+                      builder: CardPage.builder,
+                    ),
+                    GoRoute(
+                      path: DividerPage.path,
+                      name: DividerPage.name,
+                      builder: DividerPage.builder,
+                    ),
+                    GoRoute(
+                      path: FormPage.path,
+                      name: FormPage.name,
+                      builder: FormPage.builder,
                     ),
                     GoRoute(
                       path: TogglePage.path,
                       name: TogglePage.name,
                       builder: TogglePage.builder,
+                    ),
+                    GoRoute(
+                      path: InputPage.path,
+                      name: InputPage.name,
+                      builder: InputPage.builder,
                     ),
                   ],
                 ),

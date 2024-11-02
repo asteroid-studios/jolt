@@ -14,7 +14,13 @@ class App extends HookWidget {
         // Material app needed for now for route animations
         child: material.MaterialApp.router(
           // Needed for material app
-          builder: (context, child) => material.Scaffold(body: child),
+          builder: (context, child) => material.Scaffold(
+            // TODO this here until I can get rid of Scaffold
+            body: DefaultSymbolStyle(
+              style: Fonts.body.copyWith(color: context.color.background.foreground),
+              child: child!,
+            ),
+          ),
           color: Colors.primary,
           locale: const Locale('en'),
           localizationsDelegates: const [

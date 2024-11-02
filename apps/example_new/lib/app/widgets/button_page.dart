@@ -2,20 +2,17 @@ import 'package:example_new/utils/macros/route_macro.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:ui/ui.dart';
 
-@TypeSafeRoute(path: 'buttons')
-class ButtonsPage extends HookWidget {
-  const ButtonsPage({super.key});
+@TypeSafeRoute(path: 'button')
+class ButtonPage extends HookWidget {
+  const ButtonPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     void onTap() {}
 
-    final divider = Surface(
-      width: double.infinity,
-      height: 1,
-      color: Colors.outline,
-      margin: EdgeInsets.symmetric(vertical: Spacing.lg),
-    );
+    const divider = Divider();
+
+    const titleSpacing = Gap.md();
 
     return Scaffold(
       topBar: const TempAppBar(title: 'Button'),
@@ -30,7 +27,7 @@ class ButtonsPage extends HookWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text('Filled', style: Fonts.heading.sm),
-              Gap.sm(),
+              titleSpacing,
               Wrap(
                 spacing: Spacing.sm,
                 runSpacing: Spacing.sm,
@@ -49,12 +46,19 @@ class ButtonsPage extends HookWidget {
                     onTap: onTap,
                   ),
                   Button.filled(
-                    label: 'Disabled'.text,
+                    label: 'Filled disabled'.text,
                   ),
                   MockInteraction(
                     state: const InteractionState(hovered: true),
                     child: Button.filled(
-                      label: 'Filled Hovered'.text,
+                      label: 'Filled hovered'.text,
+                      onTap: onTap,
+                    ),
+                  ),
+                  MockInteraction(
+                    state: const InteractionState(focused: true),
+                    child: Button.filled(
+                      label: 'Filled focused'.text,
                       onTap: onTap,
                     ),
                   ),
@@ -92,7 +96,7 @@ class ButtonsPage extends HookWidget {
               ),
               divider,
               Text('Outlined', style: Fonts.heading.sm),
-              Gap.sm(),
+              titleSpacing,
               Wrap(
                 spacing: Spacing.sm,
                 runSpacing: Spacing.sm,
@@ -111,12 +115,19 @@ class ButtonsPage extends HookWidget {
                     onTap: onTap,
                   ),
                   Button.outlined(
-                    label: 'Disabled'.text,
+                    label: 'Outlined disabled'.text,
                   ),
                   MockInteraction(
                     state: const InteractionState(hovered: true),
                     child: Button.outlined(
-                      label: 'Outlined Hovered'.text,
+                      label: 'Outlined hovered'.text,
+                      onTap: onTap,
+                    ),
+                  ),
+                  MockInteraction(
+                    state: const InteractionState(focused: true),
+                    child: Button.outlined(
+                      label: 'Outlined focused'.text,
                       onTap: onTap,
                     ),
                   ),
@@ -124,73 +135,77 @@ class ButtonsPage extends HookWidget {
               ),
               divider,
               Text('Ghost', style: Fonts.heading.sm),
-              Gap.sm(),
-              Surface(
-                borderRadius: BorderRadius.circular(16),
-                width: double.infinity,
-                padding: EdgeInsets.all(Spacing.md),
-                child: Wrap(
-                  spacing: Spacing.sm,
-                  runSpacing: Spacing.sm,
-                  children: [
-                    Button.ghost(
-                      label: 'Ghost'.text,
+              titleSpacing,
+              Wrap(
+                spacing: Spacing.sm,
+                runSpacing: Spacing.sm,
+                children: [
+                  Button.ghost(
+                    label: 'Ghost'.text,
+                    onTap: onTap,
+                  ),
+                  Button.ghost(
+                    icon: Icons.check.icon,
+                    label: 'Ghost + icon'.text,
+                    onTap: onTap,
+                  ),
+                  Button.ghost(
+                    icon: Icons.check.icon,
+                    onTap: onTap,
+                  ),
+                  Button.ghost(
+                    label: 'Ghost disabled'.text,
+                  ),
+                  MockInteraction(
+                    state: const InteractionState(hovered: true),
+                    child: Button.ghost(
+                      label: 'Ghost hovered'.text,
                       onTap: onTap,
                     ),
-                    Button.ghost(
-                      icon: Icons.check.icon,
-                      label: 'Ghost + icon'.text,
+                  ),
+                  MockInteraction(
+                    state: const InteractionState(focused: true),
+                    child: Button.ghost(
+                      label: 'Ghost focused'.text,
                       onTap: onTap,
                     ),
-                    Button.ghost(
-                      icon: Icons.check.icon,
-                      onTap: onTap,
-                    ),
-                    Button.ghost(
-                      label: 'Disabled'.text,
-                    ),
-                    MockInteraction(
-                      state: const InteractionState(hovered: true),
-                      child: Button.ghost(
-                        label: 'Ghost Hovered'.text,
-                        onTap: onTap,
-                      ),
-                    ),
-                  ],
-                ),
+                  ),
+                ],
               ),
               divider,
               Text('Link', style: Fonts.heading.sm),
-              Gap.sm(),
-              Surface(
-                borderRadius: BorderRadius.circular(16),
-                width: double.infinity,
-                padding: EdgeInsets.all(Spacing.md),
-                child: Wrap(
-                  spacing: Spacing.sm,
-                  runSpacing: Spacing.sm,
-                  children: [
-                    Button.link(
-                      label: 'Link'.text,
+              titleSpacing,
+              Wrap(
+                spacing: Spacing.sm,
+                runSpacing: Spacing.sm,
+                children: [
+                  Button.link(
+                    label: 'Link'.text,
+                    onTap: onTap,
+                  ),
+                  Button.link(
+                    icon: Icons.check.icon,
+                    label: 'Link + icon'.text,
+                    onTap: onTap,
+                  ),
+                  Button.link(
+                    label: 'Link disabled'.text,
+                  ),
+                  MockInteraction(
+                    state: const InteractionState(hovered: true),
+                    child: Button.link(
+                      label: 'Link hovered'.text,
                       onTap: onTap,
                     ),
-                    Button.link(
-                      icon: Icons.check.icon,
-                      label: 'Link + icon'.text,
+                  ),
+                  MockInteraction(
+                    state: const InteractionState(focused: true),
+                    child: Button.link(
+                      label: 'Link focused'.text,
                       onTap: onTap,
                     ),
-                    Button.link(
-                      label: 'Link Disabled'.text,
-                    ),
-                    MockInteraction(
-                      state: const InteractionState(hovered: true),
-                      child: Button.link(
-                        label: 'Link Hovered'.text,
-                        onTap: onTap,
-                      ),
-                    ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ],
           ),

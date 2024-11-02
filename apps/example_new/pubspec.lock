@@ -245,6 +245,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "14.2.8"
+  heroicons_flutter:
+    dependency: transitive
+    description:
+      name: heroicons_flutter
+      sha256: e2f5268791d9f26445872eac40c6a8ba5e2cd2ecc961ca23faf98399737bc9b9
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.4.0"
   jni:
     dependency: transitive
     description:

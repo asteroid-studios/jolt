@@ -119,10 +119,6 @@ extension MacroDeclarationX on MemberDeclarationBuilder {
   ///
   Future<void> declareMerge(ClassDeclaration clazz) async {
     final name = clazz.identifier.name;
-    // final print = await resolveIdentifier(_dartCore, 'print');
-
-    // TODO just a workaround until I can determine if field type has a merge method
-    final mergeableFields = ['surfaceStyle', 'labelStyle'];
     final resolver = DeclarationCode.fromParts([
       '\n\t\t\tresolver: (resolvedStyle, context) {\n\t\t\t\t',
       'final resolved = resolver?.call(resolvedStyle, context);',
@@ -131,9 +127,10 @@ extension MacroDeclarationX on MemberDeclarationBuilder {
       '\n\t\t\t},',
     ]);
     final fields = (await fieldsOf(clazz)).map((field) {
+      // TODO currently works by convention, just until I can use field metadata
+      final hasMerge = field.identifier.name.toLowerCase().contains('style');
       return DeclarationCode.fromParts(
-        // TODO I think this isn't right because it will only merge it's own style, not children styles.
-        mergeableFields.contains(field.identifier.name)
+        hasMerge
             ? [
                 '\n\t\t\t${field.identifier.name}: ${field.identifier.name}?.merge(style?.${field.identifier.name}) ??  style?.${field.identifier.name},',
               ]
@@ -205,10 +202,17 @@ extension MacroDeclarationX on MemberDeclarationBuilder {
         clazz.identifier,
         '(',
         ...fields.map(
-          (field) => DeclarationCode.fromParts([
-            newLine(3),
-            '${field.identifier.name}: ${field.identifier.name} ?? this.${field.identifier.name},',
-          ]),
+          (field) {
+            // TODO currently works by convention, just until I can use field metadata
+            final hasMerge = field.identifier.name.toLowerCase().contains('style');
+            return DeclarationCode.fromParts([
+              newLine(3),
+              if (hasMerge)
+                '${field.identifier.name}: this.${field.identifier.name}?.merge(${field.identifier.name}) ?? ${field.identifier.name},'
+              else
+                '${field.identifier.name}: ${field.identifier.name} ?? this.${field.identifier.name},',
+            ]);
+          },
         ),
         if (isStyle) newLine(3),
         if (isStyle) 'resolver: resolver ?? this.resolver,',

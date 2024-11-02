@@ -1,9 +1,8 @@
-import 'package:example_new/app/widgets/buttons_page.dart';
-import 'package:example_new/app/widgets/toggle_page.dart';
+import 'package:example_new/app/widgets/widgets.dart';
 import 'package:example_new/utils/macros/route_macro.dart';
 import 'package:ui/ui.dart';
 
-@TypeSafeRoute(path: '/')
+@TypeSafeRoute(path: '/home')
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
@@ -15,7 +14,14 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      topBar: const TempAppBar(title: 'Widgets', showBack: false),
+      topBar: TempAppBar(
+        title: 'Widgets',
+        showBack: false,
+        trailing: Button.ghost(
+          icon: HeroiconsOutline.magnifyingGlass.icon,
+          onTap: () {},
+        ),
+      ),
       builder: (context) {
         return ScrollArea.fill(
           // TODO make this cleaner
@@ -31,26 +37,38 @@ class _HomePageState extends State<HomePage> {
                 HomeCard(
                   title: 'Button',
                   category: 'Interaction',
-                  onTap: () => ButtonsPage.go(context),
+                  onTap: () => ButtonPage.go(context),
                   color: Colors.primary,
                 ),
                 HomeCard(
                   title: 'Form',
                   category: 'Forms',
-                  onTap: () => ButtonsPage.go(context),
+                  onTap: () => FormPage.go(context),
                   color: Colors.tailwind.sky,
+                ),
+                HomeCard(
+                  title: 'Input',
+                  category: 'Forms',
+                  onTap: () => InputPage.go(context),
+                  color: Colors.tailwind.emerald,
                 ),
                 HomeCard(
                   title: 'Card',
                   category: 'Display',
-                  onTap: () => ButtonsPage.go(context),
-                  color: Colors.tailwind.emerald,
+                  onTap: () => CardPage.go(context),
+                  color: Colors.tailwind.rose,
                 ),
                 HomeCard(
                   title: 'Toggle',
                   category: 'Interaction',
                   onTap: () => TogglePage.go(context),
                   color: Colors.tailwind.amber,
+                ),
+                HomeCard(
+                  title: 'Divider',
+                  category: 'Display',
+                  onTap: () => DividerPage.go(context),
+                  color: Colors.tailwind.slate,
                 ),
               ].withSeparator(
                 Surface(
@@ -84,6 +102,7 @@ class HomeCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // TODO trade for a card?
     return GestureDetector(
       onTap: onTap,
       child: Container(
@@ -107,10 +126,10 @@ class HomeCard extends StatelessWidget {
             ),
             const Gap.sm(),
             Container(
-              height: 150,
+              height: 120,
               width: double.infinity,
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(16),
+                borderRadius: BorderRadius.circular(8),
                 gradient: LinearGradient(
                   colors: [
                     color.weaken(),

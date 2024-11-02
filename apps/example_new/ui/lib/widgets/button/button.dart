@@ -11,6 +11,7 @@ class Button extends StatelessWidget {
     this.color,
     this.trailing,
     this.expanded = false,
+    this.direction = TextDirection.ltr,
     this.mainAxisAlignment = MainAxisAlignment.center,
     this.identifier,
     this.size,
@@ -26,6 +27,7 @@ class Button extends StatelessWidget {
     this.style,
     this.trailing,
     this.expanded = false,
+    this.direction = TextDirection.ltr,
     this.mainAxisAlignment = MainAxisAlignment.center,
     this.identifier,
     this.size,
@@ -42,6 +44,7 @@ class Button extends StatelessWidget {
     this.style,
     this.trailing,
     this.expanded = false,
+    this.direction = TextDirection.ltr,
     this.mainAxisAlignment = MainAxisAlignment.center,
     this.identifier,
     this.size,
@@ -58,6 +61,7 @@ class Button extends StatelessWidget {
     this.style,
     this.trailing,
     this.expanded = false,
+    this.direction = TextDirection.ltr,
     this.mainAxisAlignment = MainAxisAlignment.center,
     this.identifier,
     this.size,
@@ -75,6 +79,7 @@ class Button extends StatelessWidget {
     this.color,
     this.trailing,
     this.expanded = false,
+    this.direction = TextDirection.ltr,
     this.mainAxisAlignment = MainAxisAlignment.center,
     this.identifier,
     this.size,
@@ -118,6 +123,9 @@ class Button extends StatelessWidget {
   ///
   final EdgeInsetsGeometry? padding;
 
+  ///
+  final TextDirection direction;
+
   // TODO show indicator
   // TODO tooltip
 
@@ -153,6 +161,7 @@ class Button extends StatelessWidget {
                 const RotatedBox(quarterTurns: 1, child: Text('')),
                 const Text(''),
                 Row(
+                  textDirection: direction,
                   mainAxisSize: expanded ? MainAxisSize.max : MainAxisSize.min,
                   mainAxisAlignment: mainAxisAlignment,
                   children: [

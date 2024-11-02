@@ -85,10 +85,14 @@ class BottomMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final branches = [
-      (Icons.house.icon, IconsFill.house.icon),
-      (Icons.paintRoller.icon, IconsFill.paintRoller.icon),
-      (Icons.log.icon, IconsFill.log.icon),
-      (Icons.userCircleDashed.icon, IconsFill.userCircleDashed.icon),
+      (HeroiconsOutline.home.icon, HeroiconsSolid.home.icon),
+      (HeroiconsOutline.adjustmentsHorizontal.icon, HeroiconsSolid.adjustmentsHorizontal.icon),
+      (HeroiconsOutline.documentText.icon, HeroiconsSolid.documentText.icon),
+      (HeroiconsOutline.chatBubbleLeftRight.icon, HeroiconsSolid.chatBubbleLeftRight.icon),
+      // (Icons.lightning.icon, IconsFill.lightning.icon),
+      // (Icons.sliders.icon, IconsFill.sliders.icon),
+      // (Icons.fileText.icon, IconsFill.fileText.icon),
+      // (Icons.chatsCircle.icon, IconsFill.chatsCircle.icon),
     ];
     return Surface(
       style: (context, _) => SurfaceStyle(
@@ -113,7 +117,8 @@ class BottomMenu extends StatelessWidget {
                   style: (context, button) => ButtonStyle(
                     splash: () => null,
                     surfaceStyle: SurfaceStyle(
-                      foregroundOpacity: selected ? 1 : 0.5,
+                      // foregroundColor: selected ? Colors.primary : null,
+                      foregroundOpacity: selected ? 1 : 0.3,
                       borderRadius: BorderRadius.circular(0),
                     ),
                   ),

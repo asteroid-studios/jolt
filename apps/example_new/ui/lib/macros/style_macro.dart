@@ -3,6 +3,8 @@ import 'dart:async';
 import 'package:macros/macros.dart';
 import 'package:ui/macros/macro_helpers.dart';
 
+///
+// class WidgetStyle {}
 
 ///
 macro class Style implements  ClassDeclarationsMacro {
@@ -54,9 +56,18 @@ macro class Style implements  ClassDeclarationsMacro {
     await builder.declareMerge(clazz);
     await builder.declareResolve(clazz);
     await builder.declareCopyWith(clazz, isStyle: true);
+    // TODO maybe add a replace with which does not merge
     // await builder.declareToJson(clazz);
     // await builder.declareFromJson(clazz);
 
     // await _buildMerge(clazz, builder);
   }
+  
+  // @override
+  // FutureOr<void> buildTypesForClass(ClassDeclaration clazz, ClassTypeBuilder builder) async {
+  //   final widgetStyle = await  builder.resolveIdentifier(Uri.parse('package:ui/macros/style_macro.dart'), 'WidgetStyle');
+  //   builder.appendInterfaces([NamedTypeAnnotationCode(name: widgetStyle)]);
+  //   // builder.extendsType(NamedTypeAnnotationCode(name: widgetStyle));
+  //   // builder.appendInterfaces([NamedTypeAnnotationCode(name: Identifier)]);
+  // }
 }
